@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -59,6 +59,42 @@
 <span class="o">};</span>
 
 
+<span class="c">/**</span>
+<span class="c">* Constant representing the name of the ContextMenu&#39;s events</span>
+<span class="c">* @property YAHOO.widget.ContextMenu._EVENT_TYPES</span>
+<span class="c">* @private</span>
+<span class="c">* @final</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span> <span class="o">=</span> <span class="o">{</span>
+
+    <span class="s2">&quot;TRIGGER_CONTEXT_MENU&quot;</span><span class="o">:</span> <span class="s2">&quot;triggerContextMenu&quot;</span><span class="o">,</span>
+
+    <span class="s2">&quot;CONTEXT_MENU&quot;</span><span class="o">:</span> <span class="o">(</span>
+                        <span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Module</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span> <span class="o">?</span> 
+                            <span class="s2">&quot;mousedown&quot;</span> <span class="o">:</span> <span class="s2">&quot;contextmenu&quot;</span><span class="o">)</span>
+                    <span class="o">),</span>
+    <span class="s2">&quot;CLICK&quot;</span><span class="o">:</span> <span class="s2">&quot;click&quot;</span>
+
+<span class="o">};</span>
+
+
+<span class="c">/**</span>
+<span class="c">* Constant representing the ContextMenu&#39;s configuration properties</span>
+<span class="c">* @property YAHOO.widget.ContextMenu._DEFAULT_CONFIG</span>
+<span class="c">* @private</span>
+<span class="c">* @final</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span> <span class="o">=</span> <span class="o">{</span>
+
+    <span class="s2">&quot;TRIGGER&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;trigger&quot;</span> 
+    <span class="o">}</span>
+
+<span class="o">};</span>
+
+
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">,</span> <span class="o">{</span>
 
 
@@ -89,6 +125,7 @@
 <span class="nx">_bCancelled</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
 
 
+
 <span class="c">// Public properties</span>
 <span class="c"></span>
 
@@ -115,8 +152,6 @@
 <span class="c">* the context menu.</span>
 <span class="c">*/</span>
 <span class="nx">triggerContextMenuEvent</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
-
-
 
 
 
@@ -181,7 +216,11 @@
     <span class="c">// Create custom events</span>
 <span class="c"></span>
     <span class="k">this</span><span class="o">.</span><span class="nx">triggerContextMenuEvent</span> <span class="o">=</span> 
-            <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;triggerContextMenuEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+
+            <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">.</span><span class="nx">TRIGGER_CONTEXT_MENU</span><span class="o">,</span> 
+                    <span class="k">this</span>
+                <span class="o">);</span>
 
 <span class="o">},</span>
 
@@ -211,21 +250,28 @@
 <span class="nx">_removeEventHandlers</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">,</span>
-        <span class="nx">oTrigger</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oTrigger</span><span class="o">,</span>
-        <span class="nx">bOpera</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span><span class="o">);</span>
+        <span class="nx">oTrigger</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oTrigger</span><span class="o">;</span>
 
 
     <span class="c">// Remove the event handlers from the trigger(s)</span>
 <span class="c"></span>
-    <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span>
-        <span class="nx">oTrigger</span><span class="o">,</span> 
-        <span class="o">(</span><span class="nx">bOpera</span> <span class="o">?</span> <span class="s2">&quot;mousedown&quot;</span> <span class="o">:</span> <span class="s2">&quot;contextmenu&quot;</span><span class="o">),</span> 
-        <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerContextMenu</span>
-    <span class="o">);</span>    
+    <span class="k">if</span> <span class="o">(</span><span class="nx">oTrigger</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span>
+            <span class="nx">oTrigger</span><span class="o">,</span> 
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">.</span><span class="nx">CONTEXT_MENU</span><span class="o">,</span> 
+            <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerContextMenu</span>
+        <span class="o">);</span>    
+        
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">{</span>
+        
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span>
+                <span class="nx">oTrigger</span><span class="o">,</span> 
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">.</span><span class="nx">CLICK</span><span class="o">,</span> 
+                <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerClick</span>
+            <span class="o">);</span>
     
-    <span class="k">if</span><span class="o">(</span><span class="nx">bOpera</span><span class="o">)</span> <span class="o">{</span>
-    
-        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oTrigger</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerClick</span><span class="o">);</span>
+        <span class="o">}</span>
 
     <span class="o">}</span>
 
@@ -323,7 +369,16 @@
 <span class="c">*/</span>
 <span class="nx">toString</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
-    <span class="k">return</span> <span class="o">(</span><span class="s2">&quot;ContextMenu &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
+    <span class="k">var</span> <span class="nx">sReturnVal</span> <span class="o">=</span> <span class="s2">&quot;ContextMenu&quot;</span><span class="o">,</span>
+        <span class="nx">sId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">sId</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">sReturnVal</span> <span class="o">+=</span> <span class="o">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">sId</span><span class="o">);</span>
+    
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="nx">sReturnVal</span><span class="o">;</span>
 
 <span class="o">},</span>
 
@@ -347,7 +402,10 @@
 <span class="c">    * @type String|&lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/</span>
 <span class="c">    * level-one-html.html#ID-58190037&quot;&gt;HTMLElement&lt;/a&gt;|Array</span>
 <span class="c">    */</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;trigger&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configTrigger</span> <span class="o">});</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TRIGGER</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+        <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configTrigger</span> <span class="o">}</span>
+    <span class="o">);</span>
 
 <span class="o">},</span>
 
@@ -411,11 +469,9 @@
 <span class="c">            support the &quot;contextmenu&quot; event</span>
 <span class="c">        */</span> 
   
-        <span class="k">var</span> <span class="nx">bOpera</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span><span class="o">);</span>
-
-        <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span>
             <span class="nx">oTrigger</span><span class="o">,</span> 
-            <span class="o">(</span><span class="nx">bOpera</span> <span class="o">?</span> <span class="s2">&quot;mousedown&quot;</span> <span class="o">:</span> <span class="s2">&quot;contextmenu&quot;</span><span class="o">),</span> 
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">.</span><span class="nx">CONTEXT_MENU</span><span class="o">,</span> 
             <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerContextMenu</span><span class="o">,</span>
             <span class="k">this</span><span class="o">,</span>
             <span class="kc">true</span>
@@ -427,11 +483,11 @@
 <span class="c">            Opera to prevent default browser behaviors.</span>
 <span class="c">        */</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">bOpera</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">{</span>
         
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span>
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span>
                 <span class="nx">oTrigger</span><span class="o">,</span> 
-                <span class="s2">&quot;click&quot;</span><span class="o">,</span> 
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ContextMenu</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">.</span><span class="nx">CLICK</span><span class="o">,</span> 
                 <span class="k">this</span><span class="o">.</span><span class="nx">_onTriggerClick</span><span class="o">,</span>
                 <span class="k">this</span><span class="o">,</span>
                 <span class="kc">true</span>
@@ -441,7 +497,7 @@
 
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
-    
+   
         <span class="k">this</span><span class="o">.</span><span class="nx">_removeEventHandlers</span><span class="o">();</span>
     
     <span class="o">}</span>

@@ -2,7 +2,7 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
 /**
  * The treeview widget is a generic tree building tool.
@@ -875,7 +875,7 @@ YAHOO.widget.Node.prototype = {
      * to wrap.
      * @property nowrap
      * @type boolean
-     * @default true
+     * @default false
      */
     nowrap: false,
 
@@ -2245,4 +2245,4 @@ YAHOO.widget.TVFadeOut.prototype = {
     }
 };
 
-YAHOO.register("treeview", YAHOO.widget.TreeView, {version: "2.2.0", build: "127"});
+YAHOO.register("treeview", YAHOO.widget.TreeView, {version: "2.2.2", build: "204"});

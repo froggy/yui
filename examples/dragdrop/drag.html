@@ -1,44 +1,10 @@
   <!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
 <title>Yahoo! UI Library - Drag and Drop</title>
 <link rel="stylesheet" type="text/css" href="./css/screen.css">
 </head>
-
 <body>
-
-<script type="text/javascript" src="../../build/yahoo/yahoo.js" ></script>
-<script type="text/javascript" src="../../build/event/event.js" ></script>
-<script type="text/javascript" src="../../build/dom/dom.js"></script>
-<script type="text/javascript" src="../../build/logger/logger.js"></script>
-
-<script type="text/javascript" src="../../build/dragdrop/dragdrop-debug.js" ></script>
-<script type="text/javascript">
-
-YAHOO.example.DDApp = function() {
-    var dd, dd2, dd3;
-    return {
-        init: function() {
-
-            dd = new YAHOO.util.DD("dragDiv1");
-
-            /*
-            dd.onDragDrop = function(e, id) {
-                var draggedEl = this.getEl();
-                var targetedEl = document.getElementById(id);
-                var DOM = YAHOO.util.Dom;
-                DOM.setX(draggedEl, DOM.getX(targetedEl));
-            };
-            */
-
-            dd2 = new YAHOO.util.DD("dragDiv2");
-            dd3 = new YAHOO.util.DD("dragDiv3");
-        }
-    }
-} ();
-    
-YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
-    
-</script>
 
 <style type="text/css">
 
@@ -58,6 +24,27 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
 }
 
 </style>
+<script type="text/javascript" src="../../build/yahoo/yahoo-min.js" ></script>
+<script type="text/javascript" src="../../build/event/event-min.js" ></script>
+<script type="text/javascript" src="../../build/dom/dom-min.js"></script>
+<script type="text/javascript" src="../../build/logger/logger-min.js"></script>
+
+<script type="text/javascript" src="../../build/dragdrop/dragdrop-debug.js" ></script>
+
+<script type="text/javascript">
+YAHOO.example.DDApp = function() {
+    var dd, dd2, dd3;
+    return {
+        init: function() {
+            dd = new YAHOO.util.DD("dragDiv1");
+            dd2 = new YAHOO.util.DD("dragDiv2");
+            dd3 = new YAHOO.util.DD("dragDiv3");
+        }
+    }
+}();
+    
+YAHOO.util.Event.onDOMReady(YAHOO.example.DDApp.init);
+</script>
 
 <div id="pageTitle"><h3>Drag and Drop - YAHOO.util.DD</h3></div>
 
@@ -125,21 +112,22 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
 
 <script type="text/javascript">
 //<![CDATA[
-    YAHOO.example.logApp = function() {
-        return {
-            init: function() {
-                if (YAHOO.widget.Logger) {
-                    var reader = new YAHOO.widget.LogReader( "logDiv", 
-                            { newestOnTop: true, height: "400px" } );
+    YAHOO.example.logApp =  {
 
-                    reader._onClickPauseBtn(null, reader);
+       reader: null,
 
-                }
+       init:  function() {
+            if (YAHOO.widget.Logger) {
+                this.reader = new YAHOO.widget.LogReader( "logDiv", 
+                        { newestOnTop: true, height: "400px" } );
+
+                this.reader._onClickPauseBtn(null, this.reader);
             }
-        };
-    } (); 
+        }
+    };
 
     YAHOO.util.Event.on(window, "load", YAHOO.example.logApp.init);
+
 //]]>
 </script>
 
@@ -179,24 +167,6 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
 <div id="dragDiv1" class="testSquare" >YAHOO.util.DD</div>
 <div id="dragDiv2" class="testSquare" >YAHOO.util.DD</div>
 <div id="dragDiv3" class="testSquare" >YAHOO.util.DD</div>
-<form name="formTest" action="http://www.yahoo.com" method="get">                                                                                                    
-<!--
-<input type="text" id="txtTest" />                                                                                                                   
--->
-                                                                                                                                                     
-<script>                                                                                                                                             
-//YAHOO.util.Event.addListener('txtTest','keypress',txtTest_keydown);                                                                                   
-                                                                                                                                                     
-/*
-function txtTest_keydown (e) {                                                                                                                       
-    YAHOO.util.Event.stopEvent(e);                                                                                                                   
-    alert(YAHOO.util.Event.getCharCode(e));                                                                                                       
-    // return false;
-}                                                                                                                                                    
-*/
-</script>                                                                                                                                            
-</form>   
-
 
 </body>
 </html>

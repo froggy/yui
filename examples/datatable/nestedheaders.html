@@ -7,7 +7,7 @@
 <link type="text/css" rel="stylesheet" href="../../build/logger/assets/logger.css">
 <link type="text/css" rel="stylesheet" href="../../build/datatable/assets/datatable.css">
 <link type="text/css" rel="stylesheet" href="./css/examples.css">
-<link type="text/css" rel="stylesheet" href="../../docs/assets/dpSyntaxHighlighter.css">
+<link type="text/css" rel="stylesheet" href="../assets/dpSyntaxHighlighter.css">
 <style type="text/css">
 /* custom css*/
 #nested {margin:1em;}
@@ -27,6 +27,17 @@
     <!-- Sample code begins -->
     <div id="code">
         <h3>Sample Code</h3>
+
+        <p>Data:</p>
+
+        <textarea name="code" class="JScript" cols="60" rows="1">
+YAHOO.example.Data.webstats = [
+    ["home.html",20,400,44,657],
+    ["blog.html",24,377,97,567],
+    ["contact.html",32,548,42,543],
+    ["about.html",8,465,12,946]
+];
+        </textarea>
 
         <p>CSS:</p>
 
@@ -95,18 +106,18 @@ var myLogger = new YAHOO.widget.LogReader();
 /****************************************************************************/
 /****************************************************************************/
 var myColumnHeaders = [
-    {key:"page", text:"Page"},
+    {key:"page", text:"Page",sortable:true},
     {text:"Statistics", type:"number", children:[
         {text:"Visits",
             children: [
-                {key:"visitsmonth", text:"This Month"},
-                {key:"visitsytd", text:"YTD", abbr:"Year to Date"}
+                {key:"visitsmonth", text:"This Month",sortable:true},
+                {key:"visitsytd", text:"YTD", abbr:"Year to Date",sortable:true}
             ]
         },
         {text:"Views",
             children: [
-                {key:"viewsmonth", text:"This Month"},
-                {key:"viewsytd", text:"YTD", abbr:"Year to Date"}
+                {key:"viewsmonth", text:"This Month",sortable:true},
+                {key:"viewsytd", text:"YTD", abbr:"Year to Date",sortable:true}
             ]
 
         }
@@ -123,7 +134,7 @@ myDataSource.responseSchema = {
 
 var myDataTable = new YAHOO.widget.DataTable("nested", myColumnSet, myDataSource,{caption:"Example: Nested Headers"});
 </script>
-<script type="text/javascript" src="../../docs/assets/dpSyntaxHighlighter.js"></script>
+<script type="text/javascript" src="../assets/dpSyntaxHighlighter.js"></script>
 <script type="text/javascript">
 dp.SyntaxHighlighter.HighlightAll('code');
 </script>

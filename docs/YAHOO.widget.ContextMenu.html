@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -176,6 +176,32 @@ the context menu.
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.ContextMenu._DEFAULT_CONFIG">YAHOO.widget.ContextMenu._DEFAULT_CONFIG</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the ContextMenu's configuration properties
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.ContextMenu._EVENT_TYPES">YAHOO.widget.ContextMenu._EVENT_TYPES</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the name of the ContextMenu's events
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
 
 
                             </div>
@@ -186,6 +212,8 @@ the context menu.
                             <div class="content">
                                 <code>
                                     
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._DEFAULT_CONFIG">YAHOO.widget.Overlay._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._EVENT_TYPES">YAHOO.widget.Overlay._EVENT_TYPES</a>,
                                         <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._initialized">YAHOO.widget.Overlay._initialized</a>
                                 </code>
                             </div>
@@ -205,7 +233,9 @@ the context menu.
                                         <a href="YAHOO.widget.Module.html#id">id</a>,
                                         <a href="YAHOO.widget.Module.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.Module.html#isSecure">isSecure</a>,
-                                        <a href="YAHOO.widget.Module.html#platform">platform</a>
+                                        <a href="YAHOO.widget.Module.html#platform">platform</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._DEFAULT_CONFIG">YAHOO.widget.Module._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._EVENT_TYPES">YAHOO.widget.Module._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -235,7 +265,9 @@ the context menu.
                                         <a href="YAHOO.widget.Menu.html#itemData">itemData</a>,
                                         <a href="YAHOO.widget.Menu.html#lazyLoad">lazyLoad</a>,
                                         <a href="YAHOO.widget.Menu.html#parent">parent</a>,
-                                        <a href="YAHOO.widget.Menu.html#srcElement">srcElement</a>
+                                        <a href="YAHOO.widget.Menu.html#srcElement">srcElement</a>,
+                                        <a href="YAHOO.widget.Menu.html#YAHOO.widget.Menu._DEFAULT_CONFIG">YAHOO.widget.Menu._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Menu.html#YAHOO.widget.Menu._EVENT_TYPES">YAHOO.widget.Menu._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -796,6 +828,7 @@ changed using the context menu's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onMouseOver">_onMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuConfigChange">_onParentMenuConfigChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuRender">_onParentMenuRender</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onRender">_onRender</a>,
                                             <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOut">_onScrollTargetMouseOut</a>,
                                             <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOver">_onScrollTargetMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onShow">_onShow</a>,
@@ -803,13 +836,17 @@ changed using the context menu's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuHide">_onSubmenuHide</a>,
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuShow">_onSubmenuShow</a>,
                                             <a href="YAHOO.widget.Menu.html#_onTextResize">_onTextResize</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onVisibleChange">_onVisibleChange</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onWidthChange">_onWidthChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByIndex">_removeItemFromGroupByIndex</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByValue">_removeItemFromGroupByValue</a>,
+                                            <a href="YAHOO.widget.Menu.html#_setMaxHeight">_setMaxHeight</a>,
                                             <a href="YAHOO.widget.Menu.html#_setWidth">_setWidth</a>,
                                             <a href="YAHOO.widget.Menu.html#_subscribeToItemEvents">_subscribeToItemEvents</a>,
                                             <a href="YAHOO.widget.Menu.html#_updateItemProperties">_updateItemProperties</a>,
                                             <a href="YAHOO.widget.Menu.html#addItem">addItem</a>,
                                             <a href="YAHOO.widget.Menu.html#addItems">addItems</a>,
+                                            <a href="YAHOO.widget.Menu.html#blur">blur</a>,
                                             <a href="YAHOO.widget.Menu.html#clearActiveItem">clearActiveItem</a>,
                                             <a href="YAHOO.widget.Menu.html#clearContent">clearContent</a>,
                                             <a href="YAHOO.widget.Menu.html#configClassName">configClassName</a>,
@@ -821,10 +858,12 @@ changed using the context menu's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#configVisible">configVisible</a>,
                                             <a href="YAHOO.widget.Menu.html#destroy">destroy</a>,
                                             <a href="YAHOO.widget.Menu.html#enforceConstraints">enforceConstraints</a>,
+                                            <a href="YAHOO.widget.Menu.html#focus">focus</a>,
                                             <a href="YAHOO.widget.Menu.html#getItem">getItem</a>,
                                             <a href="YAHOO.widget.Menu.html#getItemGroups">getItemGroups</a>,
                                             <a href="YAHOO.widget.Menu.html#getItems">getItems</a>,
                                             <a href="YAHOO.widget.Menu.html#getRoot">getRoot</a>,
+                                            <a href="YAHOO.widget.Menu.html#hasFocus">hasFocus</a>,
                                             <a href="YAHOO.widget.Menu.html#init">init</a>,
                                             <a href="YAHOO.widget.Menu.html#initDefaultConfig">initDefaultConfig</a>,
                                             <a href="YAHOO.widget.Menu.html#initEvents">initEvents</a>,
@@ -1083,16 +1122,19 @@ for the HTML element, or an array of strings or HTML element references.
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#_bCancelled">_bCancelled</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-
-html.html#ID-58190037">HTMLElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_oTrigger">_oTrigger</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-
-html.html#ID-58190037">HTMLElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#contextEventTarget">contextEventTarget</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-
-html.html#ID-58190037">HTMLElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.ContextMenu._DEFAULT_CONFIG">YAHOO.widget.ContextMenu._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;Object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.ContextMenu._EVENT_TYPES">YAHOO.widget.ContextMenu._EVENT_TYPES</a>
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                         </ul>
                     </div>

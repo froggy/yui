@@ -7,7 +7,7 @@
 <link type="text/css" rel="stylesheet" href="../../build/logger/assets/logger.css">
 <link type="text/css" rel="stylesheet" href="../../build/datatable/assets/datatable.css">
 <link type="text/css" rel="stylesheet" href="./css/examples.css">
-<link type="text/css" rel="stylesheet" href="../../docs/assets/dpSyntaxHighlighter.css">
+<link type="text/css" rel="stylesheet" href="../assets/dpSyntaxHighlighter.css">
 <style type="text/css">
 /* custom css*/
 #sort {margin:1em;}
@@ -32,6 +32,16 @@
     <!-- Sample code begins -->
     <div id="code">
         <h3>Sample Code</h3>
+
+        <p>Data:</p>
+
+        <textarea name="code" class="JScript" cols="60" rows="1">
+YAHOO.example.Data.areacodes = [
+    {areacode: "201", state: "New Jersey"},
+    ...,
+    {areacode: "989", state: "Michigan"}
+];
+        </textarea>
 
         <p>CSS:</p>
 
@@ -60,11 +70,33 @@
         <textarea name="code" class="JScript" cols="60" rows="1">
 // Custom sort functionality to sort by areacode within states
 YAHOO.example.sortStatesAsc = function(a, b) {
+    if((a === null) || (typeof a == "undefined")) {
+        if((b === null) || (typeof b == "undefined")) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+    else if((b === null) || (typeof b == "undefined")) {
+        return -1;
+    }
     var comp = YAHOO.util.Sort.compareAsc;
     var compState = comp(a.state, b.state);
     return (compState !== 0) ? compState : comp(a.areacode, b.areacode);
 };
 YAHOO.example.sortStatesDesc = function(a, b) {
+    if((a === null) || (typeof a == "undefined")) {
+        if((b === null) || (typeof b == "undefined")) {
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    }
+    else if((b === null) || (typeof b == "undefined")) {
+        return 1;
+    }
     var comp = YAHOO.util.Sort.compareDesc;
     var compState = comp(a.state, b.state);
     return (compState !== 0) ? compState : comp(a.areacode, b.areacode);
@@ -86,7 +118,6 @@ var myDataTable = new YAHOO.widget.DataTable("sort",myColumnSet,myDataSource,{ca
 var onColumnSort = function(oArgs) {
     var column = oArgs.column;
     var dir = oArgs.dir;
-    YAHOO.log("Column \"" + column.key + "\" sorted " + dir,"info","SortExample");
 };
 myDataTable.subscribe("columnSortEvent",onColumnSort);
         </textarea>
@@ -110,11 +141,33 @@ var myLogger = new YAHOO.widget.LogReader();
 
 // Custom sort functionality to sort by areacode within states
 YAHOO.example.sortStatesAsc = function(a, b) {
+    if((a === null) || (typeof a == "undefined")) {
+        if((b === null) || (typeof b == "undefined")) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+    else if((b === null) || (typeof b == "undefined")) {
+        return -1;
+    }
     var comp = YAHOO.util.Sort.compareAsc;
     var compState = comp(a.state, b.state);
     return (compState !== 0) ? compState : comp(a.areacode, b.areacode);
 };
 YAHOO.example.sortStatesDesc = function(a, b) {
+    if((a === null) || (typeof a == "undefined")) {
+        if((b === null) || (typeof b == "undefined")) {
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    }
+    else if((b === null) || (typeof b == "undefined")) {
+        return 1;
+    }
     var comp = YAHOO.util.Sort.compareDesc;
     var compState = comp(a.state, b.state);
     return (compState !== 0) ? compState : comp(a.areacode, b.areacode);
@@ -136,11 +189,10 @@ var myDataTable = new YAHOO.widget.DataTable("sort",myColumnSet,myDataSource,{ca
 var onColumnSort = function(oArgs) {
     var column = oArgs.column;
     var dir = oArgs.dir;
-    YAHOO.log("Column \"" + column.key + "\" sorted " + dir,"info","SortExample");
 };
 myDataTable.subscribe("columnSortEvent",onColumnSort);
 </script>
-<script type="text/javascript" src="../../docs/assets/dpSyntaxHighlighter.js"></script>
+<script type="text/javascript" src="../assets/dpSyntaxHighlighter.js"></script>
 <script type="text/javascript">
 dp.SyntaxHighlighter.HighlightAll('code');
 </script>

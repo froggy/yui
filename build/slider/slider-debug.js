@@ -2,7 +2,7 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
 /**
  * The Slider component is a UI control that enables the user to adjust 
@@ -1256,4 +1256,4 @@ if ("undefined" == typeof YAHOO.util.Anim) {
     YAHOO.widget.Slider.ANIM_AVAIL = false;
 }
 
-YAHOO.register("slider", YAHOO.widget.Slider, {version: "2.2.0", build: "127"});
+YAHOO.register("slider", YAHOO.widget.Slider, {version: "2.2.2", build: "204"});

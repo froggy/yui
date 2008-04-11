@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>dom&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>dom&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dom.html">dom</a>
@@ -52,12 +52,10 @@
     
     <span class="c">// regex cache</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">patterns</span> <span class="o">=</span> <span class="o">{</span>
-        <span class="nx">HYPHEN</span><span class="o">:</span> <span class="sr">/(-[a-z])/i</span>
-    <span class="o">};</span>
+        <span class="nx">HYPHEN</span><span class="o">:</span> <span class="sr">/(-[a-z])/i</span><span class="o">,</span> <span class="c">// to normalize get/setStyle</span>
+<span class="c"></span>        <span class="nx">ROOT_TAG</span><span class="o">:</span> <span class="sr">/body|html/i</span> <span class="c">// body for quirks mode, html for standards</span>
+<span class="c"></span>    <span class="o">};</span>
 
-    <span class="k">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="o">{};</span>
-    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">.</span><span class="nx">apply</span><span class="o">(</span><span class="nb">window</span><span class="o">,</span> <span class="nx">arguments</span><span class="o">);</span> <span class="o">};</span>
-    
     <span class="k">var</span> <span class="nx">toCamel</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">property</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span> <span class="o">!</span><span class="nx">patterns</span><span class="o">.</span><span class="nx">HYPHEN</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">property</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="nx">property</span><span class="o">;</span> <span class="c">// no hyphens</span>
@@ -66,14 +64,16 @@
         <span class="k">if</span> <span class="o">(</span><span class="nx">propertyCache</span><span class="o">[</span><span class="nx">property</span><span class="o">])</span> <span class="o">{</span> <span class="c">// already converted</span>
 <span class="c"></span>            <span class="k">return</span> <span class="nx">propertyCache</span><span class="o">[</span><span class="nx">property</span><span class="o">];</span>
         <span class="o">}</span>
-        
-        <span class="k">while</span><span class="o">(</span> <span class="nx">patterns</span><span class="o">.</span><span class="nx">HYPHEN</span><span class="o">.</span><span class="nx">exec</span><span class="o">(</span><span class="nx">property</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span>
-            <span class="nx">property</span> <span class="o">=</span> <span class="nx">property</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nb">RegExp</span><span class="o">.</span><span class="nx">$1</span><span class="o">,</span>
+       
+        <span class="k">var</span> <span class="nx">converted</span> <span class="o">=</span> <span class="nx">property</span><span class="o">;</span>
+ 
+        <span class="k">while</span><span class="o">(</span> <span class="nx">patterns</span><span class="o">.</span><span class="nx">HYPHEN</span><span class="o">.</span><span class="nx">exec</span><span class="o">(</span><span class="nx">converted</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span>
+            <span class="nx">converted</span> <span class="o">=</span> <span class="nx">converted</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nb">RegExp</span><span class="o">.</span><span class="nx">$1</span><span class="o">,</span>
                     <span class="nb">RegExp</span><span class="o">.</span><span class="nx">$1</span><span class="o">.</span><span class="nx">substr</span><span class="o">(</span><span class="m">1</span><span class="o">).</span><span class="nx">toUpperCase</span><span class="o">());</span>
         <span class="o">}</span>
         
-        <span class="nx">propertyCache</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">=</span> <span class="nx">property</span><span class="o">;</span>
-        <span class="k">return</span> <span class="nx">property</span><span class="o">;</span>
+        <span class="nx">propertyCache</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">=</span> <span class="nx">converted</span><span class="o">;</span>
+        <span class="k">return</span> <span class="nx">converted</span><span class="o">;</span>
         <span class="c">//return property.replace(/-([a-z])/gi, function(m0, m1) {return m1.toUpperCase()}) // cant use function as 2nd arg yet due to safari bug</span>
 <span class="c"></span>    <span class="o">};</span>
     
@@ -82,6 +82,10 @@
 <span class="c"></span>        <span class="nx">getStyle</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">property</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
             
+            <span class="k">if</span> <span class="o">(</span><span class="nx">property</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="o">)</span> <span class="o">{</span> <span class="c">// fix reserved word</span>
+<span class="c"></span>                <span class="nx">property</span> <span class="o">=</span> <span class="s1">&#39;cssFloat&#39;</span><span class="o">;</span>
+            <span class="o">}</span>
+
             <span class="k">var</span> <span class="nx">computed</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">defaultView</span><span class="o">.</span><span class="nx">getComputedStyle</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="o">);</span>
             <span class="k">if</span> <span class="o">(</span><span class="nx">computed</span><span class="o">)</span> <span class="o">{</span> <span class="c">// test computed before touching for safari</span>
 <span class="c"></span>                <span class="nx">value</span> <span class="o">=</span> <span class="nx">computed</span><span class="o">[</span><span class="nx">toCamel</span><span class="o">(</span><span class="nx">property</span><span class="o">)];</span>
@@ -101,13 +105,15 @@
                         <span class="k">try</span> <span class="o">{</span> <span class="c">// make sure its in the document</span>
 <span class="c"></span>                            <span class="nx">val</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">filters</span><span class="o">(</span><span class="s1">&#39;alpha&#39;</span><span class="o">).</span><span class="nx">opacity</span><span class="o">;</span>
                         <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nx">e</span><span class="o">)</span> <span class="o">{</span>
-                            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getStyle: IE filter failed&#39;</span><span class="o">,</span>
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getStyle: IE filter failed&#39;</span><span class="o">,</span>
                                     <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                         <span class="o">}</span>
                     <span class="o">}</span>
                     <span class="k">return</span> <span class="nx">val</span> <span class="o">/</span> <span class="m">100</span><span class="o">;</span>
                     <span class="k">break</span><span class="o">;</span>
-                <span class="nx">default</span><span class="o">:</span> 
+                <span class="nx">case</span> <span class="s1">&#39;float&#39;</span><span class="o">:</span> <span class="c">// fix reserved word</span>
+<span class="c"></span>                    <span class="nx">property</span> <span class="o">=</span> <span class="s1">&#39;styleFloat&#39;</span><span class="o">;</span> <span class="c">// fall through</span>
+<span class="c"></span>                <span class="nx">default</span><span class="o">:</span> 
                     <span class="c">// test currentStyle before touching</span>
 <span class="c"></span>                    <span class="k">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">currentStyle</span> <span class="o">?</span> <span class="nx">el</span><span class="o">.</span><span class="nx">currentStyle</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
                     <span class="k">return</span> <span class="o">(</span> <span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">||</span> <span class="nx">value</span> <span class="o">);</span>
@@ -121,7 +127,7 @@
         <span class="nx">setStyle</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">property</span><span class="o">,</span> <span class="nx">val</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">switch</span> <span class="o">(</span><span class="nx">property</span><span class="o">)</span> <span class="o">{</span>
                 <span class="nx">case</span> <span class="s1">&#39;opacity&#39;</span><span class="o">:</span>
-                    <span class="k">if</span> <span class="o">(</span> <span class="k">typeof</span> <span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">filter</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// in case not appended</span>
+                    <span class="k">if</span> <span class="o">(</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">filter</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// in case not appended</span>
 <span class="c"></span>                        <span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">filter</span> <span class="o">=</span> <span class="s1">&#39;alpha(opacity=&#39;</span> <span class="o">+</span> <span class="nx">val</span> <span class="o">*</span> <span class="m">100</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="o">;</span>
                         
                         <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span><span class="o">.</span><span class="nx">currentStyle</span> <span class="o">||</span> <span class="o">!</span><span class="nx">el</span><span class="o">.</span><span class="nx">currentStyle</span><span class="o">.</span><span class="nx">hasLayout</span><span class="o">)</span> <span class="o">{</span>
@@ -129,12 +135,17 @@
 <span class="c"></span>                        <span class="o">}</span>
                     <span class="o">}</span>
                     <span class="k">break</span><span class="o">;</span>
+                <span class="nx">case</span> <span class="s1">&#39;float&#39;</span><span class="o">:</span>
+                    <span class="nx">property</span> <span class="o">=</span> <span class="s1">&#39;styleFloat&#39;</span><span class="o">;</span>
                 <span class="nx">default</span><span class="o">:</span>
                 <span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">=</span> <span class="nx">val</span><span class="o">;</span>
             <span class="o">}</span>
         <span class="o">};</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
         <span class="nx">setStyle</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">property</span><span class="o">,</span> <span class="nx">val</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">property</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">property</span> <span class="o">=</span> <span class="s1">&#39;cssFloat&#39;</span><span class="o">;</span>
+            <span class="o">}</span>
             <span class="nx">el</span><span class="o">.</span><span class="nx">style</span><span class="o">[</span><span class="nx">property</span><span class="o">]</span> <span class="o">=</span> <span class="nx">val</span><span class="o">;</span>
         <span class="o">};</span>
     <span class="o">}</span>
@@ -152,29 +163,28 @@
 <span class="c">         * @return {HTMLElement | Array} A DOM reference to an HTML element or an array of HTMLElements.</span>
 <span class="c">         */</span>
         <span class="nx">get</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span> <span class="c">// nothing to work with</span>
-<span class="c"></span>            
-            <span class="k">if</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">el</span> <span class="o">!=</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!(</span><span class="nx">el</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// assuming HTMLElement or HTMLCollection, so pass back as is</span>
-<span class="c"></span>                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;) returning &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
-                <span class="k">return</span> <span class="nx">el</span><span class="o">;</span>
-            <span class="o">}</span>
-            
-            <span class="k">if</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">el</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span><span class="o">)</span> <span class="o">{</span> <span class="c">// ID</span>
-<span class="c"></span>                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&quot;&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;&quot;) returning &#39;</span> <span class="o">+</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">el</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// ID </span>
+<span class="c"></span>                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;) returning &#39;</span> <span class="o">+</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">el</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 <span class="k">return</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">el</span><span class="o">);</span>
             <span class="o">}</span>
-            <span class="k">else</span> <span class="o">{</span> <span class="c">// array of ID&#39;s and/or elements</span>
-<span class="c"></span>                <span class="k">var</span> <span class="nx">collection</span> <span class="o">=</span> <span class="o">[];</span>
+            
+            <span class="k">if</span> <span class="o">(</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// Array of IDs and/or HTMLElements</span>
+<span class="c"></span>                <span class="k">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="o">[];</span>
                 <span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="m">0</span><span class="o">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="o">;</span> <span class="o">++</span><span class="nx">i</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="nx">collection</span><span class="o">[</span><span class="nx">collection</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="nx">el</span><span class="o">[</span><span class="nx">i</span><span class="o">]);</span>
+                    <span class="nx">c</span><span class="o">[</span><span class="nx">c</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="nx">el</span><span class="o">[</span><span class="nx">i</span><span class="o">]);</span>
                 <span class="o">}</span>
                 
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&quot;&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;&quot;) returning &#39;</span> <span class="o">+</span> <span class="nx">collection</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
-                <span class="k">return</span> <span class="nx">collection</span><span class="o">;</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&quot;&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;&quot;) returning &#39;</span> <span class="o">+</span> <span class="nx">c</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="k">return</span> <span class="nx">c</span><span class="o">;</span>
             <span class="o">}</span>
 
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;element &#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39; not found&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
-            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="c">// safety, should never happen</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span> <span class="c">// assuming HTMLElement or HTMLCollection, just pass back </span>
+<span class="c"></span>                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;get(&quot;&#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39;&quot;) returning &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="k">return</span> <span class="nx">el</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;element &#39;</span> <span class="o">+</span> <span class="nx">el</span> <span class="o">+</span> <span class="s1">&#39; not found&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="c">// el is likely null or undefined </span>
 <span class="c"></span>        <span class="o">},</span>
     
         <span class="c">/**</span>
@@ -206,7 +216,7 @@
             
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">element</span><span class="o">)</span> <span class="o">{</span>
                 <span class="nx">setStyle</span><span class="o">(</span><span class="nx">element</span><span class="o">,</span> <span class="nx">property</span><span class="o">,</span> <span class="nx">val</span><span class="o">);</span>
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setStyle setting &#39;</span> <span class="o">+</span> <span class="nx">property</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="nx">val</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setStyle setting &#39;</span> <span class="o">+</span> <span class="nx">property</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="nx">val</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 
             <span class="o">};</span>
             
@@ -223,9 +233,9 @@
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
     
             <span class="c">// has to be part of document to have pageXY</span>
-<span class="c"></span>                <span class="k">if</span> <span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span>
-                        <span class="k">this</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;display&#39;</span><span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+<span class="c"></span>                <span class="k">if</span> <span class="o">(</span> <span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span>
+                        <span class="k">this</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;display&#39;</span><span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span> <span class="o">!=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
                 <span class="o">}</span>
                 
@@ -240,7 +250,7 @@
 <span class="c"></span>                        <span class="nx">doc</span> <span class="o">=</span> <span class="nx">parent</span><span class="o">.</span><span class="nb">document</span><span class="o">;</span>
 
                         <span class="k">if</span> <span class="o">(</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="nx">isAncestor</span><span class="o">(</span><span class="nx">doc</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">,</span> <span class="nx">el</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span>
-                            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                             <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>                      
                         <span class="o">}</span>
 
@@ -254,35 +264,43 @@
                 <span class="k">else</span> <span class="o">{</span> <span class="c">// safari, opera, &amp; gecko</span>
 <span class="c"></span>                    <span class="nx">pos</span> <span class="o">=</span> <span class="o">[</span><span class="nx">el</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">,</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">];</span>
                     <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">;</span>
+
+                    <span class="c">// safari: if el is abs or any parent is abs, subtract body offsets</span>
+<span class="c"></span>                    <span class="k">var</span> <span class="nx">hasAbs</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;position&#39;</span><span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;absolute&#39;</span><span class="o">;</span>
+
                     <span class="k">if</span> <span class="o">(</span><span class="nx">parentNode</span> <span class="o">!=</span> <span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
                         <span class="k">while</span> <span class="o">(</span><span class="nx">parentNode</span><span class="o">)</span> <span class="o">{</span>
                             <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">+=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
                             <span class="nx">pos</span><span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="o">+=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
+                            <span class="k">if</span> <span class="o">(</span><span class="nx">isSafari</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">hasAbs</span> <span class="o">&amp;&amp;</span> 
+                                    <span class="k">this</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">parentNode</span><span class="o">,</span><span class="s1">&#39;position&#39;</span><span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;absolute&#39;</span> <span class="o">)</span> <span class="o">{</span>
+                                <span class="nx">hasAbs</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c">// we need to offset if any parent is absolutely positioned</span>
+<span class="c"></span>                            <span class="o">}</span>
                             <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">;</span>
                         <span class="o">}</span>
                     <span class="o">}</span>
-                    <span class="k">if</span> <span class="o">(</span><span class="nx">isSafari</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="s1">&#39;position&#39;</span><span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;absolute&#39;</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// safari doubles in some cases</span>
+
+                    <span class="k">if</span> <span class="o">(</span><span class="nx">isSafari</span> <span class="o">&amp;&amp;</span> <span class="nx">hasAbs</span><span class="o">)</span> <span class="o">{</span> <span class="c">//safari doubles in this case</span>
 <span class="c"></span>                        <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">-=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
                         <span class="nx">pos</span><span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="o">-=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
                     <span class="o">}</span> 
                 <span class="o">}</span>
                 
-                <span class="k">if</span> <span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">)</span> <span class="o">{</span> <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">;</span> <span class="o">}</span>
-                <span class="k">else</span> <span class="o">{</span> <span class="nx">parentNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-        
-                <span class="k">while</span> <span class="o">(</span><span class="nx">parentNode</span> <span class="o">&amp;&amp;</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">!=</span> <span class="s1">&#39;BODY&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">!=</span> <span class="s1">&#39;HTML&#39;</span><span class="o">)</span> 
-                <span class="o">{</span> <span class="c">// account for any scrolled ancestors</span>
-<span class="c"></span>                    <span class="k">if</span> <span class="o">(</span><span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">parentNode</span><span class="o">,</span> <span class="s1">&#39;display&#39;</span><span class="o">)</span> <span class="o">!=</span> <span class="s1">&#39;inline&#39;</span><span class="o">)</span> <span class="o">{</span> <span class="c">// work around opera inline scrollLeft/Top bug</span>
-<span class="c"></span>                        <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">-=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">scrollLeft</span><span class="o">;</span>
+                <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">;</span>
+
+                <span class="c">// account for any scrolled ancestors</span>
+<span class="c"></span>                <span class="k">while</span> <span class="o">(</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">patterns</span><span class="o">.</span><span class="nx">ROOT_TAG</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">)</span> <span class="o">)</span> 
+                <span class="o">{</span>
+                   <span class="c">// work around opera inline scrollLeft/Top bug</span>
+<span class="c"></span>                   <span class="k">if</span> <span class="o">(</span><span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getStyle</span><span class="o">(</span><span class="nx">parentNode</span><span class="o">,</span> <span class="s1">&#39;display&#39;</span><span class="o">)</span> <span class="o">!=</span> <span class="s1">&#39;inline&#39;</span><span class="o">)</span> <span class="o">{</span> 
+                        <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">-=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">scrollLeft</span><span class="o">;</span>
                         <span class="nx">pos</span><span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="o">-=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">;</span>
                     <span class="o">}</span>
                     
-                    <span class="k">if</span> <span class="o">(</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">;</span> 
-                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="nx">parentNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
+                    <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">;</span> 
                 <span class="o">}</span>
         
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY returning &#39;</span> <span class="o">+</span> <span class="nx">pos</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getXY returning &#39;</span> <span class="o">+</span> <span class="nx">pos</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 
                 <span class="k">return</span> <span class="nx">pos</span><span class="o">;</span>
             <span class="o">};</span>
@@ -336,7 +354,7 @@
 
                 <span class="k">var</span> <span class="nx">pageXY</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getXY</span><span class="o">(</span><span class="nx">el</span><span class="o">);</span>
                 <span class="k">if</span> <span class="o">(</span><span class="nx">pageXY</span> <span class="o">===</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span> <span class="c">// has to be part of doc to have pageXY</span>
-<span class="c"></span>                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+<span class="c"></span>                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setXY failed: element not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> 
                 <span class="o">}</span>
                 
@@ -365,7 +383,7 @@
                    <span class="o">}</span>
                 <span class="o">}</span>        
         
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setXY setting position to &#39;</span> <span class="o">+</span> <span class="nx">pos</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;setXY setting position to &#39;</span> <span class="o">+</span> <span class="nx">pos</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             <span class="o">};</span>
             
             <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">batch</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">f</span><span class="o">,</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
@@ -403,7 +421,7 @@
         <span class="nx">getRegion</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">var</span> <span class="nx">region</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Region</span><span class="o">.</span><span class="nx">getRegion</span><span class="o">(</span><span class="nx">el</span><span class="o">);</span>
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getRegion returning &#39;</span> <span class="o">+</span> <span class="nx">region</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getRegion returning &#39;</span> <span class="o">+</span> <span class="nx">region</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 <span class="k">return</span> <span class="nx">region</span><span class="o">;</span>
             <span class="o">};</span>
             
@@ -455,8 +473,8 @@
             <span class="k">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="o">(</span><span class="s1">&#39;(?:^|\\s+)&#39;</span> <span class="o">+</span> <span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39;(?:\\s+|$)&#39;</span><span class="o">);</span>
             
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;hasClass returning &#39;</span> <span class="o">+</span> <span class="nx">re</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">]),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
-                <span class="k">return</span> <span class="nx">re</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">]);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;hasClass returning &#39;</span> <span class="o">+</span> <span class="nx">re</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">className</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="k">return</span> <span class="nx">re</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">className</span><span class="o">);</span>
             <span class="o">};</span>
             
             <span class="k">return</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">batch</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">f</span><span class="o">,</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
@@ -472,9 +490,9 @@
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">className</span><span class="o">))</span> <span class="o">{</span> <span class="k">return</span><span class="o">;</span> <span class="o">}</span> <span class="c">// already present</span>
 <span class="c"></span>                
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;addClass adding &#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;addClass adding &#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 
-                <span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">],</span> <span class="nx">className</span><span class="o">].</span><span class="nx">join</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">);</span>
+                <span class="nx">el</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="o">[</span><span class="nx">el</span><span class="o">.</span><span class="nx">className</span><span class="o">,</span> <span class="nx">className</span><span class="o">].</span><span class="nx">join</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">);</span>
             <span class="o">};</span>
             
             <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">batch</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">f</span><span class="o">,</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
@@ -490,12 +508,14 @@
             <span class="k">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="o">(</span><span class="s1">&#39;(?:^|\\s+)&#39;</span> <span class="o">+</span> <span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39;(?:\\s+|$)&#39;</span><span class="o">,</span> <span class="s1">&#39;g&#39;</span><span class="o">);</span>
 
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">className</span><span class="o">))</span> <span class="o">{</span> <span class="k">return</span><span class="o">;</span> <span class="o">}</span> <span class="c">// not present</span>
-<span class="c"></span>                
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;removeClass removing &#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">className</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="k">return</span><span class="o">;</span> <span class="c">// not present</span>
+<span class="c"></span>                <span class="o">}</span>                 
+
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;removeClass removing &#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 
-                <span class="k">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">];</span>
-                <span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="nx">c</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nx">re</span><span class="o">,</span> <span class="s1">&#39; &#39;</span><span class="o">);</span>
+                <span class="k">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">className</span><span class="o">;</span>
+                <span class="nx">el</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">c</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nx">re</span><span class="o">,</span> <span class="s1">&#39; &#39;</span><span class="o">);</span>
                 <span class="k">if</span> <span class="o">(</span> <span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">className</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// in case of multiple adjacent</span>
 <span class="c"></span>                    <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">className</span><span class="o">);</span>
                 <span class="o">}</span>
@@ -521,14 +541,14 @@
             <span class="k">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="o">(</span><span class="s1">&#39;(?:^|\\s+)&#39;</span> <span class="o">+</span> <span class="nx">oldClassName</span> <span class="o">+</span> <span class="s1">&#39;(?:\\s+|$)&#39;</span><span class="o">,</span> <span class="s1">&#39;g&#39;</span><span class="o">);</span>
 
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;replaceClass replacing &#39;</span> <span class="o">+</span> <span class="nx">oldClassName</span> <span class="o">+</span> <span class="s1">&#39; with &#39;</span> <span class="o">+</span> <span class="nx">newClassName</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;replaceClass replacing &#39;</span> <span class="o">+</span> <span class="nx">oldClassName</span> <span class="o">+</span> <span class="s1">&#39; with &#39;</span> <span class="o">+</span> <span class="nx">newClassName</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             
                 <span class="k">if</span> <span class="o">(</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">oldClassName</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span>
                     <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">newClassName</span><span class="o">);</span> <span class="c">// just add it if nothing to replace</span>
 <span class="c"></span>                    <span class="k">return</span><span class="o">;</span> <span class="c">// note return</span>
 <span class="c"></span>                <span class="o">}</span>
             
-                <span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="nx">el</span><span class="o">[</span><span class="s1">&#39;className&#39;</span><span class="o">].</span><span class="nx">replace</span><span class="o">(</span><span class="nx">re</span><span class="o">,</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">newClassName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">);</span>
+                <span class="nx">el</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">className</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nx">re</span><span class="o">,</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">newClassName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">);</span>
 
                 <span class="k">if</span> <span class="o">(</span> <span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">oldClassName</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c">// in case of multiple adjacent</span>
 <span class="c"></span>                    <span class="k">this</span><span class="o">.</span><span class="nx">replaceClass</span><span class="o">(</span><span class="nx">el</span><span class="o">,</span> <span class="nx">oldClassName</span><span class="o">,</span> <span class="nx">newClassName</span><span class="o">);</span>
@@ -558,10 +578,10 @@
                 
                 <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">)</span> <span class="o">{</span>
                     <span class="nx">el</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="nx">id_counter</span><span class="o">++;</span> 
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;generateId generating &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;generateId generating &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 <span class="o">}</span> <span class="c">// dont override existing</span>
 <span class="c"></span>                
-                <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;generateId returning &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;generateId returning &#39;</span> <span class="o">+</span> <span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 
                 <span class="k">return</span> <span class="nx">el</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
             <span class="o">};</span>
@@ -582,11 +602,11 @@
             
             <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">needle</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">if</span> <span class="o">(</span><span class="nx">haystack</span><span class="o">.</span><span class="nx">contains</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isSafari</span><span class="o">)</span> <span class="o">{</span> <span class="c">// safari &quot;contains&quot; is broken</span>
-<span class="c"></span>                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning &#39;</span> <span class="o">+</span> <span class="nx">haystack</span><span class="o">.</span><span class="nx">contains</span><span class="o">(</span><span class="nx">needle</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+<span class="c"></span>                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning &#39;</span> <span class="o">+</span> <span class="nx">haystack</span><span class="o">.</span><span class="nx">contains</span><span class="o">(</span><span class="nx">needle</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="nx">haystack</span><span class="o">.</span><span class="nx">contains</span><span class="o">(</span><span class="nx">needle</span><span class="o">);</span>
                 <span class="o">}</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="o">(</span> <span class="nx">haystack</span><span class="o">.</span><span class="nx">compareDocumentPosition</span> <span class="o">)</span> <span class="o">{</span>
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning &#39;</span> <span class="o">+</span> <span class="o">!!(</span><span class="nx">haystack</span><span class="o">.</span><span class="nx">compareDocumentPosition</span><span class="o">(</span><span class="nx">needle</span><span class="o">)</span> <span class="o">&amp;</span> <span class="m">16</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning &#39;</span> <span class="o">+</span> <span class="o">!!(</span><span class="nx">haystack</span><span class="o">.</span><span class="nx">compareDocumentPosition</span><span class="o">(</span><span class="nx">needle</span><span class="o">)</span> <span class="o">&amp;</span> <span class="m">16</span><span class="o">),</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="o">!!(</span><span class="nx">haystack</span><span class="o">.</span><span class="nx">compareDocumentPosition</span><span class="o">(</span><span class="nx">needle</span><span class="o">)</span> <span class="o">&amp;</span> <span class="m">16</span><span class="o">);</span>
                 <span class="o">}</span>
                 <span class="k">else</span> <span class="o">{</span> <span class="c">// loop up and test each parent</span>
@@ -594,17 +614,17 @@
                     
                     <span class="k">while</span> <span class="o">(</span><span class="nx">parent</span><span class="o">)</span> <span class="o">{</span>
                         <span class="k">if</span> <span class="o">(</span><span class="nx">parent</span> <span class="o">==</span> <span class="nx">haystack</span><span class="o">)</span> <span class="o">{</span>
-                            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning true&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning true&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
                         <span class="o">}</span>
                         <span class="k">else</span> <span class="k">if</span> <span class="o">(!</span><span class="nx">parent</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">||</span> <span class="nx">parent</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s1">&#39;HTML&#39;</span><span class="o">)</span> <span class="o">{</span>
-                            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning false&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning false&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                             <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
                         <span class="o">}</span>
                         
                         <span class="nx">parent</span> <span class="o">=</span> <span class="nx">parent</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">;</span>
                     <span class="o">}</span>
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning false&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;isAncestor returning false&#39;</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
                 <span class="o">}</span>     
             <span class="o">};</span>
@@ -660,7 +680,7 @@
                 <span class="k">if</span> <span class="o">(</span> <span class="nx">method</span><span class="o">(</span><span class="nx">elements</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">)</span> <span class="o">{</span> <span class="nx">nodes</span><span class="o">[</span><span class="nx">nodes</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="nx">elements</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span> <span class="o">}</span>
             <span class="o">}</span>
 
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getElementsBy returning &#39;</span> <span class="o">+</span> <span class="nx">nodes</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getElementsBy returning &#39;</span> <span class="o">+</span> <span class="nx">nodes</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             
             <span class="k">return</span> <span class="nx">nodes</span><span class="o">;</span>
         <span class="o">},</span>
@@ -683,7 +703,7 @@
             
             <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span> <span class="o">||</span> <span class="nx">el</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">||</span> <span class="o">!</span><span class="nx">el</span><span class="o">.</span><span class="nx">length</span><span class="o">)</span> <span class="o">{</span> <span class="c">// is null or not a collection (tagName for SELECT and others that can be both an element and a collection)</span>
 <span class="c"></span>                <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
                 <span class="o">}</span>
                 <span class="k">return</span> <span class="nx">method</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="nx">scope</span><span class="o">,</span> <span class="nx">el</span><span class="o">,</span> <span class="nx">o</span><span class="o">);</span>
@@ -694,7 +714,7 @@
             <span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="m">0</span><span class="o">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="o">;</span> <span class="o">++</span><span class="nx">i</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">if</span> <span class="o">(!</span><span class="nx">el</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">{</span>
                     <span class="nx">id</span> <span class="o">=</span> <span class="nx">el</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
-                    <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; not available&#39;</span><span class="o">,</span> <span class="s1">&#39;error&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
                 <span class="o">}</span>
                 <span class="nx">collection</span><span class="o">[</span><span class="nx">collection</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="nx">method</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="nx">scope</span><span class="o">,</span> <span class="nx">el</span><span class="o">[</span><span class="nx">i</span><span class="o">],</span> <span class="nx">o</span><span class="o">);</span>
             <span class="o">}</span>
@@ -711,7 +731,7 @@
             <span class="k">var</span> <span class="nx">scrollHeight</span> <span class="o">=</span> <span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">compatMode</span> <span class="o">!=</span> <span class="s1">&#39;CSS1Compat&#39;</span><span class="o">)</span> <span class="o">?</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollHeight</span> <span class="o">:</span> <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollHeight</span><span class="o">;</span>
 
             <span class="k">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span><span class="nx">scrollHeight</span><span class="o">,</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportHeight</span><span class="o">());</span>
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getDocumentHeight returning &#39;</span> <span class="o">+</span> <span class="nx">h</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getDocumentHeight returning &#39;</span> <span class="o">+</span> <span class="nx">h</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             <span class="k">return</span> <span class="nx">h</span><span class="o">;</span>
         <span class="o">},</span>
         
@@ -723,7 +743,7 @@
         <span class="nx">getDocumentWidth</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">var</span> <span class="nx">scrollWidth</span> <span class="o">=</span> <span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">compatMode</span> <span class="o">!=</span> <span class="s1">&#39;CSS1Compat&#39;</span><span class="o">)</span> <span class="o">?</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollWidth</span> <span class="o">:</span> <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollWidth</span><span class="o">;</span>
             <span class="k">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span><span class="nx">scrollWidth</span><span class="o">,</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportWidth</span><span class="o">());</span>
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getDocumentWidth returning &#39;</span> <span class="o">+</span> <span class="nx">w</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getDocumentWidth returning &#39;</span> <span class="o">+</span> <span class="nx">w</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             <span class="k">return</span> <span class="nx">w</span><span class="o">;</span>
         <span class="o">},</span>
 
@@ -742,7 +762,7 @@
 <span class="c"></span>                        <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">clientHeight</span><span class="o">;</span> <span class="c">// Quirks</span>
 <span class="c"></span>            <span class="o">}</span>
         
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getViewportHeight returning &#39;</span> <span class="o">+</span> <span class="nx">height</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getViewportHeight returning &#39;</span> <span class="o">+</span> <span class="nx">height</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             <span class="k">return</span> <span class="nx">height</span><span class="o">;</span>
         <span class="o">},</span>
         
@@ -761,7 +781,7 @@
                         <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">clientWidth</span> <span class="o">:</span> <span class="c">// Standards</span>
 <span class="c"></span>                        <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">clientWidth</span><span class="o">;</span> <span class="c">// Quirks</span>
 <span class="c"></span>            <span class="o">}</span>
-            <span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getViewportWidth returning &#39;</span> <span class="o">+</span> <span class="nx">width</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;getViewportWidth returning &#39;</span> <span class="o">+</span> <span class="nx">width</span><span class="o">,</span> <span class="s1">&#39;info&#39;</span><span class="o">,</span> <span class="s1">&#39;Dom&#39;</span><span class="o">);</span>
             <span class="k">return</span> <span class="nx">width</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">};</span>

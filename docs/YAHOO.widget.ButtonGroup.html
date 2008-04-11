@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Button&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Button&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_button.html">button</a>
@@ -116,23 +116,6 @@ configuration attributes used to create the button group.
                                     <div class="detail">
                                         <div class="description">
                                             Array of buttons in the button group.
-                                        </div>
-                                    </div>
-     
-                                        
-                                    <div class="default">
-                                        Default Value: null
-                                    </div>        
-
-
-                                    <hr />
-                                    <h4><a name="_oninitAttributeValue">_oninitAttributeValue</a>
-                                        <code>- protected Object</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            Object reference to the button group's current value for the 
-"oninit" configuration attribute.
                                         </div>
                                     </div>
      
@@ -329,8 +312,7 @@ button group.
                                                         <dd>
                                                             <code>p_oButton &lt;<a href="YAHOO.widget.Button.html">YAHOO.widget.Button</a>&gt;</code>
                                                              
-Object representing the button that 
-fired the event.
+Object representing the button that fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -421,51 +403,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_bDisabled &lt;Boolean&gt;</code>
                                                              Boolean indicating the value for the button
 group's "disabled" attribute.
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code>
-                                                        void
-                                                    </code></dt>
-                                                    <dd></dd>
-                                                </dl>
-             
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    <h4>
-                                        <a name="_setOnInit">_setOnInit</a></h4>
-                                    <div class="detail">
-                                        <code>
-                                         protected 
-                                        
-                                        
-                                        void
-                                            <strong>_setOnInit</strong>
-                                           (
-                                                
-                                                        
-                                                         p_oObject
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description">
-                                            Sets the value of the button group's "init" attribute.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl>
-                                                    <dt>Parameters:</dt>
-                                                        <dd>
-                                                            <code>p_oObject &lt;Object&gt;</code>
-                                                             Object indicating the value for the button's 
-"oninit" attribute.
                                                         </dd>
                                                 </dl>
 
@@ -1113,44 +1050,6 @@ removed from the button group.
                                 </div>
                             </div>
 
-                        <div class="section method details">
-                            <h3><a name="methodDetails">Events</a></h3>
-                            <div class="content">
-                                    <h4>
-                                        <a name="init">init</a></h4>
-                                    <div class="detail">
-                                        <code>
-                                        
-                                        
-                                        
-                                            <strong>init</strong>
-
-                                            (
-                                            )
-
-                                        </code>
-                                        
-                                        <div class="description">
-                                            Fires when the button group is initialized.  Subscribe to this 
-event by specifying a value for the "oninit" configuration attribute.  
-Format:<br> <code> {<br> <strong>fn:</strong> Function,   &#47;&#47; The 
-handler to call when the event fires.<br> <strong>obj:</strong> Object, 
-&#47;&#47; An object to pass back to the handler.<br> <strong>scope:</strong>
-Object &#47;&#47; The object to use for the scope of the handler.<br> 
-} </code>
-                                        </div>
-
-                                        <div class="description">
-
-
-
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                            </div>
-                        </div>
 
 
                         <div class="section field inheritance">
@@ -1226,26 +1125,6 @@ or fire events.
                                         <div class="description">
                                             String specifying the name for the button group.  This
 name will be applied to each button in the button group.
-                                        </div>
-                                    </div>
- 
-     
-                                    <div class="default">
-                                        Default Value: null
-                                    </div>        
-
-                                    <hr />
-                                    <h4><a name="oninit">oninit</a>
-                                        <code>- Object</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            Object literal representing the code to be executed when 
-the button group is initialized.  Format:<br> <code> {<br> 
-<strong>fn:</strong> Function,   &#47;&#47; The handler to call when the 
-event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object to 
-pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-The object to use for the scope of the handler.<br> } </code>
                                         </div>
                                     </div>
  
@@ -1355,9 +1234,6 @@ The object to use for the scope of the handler.<br> } </code>
                                 <li><a href="#_buttons">_buttons</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
-                                <li><a href="#_oninitAttributeValue">_oninitAttributeValue</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
                                 <li><a href="#CSS_CLASS_NAME">CSS_CLASS_NAME</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -1385,9 +1261,6 @@ level-one-html.html#ID-22445964">HTMLDivElement</a></code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_setDisabled">_setDisabled</a>
-                                </li>
-                                <li><!--<code>void</code>-->
-                                <a href="#_setOnInit">_setOnInit</a>
                                 </li>
                                 <li><!--<code><a href="YAHOO.widget.Button.html">YAHOO.widget.Button</a></code>-->
                                 <a href="#addButton">addButton</a>
@@ -1428,14 +1301,6 @@ level-one-html.html#ID-22445964">HTMLDivElement</a></code>-->
                         </ul>
                     </div>
 
-                    <div class="module">
-                        <h4>Events</h4>
-                        <ul class="content">        
-                                <li>
-                                <a href="#init">init</a>
-                                </li>
-                        </ul>
-                    </div>
 
                     <div class="module">
                         <h4>Configuration Attributes</h4>
@@ -1451,9 +1316,6 @@ level-one-html.html#ID-22445964">HTMLDivElement</a></code>-->
                                 </li>
                                 <li>
                                 <a href="#name">name</a>
-                                </li>
-                                <li>
-                                <a href="#oninit">oninit</a>
                                 </li>
                                 <li>
                                 <a href="#value">value</a>

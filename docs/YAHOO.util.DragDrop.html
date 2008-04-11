@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dragdrop.html">dragdrop</a>
@@ -214,6 +214,32 @@ padding, isTarget, maintainOffset, primaryButtonOnly,
                                     <div class="detail">
                                         <div class="description">
                                             Set to true when vertical contraints are applied
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="deltaX">deltaX</a>
+                                        <code>- private int</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The difference between the click position and the source element's location
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="deltaY">deltaY</a>
+                                        <code>- private int</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The difference between the click position and the source element's location
                                         </div>
                                     </div>
      
@@ -1130,6 +1156,59 @@ element. An example of this can be found in YAHOO.util.DDProxy
                                                         HTMLElement
                                                     </code></dt>
                                                     <dd>the html element</dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="getTargetCoord">getTargetCoord</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>getTargetCoord</strong>
+                                           (
+                                                
+                                                        
+                                                         iPageX
+                                                    
+                                                
+                                                        , 
+                                                         iPageY
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Finds the location the element should be placed if we want to move
+it to where the mouse location less the click offset would place us.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>iPageX &lt;int&gt;</code>
+                                                             the X coordinate of the click
+                                                        </dd>
+                                                        <dd>
+                                                            <code>iPageY &lt;int&gt;</code>
+                                                             the Y coordinate of the click
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd>an object that contains the coordinates (Object.x and Object.y)</dd>
                                                 </dl>
              
                                         </div>
@@ -2322,7 +2401,7 @@ initiate the drag.
                                         <a name="setInitialPosition">setInitialPosition</a></h4>
                                     <div class="detail">
                                         <code>
-                                        
+                                         private 
                                         
                                         
                                         void
@@ -2977,6 +3056,12 @@ and the drag or mousedown time thresholds have beeen met.
                                 <li><a href="#constrainY">constrainY</a>
                                         <!--<code>&lt;int[]&gt;</code>-->
                                 </li>
+                                <li><a href="#deltaX">deltaX</a>
+                                        <!--<code>&lt;int[]&gt;</code>-->
+                                </li>
+                                <li><a href="#deltaY">deltaY</a>
+                                        <!--<code>&lt;int[]&gt;</code>-->
+                                </li>
                                 <li><a href="#dragElId">dragElId</a>
                                         <!--<code>&lt;int[]&gt;</code>-->
                                 </li>
@@ -3090,6 +3175,9 @@ and the drag or mousedown time thresholds have beeen met.
                                 </li>
                                 <li><!--<code>HTMLElement</code>-->
                                 <a href="#getEl">getEl</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#getTargetCoord">getTargetCoord</a>
                                 </li>
                                 <li><!--<code>int</code>-->
                                 <a href="#getTick">getTick</a>

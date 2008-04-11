@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>connection&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>connection&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_connection.html">connection</a>
@@ -97,7 +97,7 @@
 <span class="c">  * @static</span>
 <span class="c">  * @type boolean</span>
 <span class="c">  */</span>
-    <span class="nx">_default_post_header</span><span class="o">:</span><span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="o">,</span>
+    <span class="nx">_default_post_header</span><span class="o">:</span><span class="s1">&#39;application/x-www-form-urlencoded; charset=UTF-8&#39;</span><span class="o">,</span>
 
  <span class="c">/**</span>
 <span class="c">  * @description Determines if a default header of</span>
@@ -219,6 +219,43 @@
 <span class="c">   * @type int</span>
 <span class="c">   */</span>
      <span class="nx">_transaction_id</span><span class="o">:</span><span class="m">0</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * @description Tracks the name-value pair of the &quot;clicked&quot; submit button if multiple submit</span>
+<span class="c">   * buttons are present in an HTML form; and, if YAHOO.util.Event is available.</span>
+<span class="c">   * @property _submitElementValue</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   * @type string</span>
+<span class="c">   */</span>
+	 <span class="nx">_submitElementValue</span><span class="o">:</span><span class="kc">null</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * @description Determines whether YAHOO.util.Event is available and returns true or false.</span>
+<span class="c">   * If true, an event listener is bound at the document level to trap click events that</span>
+<span class="c">   * resolve to a target type of &quot;Submit&quot;.  This listener will enable setForm() to determine</span>
+<span class="c">   * the clicked &quot;Submit&quot; value in a multi-Submit button, HTML form.</span>
+<span class="c">   * @property _hasSubmitListener</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   * @type boolean</span>
+<span class="c">   */</span>
+	 <span class="nx">_hasSubmitListener</span><span class="o">:(</span><span class="k">function</span><span class="o">()</span>
+	 <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">){</span>
+			<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span>
+				<span class="nb">document</span><span class="o">,</span>
+				<span class="s1">&#39;click&#39;</span><span class="o">,</span>
+				<span class="k">function</span><span class="o">(</span><span class="nx">e</span><span class="o">){</span>
+					<span class="k">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getTarget</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
+					<span class="k">if</span><span class="o">(</span><span class="nx">obj</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;submit&#39;</span><span class="o">){</span>
+						<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Connect</span><span class="o">.</span><span class="nx">_submitElementValue</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">obj</span><span class="o">.</span><span class="nx">name</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">obj</span><span class="o">.</span><span class="nx">value</span><span class="o">);</span>
+					<span class="o">}</span>
+				<span class="o">})</span>
+			<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+	    <span class="o">}</span>
+	    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	 <span class="o">})(),</span>
 
   <span class="c">/**</span>
 <span class="c">   * @description Member to add an ActiveX id to the existing xml_progid array.</span>
@@ -446,7 +483,7 @@
 
 		<span class="k">this</span><span class="o">.</span><span class="nx">_poll</span><span class="o">[</span><span class="nx">o</span><span class="o">.</span><span class="nx">tId</span><span class="o">]</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setInterval</span><span class="o">(</span>
 			<span class="k">function</span><span class="o">(){</span>
-				<span class="k">if</span><span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="m">4</span><span class="o">){</span>
+				<span class="k">if</span><span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="m">4</span><span class="o">){</span>
 					<span class="nb">window</span><span class="o">.</span><span class="nx">clearInterval</span><span class="o">(</span><span class="nx">oConn</span><span class="o">.</span><span class="nx">_poll</span><span class="o">[</span><span class="nx">o</span><span class="o">.</span><span class="nx">tId</span><span class="o">]);</span>
 					<span class="nx">delete</span> <span class="nx">oConn</span><span class="o">.</span><span class="nx">_poll</span><span class="o">[</span><span class="nx">o</span><span class="o">.</span><span class="nx">tId</span><span class="o">];</span>
 
@@ -485,7 +522,7 @@
 
 		<span class="k">try</span>
 		<span class="o">{</span>
-			<span class="k">if</span><span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="m">0</span><span class="o">){</span>
+			<span class="k">if</span><span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="m">0</span><span class="o">){</span>
 				<span class="nx">httpStatus</span> <span class="o">=</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span><span class="o">;</span>
 			<span class="o">}</span>
 			<span class="k">else</span><span class="o">{</span>
@@ -493,13 +530,14 @@
 			<span class="o">}</span>
 		<span class="o">}</span>
 		<span class="k">catch</span><span class="o">(</span><span class="nx">e</span><span class="o">){</span>
-			<span class="c">// 13030 is the custom code to indicate the condition -- in Mozilla/FF --</span>
-<span class="c"></span>			<span class="c">// when the o object&#39;s status and statusText properties are</span>
-<span class="c"></span>			<span class="c">// unavailable, and a query attempt throws an exception.</span>
+
+			 <span class="c">// 13030 is the custom code to indicate the condition -- in Mozilla/FF --</span>
+<span class="c"></span>			 <span class="c">// when the o object&#39;s status and statusText properties are</span>
+<span class="c"></span>			 <span class="c">// unavailable, and a query attempt throws an exception.</span>
 <span class="c"></span>			<span class="nx">httpStatus</span> <span class="o">=</span> <span class="m">13030</span><span class="o">;</span>
 		<span class="o">}</span>
 
-		<span class="k">if</span><span class="o">(</span><span class="nx">httpStatus</span> <span class="o">&gt;=</span> <span class="m">200</span> <span class="o">&amp;&amp;</span> <span class="nx">httpStatus</span> <span class="o">&lt;</span> <span class="m">300</span><span class="o">){</span>
+		<span class="k">if</span><span class="o">(</span><span class="nx">httpStatus</span> <span class="o">&gt;=</span> <span class="m">200</span> <span class="o">&amp;&amp;</span> <span class="nx">httpStatus</span> <span class="o">&lt;</span> <span class="m">300</span> <span class="o">||</span> <span class="nx">httpStatus</span> <span class="o">===</span> <span class="m">1223</span><span class="o">){</span>
 			<span class="nx">responseObject</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">createResponseObject</span><span class="o">(</span><span class="nx">o</span><span class="o">,</span> <span class="nx">callback</span><span class="o">.</span><span class="nx">argument</span><span class="o">);</span>
 			<span class="k">if</span><span class="o">(</span><span class="nx">callback</span><span class="o">.</span><span class="nx">success</span><span class="o">){</span>
 				<span class="k">if</span><span class="o">(!</span><span class="nx">callback</span><span class="o">.</span><span class="nx">scope</span><span class="o">){</span>
@@ -584,8 +622,10 @@
 		<span class="k">catch</span><span class="o">(</span><span class="nx">e</span><span class="o">){}</span>
 
 		<span class="nx">obj</span><span class="o">.</span><span class="nx">tId</span> <span class="o">=</span> <span class="nx">o</span><span class="o">.</span><span class="nx">tId</span><span class="o">;</span>
-		<span class="nx">obj</span><span class="o">.</span><span class="nx">status</span> <span class="o">=</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span><span class="o">;</span>
-		<span class="nx">obj</span><span class="o">.</span><span class="nx">statusText</span> <span class="o">=</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">statusText</span><span class="o">;</span>
+		<span class="c">// Normalize IE&#39;s response to HTTP 204 when Win error 1223.</span>
+<span class="c"></span>		<span class="nx">obj</span><span class="o">.</span><span class="nx">status</span> <span class="o">=</span> <span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">==</span> <span class="m">1223</span><span class="o">)?</span><span class="m">204</span><span class="o">:</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span><span class="o">;</span>
+		<span class="c">// Normalize IE&#39;s statusText to &quot;No Content&quot; instead of &quot;Unknown&quot;.</span>
+<span class="c"></span>		<span class="nx">obj</span><span class="o">.</span><span class="nx">statusText</span> <span class="o">=</span> <span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">status</span> <span class="o">==</span> <span class="m">1223</span><span class="o">)?</span><span class="s2">&quot;No Content&quot;</span><span class="o">:</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">statusText</span><span class="o">;</span>
 		<span class="nx">obj</span><span class="o">.</span><span class="nx">getResponseHeader</span> <span class="o">=</span> <span class="nx">headerObj</span><span class="o">;</span>
 		<span class="nx">obj</span><span class="o">.</span><span class="nx">getAllResponseHeaders</span> <span class="o">=</span> <span class="nx">headerStr</span><span class="o">;</span>
 		<span class="nx">obj</span><span class="o">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">responseText</span><span class="o">;</span>
@@ -818,8 +858,14 @@
 						<span class="c">// stub case for input type button elements.</span>
 <span class="c"></span>						<span class="k">break</span><span class="o">;</span>
 					<span class="nx">case</span> <span class="s1">&#39;submit&#39;</span><span class="o">:</span>
-						<span class="k">if</span><span class="o">(</span><span class="nx">hasSubmit</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
-							<span class="k">this</span><span class="o">.</span><span class="nx">_sFormData</span> <span class="o">+=</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">oName</span><span class="o">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">oValue</span><span class="o">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">;</span>
+						<span class="k">if</span><span class="o">(</span><span class="nx">hasSubmit</span> <span class="o">===</span> <span class="kc">false</span><span class="o">){</span>
+							<span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_hasSubmitListener</span><span class="o">){</span>
+								<span class="k">this</span><span class="o">.</span><span class="nx">_sFormData</span> <span class="o">+=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_submitElementValue</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">;</span>
+							<span class="o">}</span>
+							<span class="k">else</span><span class="o">{</span>
+								<span class="k">this</span><span class="o">.</span><span class="nx">_sFormData</span> <span class="o">+=</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">oName</span><span class="o">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="o">(</span><span class="nx">oValue</span><span class="o">)</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">;</span>
+							<span class="o">}</span>
+
 							<span class="nx">hasSubmit</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 						<span class="o">}</span>
 						<span class="k">break</span><span class="o">;</span>
@@ -943,9 +989,9 @@
 
 		<span class="c">// Initialize the HTML form properties in case they are</span>
 <span class="c"></span>		<span class="c">// not defined in the HTML form.</span>
-<span class="c"></span>		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">uri</span><span class="o">;</span>
-		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s1">&#39;POST&#39;</span><span class="o">;</span>
-		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">frameId</span><span class="o">;</span>
+<span class="c"></span>		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">setAttribute</span><span class="o">(</span><span class="s1">&#39;action&#39;</span><span class="o">,</span> <span class="nx">uri</span><span class="o">);</span>
+		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">setAttribute</span><span class="o">(</span><span class="s1">&#39;method&#39;</span><span class="o">,</span> <span class="s1">&#39;POST&#39;</span><span class="o">);</span>
+		<span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">setAttribute</span><span class="o">(</span><span class="s2">&quot;target&quot;</span><span class="o">,</span> <span class="nx">frameId</span><span class="o">);</span>
 
 		<span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_formNode</span><span class="o">.</span><span class="nx">encoding</span><span class="o">){</span>
 			<span class="c">// IE does not respect property enctype for HTML forms.</span>
@@ -978,7 +1024,6 @@
 <span class="c"></span>
 		<span class="k">var</span> <span class="nx">uploadCallback</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span>
 		<span class="o">{</span>
-
 			<span class="k">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="o">{};</span>
 			<span class="nx">obj</span><span class="o">.</span><span class="nx">tId</span> <span class="o">=</span> <span class="nx">id</span><span class="o">;</span>
 			<span class="nx">obj</span><span class="o">.</span><span class="nx">argument</span> <span class="o">=</span> <span class="nx">callback</span><span class="o">.</span><span class="nx">argument</span><span class="o">;</span>
@@ -1075,7 +1120,7 @@
 		<span class="c">// if the XHR object assigned to the transaction has not been dereferenced,</span>
 <span class="c"></span>		<span class="c">// then check its readyState status.  Otherwise, return false.</span>
 <span class="c"></span>		<span class="k">if</span><span class="o">(</span><span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">){</span>
-			<span class="k">return</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">!=</span> <span class="m">4</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">!=</span> <span class="m">0</span><span class="o">;</span>
+			<span class="k">return</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="m">4</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="o">.</span><span class="nx">conn</span><span class="o">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="m">0</span><span class="o">;</span>
 		<span class="o">}</span>
 		<span class="k">else</span><span class="o">{</span>
 			<span class="c">//The XHR object has been destroyed.</span>

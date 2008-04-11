@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>connection&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>connection&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_connection.html">connection</a>
@@ -125,6 +125,22 @@ are set for each transaction.
 
 
                                     <hr />
+                                    <h4><a name="_hasSubmitListener">_hasSubmitListener</a>
+                                        <code>- private static boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Determines whether YAHOO.util.Event is available and returns true or false.
+If true, an event listener is bound at the document level to trap click events that
+resolve to a target type of "Submit".  This listener will enable setForm() to determine
+the clicked "Submit" value in a multi-Submit button, HTML form.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="_http_header">_http_header</a>
                                         <code>- private static object</code>
                                     </h4>
@@ -214,6 +230,20 @@ The default is 50 milliseconds.
                                         <div class="description">
                                             Property modified by setForm() to set the HTML form data
 for each transaction.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="_submitElementValue">_submitElementValue</a>
+                                        <code>- private static string</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Tracks the name-value pair of the "clicked" submit button if multiple submit
+buttons are present in an HTML form; and, if YAHOO.util.Event is available.
                                         </div>
                                     </div>
      
@@ -1468,6 +1498,9 @@ iframe created in createFrame.
                                 <li><a href="#_has_http_headers">_has_http_headers</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
+                                <li><a href="#_hasSubmitListener">_hasSubmitListener</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
                                 <li><a href="#_http_header">_http_header</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
@@ -1487,6 +1520,9 @@ iframe created in createFrame.
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#_sFormData">_sFormData</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
+                                <li><a href="#_submitElementValue">_submitElementValue</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#_timeOut">_timeOut</a>

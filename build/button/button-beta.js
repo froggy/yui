@@ -2,7 +2,7 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
 /**
 * @module button
@@ -57,6 +57,12 @@ var Dom = YAHOO.util.Dom,
 
     // Private member variables
 
+    m_oUserAgent = navigator.userAgent.toLowerCase(),
+    m_bOpera = (m_oUserAgent.indexOf('opera') > -1),
+    m_bSafari = (m_oUserAgent.indexOf('safari') > -1),
+    m_bGecko = (!m_bOpera && !m_bSafari && m_oUserAgent.indexOf('gecko') > -1),
+    m_bIE7 = (!m_bOpera && m_oUserAgent.indexOf('msie 7') > -1),
+    m_bIE = (!m_bOpera && m_oUserAgent.indexOf('msie') > -1),
     m_oButtons = {},
     m_oFocusedButton = null;
 
@@ -118,20 +124,22 @@ YAHOO.widget.Button = function(p_oElement, p_oAttributes) {
             element: null,
             attributes: (p_oAttributes || {})
             
-        };
+        },
+
+        sTagName;
 
 
         if(Lang.isString(p_oElement)) {
 
-            var me = this;
+            var oElement = Dom.get(p_oElement);
 
-            Event.onAvailable(p_oElement, function() {
+            if (oElement) {
 
-                var sTagName = this.tagName.toUpperCase();
+                sTagName = oElement.tagName.toUpperCase();
             
-                if(sTagName == me.TAG_NAME) {
+                if(sTagName == this.TAG_NAME) {
             
-                    oConfig.attributes.id = this.id;
+                    oConfig.attributes.id = oElement.id;
             
                 }
                 else if(sTagName == "INPUT" && !oConfig.attributes.id) {
@@ -144,27 +152,27 @@ YAHOO.widget.Button = function(p_oElement, p_oAttributes) {
             
             
             
-                oConfig.attributes.srcelement = this;
+                oConfig.attributes.srcelement = oElement;
             
-                initConfig.call(me, oConfig);
+                initConfig.call(this, oConfig);
             
             
                 if(!oConfig.element) {
             
             
                     oConfig.element = 
-                        me._createButtonElement(oConfig.attributes.type);
+                        this._createButtonElement(oConfig.attributes.type);
             
                 }
             
-                fnSuperClass.call(me, oConfig.element, oConfig.attributes);
+                fnSuperClass.call(this, oConfig.element, oConfig.attributes);
 
-            });
+            }
 
         }
         else {
 
-            var sTagName = p_oElement.tagName.toUpperCase();
+            sTagName = p_oElement.tagName.toUpperCase();
 
             if(sTagName == this.TAG_NAME) {
 
@@ -276,7 +284,7 @@ function createInputElement(p_sType, p_sName, p_sValue, p_bChecked) {
 
     var oInput;
 
-    if(navigator.userAgent.indexOf("MSIE") != -1) {
+    if(m_bIE) {
 
         /*
             For IE it is necessary to create the element with the 
@@ -561,6 +569,18 @@ _menu: null,
 
 
 /** 
+* @property _hiddenField
+* @description Object reference to the <code>&#60;input&#62;</code> element 
+* used when the button's parent form is submitted.
+* @default null
+* @protected
+* @type <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+* one-html.html#ID-6043025">HTMLInputElement</a>
+*/
+_hiddenField: null,
+
+
+/** 
 * @property _onclickAttributeValue
 * @description Object reference to the button's current value for the "onclick"
 * configuration attribute.
@@ -569,17 +589,6 @@ _menu: null,
 * @type Object
 */
 _onclickAttributeValue: null,
-
-
-/** 
-* @property _oninitAttributeValue
-* @description Object reference to the button's current value for the "oninit"
-* configuration attribute.
-* @default null
-* @protected
-* @type Object
-*/
-_oninitAttributeValue: null,
 
 
 /** 
@@ -1190,46 +1199,6 @@ _setOnClick: function(p_oObject) {
 
 },
 
-/**
-* @method _setOnInit
-* @description Sets the value of the button's "init" attribute.
-* @protected
-* @param {Object} p_oObject Object indicating the value for the button's 
-* "oninit" attribute.
-*/
-_setOnInit: function(p_oObject) {
-
-    /*
-        Remove any existing listeners if a "init" event handler has already 
-        been specified.
-    */
-
-    if(
-        this._oninitAttributeValue && 
-        (this._oninitAttributeValue != p_oObject)
-    ) {
-
-        this.removeListener("init", this._oninitAttributeValue.fn);
-
-        this._oninitAttributeValue = null;
-
-    }
-
-
-    if(
-        !this._oninitAttributeValue && 
-        Lang.isObject(p_oObject) && 
-        Lang.isFunction(p_oObject.fn)
-    ) {
-
-        this.on("init", p_oObject.fn, p_oObject.obj, p_oObject.scope);
-
-        this._oninitAttributeValue = p_oObject;
-
-    }
-
-},
-
 
 
 // Protected methods
@@ -1299,6 +1268,7 @@ _isActivationKey: function(p_nKeyCode) {
 * @method _isSplitButtonOptionKey
 * @description Determines if the specified keycode is one that toggles the 
 * display of the split button's menu.
+* @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
 * @return {Boolean}
@@ -1314,6 +1284,81 @@ _isSplitButtonOptionKey: function(p_oEvent) {
 },
 
 
+/**
+* @method _addListenersToForm
+* @description Adds event handlers to the button's form.
+* @protected
+*/
+_addListenersToForm: function() {
+
+    var oForm = this.getForm();
+
+    if(oForm) {
+
+        Event.on(oForm, "reset", this._onFormReset, null, this);
+        Event.on(oForm, "submit", this._onFormSubmit, null, this);
+
+        var oSrcElement = this.get("srcelement");
+
+
+        if (
+            (m_bIE || m_bGecko) && 
+            (
+                this.get("type") == "submit" || 
+                (oSrcElement && oSrcElement.type == "submit")
+            )
+        ) {
+        
+            var aListeners = Event.getListeners(oForm, "keydown"),
+                bHasKeyDownListener = false;
+    
+            if(aListeners) {
+    
+                var nListeners = aListeners.length;
+    
+                if(nListeners > 0) {
+    
+                    var i = nListeners - 1;
+                    
+                    do {
+       
+                        if(
+                            aListeners[i].fn == 
+                            YAHOO.widget.Button.onFormKeyDown
+                        ) {
+        
+                            bHasKeyDownListener = true;
+                            break;
+                        
+                        }
+        
+                    }
+                    while(i--);
+                
+                }
+            
+            }
+    
+    
+            if(!bHasKeyDownListener) {
+    
+                Event.on(
+                        oForm, 
+                        "keydown", 
+                        YAHOO.widget.Button.onFormKeyDown, 
+                        null, 
+                        this
+                    );
+    
+            }
+
+        }
+    
+    }
+
+},
+
+
 _originalMaxHeight: -1,
 
 
@@ -1321,8 +1366,11 @@ _originalMaxHeight: -1,
 * @method _showMenu
 * @description Shows the button's menu.
 * @protected
+* @param {Event} p_oEvent Object representing the DOM event object passed 
+* back by the event utility (YAHOO.util.Event) that triggered the display of
+* the menu.
 */
-_showMenu: function() {
+_showMenu: function(p_oEvent) {
 
     var oMenu = this._menu;
 
@@ -1338,6 +1386,20 @@ _showMenu: function() {
             });
             
         oMenu.cfg.fireQueue();
+
+        /*
+            Stop the propagation of the event so that the MenuManager 
+            doesn't blur the menu after it gets focus.
+        */
+
+        if(p_oEvent.type == "mousedown") {
+
+            Event.stopPropagation(p_oEvent);
+
+        }
+
+        this._menu.focus(); 
+
 
         var nViewportHeight = Dom.getViewportHeight(),
             nMenuHeight = oMenu.element.offsetHeight;
@@ -1401,27 +1463,6 @@ _hideMenu: function() {
 },
 
 
-/**
-* @method _submitForm
-* @description Submits the form to which the button belongs.
-* @protected
-*/
-_submitForm: function() {
-
-    var oForm = this.getForm();
-
-    if(oForm) {
-
-        YAHOO.widget.Button.addHiddenFieldsToForm(oForm);
-
-        this.createHiddenField();
-        
-        oForm.submit();
-    
-    }
-
-},
-
 
 
 // Protected event handlers
@@ -1436,33 +1477,29 @@ _submitForm: function() {
 */
 _onMouseOver: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    if(!this._hasMouseEventHandlers) {
 
-        if(!this._hasMouseEventHandlers) {
+        this.on("mouseout", this._onMouseOut);
+        this.on("mousedown", this._onMouseDown);
+        this.on("mouseup", this._onMouseUp);
 
-            this.on("mouseout", this._onMouseOut);
-            this.on("mousedown", this._onMouseDown);
-            this.on("mouseup", this._onMouseUp);
+        this._hasMouseEventHandlers = true;
 
-            this._hasMouseEventHandlers = true;
+    }
 
-        }
+    this.addClass("hover");
 
-        this.addClass("hover");
+    if(this._activationButtonPressed) {
 
-        if(this._activationButtonPressed) {
+        this.addClass("active");
 
-            this.addClass("active");
-
-        }
+    }
 
 
-        if(this._bOptionPressed) {
+    if(this._bOptionPressed) {
 
-            this.addClass("activeoption");
-        
-        }
-
+        this.addClass("activeoption");
+    
     }
 
 },
@@ -1477,21 +1514,17 @@ _onMouseOver: function(p_oEvent) {
 */
 _onMouseOut: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    this.removeClass("hover");
 
-        this.removeClass("hover");
+    if(this.get("type") != "menubutton") {
 
-        if(this.get("type") != "menubutton") {
+        this.removeClass("active");
 
-            this.removeClass("active");
+    }
 
-        }
+    if(this._activationButtonPressed || this._bOptionPressed) {
 
-        if(this._activationButtonPressed || this._bOptionPressed) {
-
-            Event.on(document, "mouseup", this._onDocumentMouseUp, this, true);
-
-        }
+        Event.on(document, "mouseup", this._onDocumentMouseUp, null, this);
 
     }
     
@@ -1504,9 +1537,8 @@ _onMouseOut: function(p_oEvent) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onDocumentMouseUp: function(p_oEvent, p_oButton) {
+_onDocumentMouseUp: function(p_oEvent) {
 
     this._activationButtonPressed = false;
     this._bOptionPressed = false;
@@ -1535,87 +1567,83 @@ _onDocumentMouseUp: function(p_oEvent, p_oButton) {
 */
 _onMouseDown: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    if((p_oEvent.which || p_oEvent.button) == 1) {
 
-        if((p_oEvent.which || p_oEvent.button) == 1) {
-
-            if(!this.hasFocus()) {
-            
-                this.focus();
-            
-            }
+        if(!this.hasFocus()) {
+        
+            this.focus();
+        
+        }
 
 
-            var sType = this.get("type");
+        var sType = this.get("type");
 
 
-            if(sType == "splitbutton") {
-            
-                var oElement = this.get("element"),
-                    nX = Event.getPageX(p_oEvent) - Dom.getX(oElement);
+        if(sType == "splitbutton") {
+        
+            var oElement = this.get("element"),
+                nX = Event.getPageX(p_oEvent) - Dom.getX(oElement);
 
-                if((oElement.offsetWidth - this.OPTION_AREA_WIDTH) < nX) {
-                    
-                    this.fireEvent("option", p_oEvent);
-
-                }
-                else {
-
-                    this.addClass("active");
-
-                    this._activationButtonPressed = true;
-
-                }
-
-            }
-            else if(sType == "menubutton") {
-
-                if(this.hasClass("active")) {
-
-                    this._hideMenu();
-
-                    this._activationButtonPressed = false;
-
-                }
-                else {
-
-                    this._showMenu();
-
-                    this._activationButtonPressed = true;
+            if((oElement.offsetWidth - this.OPTION_AREA_WIDTH) < nX) {
                 
-                }
+                this.fireEvent("option", p_oEvent);
 
             }
             else {
-    
+
                 this.addClass("active");
+
+                this._activationButtonPressed = true;
+
+            }
+
+        }
+        else if(sType == "menubutton") {
+
+            if(this.hasClass("active")) {
+
+                this._hideMenu();
+
+                this._activationButtonPressed = false;
+
+            }
+            else {
+
+                this._showMenu(p_oEvent);
 
                 this._activationButtonPressed = true;
             
             }
 
+        }
+        else {
+
+            this.addClass("active");
+
+            this._activationButtonPressed = true;
+        
+        }
 
 
-            if(sType == "splitbutton" || sType == "menubutton") {
 
-                var me = this;
+        if(sType == "splitbutton" || sType == "menubutton") {
 
-                
-                function onMouseUp() {
-                
-                    me._hideMenu();
-                    me.removeListener("mouseup", onMouseUp);
-                
-                }
+            var me = this;
 
-
-                this._hideMenuTimerId = window.setTimeout(function() {
-                
-                    me.on("mouseup", onMouseUp);
-                
-                }, 250);
-
+            
+            function onMouseUp() {
+            
+                me._hideMenu();
+                me.removeListener("mouseup", onMouseUp);
+            
             }
+
+
+            this._hideMenuTimerId = window.setTimeout(function() {
+            
+                me.on("mouseup", onMouseUp);
+            
+            }, 250);
 
         }
 
@@ -1633,32 +1661,27 @@ _onMouseDown: function(p_oEvent) {
 */
 _onMouseUp: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    if(this._hideMenuTimerId) {
+
+        window.clearTimeout(this._hideMenuTimerId);
+
+    }
+
+    var sType = this.get("type");
+
+    if(sType == "checkbox" || sType == "radio") {
+
+        this.set("checked", !(this.get("checked")));
+    
+    }
 
 
-        if(this._hideMenuTimerId) {
+    this._activationButtonPressed = false;
+    
 
-            window.clearTimeout(this._hideMenuTimerId);
+    if(this.get("type") != "menubutton") {
 
-        }
-
-        var sType = this.get("type");
-
-        if(sType == "checkbox" || sType == "radio") {
-
-            this.set("checked", !(this.get("checked")));
-        
-        }
-
-
-        this._activationButtonPressed = false;
-        
-
-        if(this.get("type") != "menubutton") {
-
-            this.removeClass("active");
-        
-        }
+        this.removeClass("active");
     
     }
     
@@ -1671,40 +1694,34 @@ _onMouseUp: function(p_oEvent) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button that
-* fired the event.
 */
-_onFocus: function(p_oEvent, p_oButton) {
+_onFocus: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    this.addClass("focus");
 
-        this.addClass("focus");
+    if(this._activationKeyPressed) {
 
-        if(this._activationKeyPressed) {
+        this.addClass("active");
+   
+    }
 
-            this.addClass("active");
-       
-        }
-
-        m_oFocusedButton = this;
+    m_oFocusedButton = this;
 
 
-        if(!this._hasKeyEventHandlers) {
+    if(!this._hasKeyEventHandlers) {
 
-            var oElement = this._button;
+        var oElement = this._button;
 
-            Event.on(oElement, "blur", this._onBlur, this, true);
-            Event.on(oElement, "keydown", this._onKeyDown, this, true);
-            Event.on(oElement, "keyup", this._onKeyUp, this, true);
+        Event.on(oElement, "blur", this._onBlur, null, this);
+        Event.on(oElement, "keydown", this._onKeyDown, null, this);
+        Event.on(oElement, "keyup", this._onKeyUp, null, this);
 
-            this._hasKeyEventHandlers = true;
-
-        }
-
-
-        this.fireEvent("focus", p_oEvent);
+        this._hasKeyEventHandlers = true;
 
     }
+
+
+    this.fireEvent("focus", p_oEvent);
 
 },
 
@@ -1715,32 +1732,27 @@ _onFocus: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onBlur: function(p_oEvent, p_oButton) {
+_onBlur: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    this.removeClass("focus");
 
-        this.removeClass("focus");
+    if(this.get("type") != "menubutton") {
 
-        if(this.get("type") != "menubutton") {
+        this.removeClass("active");
 
-            this.removeClass("active");
+    }    
 
-        }    
+    if(this._activationKeyPressed) {
 
-        if(this._activationKeyPressed) {
-
-            Event.on(document, "keyup", this._onDocumentKeyUp, this, true);
-
-        }
-
-
-        m_oFocusedButton = null;
-
-        this.fireEvent("blur", p_oEvent);
+        Event.on(document, "keyup", this._onDocumentKeyUp, null, this);
 
     }
+
+
+    m_oFocusedButton = null;
+
+    this.fireEvent("blur", p_oEvent);
    
 },
 
@@ -1751,9 +1763,8 @@ _onBlur: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onDocumentKeyUp: function(p_oEvent, p_oButton) {
+_onDocumentKeyUp: function(p_oEvent) {
 
     if(this._isActivationKey(Event.getCharCode(p_oEvent))) {
 
@@ -1772,50 +1783,45 @@ _onDocumentKeyUp: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onKeyDown: function(p_oEvent, p_oButton) {
+_onKeyDown: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    if(
+        this.get("type") == "splitbutton" && 
+        this._isSplitButtonOptionKey(p_oEvent)
+    ) {
 
-        if(
-            this.get("type") == "splitbutton" && 
-            this._isSplitButtonOptionKey(p_oEvent)
-        ) {
+        this.fireEvent("option", p_oEvent);
 
-            this.fireEvent("option", p_oEvent);
+    }
+    else if(this._isActivationKey(Event.getCharCode(p_oEvent))) {
+
+        if(this.get("type") == "menubutton") {
+
+            this._showMenu(p_oEvent);
 
         }
-        else if(this._isActivationKey(Event.getCharCode(p_oEvent))) {
+        else {
 
-            if(this.get("type") == "menubutton") {
-
-                this._showMenu();
-
-            }
-            else {
-
-                this._activationKeyPressed = true;
-                
-                this.addClass("active");
+            this._activationKeyPressed = true;
             
-            }
+            this.addClass("active");
         
         }
+    
+    }
 
 
-        var oMenu = this._menu;
+    var oMenu = this._menu;
 
-        if(
-            oMenu && oMenu.cfg.getProperty("visible") && 
-            Event.getCharCode(p_oEvent) == 27
-        ) {
-        
-            oMenu.hide();
-            this.focus();
-        
-        }
-
+    if(
+        oMenu && oMenu.cfg.getProperty("visible") && 
+        Event.getCharCode(p_oEvent) == 27
+    ) {
+    
+        oMenu.hide();
+        this.focus();
+    
     }
 
 },
@@ -1827,29 +1833,24 @@ _onKeyDown: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onKeyUp: function(p_oEvent, p_oButton) {
+_onKeyUp: function(p_oEvent) {
 
-    if(!this.get("disabled")) {
+    if(this._isActivationKey(Event.getCharCode(p_oEvent))) {
 
-        if(this._isActivationKey(Event.getCharCode(p_oEvent))) {
+        var sType = this.get("type");
 
-            var sType = this.get("type");
+        if(sType == "checkbox" || sType == "radio") {
 
-            if(sType == "checkbox" || sType == "radio") {
+            this.set("checked", !(this.get("checked")));
+        
+        }
 
-                this.set("checked", !(this.get("checked")));
-            
-            }
+        this._activationKeyPressed = false;
 
-            this._activationKeyPressed = false;
+        if(this.get("type") != "menubutton") {
 
-            if(this.get("type") != "menubutton") {
-
-                this.removeClass("active");
-
-            }
+            this.removeClass("active");
 
         }
 
@@ -1896,7 +1897,7 @@ _onClick: function(p_oEvent) {
 
         case "submit":
 
-            this._submitForm();
+            this.submitForm();
         
         break;
 
@@ -1940,7 +1941,7 @@ _onClick: function(p_oEvent) {
     
                 if(oSrcElement && oSrcElement.type == "submit") {
     
-                    this._submitForm();
+                    this.submitForm();
                 
                 }
             
@@ -1979,14 +1980,7 @@ _onAppendTo: function(p_oEvent) {
 
     window.setTimeout(function() {
 
-        var oForm = me.getForm();
-
-        if(oForm) {
-    
-            Event.on(oForm, "reset", me._onFormReset, me, true);
-            Event.on(oForm, "submit", me._onFormSubmit, me, true);
-        
-        }
+        me._addListenersToForm();
 
     }, 0);
 
@@ -1999,9 +1993,8 @@ _onAppendTo: function(p_oEvent) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onFormSubmit: function(p_oEvent, p_oButton) {
+_onFormSubmit: function(p_oEvent) {
 
     var sType = this.get("type"),
         oMenuItem = this.get("selectedMenuItem"),
@@ -2056,9 +2049,8 @@ _onFormSubmit: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onFormReset: function(p_oEvent, p_oButton) {
+_onFormReset: function(p_oEvent) {
 
     var sType = this.get("type");
 
@@ -2083,9 +2075,8 @@ _onFormReset: function(p_oEvent, p_oButton) {
 * @protected
 * @param {Event} p_oEvent Object representing the DOM event object passed 
 * back by the event utility (YAHOO.util.Event).
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onDocumentMouseDown: function(p_oEvent, p_oButton) {
+_onDocumentMouseDown: function(p_oEvent) {
 
     var oTarget = Event.getTarget(p_oEvent),
         oButtonElement = this.get("element"),
@@ -2129,7 +2120,7 @@ _onOption: function(p_oEvent) {
     }
     else {
 
-        this._showMenu();    
+        this._showMenu(p_oEvent);    
 
         this._bOptionPressed = true;
 
@@ -2145,11 +2136,10 @@ _onOption: function(p_oEvent) {
 * @param {String} p_sType String representing the name of the event that 
 * was fired.
 * @param {Array} p_aArgs Array of arguments sent when the event was fired.
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onMenuShow: function(p_sType, p_aArgs, p_oButton) {
+_onMenuShow: function(p_sType, p_aArgs) {
 
-    Event.on(document, "mousedown", this._onDocumentMouseDown, this, true);
+    Event.on(document, "mousedown", this._onDocumentMouseDown, null, this);
 
     var sTitle,
         sClass;
@@ -2180,9 +2170,8 @@ _onMenuShow: function(p_sType, p_aArgs, p_oButton) {
 * @param {String} p_sType String representing the name of the event that 
 * was fired.
 * @param {Array} p_aArgs Array of arguments sent when the event was fired.
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onMenuHide: function(p_sType, p_aArgs, p_oButton) {
+_onMenuHide: function(p_sType, p_aArgs) {
     
     if(this._originalMaxHeight != -1) {
     
@@ -2195,10 +2184,10 @@ _onMenuHide: function(p_sType, p_aArgs, p_oButton) {
         sClass;
     
     if(this.get("type") == "splitbutton") {
-    
+
         sTitle = this.SPLITBUTTON_DEFAULT_TITLE;
         sClass = "activeoption";
-    
+
     }
     else {
 
@@ -2210,6 +2199,13 @@ _onMenuHide: function(p_sType, p_aArgs, p_oButton) {
     this.removeClass(sClass);
     this.set("title", sTitle);
 
+
+    if(this.get("type") == "splitbutton") {
+
+        this._bOptionPressed = false;
+    
+    }
+
 },
 
 
@@ -2220,9 +2216,8 @@ _onMenuHide: function(p_sType, p_aArgs, p_oButton) {
 * @param {String} p_sType String representing the name of the event that 
 * was fired.
 * @param {Array} p_aArgs Array of arguments sent when the event was fired.
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onMenuKeyDown: function(p_sType, p_aArgs, p_oButton) {
+_onMenuKeyDown: function(p_sType, p_aArgs) {
 
     var oEvent = p_aArgs[0];
 
@@ -2248,9 +2243,8 @@ _onMenuKeyDown: function(p_sType, p_aArgs, p_oButton) {
 * @param {String} p_sType String representing the name of the event that 
 * was fired.
 * @param {Array} p_aArgs Array of arguments sent when the event was fired.
-* @param {YAHOO.widget.Button} p_oButton Object representing the button.
 */
-_onMenuRender: function(p_sType, p_aArgs, p_oButton) {
+_onMenuRender: function(p_sType, p_aArgs) {
 
     this.get("element").parentNode.appendChild(this._menu.element);
 
@@ -2306,11 +2300,10 @@ _onMenuItemAdded: function(p_sType, p_aArgs, p_oItem) {
 * @param {String} p_sType String representing the name of the event that 
 * was fired.
 * @param {Array} p_aArgs Array of arguments sent when the event was fired.
-* @param {YAHOO.widget.Button} p_oButton Object representing the menu's button.
 */
-_onMenuClick: function(p_sType, p_aArgs, p_oButton) {
+_onMenuClick: function(p_sType, p_aArgs) {
 
-    var oItem = p_aArgs[0];
+    var oItem = p_aArgs[1];
 
     if(oItem) {
 
@@ -2318,7 +2311,7 @@ _onMenuClick: function(p_sType, p_aArgs, p_oButton) {
     
         if(oSrcElement && oSrcElement.type == "submit") {
     
-            this._submitForm();
+            this.submitForm();
     
         }
     
@@ -2342,14 +2335,21 @@ _onMenuClick: function(p_sType, p_aArgs, p_oButton) {
 */
 createHiddenField: function () {
 
-    if(!this.get("disabled")) {
+    if (!this.get("disabled")) {
 
         var sType = this.get("type"),
         
             bCheckable = (sType == "checkbox" || sType == "radio"),
         
             oField = createInputElement(
-                        (bCheckable ? this.get("type") : "hidden"),
+            
+                        /*
+                            Use "submit" type for IE so that the input 
+                            element will be able to be clicked via a call to 
+                            the "click" method by the "submitForm" method.
+                        */
+            
+                        (bCheckable ? sType : (m_bIE ? "submit" : "hidden")),
                         this.get("name"),
                         this.get("value"),
                         this.get("checked")
@@ -2358,22 +2358,90 @@ createHiddenField: function () {
             oForm = this.getForm();
     
 
-        if(oField && bCheckable) {
-    
-            oField.style.display = "none";      
+        if (oField) {
 
-        }
+            if (bCheckable || oField.type == "submit") {
 
-    
-        if(oForm) {
-    
-            oForm.appendChild(oField);
+                oField.style.display = "none";
+
+            }
+
+
+            if (oForm) {
         
+                var oHiddenField = this._hiddenField;
+        
+                if (oHiddenField && Dom.inDocument(oHiddenField)) {
+        
+                    oForm.replaceChild(oField, oHiddenField);
+        
+                }
+                else {
+        
+                    oForm.appendChild(oField);
+                    
+                }
+            
+            }
+    
+            this._hiddenField = oField;
+    
+            return oField;
+
         }
 
+    }
 
-        return oField;
+},
 
+
+/**
+* @method submitForm
+* @description Submits the form to which the button belongs.
+* @protected
+*/
+submitForm: function(p_oMenuItem) {
+
+    var oForm = this.getForm();
+
+    if (oForm) {
+
+        var oInput = this.createHiddenField();
+
+        if (m_bIE) {
+
+            /*
+                Clicking the button via a call to the "click" method will 
+                cause IE to both fire the form's "submit" event as well as 
+                submit the form.  Originally tried just firing the "submit"
+                event via "fireEvent," but then the event could not 
+                be cancelled.
+            */            
+
+            oInput.click();
+
+        }
+        else {  // Gecko, Opera, and Safari
+
+            var oEvent = document.createEvent("HTMLEvents");
+            oEvent.initEvent("submit", true, true);
+
+            /*
+                In Safari, dispatching a "submit" event to a form WILL cause  
+                the form's "submit" event to fire, but WILL NOT submit the   
+                form.  Therefore, we need to call the "submit" method as well.
+            */
+
+            var bSubmitForm = oForm.dispatchEvent(oEvent);
+          
+            if(m_bSafari && bSubmitForm) {
+
+                oForm.submit();
+            
+            }
+
+        }
+    
     }
 
 },
@@ -2415,9 +2483,16 @@ init: function(p_oElement, p_oAttributes) {
 
 
     this.addClass(this.CSS_CLASS_NAME);
+    
+    if(m_bIE && !m_bIE7) {
+
+        this.addClass("ie6");
+
+    }
+    
     this.addClass(this.get("type"));
 
-    Event.on(this._button, "focus", this._onFocus, this, true);
+    Event.on(this._button, "focus", this._onFocus, null, this);
     this.on("mouseover", this._onMouseOver);
     this.on("click", this._onClick);
     this.on("appendTo", this._onAppendTo);
@@ -2476,18 +2551,9 @@ init: function(p_oElement, p_oAttributes) {
         oSrcElement.tagName.toUpperCase() == "SPAN"
     ) {
 
-        var oForm = this.getForm();
-        
-        if(oForm) {
-    
-            Event.on(oForm, "reset", this._onFormReset, this, true);
-            Event.on(oForm, "submit", this._onFormSubmit, this, true);
-        
-        }
+        this._addListenersToForm();
 
     }
-
-    this.fireEvent("init");
 
 
 },
@@ -2601,7 +2667,7 @@ initAttributes: function(p_oAttributes) {
     * @config disabled
     * @description Boolean indicating if the button should be disabled.  
     * (Disabled buttons are dimmed and will not respond to user input 
-    * or fire events.)
+    * or fire events.  Does not apply to button's of type "link.")
     * @default false
     * @type Boolean
     */
@@ -2758,25 +2824,6 @@ initAttributes: function(p_oAttributes) {
     
     });
 
-
-	/**
-	* @config oninit
-    * @description Object literal representing the code to be executed when 
-    * the button is initialized.  Format:<br> <code> {<br> 
-    * <strong>fn:</strong> Function,   &#47;&#47; The handler to call when the 
-    * event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object to 
-    * pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-    * The object to use for the scope of the handler.<br> } </code>
-    * @type Object
-	* @default null
-	*/
-    this.setAttributeConfig("oninit", {
-
-        value: oAttributes.oninit,
-        method: this._setOnInit
-    
-    });
-
 },
 
 
@@ -2850,13 +2897,27 @@ getMenu: function() {
 
 /**
 * @method getForm
-* @description Returns a reference to the button's menu.
+* @description Returns a reference to the button's parent form.
 * @return {<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
 * one-html.html#ID-40002357">HTMLFormElement</a>}
 */
 getForm: function() {
 
     return this._button.form;
+
+},
+
+
+/** 
+* @method getHiddenField
+* @description Returns a reference to the <code>&#60;input&#62;</code> element 
+* used when the button's parent form is submitted.
+* @return {<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+* one-html.html#ID-6043025">HTMLInputElement</a>}
+*/
+getHiddenField: function() {
+
+    return this._hiddenField;
 
 },
 
@@ -2887,12 +2948,14 @@ destroy: function() {
     Event.removeListener(document, "keyup", this._onDocumentKeyUp);
     Event.removeListener(document, "mousedown", this._onDocumentMouseDown);
 
+
     var oForm = this.getForm();
     
     if(oForm) {
 
         Event.removeListener(oForm, "reset", this._onFormReset);
-    
+        Event.removeListener(oForm, "submit", this._onFormSubmit);
+
     }
 
 
@@ -2901,6 +2964,21 @@ destroy: function() {
 
     delete m_oButtons[this.get("id")];
 
+
+},
+
+
+fireEvent: function(p_sType , p_aArgs) {
+
+    //  Disabled buttons should not respond to DOM events
+
+    if(this.DOM_EVENTS[p_sType] && this.get("disabled")) {
+
+        return;
+
+    }
+
+    YAHOO.widget.Button.superclass.fireEvent.call(this, p_sType, p_aArgs);
 
 },
 
@@ -2917,6 +2995,83 @@ toString: function() {
 }
 
 });
+
+
+/**
+* @method onFormKeyDown
+* @description "keydown" event handler for the button's form.
+* @param {Event} p_oEvent Object representing the DOM event object passed 
+* back by the event utility (YAHOO.util.Event).
+*/
+YAHOO.widget.Button.onFormKeyDown = function(p_oEvent) {
+
+    var oTarget = Event.getTarget(p_oEvent),
+        nCharCode = Event.getCharCode(p_oEvent);
+
+
+    if (
+        nCharCode == 13 && 
+        oTarget.tagName && 
+        oTarget.tagName.toUpperCase() == "INPUT"
+    ) {
+
+        var sType = oTarget.type;
+
+
+        if(
+            sType == "text" || sType == "password" || sType == "checkbox" || 
+            sType == "radio" || sType == "file"
+        ) {
+
+
+            function isYUISubmitButton(p_oElement) {
+    
+                var sId = p_oElement.id;
+    
+                if (sId) {
+    
+                    var oButton = m_oButtons[sId];
+        
+                    if (oButton) {
+        
+                        var oSrcElement = oButton.get("srcelement");
+        
+                        return (
+                                    oButton.get("type") == "submit" || 
+                                    (
+                                        oSrcElement && 
+                                        oSrcElement.type == "submit"
+                                    )
+                                );
+        
+                    }
+                
+                }
+            
+            }
+    
+    
+            var aButtons = Dom.getElementsBy(
+                                isYUISubmitButton,
+                                this.TAG_NAME, 
+                                this.getForm()
+                            ),
+    
+                nButtons = aButtons.length;
+    
+    
+            if (nButtons > 0) {
+    
+                m_oButtons[aButtons[0].id].submitForm();
+            
+            }
+
+        
+        }
+
+    }
+
+};
 
 
 /**
@@ -2969,7 +3124,7 @@ YAHOO.widget.Button.addHiddenFieldsToForm = function(p_oForm) {
                         oSrcElement.tagName.toUpperCase() == "SELECT"
                     ) {
             
-                        oButton.getForm().appendChild(oSrcElement);
+                        p_oForm.appendChild(oSrcElement);
                         oSrcElement.selectedIndex = oMenuItem.index;
             
                     }
@@ -2982,14 +3137,25 @@ YAHOO.widget.Button.addHiddenFieldsToForm = function(p_oForm) {
                                     oMenuItem.value;
 
                         if(oValue) {
+
+                            var oHiddenField = oButton.getHiddenField(),
     
-                            var oField = createInputElement(
+                                oField = createInputElement(
                                             "hidden",
                                             (oButton.get("name") + "_options"),
                                             oValue
                                         );
-        
-                            oButton.getForm().appendChild(oField);
+                                        
+                            if(oHiddenField && Dom.inDocument(oHiddenField)) {
+
+                                p_oForm.replaceChild(oField, oHiddenField);
+
+                            }
+                            else {
+
+                                p_oForm.appendChild(oField);
+                            
+                            }
     
                         }
     
@@ -3039,18 +3205,6 @@ YAHOO.widget.Button.addHiddenFieldsToForm = function(p_oForm) {
 * "keydown") that caused the "option" event to fire.  See <a href="
 * YAHOO.util.Element.html#addListener">Element.addListener</a> for more 
 * information on listening for this event.
-* @type YAHOO.util.CustomEvent
-*/
-
-
-/**
-* @event init
-* @description Fires when the Button is initialized.  Subscribe to this event
-* by specifying a value for the "oninit" configuration attribute.  Format:<br> 
-* <code> {<br> <strong>fn:</strong> Function,   &#47;&#47; The handler to call  
-* when the event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object
-* to pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-* The object to use for the scope of the handler.<br> } </code>
 * @type YAHOO.util.CustomEvent
 */
 
@@ -3113,18 +3267,18 @@ YAHOO.widget.ButtonGroup = function(p_oElement, p_oAttributes) {
     }
     else if(Lang.isString(p_oElement)) {
 
-        var me = this;
+        var oElement = Dom.get(p_oElement);
 
-        Event.onContentReady(p_oElement, function() {
+        if (oElement) {
         
-            if(this.nodeName.toUpperCase() == me.TAG_NAME) {
+            if(oElement.nodeName.toUpperCase() == this.TAG_NAME) {
 
         
-                fnSuperClass.call(me, this, p_oAttributes);
+                fnSuperClass.call(this, oElement, p_oAttributes);
 
             }
 
-        });
+        }
     
     }
     else {
@@ -3164,17 +3318,6 @@ YAHOO.extend(YAHOO.widget.ButtonGroup, YAHOO.util.Element, {
 * @type Array
 */
 _buttons: null,
-
-
-/** 
-* @property _oninitAttributeValue
-* @description Object reference to the button group's current value for the 
-* "oninit" configuration attribute.
-* @default null
-* @protected
-* @type Object
-*/
-_oninitAttributeValue: null,
 
 
 
@@ -3255,46 +3398,6 @@ _setDisabled: function(p_bDisabled) {
 },
 
 
-/**
-* @method _setOnInit
-* @description Sets the value of the button group's "init" attribute.
-* @protected
-* @param {Object} p_oObject Object indicating the value for the button's 
-* "oninit" attribute.
-*/
-_setOnInit: function(p_oObject) {
-
-    /*
-        Remove any existing listeners if a "init" event handler has already 
-        been specified.
-    */
-
-    if(
-        this._oninitAttributeValue && 
-        (this._oninitAttributeValue != p_oObject)
-    ) {
-
-        this.removeListener("init", this._oninitAttributeValue.fn);
-
-        this._oninitAttributeValue = null;
-
-    }
-
-
-    if(
-        !this._oninitAttributeValue && 
-        Lang.isObject(p_oObject) && 
-        Lang.isFunction(p_oObject.fn)
-    ) {
-
-        this.on("init", p_oObject.fn, p_oObject.obj, p_oObject.scope);
-
-        this._oninitAttributeValue = p_oObject;
-
-    }
-
-},
-
 
 // Protected event handlers
 
@@ -3366,8 +3469,7 @@ _onAppendTo: function(p_oEvent) {
 * @protected
 * @param {Event} p_oEvent Object representing the event that was fired.
 * @param {<a href="YAHOO.widget.Button.html">YAHOO.widget.Button</a>} p_oButton 
-* Object representing the button that 
-* fired the event.
+* Object representing the button that fired the event.
 */
 _onButtonCheckedChange: function(p_oEvent, p_oButton) {
 
@@ -3478,8 +3580,6 @@ init: function(p_oElement, p_oAttributes) {
     }
 
 
-    this.fireEvent("init");
-
 
 },
 
@@ -3574,25 +3674,6 @@ initAttributes: function(p_oAttributes) {
 
         value: null
 
-    });
-
-
-	/**
-	* @config oninit
-    * @description Object literal representing the code to be executed when 
-    * the button group is initialized.  Format:<br> <code> {<br> 
-    * <strong>fn:</strong> Function,   &#47;&#47; The handler to call when the 
-    * event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object to 
-    * pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-    * The object to use for the scope of the handler.<br> } </code>
-    * @type Object
-	* @default null
-	*/
-    this.setAttributeConfig("oninit", {
-
-        value: oAttributes.oninit,
-        method: this._setOnInit
-    
     });
 
 },
@@ -3896,7 +3977,7 @@ destroy: function() {
     if(nButtons > 0) {
 
         var i = this._buttons.length - 1;
-        
+
         do {
 
             this._buttons[i].destroy();
@@ -3928,22 +4009,5 @@ toString: function() {
 
 });
 
-
-
-// Events
-
-
-/**
-* @event init
-* @description Fires when the button group is initialized.  Subscribe to this 
-* event by specifying a value for the "oninit" configuration attribute.  
-* Format:<br> <code> {<br> <strong>fn:</strong> Function,   &#47;&#47; The 
-* handler to call when the event fires.<br> <strong>obj:</strong> Object, 
-* &#47;&#47; An object to pass back to the handler.<br> <strong>scope:</strong>
-* Object &#47;&#47; The object to use for the scope of the handler.<br> 
-* } </code>
-* @type YAHOO.util.CustomEvent
-*/
-
 })();
-YAHOO.register("button", YAHOO.widget.Button, {version: "2.2.0", build: "127"});
+YAHOO.register("button", YAHOO.widget.Button, {version: "2.2.2", build: "204"});

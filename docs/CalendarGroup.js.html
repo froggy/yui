@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Calendar&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Calendar&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_calendar.html">calendar</a>
@@ -143,13 +143,16 @@
 
 
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">setupConfig</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+	
+	<span class="k">var</span> <span class="nx">defCfg</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">;</span>
+	
 	<span class="c">/**</span>
 <span class="c">	* The number of pages to include in the CalendarGroup. This value can only be set once, in the CalendarGroup&#39;s constructor arguments.</span>
 <span class="c">	* @config pages</span>
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 2</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;pages&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">2</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configPages</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">PAGES</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">PAGES</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configPages</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The month/year representing the current visible Calendar date (mm/yyyy)</span>
@@ -157,7 +160,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default today&#39;s date</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="k">new</span> <span class="nb">Date</span><span class="o">(),</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configPageDate</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">PAGEDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="k">new</span> <span class="nb">Date</span><span class="o">(),</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configPageDate</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The date or range of dates representing the current Calendar selection</span>
@@ -165,7 +168,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default []</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:[],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:[],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configSelected</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The title to display above the CalendarGroup&#39;s month header</span>
@@ -173,7 +176,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;&quot;</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;title&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configTitle</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">TITLE</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">TITLE</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configTitle</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Whether or not a close button should be displayed for this CalendarGroup</span>
@@ -181,7 +184,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default false</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;close&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configClose</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">CLOSE</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">CLOSE</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configClose</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Whether or not an iframe shim should be placed under the Calendar to prevent select boxes from bleeding through in Internet Explorer 6 and below.</span>
@@ -189,7 +192,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default true</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;iframe&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">IFRAME</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">IFRAME</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configIframe</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The minimum selectable date in the current Calendar (mm/dd/yyyy)</span>
@@ -197,7 +200,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default null</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;mindate&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MINDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MINDATE</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The maximum selectable date in the current Calendar (mm/dd/yyyy)</span>
@@ -205,7 +208,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default null</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;maxdate&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span>  <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MAXDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MAXDATE</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span>  <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">// Options properties</span>
 <span class="c"></span>
@@ -215,7 +218,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default false</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MULTI_SELECT&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MULTI_SELECT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MULTI_SELECT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The weekday the week begins on. Default is 0 (Sunday).</span>
@@ -223,7 +226,7 @@
 <span class="c">	* @type number</span>
 <span class="c">	* @default 0</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;START_WEEKDAY&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">0</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span>  <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">START_WEEKDAY</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">START_WEEKDAY</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span>  <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* True if the Calendar should show weekday labels. True by default.</span>
@@ -231,7 +234,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default true</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;SHOW_WEEKDAYS&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">true</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEKDAYS</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEKDAYS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* True if the Calendar should show week row headers. False by default.</span>
@@ -239,7 +242,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default false</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;SHOW_WEEK_HEADER&quot;</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEK_HEADER</span><span class="o">.</span><span class="nx">key</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEK_HEADER</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* True if the Calendar should show week row footers. False by default.</span>
@@ -247,7 +250,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default false</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;SHOW_WEEK_FOOTER&quot;</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEK_FOOTER</span><span class="o">.</span><span class="nx">key</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">SHOW_WEEK_FOOTER</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* True if the Calendar should suppress weeks that are not a part of the current month. False by default.</span>
@@ -255,7 +258,7 @@
 <span class="c">	* @type Boolean</span>
 <span class="c">	* @default false</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;HIDE_BLANK_WEEKS&quot;</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">false</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">HIDE_BLANK_WEEKS</span><span class="o">.</span><span class="nx">key</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">HIDE_BLANK_WEEKS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The image that should be used for the left navigation arrow.</span>
@@ -264,7 +267,7 @@
 <span class="c">	* @deprecated	You can customize the image by overriding the default CSS class for the left arrow - &quot;calnavleft&quot;</span>
 <span class="c">	* @default null</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;NAV_ARROW_LEFT&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">NAV_ARROW_LEFT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">NAV_ARROW_LEFT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The image that should be used for the right navigation arrow.</span>
@@ -273,7 +276,7 @@
 <span class="c">	* @deprecated	You can customize the image by overriding the default CSS class for the right arrow - &quot;calnavright&quot;</span>
 <span class="c">	* @default null</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;NAV_ARROW_RIGHT&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="kc">null</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">NAV_ARROW_RIGHT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">NAV_ARROW_RIGHT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">// Locale properties</span>
 <span class="c"></span>	
@@ -283,7 +286,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;]</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MONTHS_SHORT&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;Jan&quot;</span><span class="o">,</span> <span class="s2">&quot;Feb&quot;</span><span class="o">,</span> <span class="s2">&quot;Mar&quot;</span><span class="o">,</span> <span class="s2">&quot;Apr&quot;</span><span class="o">,</span> <span class="s2">&quot;May&quot;</span><span class="o">,</span> <span class="s2">&quot;Jun&quot;</span><span class="o">,</span> <span class="s2">&quot;Jul&quot;</span><span class="o">,</span> <span class="s2">&quot;Aug&quot;</span><span class="o">,</span> <span class="s2">&quot;Sep&quot;</span><span class="o">,</span> <span class="s2">&quot;Oct&quot;</span><span class="o">,</span> <span class="s2">&quot;Nov&quot;</span><span class="o">,</span> <span class="s2">&quot;Dec&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MONTHS_SHORT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MONTHS_SHORT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The long month labels for the current locale.</span>
@@ -291,7 +294,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MONTHS_LONG&quot;</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;January&quot;</span><span class="o">,</span> <span class="s2">&quot;February&quot;</span><span class="o">,</span> <span class="s2">&quot;March&quot;</span><span class="o">,</span> <span class="s2">&quot;April&quot;</span><span class="o">,</span> <span class="s2">&quot;May&quot;</span><span class="o">,</span> <span class="s2">&quot;June&quot;</span><span class="o">,</span> <span class="s2">&quot;July&quot;</span><span class="o">,</span> <span class="s2">&quot;August&quot;</span><span class="o">,</span> <span class="s2">&quot;September&quot;</span><span class="o">,</span> <span class="s2">&quot;October&quot;</span><span class="o">,</span> <span class="s2">&quot;November&quot;</span><span class="o">,</span> <span class="s2">&quot;December&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MONTHS_LONG</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MONTHS_LONG</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The 1-character weekday labels for the current locale.</span>
@@ -299,7 +302,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;S&quot;, &quot;M&quot;, &quot;T&quot;, &quot;W&quot;, &quot;T&quot;, &quot;F&quot;, &quot;S&quot;]</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;WEEKDAYS_1CHAR&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;S&quot;</span><span class="o">,</span> <span class="s2">&quot;M&quot;</span><span class="o">,</span> <span class="s2">&quot;T&quot;</span><span class="o">,</span> <span class="s2">&quot;W&quot;</span><span class="o">,</span> <span class="s2">&quot;T&quot;</span><span class="o">,</span> <span class="s2">&quot;F&quot;</span><span class="o">,</span> <span class="s2">&quot;S&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_1CHAR</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_1CHAR</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The short weekday labels for the current locale.</span>
@@ -307,7 +310,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;Su&quot;, &quot;Mo&quot;, &quot;Tu&quot;, &quot;We&quot;, &quot;Th&quot;, &quot;Fr&quot;, &quot;Sa&quot;]</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;WEEKDAYS_SHORT&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;Su&quot;</span><span class="o">,</span> <span class="s2">&quot;Mo&quot;</span><span class="o">,</span> <span class="s2">&quot;Tu&quot;</span><span class="o">,</span> <span class="s2">&quot;We&quot;</span><span class="o">,</span> <span class="s2">&quot;Th&quot;</span><span class="o">,</span> <span class="s2">&quot;Fr&quot;</span><span class="o">,</span> <span class="s2">&quot;Sa&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_SHORT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_SHORT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The medium weekday labels for the current locale.</span>
@@ -315,7 +318,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;]</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;WEEKDAYS_MEDIUM&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;Sun&quot;</span><span class="o">,</span> <span class="s2">&quot;Mon&quot;</span><span class="o">,</span> <span class="s2">&quot;Tue&quot;</span><span class="o">,</span> <span class="s2">&quot;Wed&quot;</span><span class="o">,</span> <span class="s2">&quot;Thu&quot;</span><span class="o">,</span> <span class="s2">&quot;Fri&quot;</span><span class="o">,</span> <span class="s2">&quot;Sat&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_MEDIUM</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_MEDIUM</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The long weekday labels for the current locale.</span>
@@ -323,7 +326,7 @@
 <span class="c">	* @type String[]</span>
 <span class="c">	* @default [&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;]</span>
 <span class="c">	*/</span>		
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;WEEKDAYS_LONG&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:[</span><span class="s2">&quot;Sunday&quot;</span><span class="o">,</span> <span class="s2">&quot;Monday&quot;</span><span class="o">,</span> <span class="s2">&quot;Tuesday&quot;</span><span class="o">,</span> <span class="s2">&quot;Wednesday&quot;</span><span class="o">,</span> <span class="s2">&quot;Thursday&quot;</span><span class="o">,</span> <span class="s2">&quot;Friday&quot;</span><span class="o">,</span> <span class="s2">&quot;Saturday&quot;</span><span class="o">],</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_LONG</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">WEEKDAYS_LONG</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The setting that determines which length of month labels should be used. Possible values are &quot;short&quot; and &quot;long&quot;.</span>
@@ -331,7 +334,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;long&quot;</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;LOCALE_MONTHS&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;long&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">LOCALE_MONTHS</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">LOCALE_MONTHS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The setting that determines which length of weekday labels should be used. Possible values are &quot;1char&quot;, &quot;short&quot;, &quot;medium&quot;, and &quot;long&quot;.</span>
@@ -339,7 +342,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;short&quot;</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;LOCALE_WEEKDAYS&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;short&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">LOCALE_WEEKDAYS</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">LOCALE_WEEKDAYS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The value used to delimit individual dates in a date string passed to various Calendar functions.</span>
@@ -347,7 +350,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;,&quot;</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;DATE_DELIMITER&quot;</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;,&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_DELIMITER</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_DELIMITER</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The value used to delimit date fields in a date string passed to various Calendar functions.</span>
@@ -355,7 +358,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;/&quot;</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;DATE_FIELD_DELIMITER&quot;</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;/&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_FIELD_DELIMITER</span><span class="o">.</span><span class="nx">key</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_FIELD_DELIMITER</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The value used to delimit date ranges in a date string passed to various Calendar functions.</span>
@@ -363,7 +366,7 @@
 <span class="c">	* @type String</span>
 <span class="c">	* @default &quot;-&quot;</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;DATE_RANGE_DELIMITER&quot;</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="s2">&quot;-&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_RANGE_DELIMITER</span><span class="o">.</span><span class="nx">key</span><span class="o">,{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">DATE_RANGE_DELIMITER</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span> <span class="o">}</span> <span class="o">);</span>
 
 	<span class="c">/**</span>
 <span class="c">	* The position of the month in a month/year date string</span>
@@ -371,7 +374,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 1</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MY_MONTH_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">1</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MY_MONTH_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MY_MONTH_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the year in a month/year date string</span>
@@ -379,7 +382,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 2</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MY_YEAR_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">2</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MY_YEAR_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MY_YEAR_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the month in a month/day date string</span>
@@ -387,7 +390,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 1</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MD_MONTH_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">1</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MD_MONTH_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MD_MONTH_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the day in a month/year date string</span>
@@ -395,7 +398,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 2</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MD_DAY_POSITION&quot;</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">2</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MD_DAY_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>		<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MD_DAY_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the month in a month/day/year date string</span>
@@ -403,7 +406,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 1</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MDY_MONTH_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">1</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_MONTH_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_MONTH_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the day in a month/day/year date string</span>
@@ -411,7 +414,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 2</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MDY_DAY_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">2</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_DAY_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_DAY_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* The position of the year in a month/day/year date string</span>
@@ -419,7 +422,7 @@
 <span class="c">	* @type Number</span>
 <span class="c">	* @default 3</span>
 <span class="c">	*/</span>	
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;MDY_YEAR_POSITION&quot;</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="m">3</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_YEAR_POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>	<span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nx">defCfg</span><span class="o">.</span><span class="nx">MDY_YEAR_POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkNumber</span> <span class="o">}</span> <span class="o">);</span>
 
 <span class="o">};</span>
 
@@ -429,6 +432,7 @@
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">initEvents</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 	<span class="k">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+	<span class="k">var</span> <span class="nx">strEvent</span> <span class="o">=</span> <span class="s2">&quot;Event&quot;</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Proxy subscriber to subscribe to the CalendarGroup&#39;s child Calendars&#39; CustomEvents</span>
@@ -441,7 +445,7 @@
 	<span class="k">var</span> <span class="nx">sub</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">,</span> <span class="nx">bOverride</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="nx">me</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 			<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="nx">me</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
-			<span class="nx">cal</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">type</span> <span class="o">+</span> <span class="s2">&quot;Event&quot;</span><span class="o">].</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">,</span> <span class="nx">bOverride</span><span class="o">);</span>
+			<span class="nx">cal</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">type</span> <span class="o">+</span> <span class="nx">strEvent</span><span class="o">].</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">,</span> <span class="nx">bOverride</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">};</span>
 
@@ -455,15 +459,17 @@
 	<span class="k">var</span> <span class="nx">unsub</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="nx">me</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 			<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="nx">me</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
-			<span class="nx">cal</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">type</span> <span class="o">+</span> <span class="s2">&quot;Event&quot;</span><span class="o">].</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">);</span>
+			<span class="nx">cal</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">type</span> <span class="o">+</span> <span class="nx">strEvent</span><span class="o">].</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">obj</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">};</span>
+	
+	<span class="k">var</span> <span class="nx">defEvents</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Calendar</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired before a selection is made</span>
 <span class="c">	* @event beforeSelectEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">beforeSelectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;beforeSelect&quot;</span><span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">beforeSelectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">BEFORE_SELECT</span><span class="o">);</span>
 	<span class="k">this</span><span class="o">.</span><span class="nx">beforeSelectEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">beforeSelectEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
@@ -471,14 +477,14 @@
 <span class="c">	* @event selectEvent</span>
 <span class="c">	* @param {Array}	Array of Date field arrays in the format [YYYY, MM, DD].</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">selectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;select&quot;</span><span class="o">);</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">selectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">SELECT</span><span class="o">);</span> 
 	<span class="k">this</span><span class="o">.</span><span class="nx">selectEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">selectEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired before a selection is made</span>
 <span class="c">	* @event beforeDeselectEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">beforeDeselectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;beforeDeselect&quot;</span><span class="o">);</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">beforeDeselectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">BEFORE_DESELECT</span><span class="o">);</span> 
 	<span class="k">this</span><span class="o">.</span><span class="nx">beforeDeselectEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">beforeDeselectEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
@@ -486,42 +492,42 @@
 <span class="c">	* @event deselectEvent</span>
 <span class="c">	* @param {Array}	Array of Date field arrays in the format [YYYY, MM, DD].</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">deselectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;deselect&quot;</span><span class="o">);</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">deselectEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">DESELECT</span><span class="o">);</span> 
 	<span class="k">this</span><span class="o">.</span><span class="nx">deselectEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">deselectEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 	
 	<span class="c">/**</span>
 <span class="c">	* Fired when the Calendar page is changed</span>
 <span class="c">	* @event changePageEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">changePageEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;changePage&quot;</span><span class="o">);</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">changePageEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">CHANGE_PAGE</span><span class="o">);</span> 
 	<span class="k">this</span><span class="o">.</span><span class="nx">changePageEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">changePageEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired before the Calendar is rendered</span>
 <span class="c">	* @event beforeRenderEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">beforeRenderEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;beforeRender&quot;</span><span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">beforeRenderEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">BEFORE_RENDER</span><span class="o">);</span>
 	<span class="k">this</span><span class="o">.</span><span class="nx">beforeRenderEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">beforeRenderEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired when the Calendar is rendered</span>
 <span class="c">	* @event renderEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;render&quot;</span><span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">RENDER</span><span class="o">);</span>
 	<span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired when the Calendar is reset</span>
 <span class="c">	* @event resetEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">resetEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;reset&quot;</span><span class="o">);</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">resetEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">RESET</span><span class="o">);</span> 
 	<span class="k">this</span><span class="o">.</span><span class="nx">resetEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">resetEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 	<span class="c">/**</span>
 <span class="c">	* Fired when the Calendar is cleared</span>
 <span class="c">	* @event clearEvent</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">clearEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;clear&quot;</span><span class="o">);</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">clearEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">defEvents</span><span class="o">.</span><span class="nx">CLEAR</span><span class="o">);</span>
 	<span class="k">this</span><span class="o">.</span><span class="nx">clearEvent</span><span class="o">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="nx">sub</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="nx">clearEvent</span><span class="o">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">unsub</span><span class="o">;</span>
 
 <span class="o">};</span>
@@ -536,28 +542,36 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">configPages</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">type</span><span class="o">,</span> <span class="nx">args</span><span class="o">,</span> <span class="nx">obj</span><span class="o">)</span> <span class="o">{</span>
 	<span class="k">var</span> <span class="nx">pageCount</span> <span class="o">=</span> <span class="nx">args</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
 
+	<span class="k">var</span> <span class="nx">cfgPageDate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGEDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">;</span>
+
+	<span class="c">// Define literals outside loop	</span>
+<span class="c"></span>	<span class="k">var</span> <span class="nx">sep</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">;</span>
+	<span class="k">var</span> <span class="nx">groupCalClass</span> <span class="o">=</span> <span class="s2">&quot;groupcal&quot;</span><span class="o">;</span>
+	<span class="k">var</span> <span class="nx">firstClass</span> <span class="o">=</span> <span class="s2">&quot;first&quot;</span><span class="o">;</span>
+	<span class="k">var</span> <span class="nx">lastClass</span> <span class="o">=</span> <span class="s2">&quot;last&quot;</span><span class="o">;</span>
+
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="nx">pageCount</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">var</span> <span class="nx">calId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nx">p</span><span class="o">;</span>
-		<span class="k">var</span> <span class="nx">calContainerId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">containerId</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nx">p</span><span class="o">;</span>
+		<span class="k">var</span> <span class="nx">calId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span> <span class="o">+</span> <span class="nx">sep</span> <span class="o">+</span> <span class="nx">p</span><span class="o">;</span>
+		<span class="k">var</span> <span class="nx">calContainerId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">containerId</span> <span class="o">+</span> <span class="nx">sep</span> <span class="o">+</span> <span class="nx">p</span><span class="o">;</span>
 
 		<span class="k">var</span> <span class="nx">childConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getConfig</span><span class="o">();</span>
 		<span class="nx">childConfig</span><span class="o">.</span><span class="nx">close</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 		<span class="nx">childConfig</span><span class="o">.</span><span class="nx">title</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
 		<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">constructChild</span><span class="o">(</span><span class="nx">calId</span><span class="o">,</span> <span class="nx">calContainerId</span><span class="o">,</span> <span class="nx">childConfig</span><span class="o">);</span>
-		<span class="k">var</span> <span class="nx">caldate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">);</span>
+		<span class="k">var</span> <span class="nx">caldate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">);</span>
 		<span class="k">this</span><span class="o">.</span><span class="nx">_setMonthOnDate</span><span class="o">(</span><span class="nx">caldate</span><span class="o">,</span> <span class="nx">caldate</span><span class="o">.</span><span class="nx">getMonth</span><span class="o">()</span> <span class="o">+</span> <span class="nx">p</span><span class="o">);</span>
-		<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span> <span class="nx">caldate</span><span class="o">);</span>
+		<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">,</span> <span class="nx">caldate</span><span class="o">);</span>
 		
 		<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">Style</span><span class="o">.</span><span class="nx">CSS_SINGLE</span><span class="o">);</span>
-		<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="s2">&quot;groupcal&quot;</span><span class="o">);</span>
+		<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="nx">groupCalClass</span><span class="o">);</span>
 		
 		<span class="k">if</span> <span class="o">(</span><span class="nx">p</span><span class="o">===</span><span class="m">0</span><span class="o">)</span> <span class="o">{</span>
-			<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="s2">&quot;first&quot;</span><span class="o">);</span>
+			<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="nx">firstClass</span><span class="o">);</span>
 		<span class="o">}</span>
 
 		<span class="k">if</span> <span class="o">(</span><span class="nx">p</span><span class="o">==(</span><span class="nx">pageCount</span><span class="o">-</span><span class="m">1</span><span class="o">))</span> <span class="o">{</span>
-			<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="s2">&quot;last&quot;</span><span class="o">);</span>
+			<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">cal</span><span class="o">.</span><span class="nx">oDomContainer</span><span class="o">,</span> <span class="nx">lastClass</span><span class="o">);</span>
 		<span class="o">}</span>
 		
 		<span class="nx">cal</span><span class="o">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
@@ -578,18 +592,35 @@
 	<span class="k">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nx">args</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
 	<span class="k">var</span> <span class="nx">firstPageDate</span><span class="o">;</span>
 	
+	<span class="k">var</span> <span class="nx">cfgPageDate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGEDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">;</span>
+	
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
 		<span class="k">if</span> <span class="o">(</span><span class="nx">p</span> <span class="o">===</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
 			<span class="nx">firstPageDate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">_parsePageDate</span><span class="o">(</span><span class="nx">val</span><span class="o">);</span>
-			<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span> <span class="nx">firstPageDate</span><span class="o">);</span>
+			<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">,</span> <span class="nx">firstPageDate</span><span class="o">);</span>
 		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
 			<span class="k">var</span> <span class="nx">pageDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="o">(</span><span class="nx">firstPageDate</span><span class="o">);</span>
 			<span class="k">this</span><span class="o">.</span><span class="nx">_setMonthOnDate</span><span class="o">(</span><span class="nx">pageDate</span><span class="o">,</span> <span class="nx">pageDate</span><span class="o">.</span><span class="nx">getMonth</span><span class="o">()</span> <span class="o">+</span> <span class="nx">p</span><span class="o">);</span>
-			<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span> <span class="nx">pageDate</span><span class="o">);</span>
+			<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">,</span> <span class="nx">pageDate</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
 <span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c">* The default Config handler for the CalendarGroup &quot;selected&quot; property</span>
+<span class="c">* @method configSelected</span>
+<span class="c">* @param {String} type	The CustomEvent type (usually the property name)</span>
+<span class="c">* @param {Object[]}	args	The CustomEvent arguments. For configuration handlers, args[0] will equal the newly applied value for the property.</span>
+<span class="c">* @param {Object} obj	The scope object. For configuration handlers, this will usually equal the owner.</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">configSelected</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">type</span><span class="o">,</span> <span class="nx">args</span><span class="o">,</span> <span class="nx">obj</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">var</span> <span class="nx">cfgSelected</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">key</span><span class="o">;</span>
+	<span class="k">this</span><span class="o">.</span><span class="nx">delegateConfig</span><span class="o">(</span><span class="nx">type</span><span class="o">,</span> <span class="nx">args</span><span class="o">,</span> <span class="nx">obj</span><span class="o">);</span>
+	<span class="k">var</span> <span class="nx">selected</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">?</span> <span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="m">0</span><span class="o">].</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">cfgSelected</span><span class="o">)</span> <span class="o">:</span> <span class="o">[];</span> 
+	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">cfgSelected</span><span class="o">,</span> <span class="nx">selected</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="o">};</span>
+
 
 <span class="c">/**</span>
 <span class="c">* Delegates a configuration property to the CustomEvents associated with the CalendarGroup&#39;s children</span>
@@ -616,7 +647,7 @@
 <span class="c">* @param {Function}		fn			The function to apply to each Calendar page object</span>
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">setChildFunction</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">fnName</span><span class="o">,</span> <span class="nx">fn</span><span class="o">)</span> <span class="o">{</span>
-	<span class="k">var</span> <span class="nx">pageCount</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;pages&quot;</span><span class="o">);</span>
+	<span class="k">var</span> <span class="nx">pageCount</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGES</span><span class="o">.</span><span class="nx">key</span><span class="o">);</span>
 
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="nx">pageCount</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">][</span><span class="nx">fnName</span><span class="o">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="o">;</span>
@@ -630,7 +661,7 @@
 <span class="c">* @param {Array}		args		The arguments to pass to the function</span>
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">callChildFunction</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">fnName</span><span class="o">,</span> <span class="nx">args</span><span class="o">)</span> <span class="o">{</span>
-	<span class="k">var</span> <span class="nx">pageCount</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;pages&quot;</span><span class="o">);</span>
+	<span class="k">var</span> <span class="nx">pageCount</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGES</span><span class="o">.</span><span class="nx">key</span><span class="o">);</span>
 
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="nx">pageCount</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">var</span> <span class="nx">page</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
@@ -671,16 +702,18 @@
 	<span class="nx">month</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">month</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
 	<span class="k">var</span> <span class="nx">currYear</span><span class="o">;</span>
 	
+	<span class="k">var</span> <span class="nx">cfgPageDate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGEDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">;</span>
+	
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">p</span><span class="o">&lt;</span><span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="o">++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
-		<span class="k">var</span> <span class="nx">pageDate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">);</span>
+		<span class="k">var</span> <span class="nx">pageDate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">);</span>
 		<span class="k">if</span> <span class="o">(</span><span class="nx">p</span> <span class="o">===</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
 			<span class="nx">currYear</span> <span class="o">=</span> <span class="nx">pageDate</span><span class="o">.</span><span class="nx">getFullYear</span><span class="o">();</span>
 		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
 			<span class="nx">pageDate</span><span class="o">.</span><span class="nx">setYear</span><span class="o">(</span><span class="nx">currYear</span><span class="o">);</span>
 		<span class="o">}</span>
 		<span class="k">this</span><span class="o">.</span><span class="nx">_setMonthOnDate</span><span class="o">(</span><span class="nx">pageDate</span><span class="o">,</span> <span class="nx">month</span><span class="o">+</span><span class="nx">p</span><span class="o">);</span> 
-		<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;pagedate&quot;</span><span class="o">,</span> <span class="nx">pageDate</span><span class="o">);</span>
+		<span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">,</span> <span class="nx">pageDate</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">};</span>
 
@@ -691,10 +724,13 @@
 <span class="c">* @param {Number}	year		The numeric 4-digit year</span>
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">setYear</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">year</span><span class="o">)</span> <span class="o">{</span>
+
+	<span class="k">var</span> <span class="nx">cfgPageDate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGEDATE</span><span class="o">.</span><span class="nx">key</span><span class="o">;</span>
+
 	<span class="nx">year</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">year</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">p</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">p</span><span class="o">&lt;</span><span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">.</span><span class="nx">length</span><span class="o">;++</span><span class="nx">p</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">var</span> <span class="nx">cal</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">pages</span><span class="o">[</span><span class="nx">p</span><span class="o">];</span>
-		<span class="k">var</span> <span class="nx">pageDate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;pageDate&quot;</span><span class="o">);</span>
+		<span class="k">var</span> <span class="nx">pageDate</span> <span class="o">=</span> <span class="nx">cal</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">cfgPageDate</span><span class="o">);</span>
 
 		<span class="k">if</span> <span class="o">((</span><span class="nx">pageDate</span><span class="o">.</span><span class="nx">getMonth</span><span class="o">()+</span><span class="m">1</span><span class="o">)</span> <span class="o">==</span> <span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="nx">p</span><span class="o">&gt;</span><span class="m">0</span><span class="o">)</span> <span class="o">{</span>
 			<span class="nx">year</span><span class="o">+=</span><span class="m">1</span><span class="o">;</span>
@@ -735,11 +771,14 @@
 <span class="o">};</span>
 
 <span class="c">/**</span>
-<span class="c">* Selects a date on the current calendar by referencing the index of the cell that should be selected.</span>
-<span class="c">* This method is used to easily select a single cell (usually with a mouse click) without having to do</span>
-<span class="c">* a full render. The selected style is applied to the cell directly.</span>
+<span class="c">* Selects dates in the CalendarGroup based on the cell index provided. This method is used to select cells without having to do a full render. The selected style is applied to the cells directly.</span>
+<span class="c">* The value of the MULTI_SELECT Configuration attribute will determine the set of dates which get selected. </span>
+<span class="c">* &lt;ul&gt;</span>
+<span class="c">*    &lt;li&gt;If MULTI_SELECT is false, selectCell will select the cell at the specified index for only the last displayed Calendar page.&lt;/li&gt;</span>
+<span class="c">*    &lt;li&gt;If MULTI_SELECT is true, selectCell will select the cell at the specified index, on each displayed Calendar page.&lt;/li&gt;</span>
+<span class="c">* &lt;/ul&gt;</span>
 <span class="c">* @method selectCell</span>
-<span class="c">* @param	{Number}	cellIndex	The index of the cell to select in the current calendar. </span>
+<span class="c">* @param	{Number}	cellIndex	The index of the cell to be selected. </span>
 <span class="c">* @return	{Date[]}	Array of JavaScript Date objects representing all individual dates that are currently selected.</span>
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">selectCell</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">cellIndex</span><span class="o">)</span> <span class="o">{</span>
@@ -786,11 +825,11 @@
 <span class="o">};</span>
 
 <span class="c">/**</span>
-<span class="c">* Deselects a date on the current calendar by referencing the index of the cell that should be deselected.</span>
-<span class="c">* This method is used to easily deselect a single cell (usually with a mouse click) without having to do</span>
-<span class="c">* a full render. The selected style is removed from the cell directly.</span>
+<span class="c">* Deselects dates in the CalendarGroup based on the cell index provided. This method is used to select cells without having to do a full render. The selected style is applied to the cells directly.</span>
+<span class="c">* deselectCell will deselect the cell at the specified index on each displayed Calendar page.</span>
+<span class="c">*</span>
 <span class="c">* @method deselectCell</span>
-<span class="c">* @param	{Number}	cellIndex	The index of the cell to deselect in the current calendar. </span>
+<span class="c">* @param	{Number}	cellIndex	The index of the cell to deselect. </span>
 <span class="c">* @return	{Date[]}	Array of JavaScript Date objects representing all individual dates that are currently selected.</span>
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">deselectCell</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">cellIndex</span><span class="o">)</span> <span class="o">{</span>
@@ -877,8 +916,7 @@
 <span class="c">*/</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getSelectedDates</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span> 
 	<span class="k">var</span> <span class="nx">returnDates</span> <span class="o">=</span> <span class="o">[];</span>
-	<span class="k">var</span> <span class="nx">selected</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">);</span>
-
+	<span class="k">var</span> <span class="nx">selected</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">key</span><span class="o">);</span>
 	<span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">d</span><span class="o">=</span><span class="m">0</span><span class="o">;</span><span class="nx">d</span><span class="o">&lt;</span><span class="nx">selected</span><span class="o">.</span><span class="nx">length</span><span class="o">;++</span><span class="nx">d</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">var</span> <span class="nx">dateArray</span> <span class="o">=</span> <span class="nx">selected</span><span class="o">[</span><span class="nx">d</span><span class="o">];</span>
 
@@ -1063,9 +1101,21 @@
 																 <span class="s2">&quot;initStyles&quot;</span><span class="o">,</span>
 																 <span class="s2">&quot;configTitle&quot;</span><span class="o">,</span>
 																 <span class="s2">&quot;configClose&quot;</span><span class="o">,</span>
+																 <span class="s2">&quot;configIframe&quot;</span><span class="o">,</span>
 																 <span class="s2">&quot;hide&quot;</span><span class="o">,</span>
 																 <span class="s2">&quot;show&quot;</span><span class="o">,</span>
 																 <span class="s2">&quot;browser&quot;</span><span class="o">);</span>
+
+<span class="c">/**</span>
+<span class="c">* The set of default Config property keys and values for the CalendarGroup</span>
+<span class="c">* @property YAHOO.widget.CalendarGroup._DEFAULT_CONFIG</span>
+<span class="c">* @final</span>
+<span class="c">* @static</span>
+<span class="c">* @private</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Calendar</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">;</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">CalendarGroup</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">PAGES</span> <span class="o">=</span> <span class="o">{</span><span class="nx">key</span><span class="o">:</span><span class="s2">&quot;pages&quot;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span><span class="m">2</span><span class="o">};</span>
 
 <span class="c">/**</span>
 <span class="c">* Returns a string representation of the object.</span>

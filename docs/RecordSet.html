@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_datatable.html">datatable</a>
@@ -536,7 +536,7 @@ Records with the given value at the given key, or null.</dd>
                                                     <dt>Parameters:</dt>
                                                         <dd>
                                                             <code>i &lt;number&gt;</code>
-                                                              Index of which record to start at
+                                                              (optional) Index of which record to start at
                                                         </dd>
                                                         <dd>
                                                             <code>range &lt;number&gt;</code>
@@ -550,7 +550,7 @@ Records with the given value at the given key, or null.</dd>
                                                         Array
                                                     </code></dt>
                                                     <dd>Array of records starting at given index and lenth equal to
-given range. If range is null, entire RecordSet array is returned.</dd>
+given range. If i is null, entire RecordSet array is returned.</dd>
                                                 </dl>
              
                                         </div>
@@ -780,7 +780,67 @@ given range. If range is null, entire RecordSet array is returned.</dd>
                                         </code>
                                         
                                         <div class="description">
-                                            Updates given Record at given key with given data.
+                                            Updates Record at given position with given data.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>oRecord &lt;YAHOO.widget.Record&gt;</code>
+                                                              A Record instance.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>sKey &lt;String&gt;</code>
+                                                              Key.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>oData &lt;object&gt;</code>
+                                                             {Object) New data.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="updateRecordField">updateRecordField</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>updateRecordField</strong>
+                                           (
+                                                
+                                                        
+                                                         oRecord
+                                                    
+                                                
+                                                        , 
+                                                         sKey
+                                                    
+                                                
+                                                        , 
+                                                         oData
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Updates given key of given Record with given data.
                                         </div>
 
                                         <div class="description">
@@ -1024,6 +1084,9 @@ given range. If range is null, entire RecordSet array is returned.</dd>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#updateRecord">updateRecord</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#updateRecordField">updateRecordField</a>
                                 </li>
                         </ul>
                     </div>

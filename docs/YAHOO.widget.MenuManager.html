@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -137,6 +137,71 @@ instance to be added.
                                                     <dt>Returns:
                                                     <code>
                                                         void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="getFocusedMenu">getFocusedMenu</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        YAHOO.widget.Menu
+                                            <strong>getFocusedMenu</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Returns a reference to the menu that currently has focus.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        YAHOO.widget.Menu
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="getFocusedMenuItem">getFocusedMenuItem</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        YAHOO.widget.MenuItem
+                                            <strong>getFocusedMenuItem</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Returns a reference to the menu item that currently 
+has focus.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        YAHOO.widget.MenuItem
                                                     </code></dt>
                                                     <dd></dd>
                                                 </dl>
@@ -422,10 +487,6 @@ was fired.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oItem
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -445,11 +506,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oItem &lt;YAHOO.widget.MenuItem&gt;</code>
-                                                             Object representing the menu item 
-that fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -519,6 +575,59 @@ was fired.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="onMenuBlur">onMenuBlur</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>onMenuBlur</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "blur" event handler for a MenuItem instance.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="onMenuDestroy">onMenuDestroy</a></h4>
                                     <div class="detail">
                                         <code>
@@ -535,10 +644,6 @@ was fired.
                                                 
                                                         , 
                                                          p_aArgs
-                                                    
-                                                
-                                                        , 
-                                                         p_oMenu
                                                     
                                                 
                                             )
@@ -561,10 +666,58 @@ was fired.
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
                                                         </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="onMenuFocus">onMenuFocus</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>onMenuFocus</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "focus" event handler for a MenuItem instance.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
-                                                             Object representing the menu that 
-fired the event.
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
                                                         </dd>
                                                 </dl>
 
@@ -599,10 +752,6 @@ fired the event.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oMenu
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -623,11 +772,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
-                                                             Object representing the menu that 
-fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -860,6 +1004,12 @@ instance to be removed.
                                 <a href="#addMenu">addMenu</a>
                                 </li>
                                 <li><!--<code>YAHOO.widget.Menu</code>-->
+                                <a href="#getFocusedMenu">getFocusedMenu</a>
+                                </li>
+                                <li><!--<code>YAHOO.widget.MenuItem</code>-->
+                                <a href="#getFocusedMenuItem">getFocusedMenuItem</a>
+                                </li>
+                                <li><!--<code>YAHOO.widget.Menu</code>-->
                                 <a href="#getMenu">getMenu</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -884,7 +1034,13 @@ instance to be removed.
                                 <a href="#onItemRemoved">onItemRemoved</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#onMenuBlur">onMenuBlur</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#onMenuDestroy">onMenuDestroy</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#onMenuFocus">onMenuFocus</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#onMenuVisibleConfigChange">onMenuVisibleConfigChange</a>

@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -50,6 +50,7 @@
 <span class="k">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span>
     <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">;</span>
 
+
 <span class="c">/**</span>
 <span class="c">* Singleton that manages a collection of all menus and menu items.  Listens for </span>
 <span class="c">* DOM events at the document level and dispatches the events to the </span>
@@ -83,10 +84,25 @@
 <span class="c"></span>    
         <span class="nx">m_oVisibleMenus</span> <span class="o">=</span> <span class="o">{},</span>
 
-        <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+
+        <span class="c">// Map of DOM event types to their equivalent CustomEvent types</span>
+<span class="c"></span>    
+        <span class="nx">m_oEventTypes</span> <span class="o">=</span>  <span class="o">{</span>
+            <span class="s2">&quot;click&quot;</span><span class="o">:</span> <span class="s2">&quot;clickEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;mousedown&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseDownEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;mouseup&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseUpEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;mouseover&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseOverEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;mouseout&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseOutEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;keydown&quot;</span><span class="o">:</span> <span class="s2">&quot;keyDownEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;keyup&quot;</span><span class="o">:</span> <span class="s2">&quot;keyUpEvent&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;keypress&quot;</span><span class="o">:</span> <span class="s2">&quot;keyPressEvent&quot;</span>
+        <span class="o">},</span>
 
 
-    <span class="k">var</span> <span class="nx">m_oLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">());</span>
+        <span class="nx">m_oFocusedMenuItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+
+    <span class="k">var</span> <span class="nx">m_oLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span><span class="s2">&quot;MenuManager&quot;</span><span class="o">);</span>
 
 
     <span class="c">// Private methods</span>
@@ -106,8 +122,8 @@
         <span class="k">if</span><span class="o">(</span><span class="nx">p_oItem</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">]</span> <span class="o">!=</span> <span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
     
             <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">]</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">;</span>
-    
-            <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">destroyEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onItemDestroy</span><span class="o">,</span> <span class="nx">p_oItem</span><span class="o">);</span>
+
+            <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">destroyEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onItemDestroy</span><span class="o">);</span>
 
             <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Item: &quot;</span> <span class="o">+</span> 
                 <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot; successfully registered.&quot;</span><span class="o">);</span>
@@ -265,30 +281,35 @@
 
         <span class="o">}</span>
 
+
         <span class="k">if</span><span class="o">(</span><span class="nx">oMenu</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="c">// Map of DOM event names to CustomEvent names</span>
-<span class="c"></span>        
-            <span class="k">var</span> <span class="nx">oEventTypes</span> <span class="o">=</span>  <span class="o">{</span>
-                    <span class="s2">&quot;click&quot;</span><span class="o">:</span> <span class="s2">&quot;clickEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;mousedown&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseDownEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;mouseup&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseUpEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;mouseover&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseOverEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;mouseout&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseOutEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;keydown&quot;</span><span class="o">:</span> <span class="s2">&quot;keyDownEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;keyup&quot;</span><span class="o">:</span> <span class="s2">&quot;keyUpEvent&quot;</span><span class="o">,</span>
-                    <span class="s2">&quot;keypress&quot;</span><span class="o">:</span> <span class="s2">&quot;keyPressEvent&quot;</span>
-                <span class="o">},</span>
-    
-                <span class="nx">sCustomEventType</span> <span class="o">=</span> <span class="nx">oEventTypes</span><span class="o">[</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span><span class="o">];</span>
+            <span class="k">var</span> <span class="nx">sCustomEventType</span> <span class="o">=</span> <span class="nx">m_oEventTypes</span><span class="o">[</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span><span class="o">];</span>
 
 
-            <span class="c">// Fire the Custom Even that corresponds the current DOM event    </span>
+            <span class="c">// Fire the Custom Event that corresponds the current DOM event    </span>
 <span class="c"></span>    
             <span class="k">if</span><span class="o">(</span><span class="nx">oMenuItem</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">oMenuItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
-            
+
                 <span class="nx">oMenuItem</span><span class="o">[</span><span class="nx">sCustomEventType</span><span class="o">].</span><span class="nx">fire</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>                   
-            
+
+
+                <span class="k">if</span> <span class="o">(</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;keyup&quot;</span> <span class="o">||</span> <span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+                    <span class="k">if</span> <span class="o">(</span><span class="nx">m_oFocusedMenuItem</span> <span class="o">!=</span> <span class="nx">oMenuItem</span><span class="o">)</span> <span class="o">{</span>
+                    
+                        <span class="k">if</span><span class="o">(</span><span class="nx">m_oFocusedMenuItem</span><span class="o">)</span> <span class="o">{</span>
+
+                            <span class="nx">m_oFocusedMenuItem</span><span class="o">.</span><span class="nx">blurEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">();</span>
+                        
+                        <span class="o">}</span>
+
+                        <span class="nx">oMenuItem</span><span class="o">.</span><span class="nx">focusEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">();</span>
+                    
+                    <span class="o">}</span>
+                
+                <span class="o">}</span>
+
             <span class="o">}</span>
     
             <span class="nx">oMenu</span><span class="o">[</span><span class="nx">sCustomEventType</span><span class="o">].</span><span class="nx">fire</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">oMenuItem</span><span class="o">);</span>
@@ -296,17 +317,23 @@
         <span class="o">}</span>
         <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">)</span> <span class="o">{</span>
 
+            <span class="k">if</span><span class="o">(</span><span class="nx">m_oFocusedMenuItem</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">m_oFocusedMenuItem</span><span class="o">.</span><span class="nx">blurEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">();</span>
+
+                <span class="nx">m_oFocusedMenuItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+            <span class="o">}</span>
+
 
             <span class="c">/*</span>
 <span class="c">                If the target of the event wasn&#39;t a menu, hide all </span>
 <span class="c">                dynamically positioned menus</span>
 <span class="c">            */</span>
             
-            <span class="k">var</span> <span class="nx">oActiveItem</span><span class="o">;</span>
-    
             <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">m_oMenus</span><span class="o">)</span> <span class="o">{</span>
     
-                <span class="k">if</span><span class="o">(</span><span class="nx">m_oMenus</span><span class="o">.</span><span class="nx">hasOwnProperty</span><span class="o">(</span><span class="nx">i</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">hasOwnProperty</span><span class="o">(</span><span class="nx">m_oMenus</span><span class="o">,</span><span class="nx">i</span><span class="o">))</span> <span class="o">{</span>
     
                     <span class="nx">oMenu</span> <span class="o">=</span> <span class="nx">m_oMenus</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
     
@@ -329,6 +356,17 @@
             <span class="o">}</span> 
 
         <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;keyup&quot;</span><span class="o">)</span> <span class="o">{</span> 
+
+            <span class="k">if</span><span class="o">(</span><span class="nx">m_oFocusedMenuItem</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">m_oFocusedMenuItem</span><span class="o">.</span><span class="nx">blurEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">();</span>
+
+                <span class="nx">m_oFocusedMenuItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+            <span class="o">}</span>
+
+        <span class="o">}</span>
 
     <span class="o">}</span>
 
@@ -340,19 +378,53 @@
 <span class="c">    * @param {String} p_sType String representing the name of the event that </span>
 <span class="c">    * was fired.</span>
 <span class="c">    * @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">    * @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
-<span class="c">    * fired the event.</span>
 <span class="c">    */</span>
-    <span class="k">function</span> <span class="nx">onMenuDestroy</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">function</span> <span class="nx">onMenuDestroy</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">p_oMenu</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oMenus</span><span class="o">[</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">id</span><span class="o">])</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">m_oMenus</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">])</span> <span class="o">{</span>
 
-            <span class="nx">delete</span> <span class="nx">m_oMenus</span><span class="o">[</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">id</span><span class="o">];</span>
+            <span class="nx">delete</span> <span class="nx">m_oMenus</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">];</span>
 
             <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Menu: &quot;</span> <span class="o">+</span> 
-                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot; successfully unregistered.&quot;</span><span class="o">);</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot; successfully unregistered.&quot;</span><span class="o">);</span>
 
         <span class="o">}</span>
+
+    <span class="o">}</span>
+
+
+    <span class="c">/**</span>
+<span class="c">    * @method onMenuFocus</span>
+<span class="c">    * @description &quot;focus&quot; event handler for a MenuItem instance.</span>
+<span class="c">    * @private</span>
+<span class="c">    * @param {String} p_sType String representing the name of the event that </span>
+<span class="c">    * was fired.</span>
+<span class="c">    * @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
+<span class="c">    */</span>
+    <span class="k">function</span> <span class="nx">onMenuFocus</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nx">m_oFocusedMenuItem</span> <span class="o">=</span> <span class="nx">oItem</span><span class="o">;</span>
+        
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+
+    <span class="c">/**</span>
+<span class="c">    * @method onMenuBlur</span>
+<span class="c">    * @description &quot;blur&quot; event handler for a MenuItem instance.</span>
+<span class="c">    * @private</span>
+<span class="c">    * @param {String} p_sType String representing the name of the event that </span>
+<span class="c">    * was fired.</span>
+<span class="c">    * @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
+<span class="c">    */</span>
+    <span class="k">function</span> <span class="nx">onMenuBlur</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">m_oFocusedMenuItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
     <span class="o">}</span>
 
@@ -364,12 +436,10 @@
 <span class="c">    * @param {String} p_sType String representing the name of the event that </span>
 <span class="c">    * was fired.</span>
 <span class="c">    * @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">    * @param {YAHOO.widget.MenuItem} p_oItem Object representing the menu item </span>
-<span class="c">    * that fired the event.</span>
 <span class="c">    */</span>
-    <span class="k">function</span> <span class="nx">onItemDestroy</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">function</span> <span class="nx">onItemDestroy</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+        <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
 
         <span class="k">if</span><span class="o">(</span><span class="nx">sId</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">])</span> <span class="o">{</span>
 
@@ -388,28 +458,26 @@
 <span class="c">    * @param {String} p_sType String representing the name of the event that </span>
 <span class="c">    * was fired.</span>
 <span class="c">    * @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">    * @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
-<span class="c">    * fired the event.</span>
 <span class="c">    */</span>
-    <span class="k">function</span> <span class="nx">onMenuVisibleConfigChange</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">function</span> <span class="nx">onMenuVisibleConfigChange</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">var</span> <span class="nx">bVisible</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
         
         <span class="k">if</span><span class="o">(</span><span class="nx">bVisible</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">id</span><span class="o">]</span> <span class="o">=</span> <span class="nx">p_oMenu</span><span class="o">;</span>
+            <span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">]</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
             
             <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Menu: &quot;</span> <span class="o">+</span> 
-                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> 
+                <span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> 
                 <span class="s2">&quot; registered with the collection of visible menus.&quot;</span><span class="o">);</span>
         
         <span class="o">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">id</span><span class="o">])</span> <span class="o">{</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">])</span> <span class="o">{</span>
         
-            <span class="nx">delete</span> <span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">id</span><span class="o">];</span>
+            <span class="nx">delete</span> <span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">];</span>
             
             <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Menu: &quot;</span> <span class="o">+</span> 
-                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> 
+                <span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> 
                 <span class="s2">&quot; unregistered from the collection of visible menus.&quot;</span><span class="o">);</span>
         
         <span class="o">}</span>
@@ -470,31 +538,33 @@
         
                     <span class="k">var</span> <span class="nx">oDoc</span> <span class="o">=</span> <span class="nb">document</span><span class="o">;</span>
             
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-                    <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keypress&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-        
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oDoc</span><span class="o">,</span> <span class="s2">&quot;keypress&quot;</span><span class="o">,</span> <span class="nx">onDOMEvent</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+
+
                     <span class="nx">m_bInitializedEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
                     
                     <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;DOM event handlers initialized.&quot;</span><span class="o">);</span>
         
                 <span class="o">}</span>
         
-                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">destroyEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onMenuDestroy</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">,</span> <span class="nx">me</span><span class="o">);</span>
+                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">destroyEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onMenuDestroy</span><span class="o">);</span>
                 
                 <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">subscribeToConfigEvent</span><span class="o">(</span>
                     <span class="s2">&quot;visible&quot;</span><span class="o">,</span> 
-                    <span class="nx">onMenuVisibleConfigChange</span><span class="o">,</span> 
-                    <span class="nx">p_oMenu</span>
+                    <span class="nx">onMenuVisibleConfigChange</span>
                 <span class="o">);</span>
         
                 <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">itemAddedEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onItemAdded</span><span class="o">);</span>
                 <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">itemRemovedEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onItemRemoved</span><span class="o">);</span>
+                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">focusEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onMenuFocus</span><span class="o">);</span>
+                <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">blurEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onMenuBlur</span><span class="o">);</span>
     
                 <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Menu: &quot;</span> <span class="o">+</span> 
                     <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot; successfully registered.&quot;</span><span class="o">);</span>
@@ -534,7 +604,7 @@
     
             <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">m_oVisibleMenus</span><span class="o">)</span> <span class="o">{</span>
     
-                <span class="k">if</span><span class="o">(</span><span class="nx">m_oVisibleMenus</span><span class="o">.</span><span class="nx">hasOwnProperty</span><span class="o">(</span><span class="nx">i</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">hasOwnProperty</span><span class="o">(</span><span class="nx">m_oVisibleMenus</span><span class="o">,</span><span class="nx">i</span><span class="o">))</span> <span class="o">{</span>
     
                     <span class="nx">oMenu</span> <span class="o">=</span> <span class="nx">m_oVisibleMenus</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
     
@@ -579,6 +649,35 @@
             
             <span class="o">}</span>
         
+        <span class="o">},</span>
+
+
+        <span class="c">/**</span>
+<span class="c">        * @method getFocusedMenuItem</span>
+<span class="c">        * @description Returns a reference to the menu item that currently </span>
+<span class="c">        * has focus.</span>
+<span class="c">        * @return {YAHOO.widget.MenuItem}</span>
+<span class="c">        */</span>
+        <span class="nx">getFocusedMenuItem</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="k">return</span> <span class="nx">m_oFocusedMenuItem</span><span class="o">;</span>
+
+        <span class="o">},</span>
+
+
+        <span class="c">/**</span>
+<span class="c">        * @method getFocusedMenu</span>
+<span class="c">        * @description Returns a reference to the menu that currently has focus.</span>
+<span class="c">        * @return {YAHOO.widget.Menu}</span>
+<span class="c">        */</span>
+        <span class="nx">getFocusedMenu</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="nx">m_oFocusedMenuItem</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="k">return</span> <span class="o">(</span><span class="nx">m_oFocusedMenuItem</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">getRoot</span><span class="o">());</span>
+            
+            <span class="o">}</span>
+
         <span class="o">},</span>
 
     

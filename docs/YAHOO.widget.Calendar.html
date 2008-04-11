@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Calendar&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Calendar&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_calendar.html">calendar</a>
@@ -312,19 +312,6 @@ Note that the table can be replaced with any kind of element.
 
 
                                     <hr />
-                                    <h4><a name="Style">Style</a>
-                                        <code>- object</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            Collection of Style constants for the Calendar
-                                        </div>
-                                    </div>
-     
-                                        
-
-
-                                    <hr />
                                     <h4><a name="Style.CSS_BODY">Style.CSS_BODY</a>
                                         <code>- object</code>
                                     </h4>
@@ -533,6 +520,19 @@ Note that the table can be replaced with any kind of element.
 
 
                                     <hr />
+                                    <h4><a name="Style.CSS_CELL_SELECTOR">Style.CSS_CELL_SELECTOR</a>
+                                        <code>- object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="Style.CSS_CELL_TODAY">Style.CSS_CELL_TODAY</a>
                                         <code>- object</code>
                                     </h4>
@@ -728,6 +728,45 @@ Note that the table can be replaced with any kind of element.
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.Calendar._DEFAULT_CONFIG">YAHOO.widget.Calendar._DEFAULT_CONFIG</a>
+                                        <code>- private static final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The set of default Config property keys and values for the Calendar
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Calendar._EVENT_TYPES">YAHOO.widget.Calendar._EVENT_TYPES</a>
+                                        <code>- private static final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The set of Custom Event types supported by the Calendar
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Calendar._STYLES">YAHOO.widget.Calendar._STYLES</a>
+                                        <code>- private static final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The set of default style constants for the Calendar
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="YAHOO.widget.Calendar.DATE">YAHOO.widget.Calendar.DATE</a>
                                         <code>- static final String</code>
                                     </h4>
@@ -770,6 +809,32 @@ Note that the table can be replaced with any kind of element.
                                     </div>        
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.Calendar.LONG">YAHOO.widget.Calendar.LONG</a>
+                                        <code>- static final String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant used to represent long date field string formats (e.g. Monday or February)
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Calendar.MEDIUM">YAHOO.widget.Calendar.MEDIUM</a>
+                                        <code>- static final String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant used to represent medium date field string formats (e.g. Mon)
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="YAHOO.widget.Calendar.MONTH">YAHOO.widget.Calendar.MONTH</a>
                                         <code>- static final String</code>
                                     </h4>
@@ -796,12 +861,38 @@ Note that the table can be replaced with any kind of element.
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.Calendar.ONE_CHAR">YAHOO.widget.Calendar.ONE_CHAR</a>
+                                        <code>- static final String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant used to represent single character date field string formats (e.g. M, T, W)
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="YAHOO.widget.Calendar.RANGE">YAHOO.widget.Calendar.RANGE</a>
                                         <code>- static final String</code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
                                             Type constant used for renderers to represent a range of individual dates (M/D/Y-M/D/Y)
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Calendar.SHORT">YAHOO.widget.Calendar.SHORT</a>
+                                        <code>- static final String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant used to represent short date field string formats (e.g. Tu or Feb)
                                         </div>
                                     </div>
      
@@ -5400,9 +5491,6 @@ it doesn't.</dd>
                                 <li><a href="#renderStack">renderStack</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
-                                <li><a href="#Style">Style</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
                                 <li><a href="#Style.CSS_BODY">Style.CSS_BODY</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -5451,6 +5539,9 @@ it doesn't.</dd>
                                 <li><a href="#Style.CSS_CELL_SELECTED">Style.CSS_CELL_SELECTED</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#Style.CSS_CELL_SELECTOR">Style.CSS_CELL_SELECTOR</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#Style.CSS_CELL_TODAY">Style.CSS_CELL_TODAY</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -5496,6 +5587,15 @@ it doesn't.</dd>
                                 <li><a href="#today">today</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#YAHOO.widget.Calendar._DEFAULT_CONFIG">YAHOO.widget.Calendar._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Calendar._EVENT_TYPES">YAHOO.widget.Calendar._EVENT_TYPES</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Calendar._STYLES">YAHOO.widget.Calendar._STYLES</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.Calendar.DATE">YAHOO.widget.Calendar.DATE</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -5505,13 +5605,25 @@ it doesn't.</dd>
                                 <li><a href="#YAHOO.widget.Calendar.IMG_ROOT">YAHOO.widget.Calendar.IMG_ROOT</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#YAHOO.widget.Calendar.LONG">YAHOO.widget.Calendar.LONG</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Calendar.MEDIUM">YAHOO.widget.Calendar.MEDIUM</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.Calendar.MONTH">YAHOO.widget.Calendar.MONTH</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#YAHOO.widget.Calendar.MONTH_DAY">YAHOO.widget.Calendar.MONTH_DAY</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#YAHOO.widget.Calendar.ONE_CHAR">YAHOO.widget.Calendar.ONE_CHAR</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.Calendar.RANGE">YAHOO.widget.Calendar.RANGE</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Calendar.SHORT">YAHOO.widget.Calendar.SHORT</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#YAHOO.widget.Calendar.STOP_RENDER">YAHOO.widget.Calendar.STOP_RENDER</a>

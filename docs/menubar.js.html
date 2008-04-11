@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -56,6 +56,38 @@
         <span class="o">);</span>
 
 <span class="o">};</span>
+
+
+<span class="c">/**</span>
+<span class="c">* Constant representing the MenuBar&#39;s configuration properties</span>
+<span class="c">* @property YAHOO.widget.MenuBar._DEFAULT_CONFIG</span>
+<span class="c">* @private</span>
+<span class="c">* @final</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span> <span class="o">=</span> <span class="o">{</span>
+
+    <span class="s2">&quot;POSITION&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;position&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;static&quot;</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">.</span><span class="nx">_checkPosition</span><span class="o">,</span> 
+        <span class="nx">supercedes</span><span class="o">:</span> <span class="o">[</span><span class="s2">&quot;visible&quot;</span><span class="o">]</span> 
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;SUBMENU_ALIGNMENT&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;submenualignment&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="o">[</span><span class="s2">&quot;tl&quot;</span><span class="o">,</span><span class="s2">&quot;bl&quot;</span><span class="o">]</span> 
+    <span class="o">},</span>
+
+    <span class="s2">&quot;AUTO_SUBMENU_DISPLAY&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;autosubmenudisplay&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isBoolean</span> 
+    <span class="o">}</span>
+
+<span class="o">};</span>
+
+
 
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">,</span> <span class="o">{</span>
 
@@ -182,8 +214,6 @@
                             <span class="k">if</span><span class="o">(</span><span class="nx">oSubmenu</span><span class="o">)</span> <span class="o">{</span>
                         
                                 <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">show</span><span class="o">();</span>
-                                <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">activeItem</span><span class="o">.</span><span class="nx">blur</span><span class="o">();</span>
-                                <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">activeItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
                             
                             <span class="o">}</span>
                 
@@ -302,12 +332,9 @@
             <span class="k">this</span><span class="o">.</span><span class="nx">clearActiveItem</span><span class="o">();</span>
     
         <span class="o">}</span>
+
     
-    
-        <span class="c">// Select and focus the current item</span>
-<span class="c"></span>    
         <span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-        <span class="nx">oItem</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
     
 
         <span class="c">// Show the submenu for the item</span>
@@ -346,7 +373,16 @@
 <span class="c">*/</span>
 <span class="nx">toString</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
-    <span class="k">return</span> <span class="o">(</span><span class="s2">&quot;MenuBar &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
+    <span class="k">var</span> <span class="nx">sReturnVal</span> <span class="o">=</span> <span class="s2">&quot;MenuBar&quot;</span><span class="o">,</span>
+        <span class="nx">sId</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">sId</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">sReturnVal</span> <span class="o">+=</span> <span class="o">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">sId</span><span class="o">);</span>
+    
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="nx">sReturnVal</span><span class="o">;</span>
 
 <span class="o">},</span>
 
@@ -360,7 +396,8 @@
 
     <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span><span class="o">.</span><span class="nx">superclass</span><span class="o">.</span><span class="nx">initDefaultConfig</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 
-    <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">;</span>
+    <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">,</span>
+        <span class="nx">DEFAULT_CONFIG</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">;</span>
 
 	<span class="c">// Add configuration properties</span>
 <span class="c"></span>
@@ -369,6 +406,7 @@
 <span class="c">        Set the default value for the &quot;position&quot; configuration property</span>
 <span class="c">        to &quot;static&quot; by re-adding the property.</span>
 <span class="c">    */</span>
+
 
     <span class="c">/**</span>
 <span class="c">    * @config position</span>
@@ -382,12 +420,12 @@
 <span class="c">    * @type String</span>
 <span class="c">    */</span>
     <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-        <span class="s2">&quot;position&quot;</span><span class="o">,</span> 
+        <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">POSITION</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
         <span class="o">{</span>
-            <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;static&quot;</span><span class="o">,</span> 
             <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configPosition</span><span class="o">,</span> 
-            <span class="nx">validator</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_checkPosition</span><span class="o">,</span>
-            <span class="nx">supercedes</span><span class="o">:</span> <span class="o">[</span><span class="s2">&quot;visible&quot;</span><span class="o">]</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">POSITION</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+            <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">POSITION</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span>
+            <span class="nx">supercedes</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">POSITION</span><span class="o">.</span><span class="nx">supercedes</span>
         <span class="o">}</span>
     <span class="o">);</span>
 
@@ -404,7 +442,12 @@
 <span class="c">    * @default [&quot;tl&quot;,&quot;bl&quot;]</span>
 <span class="c">    * @type Array</span>
 <span class="c">    */</span>
-    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;submenualignment&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">value</span><span class="o">:</span> <span class="o">[</span><span class="s2">&quot;tl&quot;</span><span class="o">,</span><span class="s2">&quot;bl&quot;</span><span class="o">]</span> <span class="o">}</span> <span class="o">);</span>
+    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+        <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SUBMENU_ALIGNMENT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+        <span class="o">{</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SUBMENU_ALIGNMENT</span><span class="o">.</span><span class="nx">value</span>
+        <span class="o">}</span>
+    <span class="o">);</span>
 
 
     <span class="c">/*</span>
@@ -420,8 +463,11 @@
 <span class="c">    * @type Boolean</span>
 <span class="c">    */</span>
 	<span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-	   <span class="s2">&quot;autosubmenudisplay&quot;</span><span class="o">,</span> 
-	   <span class="o">{</span> <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> <span class="nx">validator</span><span class="o">:</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">checkBoolean</span> <span class="o">}</span> 
+	   <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">AUTO_SUBMENU_DISPLAY</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+	   <span class="o">{</span>
+	       <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">AUTO_SUBMENU_DISPLAY</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+	       <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">AUTO_SUBMENU_DISPLAY</span><span class="o">.</span><span class="nx">validator</span>
+       <span class="o">}</span> 
     <span class="o">);</span>
 
 <span class="o">}</span>

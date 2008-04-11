@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_autocomplete.html">autocomplete</a>
@@ -62,7 +62,7 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elInput</span><span class="o">,</span><span class="nx">elContainer</span><span class="o">,</span><span class="nx">oDataSource</span><span class="o">,</span><span class="nx">oConfigs</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="nx">elInput</span> <span class="o">&amp;&amp;</span> <span class="nx">elContainer</span> <span class="o">&amp;&amp;</span> <span class="nx">oDataSource</span><span class="o">)</span> <span class="o">{</span>
         <span class="c">// Validate DataSource</span>
-<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="nx">oDataSource</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oDataSource</span> <span class="k">instanceof</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataSource</span><span class="o">))</span> <span class="o">{</span>
+<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">oDataSource</span> <span class="k">instanceof</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataSource</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">dataSource</span> <span class="o">=</span> <span class="nx">oDataSource</span><span class="o">;</span>
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
@@ -72,7 +72,7 @@
 
         <span class="c">// Validate input element</span>
 <span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="nx">elInput</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">if</span><span class="o">(</span><span class="k">typeof</span> <span class="nx">elInput</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">elInput</span><span class="o">))</span> <span class="o">{</span>
                     <span class="k">this</span><span class="o">.</span><span class="nx">_sName</span> <span class="o">=</span> <span class="s2">&quot;instance&quot;</span> <span class="o">+</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">_nIndex</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">elInput</span><span class="o">;</span>
                     <span class="k">this</span><span class="o">.</span><span class="nx">_oTextbox</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">elInput</span><span class="o">);</span>
             <span class="o">}</span>
@@ -90,7 +90,7 @@
 
         <span class="c">// Validate container element</span>
 <span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">if</span><span class="o">(</span><span class="k">typeof</span> <span class="nx">elContainer</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">))</span> <span class="o">{</span>
                     <span class="k">this</span><span class="o">.</span><span class="nx">_oContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">);</span>
             <span class="o">}</span>
             <span class="k">else</span> <span class="o">{</span>
@@ -106,9 +106,9 @@
         <span class="o">}</span>
 
         <span class="c">// Set any config params passed in to override defaults</span>
-<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">oConfigs</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">oConfigs</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oConfigs</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Object</span><span class="o">))</span> <span class="o">{</span>
             <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">sConfig</span> <span class="k">in</span> <span class="nx">oConfigs</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(</span><span class="nx">sConfig</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">sConfig</span><span class="o">)</span> <span class="o">{</span>
                     <span class="k">this</span><span class="o">[</span><span class="nx">sConfig</span><span class="o">]</span> <span class="o">=</span> <span class="nx">oConfigs</span><span class="o">[</span><span class="nx">sConfig</span><span class="o">];</span>
                 <span class="o">}</span>
             <span class="o">}</span>
@@ -876,40 +876,38 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_initProps</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
     <span class="c">// Correct any invalid values</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">minQueryLength</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">minQueryLength</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nb">isNaN</span><span class="o">(</span><span class="nx">minQueryLength</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">minQueryLength</span> <span class="o">&lt;</span> <span class="m">1</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isNumber</span><span class="o">(</span><span class="nx">minQueryLength</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">minQueryLength</span> <span class="o">&lt;</span> <span class="m">1</span><span class="o">))</span> <span class="o">{</span>
         <span class="nx">minQueryLength</span> <span class="o">=</span> <span class="m">1</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="k">var</span> <span class="nx">maxResultsDisplayed</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">maxResultsDisplayed</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nb">isNaN</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">maxResultsDisplayed</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">maxResultsDisplayed</span> <span class="o">&lt;</span> <span class="m">1</span><span class="o">))</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">maxResultsDisplayed</span> <span class="o">=</span> <span class="m">10</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isNumber</span><span class="o">(</span><span class="nx">maxResultsDisplayed</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">maxResultsDisplayed</span> <span class="o">&lt;</span> <span class="m">1</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nx">maxResultsDisplayed</span> <span class="o">=</span> <span class="m">10</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="k">var</span> <span class="nx">queryDelay</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">queryDelay</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nb">isNaN</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">queryDelay</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">queryDelay</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">queryDelay</span> <span class="o">=</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isNumber</span><span class="o">(</span><span class="nx">queryDelay</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">queryDelay</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nx">queryDelay</span> <span class="o">=</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">;</span>
     <span class="o">}</span>
-    <span class="k">var</span> <span class="nx">aDelimChar</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span><span class="o">)</span> <span class="o">?</span> <span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">aDelimChar</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span><span class="o">(</span><span class="k">typeof</span> <span class="nx">aDelimChar</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span> <span class="o">=</span> <span class="o">[</span><span class="nx">aDelimChar</span><span class="o">];</span>
-        <span class="o">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">aDelimChar</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">!=</span> <span class="nb">Array</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="o">}</span>
+    <span class="k">var</span> <span class="nx">delimChar</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">delimChar</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nx">delimChar</span> <span class="o">=</span> <span class="o">[</span><span class="nx">delimChar</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="o">(!</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">delimChar</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nx">delimChar</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="k">var</span> <span class="nx">animSpeed</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">animSpeed</span><span class="o">;</span>
     <span class="k">if</span><span class="o">((</span><span class="k">this</span><span class="o">.</span><span class="nx">animHoriz</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">animVert</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Anim</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span><span class="o">(</span><span class="nb">isNaN</span><span class="o">(</span><span class="nx">animSpeed</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">animSpeed</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(!</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isNumber</span><span class="o">(</span><span class="nx">animSpeed</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">animSpeed</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
             <span class="nx">animSpeed</span> <span class="o">=</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="o">;</span>
         <span class="o">}</span>
         <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_oAnim</span> <span class="o">)</span> <span class="o">{</span>
-            <span class="nx">oAnim</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Anim</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oContainer</span><span class="o">.</span><span class="nx">_oContent</span><span class="o">,</span> <span class="o">{},</span> <span class="k">this</span><span class="o">.</span><span class="nx">animSpeed</span><span class="o">);</span>
+            <span class="nx">oAnim</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Anim</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oContainer</span><span class="o">.</span><span class="nx">_oContent</span><span class="o">,</span> <span class="o">{},</span> <span class="nx">animSpeed</span><span class="o">);</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_oAnim</span> <span class="o">=</span> <span class="nx">oAnim</span><span class="o">;</span>
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_oAnim</span><span class="o">.</span><span class="nx">duration</span> <span class="o">=</span> <span class="nx">animSpeed</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
-    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">forceSelection</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">forceSelection</span> <span class="o">&amp;&amp;</span> <span class="nx">delimChar</span><span class="o">)</span> <span class="o">{</span>
         <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;The forceSelection feature has been enabled with delimChar defined.&quot;</span><span class="o">,</span><span class="s2">&quot;warn&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">};</span>
@@ -986,7 +984,7 @@
     <span class="k">while</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oContainer</span><span class="o">.</span><span class="nx">_oContent</span><span class="o">.</span><span class="nx">_oBody</span><span class="o">.</span><span class="nx">hasChildNodes</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">var</span> <span class="nx">oldListItems</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getListItems</span><span class="o">();</span>
         <span class="k">if</span><span class="o">(</span><span class="nx">oldListItems</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">oldi</span> <span class="o">=</span> <span class="nx">oldListItems</span><span class="o">.</span><span class="nx">length</span><span class="o">-</span><span class="m">1</span><span class="o">;</span> <span class="nx">oldi</span> <span class="o">&gt;=</span> <span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">oldi</span> <span class="o">=</span> <span class="nx">oldListItems</span><span class="o">.</span><span class="nx">length</span><span class="o">-</span><span class="m">1</span><span class="o">;</span> <span class="nx">oldi</span> <span class="o">&gt;=</span> <span class="m">0</span><span class="o">;</span> <span class="nx">oldi</span><span class="o">--)</span> <span class="o">{</span>
                 <span class="nx">oldListItems</span><span class="o">[</span><span class="nx">oldi</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -1076,7 +1074,7 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_isIgnoreKey</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">((</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">9</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">13</span><span class="o">)</span>  <span class="o">||</span> <span class="c">// tab, enter</span>
+    <span class="k">if</span><span class="o">((</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">9</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">13</span><span class="o">)</span>  <span class="o">||</span> <span class="c">// tab, enter</span>
 <span class="c"></span>            <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">16</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">17</span><span class="o">)</span> <span class="o">||</span> <span class="c">// shift, ctl</span>
 <span class="c"></span>            <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">&gt;=</span> <span class="m">18</span> <span class="o">&amp;&amp;</span> <span class="nx">nKeyCode</span> <span class="o">&lt;=</span> <span class="m">20</span><span class="o">)</span> <span class="o">||</span> <span class="c">// alt,pause/break,caps lock</span>
 <span class="c"></span>            <span class="o">(</span><span class="nx">nKeyCode</span> <span class="o">==</span> <span class="m">27</span><span class="o">)</span> <span class="o">||</span> <span class="c">// esc</span>
@@ -1126,7 +1124,7 @@
             <span class="o">}</span>
         <span class="o">}</span>
         <span class="c">// A delimiter has been found so extract the latest query</span>
-<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="nx">nDelimIndex</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">nDelimIndex</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">var</span> <span class="nx">nQueryStart</span> <span class="o">=</span> <span class="nx">nDelimIndex</span> <span class="o">+</span> <span class="m">1</span><span class="o">;</span>
             <span class="c">// Trim any white space from the beginning...</span>
 <span class="c"></span>            <span class="k">while</span><span class="o">(</span><span class="nx">sQuery</span><span class="o">.</span><span class="nx">charAt</span><span class="o">(</span><span class="nx">nQueryStart</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="o">)</span> <span class="o">{</span>
@@ -1143,8 +1141,8 @@
     <span class="o">}</span>
 
     <span class="c">// Don&#39;t search queries that are too short</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="nx">sQuery</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">sQuery</span><span class="o">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minQueryLength</span><span class="o">)</span> <span class="o">||</span> <span class="o">(!</span><span class="nx">sQuery</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minQueryLength</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nDelayID</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">sQuery</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">sQuery</span><span class="o">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minQueryLength</span><span class="o">)</span> <span class="o">||</span> <span class="o">(!</span><span class="nx">sQuery</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minQueryLength</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nDelayID</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">clearTimeout</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nDelayID</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_toggleContainer</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
@@ -1173,7 +1171,7 @@
     <span class="k">if</span><span class="o">(</span><span class="nx">aResults</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="nx">oSelf</span><span class="o">.</span><span class="nx">dataErrorEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">,</span> <span class="nx">sQuery</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="k">if</span> <span class="o">(!</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bFocused</span> <span class="o">||</span> <span class="o">!</span><span class="nx">aResults</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bFocused</span> <span class="o">||</span> <span class="o">!</span><span class="nx">aResults</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -1192,7 +1190,7 @@
 
     <span class="k">var</span> <span class="nx">nItems</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">min</span><span class="o">(</span><span class="nx">aResults</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">maxResultsDisplayed</span><span class="o">);</span>
     <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nDisplayedItems</span> <span class="o">=</span> <span class="nx">nItems</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nx">nItems</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">nItems</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
         <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_initContainerHelpers</span><span class="o">();</span>
         <span class="k">var</span> <span class="nx">aItems</span> <span class="o">=</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_aListItems</span><span class="o">;</span>
 
@@ -1275,7 +1273,7 @@
     <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_nDisplayedItems</span><span class="o">-</span><span class="m">1</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="m">0</span> <span class="o">;</span> <span class="nx">i</span><span class="o">--)</span> <span class="o">{</span>
         <span class="k">var</span> <span class="nx">oItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aListItems</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
         <span class="k">var</span> <span class="nx">sMatch</span> <span class="o">=</span> <span class="nx">oItem</span><span class="o">.</span><span class="nx">_sResultKey</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">();</span>
-        <span class="k">if</span> <span class="o">(</span><span class="nx">sMatch</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sCurQuery</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sMatch</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sCurQuery</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">())</span> <span class="o">{</span>
             <span class="nx">foundMatch</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
             <span class="k">break</span><span class="o">;</span>
         <span class="o">}</span>
@@ -1294,7 +1292,7 @@
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_typeAhead</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">oItem</span><span class="o">,</span> <span class="nx">sQuery</span><span class="o">)</span> <span class="o">{</span>
     <span class="c">// Don&#39;t update if turned off</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">typeAhead</span> <span class="o">||</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nKeyCode</span> <span class="o">==</span> <span class="m">8</span><span class="o">))</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">typeAhead</span> <span class="o">||</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nKeyCode</span> <span class="o">==</span> <span class="m">8</span><span class="o">))</span> <span class="o">{</span>
         <span class="k">return</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -1325,10 +1323,10 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_selectText</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">oTextbox</span><span class="o">,</span> <span class="nx">nStart</span><span class="o">,</span> <span class="nx">nEnd</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nx">oTextbox</span><span class="o">.</span><span class="nx">setSelectionRange</span><span class="o">)</span> <span class="o">{</span> <span class="c">// For Mozilla</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">oTextbox</span><span class="o">.</span><span class="nx">setSelectionRange</span><span class="o">)</span> <span class="o">{</span> <span class="c">// For Mozilla</span>
 <span class="c"></span>        <span class="nx">oTextbox</span><span class="o">.</span><span class="nx">setSelectionRange</span><span class="o">(</span><span class="nx">nStart</span><span class="o">,</span><span class="nx">nEnd</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="nx">oTextbox</span><span class="o">.</span><span class="nx">createTextRange</span><span class="o">)</span> <span class="o">{</span> <span class="c">// For IE</span>
+    <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">oTextbox</span><span class="o">.</span><span class="nx">createTextRange</span><span class="o">)</span> <span class="o">{</span> <span class="c">// For IE</span>
 <span class="c"></span>        <span class="k">var</span> <span class="nx">oTextRange</span> <span class="o">=</span> <span class="nx">oTextbox</span><span class="o">.</span><span class="nx">createTextRange</span><span class="o">();</span>
         <span class="nx">oTextRange</span><span class="o">.</span><span class="nx">moveStart</span><span class="o">(</span><span class="s2">&quot;character&quot;</span><span class="o">,</span> <span class="nx">nStart</span><span class="o">);</span>
         <span class="nx">oTextRange</span><span class="o">.</span><span class="nx">moveEnd</span><span class="o">(</span><span class="s2">&quot;character&quot;</span><span class="o">,</span> <span class="nx">nEnd</span><span class="o">-</span><span class="nx">oTextbox</span><span class="o">.</span><span class="nx">value</span><span class="o">.</span><span class="nx">length</span><span class="o">);</span>
@@ -1401,7 +1399,7 @@
             <span class="o">}</span>
         <span class="o">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oCurItem</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oCurItem</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_toggleHighlight</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oCurItem</span><span class="o">,</span><span class="s2">&quot;from&quot;</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -1411,14 +1409,14 @@
     <span class="o">}</span>
 
     <span class="c">// Container is already closed</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(!</span><span class="nx">bShow</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="nx">_bContainerOpen</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(!</span><span class="nx">bShow</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="nx">_bContainerOpen</span><span class="o">)</span> <span class="o">{</span>
         <span class="nx">oContainer</span><span class="o">.</span><span class="nx">_oContent</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>
         <span class="k">return</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="c">// If animation is enabled...</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">oAnim</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oAnim</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="nx">oAnim</span> <span class="o">&amp;&amp;</span> <span class="nx">oAnim</span><span class="o">.</span><span class="nx">getEl</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">animHoriz</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">animVert</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">oAnim</span> <span class="o">&amp;&amp;</span> <span class="nx">oAnim</span><span class="o">.</span><span class="nx">getEl</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">animHoriz</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">animVert</span><span class="o">))</span> <span class="o">{</span>
         <span class="c">// If helpers need to be collapsed, do it right away...</span>
 <span class="c"></span>        <span class="c">// but if helpers need to be expanded, wait until after the container expands</span>
 <span class="c"></span>        <span class="k">if</span><span class="o">(!</span><span class="nx">bShow</span><span class="o">)</span> <span class="o">{</span>
@@ -1632,7 +1630,7 @@
 <span class="c"></span>        <span class="k">var</span> <span class="nx">oCurItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oCurItem</span><span class="o">;</span>
         <span class="k">var</span> <span class="nx">nCurItemIndex</span> <span class="o">=</span> <span class="o">-</span><span class="m">1</span><span class="o">;</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="nx">oCurItem</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">oCurItem</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">nCurItemIndex</span> <span class="o">=</span> <span class="nx">oCurItem</span><span class="o">.</span><span class="nx">_nItemIndex</span><span class="o">;</span>
         <span class="o">}</span>
 
@@ -1640,19 +1638,19 @@
                 <span class="o">(</span><span class="nx">nCurItemIndex</span> <span class="o">+</span> <span class="m">1</span><span class="o">)</span> <span class="o">:</span> <span class="o">(</span><span class="nx">nCurItemIndex</span> <span class="o">-</span> <span class="m">1</span><span class="o">);</span>
 
         <span class="c">// Out of bounds</span>
-<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">&lt;</span> <span class="o">-</span><span class="m">2</span> <span class="o">||</span> <span class="nx">nNewItemIndex</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_nDisplayedItems</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">&lt;</span> <span class="o">-</span><span class="m">2</span> <span class="o">||</span> <span class="nx">nNewItemIndex</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_nDisplayedItems</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span><span class="o">;</span>
         <span class="o">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="nx">oCurItem</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">oCurItem</span><span class="o">)</span> <span class="o">{</span>
             <span class="c">// Unhighlight current item</span>
 <span class="c"></span>            <span class="k">this</span><span class="o">.</span><span class="nx">_toggleHighlight</span><span class="o">(</span><span class="nx">oCurItem</span><span class="o">,</span> <span class="s2">&quot;from&quot;</span><span class="o">);</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">itemArrowFromEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">oCurItem</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">==</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">==</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
            <span class="c">// Go back to query (remove type-ahead string)</span>
 <span class="c"></span>            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">delimChar</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sSavedQuery</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_textMatchesOption</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_textMatchesOption</span><span class="o">())</span> <span class="o">{</span>
                     <span class="k">this</span><span class="o">.</span><span class="nx">_oTextbox</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sSavedQuery</span><span class="o">;</span>
                 <span class="o">}</span>
                 <span class="k">else</span> <span class="o">{</span>
@@ -1665,7 +1663,7 @@
             <span class="k">this</span><span class="o">.</span><span class="nx">_oCurItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
             <span class="k">return</span><span class="o">;</span>
         <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">==</span> <span class="o">-</span><span class="m">2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">nNewItemIndex</span> <span class="o">==</span> <span class="o">-</span><span class="m">2</span><span class="o">)</span> <span class="o">{</span>
             <span class="c">// Close container</span>
 <span class="c"></span>            <span class="k">this</span><span class="o">.</span><span class="nx">_toggleContainer</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
             <span class="k">return</span><span class="o">;</span>
@@ -1901,17 +1899,13 @@
             <span class="nx">switch</span> <span class="o">(</span><span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">case</span> <span class="m">9</span><span class="o">:</span> <span class="c">// tab</span>
 <span class="c"></span>                <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">delimChar</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nKeyCode</span> <span class="o">!=</span> <span class="nx">nKeyCode</span><span class="o">))</span> <span class="o">{</span>
-                    <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bContainerOpen</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">v</span><span class="o">);</span>
-                    <span class="o">}</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">v</span><span class="o">);</span>
                 <span class="o">}</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="nx">case</span> <span class="m">13</span><span class="o">:</span> <span class="c">// enter</span>
-<span class="c"></span>                    <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nKeyCode</span> <span class="o">!=</span> <span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">{</span>
-                        <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bContainerOpen</span><span class="o">)</span> <span class="o">{</span>
-                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">v</span><span class="o">);</span>
-                        <span class="o">}</span>
-                    <span class="o">}</span>
+<span class="c"></span>                <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nKeyCode</span> <span class="o">!=</span> <span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">v</span><span class="o">);</span>
+                <span class="o">}</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="nx">case</span> <span class="m">38</span><span class="o">:</span> <span class="c">// up</span>
 <span class="c"></span>            <span class="nx">case</span> <span class="m">40</span><span class="o">:</span> <span class="c">// down</span>
@@ -1946,7 +1940,7 @@
     <span class="k">var</span> <span class="nx">sText</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">value</span><span class="o">;</span> <span class="c">//string in textbox</span>
 <span class="c"></span>
     <span class="c">// Filter out chars that don&#39;t trigger queries</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_isIgnoreKey</span><span class="o">(</span><span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">sText</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">()</span> <span class="o">==</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_sCurQuery</span><span class="o">))</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_isIgnoreKey</span><span class="o">(</span><span class="nx">nKeyCode</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nx">sText</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">()</span> <span class="o">==</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_sCurQuery</span><span class="o">))</span> <span class="o">{</span>
         <span class="k">return</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
@@ -1954,11 +1948,11 @@
     <span class="o">}</span>
 
     <span class="c">// Set timeout on the request</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">queryDelay</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">queryDelay</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">var</span> <span class="nx">nDelayID</span> <span class="o">=</span>
             <span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">(){</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_sendQuery</span><span class="o">(</span><span class="nx">sText</span><span class="o">);},(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">queryDelay</span> <span class="o">*</span> <span class="m">1000</span><span class="o">));</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nDelayID</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nDelayID</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">clearTimeout</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_nDelayID</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -1981,7 +1975,9 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxFocus</span> <span class="o">=</span> <span class="k">function</span> <span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
     <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_oTextbox</span><span class="o">.</span><span class="nx">setAttribute</span><span class="o">(</span><span class="s2">&quot;autocomplete&quot;</span><span class="o">,</span><span class="s2">&quot;off&quot;</span><span class="o">);</span>
     <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bFocused</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="nx">oSelf</span><span class="o">.</span><span class="nx">textboxFocusEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_bItemSelected</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">textboxFocusEvent</span><span class="o">.</span><span class="nx">fire</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">);</span>
+    <span class="o">}</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>

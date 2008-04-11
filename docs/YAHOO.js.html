@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>YAHOO Global&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>YAHOO Global&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_yahoo.html">yahoo</a>
@@ -247,7 +247,8 @@
 <span class="c">     * @return Boolean</span>
 <span class="c">     */</span>
     <span class="nx">isArray</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">obj</span><span class="o">)</span> <span class="o">{</span> <span class="c">// frames lose type, so test constructor string</span>
-<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="nx">obj</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="o">.</span><span class="nx">constructor</span><span class="o">.</span><span class="nx">toString</span><span class="o">().</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;Array&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>        <span class="k">if</span> <span class="o">(</span><span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">&amp;&amp;</span> 
+                   <span class="nx">obj</span><span class="o">.</span><span class="nx">constructor</span><span class="o">.</span><span class="nx">toString</span><span class="o">().</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;Array&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
             <span class="k">return</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isObject</span><span class="o">(</span><span class="nx">obj</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Array</span><span class="o">;</span>
@@ -302,7 +303,7 @@
 <span class="c">     * @return Boolean</span>
 <span class="c">     */</span>  
     <span class="nx">isObject</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">obj</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span> <span class="o">||</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">obj</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">obj</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span> <span class="o">||</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">obj</span><span class="o">));</span>
     <span class="o">},</span>
         
     <span class="c">/**</span>
@@ -368,6 +369,10 @@
 <span class="c">     *                              if present.</span>
 <span class="c">     */</span>
     <span class="nx">extend</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">subc</span><span class="o">,</span> <span class="nx">superc</span><span class="o">,</span> <span class="nx">overrides</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="nx">superc</span><span class="o">||!</span><span class="nx">subc</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="o">(</span><span class="s2">&quot;YAHOO.lang.extend failed, please check that &quot;</span> <span class="o">+</span>
+                            <span class="s2">&quot;all dependencies are included.&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
         <span class="k">var</span> <span class="nx">F</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{};</span>
         <span class="nx">F</span><span class="o">.</span><span class="nx">prototype</span><span class="o">=</span><span class="nx">superc</span><span class="o">.</span><span class="nx">prototype</span><span class="o">;</span>
         <span class="nx">subc</span><span class="o">.</span><span class="nx">prototype</span><span class="o">=</span><span class="k">new</span> <span class="nx">F</span><span class="o">();</span>
@@ -400,6 +405,10 @@
 <span class="c">     *                             overwrite an existing property in the receiver</span>
 <span class="c">     */</span>
     <span class="nx">augment</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">r</span><span class="o">,</span> <span class="nx">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="nx">s</span><span class="o">||!</span><span class="nx">r</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="o">(</span><span class="s2">&quot;YAHOO.lang.augment failed, please check that &quot;</span> <span class="o">+</span>
+                            <span class="s2">&quot;all dependencies are included.&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
         <span class="k">var</span> <span class="nx">rp</span><span class="o">=</span><span class="nx">r</span><span class="o">.</span><span class="nx">prototype</span><span class="o">,</span> <span class="nx">sp</span><span class="o">=</span><span class="nx">s</span><span class="o">.</span><span class="nx">prototype</span><span class="o">,</span> <span class="nx">a</span><span class="o">=</span><span class="nx">arguments</span><span class="o">,</span> <span class="nx">i</span><span class="o">,</span> <span class="nx">p</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="nx">a</span><span class="o">[</span><span class="m">2</span><span class="o">])</span> <span class="o">{</span>
             <span class="k">for</span> <span class="o">(</span><span class="nx">i</span><span class="o">=</span><span class="m">2</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">a</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">=</span><span class="nx">i</span><span class="o">+</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>

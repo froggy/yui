@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Logger Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Logger Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_logger.html">logger</a>
@@ -43,35 +43,28 @@
     <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_index</span><span class="o">++;</span>
 
     <span class="c">// Parse config vars here</span>
-<span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">oConfigs</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="nx">oConfigs</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oConfigs</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Object</span><span class="o">))</span> <span class="o">{</span>
         <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">param</span> <span class="k">in</span> <span class="nx">oConfigs</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">[</span><span class="nx">param</span><span class="o">]</span> <span class="o">=</span> <span class="nx">oConfigs</span><span class="o">[</span><span class="nx">param</span><span class="o">];</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="c">// Attach container...</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span><span class="o">(</span><span class="k">typeof</span> <span class="nx">elContainer</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">.</span><span class="nx">tagName</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span> <span class="nx">elContainer</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;yui-log&quot;</span><span class="o">;</span>
+    <span class="c">// Validate container</span>
+<span class="c"></span>    <span class="nx">elContainer</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="nx">elContainer</span><span class="o">);</span>
+    <span class="c">// Attach to existing container...</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">elContainer</span> <span class="o">&amp;&amp;</span> <span class="nx">elContainer</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">elContainer</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;div&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span> <span class="nx">elContainer</span><span class="o">;</span>
+        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">,</span><span class="s2">&quot;yui-log&quot;</span><span class="o">);</span>
     <span class="o">}</span>
     <span class="c">// ...or create container from scratch</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_elDefaultContainer</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span>  <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_elDefaultContainer</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">else</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;div&quot;</span><span class="o">));</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;yui-log&quot;</span><span class="o">;</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;yui-log&quot;</span><span class="o">;</span>
+<span class="c"></span>    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;div&quot;</span><span class="o">));</span>
+        <span class="c">//this._elContainer.id = &quot;yui-log&quot; + this._sName;</span>
+<span class="c"></span>        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">,</span><span class="s2">&quot;yui-log&quot;</span><span class="o">);</span>
+        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">,</span><span class="s2">&quot;yui-log-container&quot;</span><span class="o">);</span>
 
-            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_elDefaultContainer</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">;</span>
-        <span class="o">}</span>
-
+        <span class="c">//YAHOO.widget.LogReader._elDefaultContainer = this._elContainer;</span>
+<span class="c"></span>
         <span class="c">// If implementer has provided container values, trust and set those</span>
 <span class="c"></span>        <span class="k">var</span> <span class="nx">containerStyle</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">.</span><span class="nx">style</span><span class="o">;</span>
         <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">width</span><span class="o">)</span> <span class="o">{</span>
@@ -122,16 +115,6 @@
 
             <span class="k">this</span><span class="o">.</span><span class="nx">_title</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elHd</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;h4&quot;</span><span class="o">));</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_title</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Logger Console&quot;</span><span class="o">;</span>
-
-            <span class="c">// If Drag and Drop utility is available...</span>
-<span class="c"></span>            <span class="c">// ...and this container was created from scratch...</span>
-<span class="c"></span>            <span class="c">// ...then make the header draggable</span>
-<span class="c"></span>            <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">DD</span> <span class="o">&amp;&amp;</span>
-            <span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_elDefaultContainer</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">))</span> <span class="o">{</span>
-                <span class="k">var</span> <span class="nx">ylog_dd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">DD</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
-                <span class="nx">ylog_dd</span><span class="o">.</span><span class="nx">setHandleElId</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elHd</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
-                <span class="k">this</span><span class="o">.</span><span class="nx">_elHd</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">cursor</span> <span class="o">=</span> <span class="s2">&quot;move&quot;</span><span class="o">;</span>
-            <span class="o">}</span>
         <span class="o">}</span>
         <span class="c">// Ceate console</span>
 <span class="c"></span>        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">)</span> <span class="o">{</span>
@@ -179,6 +162,15 @@
         <span class="o">}</span>
     <span class="o">}</span>
 
+    <span class="c">// If Drag and Drop utility is available...</span>
+<span class="c"></span>    <span class="c">// ...and draggable is true...</span>
+<span class="c"></span>    <span class="c">// ...then make the header draggable</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">DD</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">draggable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">ylog_dd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">DD</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elContainer</span><span class="o">);</span>
+        <span class="nx">ylog_dd</span><span class="o">.</span><span class="nx">setHandleElId</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elHd</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_elHd</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">cursor</span> <span class="o">=</span> <span class="s2">&quot;move&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
     <span class="c">// Initialize internal vars</span>
 <span class="c"></span>    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_buffer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_buffer</span> <span class="o">=</span> <span class="o">[];</span> <span class="c">// output buffer</span>
@@ -190,6 +182,9 @@
 <span class="c"></span>    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Logger</span><span class="o">.</span><span class="nx">newLogEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onNewLog</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
     <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Logger</span><span class="o">.</span><span class="nx">logResetEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onReset</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
+    <span class="c">// Initialize filters</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_filterCheckboxes</span> <span class="o">=</span> <span class="o">{};</span>
+    
     <span class="c">// Initialize category filters</span>
 <span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_categoryFilters</span> <span class="o">=</span> <span class="o">[];</span>
     <span class="k">var</span> <span class="nx">catsLen</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Logger</span><span class="o">.</span><span class="nx">categories</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
@@ -312,6 +307,15 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">newestOnTop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 
 <span class="c">/**</span>
+<span class="c"> * Output timeout buffer in milliseconds.</span>
+<span class="c"> *</span>
+<span class="c"> * @property outputBuffer</span>
+<span class="c"> * @type Number</span>
+<span class="c"> * @default 100</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">outputBuffer</span> <span class="o">=</span> <span class="m">100</span><span class="o">;</span>
+
+<span class="c">/**</span>
 <span class="c"> * Maximum number of messages a LogReader console will display.</span>
 <span class="c"> *</span>
 <span class="c"> * @property thresholdMax</span>
@@ -339,6 +343,24 @@
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">isCollapsed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
+<span class="c">/**</span>
+<span class="c"> * True when LogReader is in a paused state, false otherwise.</span>
+<span class="c"> *</span>
+<span class="c"> * @property isPaused</span>
+<span class="c"> * @type Boolean</span>
+<span class="c"> * @default false</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">isPaused</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * Enables draggable LogReader if DragDrop Utility is present.</span>
+<span class="c"> *</span>
+<span class="c"> * @property draggable</span>
+<span class="c"> * @type Boolean</span>
+<span class="c"> * @default true</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">draggable</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
 <span class="c">/////////////////////////////////////////////////////////////////////////////</span>
 <span class="c">//</span>
 <span class="c">// Public methods</span>
@@ -361,6 +383,8 @@
 <span class="c"> * @method pause</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">pause</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">isPaused</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_btnPause</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Resume&quot;</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">logReaderEnabled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 <span class="o">};</span>
@@ -372,6 +396,8 @@
 <span class="c"> * @method resume</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">resume</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">isPaused</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_btnPause</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Pause&quot;</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">logReaderEnabled</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">_printBuffer</span><span class="o">();</span>
 <span class="o">};</span>
@@ -420,6 +446,150 @@
     <span class="o">}</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">_btnCollapse</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Collapse&quot;</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">isCollapsed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Returns related checkbox element for given filter (i.e., category or source).</span>
+<span class="c"> *</span>
+<span class="c"> * @method getCheckbox</span>
+<span class="c"> * @param {String} Category or source name.</span>
+<span class="c"> * @return {Array} Array of all filter checkboxes.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getCheckbox</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">filter</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_filterCheckboxes</span><span class="o">[</span><span class="nx">filter</span><span class="o">];</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Returns array of enabled categories.</span>
+<span class="c"> *</span>
+<span class="c"> * @method getCategories</span>
+<span class="c"> * @return {String[]} Array of enabled categories.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getCategories</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_categoryFilters</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Shows log messages associated with given category.</span>
+<span class="c"> *</span>
+<span class="c"> * @method showCategory</span>
+<span class="c"> * @param {String} Category name.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">showCategory</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_categoryFilters</span><span class="o">;</span>
+    <span class="c">// Don&#39;t do anything if category is already enabled</span>
+<span class="c"></span>    <span class="c">// Use Array.indexOf if available...</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">if</span><span class="o">(</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">)</span> <span class="o">&gt;</span>  <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c">// ...or do it the old-fashioned way</span>
+<span class="c"></span>    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
+           <span class="k">if</span><span class="o">(</span><span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">]</span> <span class="o">===</span> <span class="nx">sCategory</span><span class="o">){</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_categoryFilters</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">getCheckbox</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">).</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Hides log messages associated with given category.</span>
+<span class="c"> *</span>
+<span class="c"> * @method hideCategory</span>
+<span class="c"> * @param {String} Category name.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">hideCategory</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_categoryFilters</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sCategory</span> <span class="o">==</span> <span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">{</span>
+            <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">splice</span><span class="o">(</span><span class="nx">i</span><span class="o">,</span> <span class="m">1</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">getCheckbox</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">).</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Returns array of enabled sources.</span>
+<span class="c"> *</span>
+<span class="c"> * @method getSources</span>
+<span class="c"> * @return {Array} Array of enabled sources.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getSources</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sourceFilters</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Shows log messages associated with given source.</span>
+<span class="c"> *</span>
+<span class="c"> * @method showSource</span>
+<span class="c"> * @param {String} Source name.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">showSource</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sourceFilters</span><span class="o">;</span>
+    <span class="c">// Don&#39;t do anything if category is already enabled</span>
+<span class="c"></span>    <span class="c">// Use Array.indexOf if available...</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">if</span><span class="o">(</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="nx">sSource</span><span class="o">)</span> <span class="o">&gt;</span>  <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c">// ...or do it the old-fashioned way</span>
+<span class="c"></span>    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
+           <span class="k">if</span><span class="o">(</span><span class="nx">sSource</span> <span class="o">==</span> <span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">]){</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">sSource</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">getCheckbox</span><span class="o">(</span><span class="nx">sSource</span><span class="o">).</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Hides log messages associated with given source.</span>
+<span class="c"> *</span>
+<span class="c"> * @method hideSource</span>
+<span class="c"> * @param {String} Source name.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">hideSource</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sourceFilters</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sSource</span> <span class="o">==</span> <span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">{</span>
+            <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">splice</span><span class="o">(</span><span class="nx">i</span><span class="o">,</span> <span class="m">1</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">getCheckbox</span><span class="o">(</span><span class="nx">sSource</span><span class="o">).</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
+<span class="c"> * Does not delete any log messages, but clears all printed log messages from</span>
+<span class="c"> * the console. Log messages will be printed out again if user re-filters. The</span>
+<span class="c"> * static method YAHOO.widget.Logger.reset() should be called in order to</span>
+<span class="c"> * actually delete log messages.</span>
+<span class="c"> *</span>
+<span class="c"> * @method clearConsole</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">clearConsole</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c">// Clear the buffer of any pending messages</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_buffer</span> <span class="o">=</span> <span class="o">[];</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_consoleMsgCount</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
+
+    <span class="k">var</span> <span class="nx">elConsole</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">;</span>
+    <span class="k">while</span><span class="o">(</span><span class="nx">elConsole</span><span class="o">.</span><span class="nx">hasChildNodes</span><span class="o">())</span> <span class="o">{</span>
+        <span class="nx">elConsole</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">elConsole</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">);</span>
+    <span class="o">}</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>
@@ -481,20 +651,20 @@
 
     <span class="c">// Verbose output includes extra line breaks</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">output</span> <span class="o">=</span>  <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">verboseOutput</span><span class="o">)</span> <span class="o">?</span>
-        <span class="o">[</span><span class="s2">&quot;&lt;p&gt;&lt;span class=&#39;&quot;</span><span class="o">,</span> <span class="nx">category</span><span class="o">,</span> <span class="s2">&quot;&#39;&gt;&quot;</span><span class="o">,</span> <span class="k">label</span><span class="o">,</span> <span class="s2">&quot;&lt;/span&gt; &quot;</span><span class="o">,</span>
+        <span class="o">[</span><span class="s2">&quot;&lt;pre class=\&quot;yui-log-verbose\&quot;&gt;&lt;p&gt;&lt;span class=&#39;&quot;</span><span class="o">,</span> <span class="nx">category</span><span class="o">,</span> <span class="s2">&quot;&#39;&gt;&quot;</span><span class="o">,</span> <span class="k">label</span><span class="o">,</span> <span class="s2">&quot;&lt;/span&gt; &quot;</span><span class="o">,</span>
         <span class="nx">totalTime</span><span class="o">,</span> <span class="s2">&quot;ms (+&quot;</span><span class="o">,</span> <span class="nx">elapsedTime</span><span class="o">,</span> <span class="s2">&quot;) &quot;</span><span class="o">,</span>
         <span class="nx">localTime</span><span class="o">,</span> <span class="s2">&quot;: &quot;</span><span class="o">,</span>
         <span class="s2">&quot;&lt;/p&gt;&lt;p&gt;&quot;</span><span class="o">,</span>
         <span class="nx">sourceAndDetail</span><span class="o">,</span>
         <span class="s2">&quot;: &lt;/p&gt;&lt;p&gt;&quot;</span><span class="o">,</span>
         <span class="nx">msg</span><span class="o">,</span>
-        <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="o">]</span> <span class="o">:</span>
+        <span class="s2">&quot;&lt;/p&gt;&lt;/pre&gt;&quot;</span><span class="o">]</span> <span class="o">:</span>
 
-        <span class="o">[</span><span class="s2">&quot;&lt;p&gt;&lt;span class=&#39;&quot;</span><span class="o">,</span> <span class="nx">category</span><span class="o">,</span> <span class="s2">&quot;&#39;&gt;&quot;</span><span class="o">,</span> <span class="k">label</span><span class="o">,</span> <span class="s2">&quot;&lt;/span&gt; &quot;</span><span class="o">,</span>
+        <span class="o">[</span><span class="s2">&quot;&lt;pre&gt;&lt;p&gt;&lt;span class=&#39;&quot;</span><span class="o">,</span> <span class="nx">category</span><span class="o">,</span> <span class="s2">&quot;&#39;&gt;&quot;</span><span class="o">,</span> <span class="k">label</span><span class="o">,</span> <span class="s2">&quot;&lt;/span&gt; &quot;</span><span class="o">,</span>
         <span class="nx">totalTime</span><span class="o">,</span> <span class="s2">&quot;ms (+&quot;</span><span class="o">,</span> <span class="nx">elapsedTime</span><span class="o">,</span> <span class="s2">&quot;) &quot;</span><span class="o">,</span>
         <span class="nx">localTime</span><span class="o">,</span> <span class="s2">&quot;: &quot;</span><span class="o">,</span>
         <span class="nx">sourceAndDetail</span><span class="o">,</span> <span class="s2">&quot;: &quot;</span><span class="o">,</span>
-        <span class="nx">msg</span><span class="o">,</span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="o">];</span>
+        <span class="nx">msg</span><span class="o">,</span> <span class="s2">&quot;&lt;/p&gt;&lt;/pre&gt;&quot;</span><span class="o">];</span>
 
     <span class="k">return</span> <span class="nx">output</span><span class="o">.</span><span class="nx">join</span><span class="o">(</span><span class="s2">&quot;&quot;</span><span class="o">);</span>
 <span class="o">};</span>
@@ -540,6 +710,7 @@
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_sName</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
+<span class="c">//TODO: remove</span>
 <span class="c">/**</span>
 <span class="c"> * A class member shared by all LogReaders if a container needs to be</span>
 <span class="c"> * created during instantiation. Will be null if a container element never needs to</span>
@@ -549,8 +720,8 @@
 <span class="c"> * @type HTMLElement</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
-<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">_elDefaultContainer</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
+<span class="c">//YAHOO.widget.LogReader._elDefaultContainer = null;</span>
+<span class="c"></span>
 <span class="c">/**</span>
 <span class="c"> * Buffer of log message objects for batch output.</span>
 <span class="c"> *</span>
@@ -587,6 +758,15 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * Hash of filters and their related checkbox elements.</span>
+<span class="c"> *</span>
+<span class="c"> * @property _filterCheckboxes</span>
+<span class="c"> * @type Object</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_filterCheckboxes</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
 <span class="c">/**</span>
 <span class="c"> * Array of filters for log message categories.</span>
@@ -736,26 +916,29 @@
 
         <span class="k">var</span> <span class="nx">elFilter</span> <span class="o">=</span> <span class="nx">elParent</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;span&quot;</span><span class="o">));</span>
         <span class="nx">elFilter</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;yui-log-filtergrp&quot;</span><span class="o">;</span>
-            <span class="c">// Append el at the end so IE 5.5 can set &quot;type&quot; attribute</span>
-<span class="c"></span>            <span class="c">// and THEN set checked property</span>
-<span class="c"></span>            <span class="k">var</span> <span class="nx">chkCategory</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;input&quot;</span><span class="o">);</span>
-            <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;yui-log-filter-&quot;</span> <span class="o">+</span> <span class="nx">sCategory</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sName</span><span class="o">;</span>
-            <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;yui-log-filter-&quot;</span> <span class="o">+</span> <span class="nx">sCategory</span><span class="o">;</span>
-            <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;checkbox&quot;</span><span class="o">;</span>
-            <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">category</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
-            <span class="nx">chkCategory</span> <span class="o">=</span> <span class="nx">elFilter</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">chkCategory</span><span class="o">);</span>
-            <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        
+        <span class="c">// Append el at the end so IE 5.5 can set &quot;type&quot; attribute</span>
+<span class="c"></span>        <span class="c">// and THEN set checked property</span>
+<span class="c"></span>        <span class="k">var</span> <span class="nx">chkCategory</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;input&quot;</span><span class="o">);</span>
+        <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;yui-log-filter-&quot;</span> <span class="o">+</span> <span class="nx">sCategory</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sName</span><span class="o">;</span>
+        <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;yui-log-filter-&quot;</span> <span class="o">+</span> <span class="nx">sCategory</span><span class="o">;</span>
+        <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;checkbox&quot;</span><span class="o">;</span>
+        <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">category</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
+        <span class="nx">chkCategory</span> <span class="o">=</span> <span class="nx">elFilter</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">chkCategory</span><span class="o">);</span>
+        <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 
-            <span class="c">// Add this checked filter to the internal array of filters</span>
-<span class="c"></span>            <span class="nx">filters</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">);</span>
-            <span class="c">// Subscribe to the click event</span>
-<span class="c"></span>            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">chkCategory</span><span class="o">,</span><span class="s1">&#39;click&#39;</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_onCheckCategory</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">);</span>
+        <span class="c">// Add this checked filter to the internal array of filters</span>
+<span class="c"></span>        <span class="nx">filters</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">sCategory</span><span class="o">);</span>
+        <span class="c">// Subscribe to the click event</span>
+<span class="c"></span>        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">chkCategory</span><span class="o">,</span><span class="s1">&#39;click&#39;</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_onCheckCategory</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">);</span>
 
-            <span class="c">// Create and class the text label</span>
-<span class="c"></span>            <span class="k">var</span> <span class="nx">lblCategory</span> <span class="o">=</span> <span class="nx">elFilter</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;label&quot;</span><span class="o">));</span>
-            <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">htmlFor</span> <span class="o">=</span> <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
-            <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
-            <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
+        <span class="c">// Create and class the text label</span>
+<span class="c"></span>        <span class="k">var</span> <span class="nx">lblCategory</span> <span class="o">=</span> <span class="nx">elFilter</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;label&quot;</span><span class="o">));</span>
+        <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">htmlFor</span> <span class="o">=</span> <span class="nx">chkCategory</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+        <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
+        <span class="nx">lblCategory</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">sCategory</span><span class="o">;</span>
+        
+        <span class="k">this</span><span class="o">.</span><span class="nx">_filterCheckboxes</span><span class="o">[</span><span class="nx">sCategory</span><span class="o">]</span> <span class="o">=</span> <span class="nx">chkCategory</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -796,6 +979,8 @@
         <span class="nx">lblSource</span><span class="o">.</span><span class="nx">htmlFor</span> <span class="o">=</span> <span class="nx">chkSource</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
         <span class="nx">lblSource</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">sSource</span><span class="o">;</span>
         <span class="nx">lblSource</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">sSource</span><span class="o">;</span>
+        
+        <span class="k">this</span><span class="o">.</span><span class="nx">_filterCheckboxes</span><span class="o">[</span><span class="nx">sSource</span><span class="o">]</span> <span class="o">=</span> <span class="nx">chkSource</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -808,30 +993,8 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_filterLogs</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
     <span class="c">// Reprint stack with new filters</span>
 <span class="c"></span>    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span> <span class="o">!==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">_clearConsole</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">clearConsole</span><span class="o">();</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_printToConsole</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Logger</span><span class="o">.</span><span class="nx">getStack</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">};</span>
-
-<span class="c">/**</span>
-<span class="c"> * Clears all outputted log messages from the console and resets the time of the</span>
-<span class="c"> * last output log message.</span>
-<span class="c"> *</span>
-<span class="c"> * @method _clearConsole</span>
-<span class="c"> * @private</span>
-<span class="c"> */</span>
-<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_clearConsole</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
-    <span class="c">// Clear the buffer of any pending messages</span>
-<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">_buffer</span> <span class="o">=</span> <span class="o">[];</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">_consoleMsgCount</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
-
-    <span class="c">// Reset the rolling timer</span>
-<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_lastTime</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Logger</span><span class="o">.</span><span class="nx">getStartTime</span><span class="o">();</span>
-
-    <span class="k">var</span> <span class="nx">elConsole</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">;</span>
-    <span class="k">while</span><span class="o">(</span><span class="nx">elConsole</span><span class="o">.</span><span class="nx">hasChildNodes</span><span class="o">())</span> <span class="o">{</span>
-        <span class="nx">elConsole</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">elConsole</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -911,15 +1074,12 @@
         <span class="o">}</span>
         <span class="k">if</span><span class="o">(</span><span class="nx">okToPrint</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">formatMsg</span><span class="o">(</span><span class="nx">entry</span><span class="o">);</span>
-
-            <span class="c">// Verbose output uses &lt;code&gt; tag instead of &lt;pre&gt; tag (for wrapping)</span>
-<span class="c"></span>            <span class="k">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">verboseOutput</span><span class="o">)</span> <span class="o">?</span> <span class="s2">&quot;CODE&quot;</span> <span class="o">:</span> <span class="s2">&quot;PRE&quot;</span><span class="o">;</span>
-            <span class="k">var</span> <span class="nx">oNewElement</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">newestOnTop</span><span class="o">)</span> <span class="o">?</span>
-                <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">insertBefore</span><span class="o">(</span>
-                    <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="nx">container</span><span class="o">),</span><span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">):</span>
-                <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="nx">container</span><span class="o">));</span>
-
-            <span class="nx">oNewElement</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">output</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">newestOnTop</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">output</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">innerHTML</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">_elConsole</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">output</span><span class="o">;</span>
+            <span class="o">}</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_consoleMsgCount</span><span class="o">++;</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_lastTime</span> <span class="o">=</span> <span class="nx">entry</span><span class="o">.</span><span class="nx">time</span><span class="o">.</span><span class="nx">getTime</span><span class="o">();</span>
         <span class="o">}</span>
@@ -973,21 +1133,13 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onCheckCategory</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span> <span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">var</span> <span class="nx">newFilter</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">category</span><span class="o">;</span>
-    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_categoryFilters</span><span class="o">;</span>
-
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">checked</span><span class="o">)</span> <span class="o">{</span> <span class="c">// Remove category from filters</span>
-<span class="c"></span>        <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="k">if</span><span class="o">(</span><span class="nx">newFilter</span> <span class="o">==</span> <span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">{</span>
-                <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">splice</span><span class="o">(</span><span class="nx">i</span><span class="o">,</span> <span class="m">1</span><span class="o">);</span>
-                <span class="k">break</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+    <span class="k">var</span> <span class="nx">category</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">category</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">checked</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">hideCategory</span><span class="o">(</span><span class="nx">category</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="k">else</span> <span class="o">{</span> <span class="c">// Add category to filters</span>
-<span class="c"></span>        <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">newFilter</span><span class="o">);</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">showCategory</span><span class="o">(</span><span class="nx">category</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>
@@ -999,21 +1151,13 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onCheckSource</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span> <span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">var</span> <span class="nx">newFilter</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">source</span><span class="o">;</span>
-    <span class="k">var</span> <span class="nx">filtersArray</span> <span class="o">=</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_sourceFilters</span><span class="o">;</span>
-
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">checked</span><span class="o">)</span> <span class="o">{</span> <span class="c">// Remove category from filters</span>
-<span class="c"></span>        <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">filtersArray</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="k">if</span><span class="o">(</span><span class="nx">newFilter</span> <span class="o">==</span> <span class="nx">filtersArray</span><span class="o">[</span><span class="nx">i</span><span class="o">])</span> <span class="o">{</span>
-                <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">splice</span><span class="o">(</span><span class="nx">i</span><span class="o">,</span> <span class="m">1</span><span class="o">);</span>
-                <span class="k">break</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+    <span class="k">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">source</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">checked</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">hideSource</span><span class="o">(</span><span class="nx">source</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="k">else</span> <span class="o">{</span> <span class="c">// Add category to filters</span>
-<span class="c"></span>        <span class="nx">filtersArray</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">newFilter</span><span class="o">);</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">showSource</span><span class="o">(</span><span class="nx">source</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_filterLogs</span><span class="o">();</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>
@@ -1042,14 +1186,11 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onClickPauseBtn</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span> <span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_btnPause</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">btn</span><span class="o">.</span><span class="nx">value</span> <span class="o">==</span> <span class="s2">&quot;Resume&quot;</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">resume</span><span class="o">();</span>
-        <span class="nx">btn</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Pause&quot;</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(!</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">isPaused</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">pause</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
-        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">pause</span><span class="o">();</span>
-        <span class="nx">btn</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Resume&quot;</span><span class="o">;</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">resume</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -1062,7 +1203,7 @@
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogReader</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onClickClearBtn</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span> <span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_clearConsole</span><span class="o">();</span>
+    <span class="nx">oSelf</span><span class="o">.</span><span class="nx">clearConsole</span><span class="o">();</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>
@@ -1079,7 +1220,7 @@
     <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_buffer</span><span class="o">.</span><span class="nx">push</span><span class="o">(</span><span class="nx">logEntry</span><span class="o">);</span>
 
     <span class="k">if</span> <span class="o">(</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">logReaderEnabled</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">(){</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_printBuffer</span><span class="o">();},</span> <span class="m">100</span><span class="o">);</span>
+        <span class="nx">oSelf</span><span class="o">.</span><span class="nx">_timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">(){</span><span class="nx">oSelf</span><span class="o">.</span><span class="nx">_printBuffer</span><span class="o">();},</span> <span class="nx">oSelf</span><span class="o">.</span><span class="nx">outputBuffer</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -1149,10 +1290,10 @@
                     <div class="module">
                         <h4>Classes</h4>
                         <ul class="content">
-                                <li class=""><a href="LogMsg.html">LogMsg</a></li>
-                                <li class=""><a href="LogReader.html">LogReader</a></li>
-                                <li class=""><a href="LogWriter.html">LogWriter</a></li>
                                 <li class=""><a href="YAHOO.widget.Logger.html">YAHOO.widget.Logger</a></li>
+                                <li class=""><a href="YAHOO.widget.LogMsg.html">YAHOO.widget.LogMsg</a></li>
+                                <li class=""><a href="YAHOO.widget.LogReader.html">YAHOO.widget.LogReader</a></li>
+                                <li class=""><a href="YAHOO.widget.LogWriter.html">YAHOO.widget.LogWriter</a></li>
                         </ul>
                     </div>
 

@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -29,11 +29,8 @@
 <span class="k">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span>
     <span class="nx">Module</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Module</span><span class="o">,</span>
     <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">,</span>
-
-    <span class="nx">m_oMenuItemElement</span> <span class="o">=</span> <span class="kc">null</span><span class="o">,</span>
-    <span class="nx">m_oSubmenuIndicator</span> <span class="o">=</span> <span class="kc">null</span><span class="o">,</span>
-    <span class="nx">m_oCheckedIndicator</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
+    <span class="nx">CustomEvent</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">,</span>
+    <span class="nx">Lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">;</span>
 
 <span class="c">/**</span>
 <span class="c">* Creates an item for a menu.</span>
@@ -73,91 +70,124 @@
 <span class="o">};</span>
 
 
+<span class="c">/**</span>
+<span class="c">* Constant representing the name of the MenuItem&#39;s events</span>
+<span class="c">* @property YAHOO.widget.MenuItem._EVENT_TYPES</span>
+<span class="c">* @private</span>
+<span class="c">* @final</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span> <span class="o">=</span> <span class="o">{</span>
+
+    <span class="s2">&quot;MOUSE_OVER&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;MOUSE_OUT&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;MOUSE_DOWN&quot;</span><span class="o">:</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;MOUSE_UP&quot;</span><span class="o">:</span> <span class="s2">&quot;mouseup&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;CLICK&quot;</span><span class="o">:</span> <span class="s2">&quot;click&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;KEY_PRESS&quot;</span><span class="o">:</span> <span class="s2">&quot;keypress&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;KEY_DOWN&quot;</span><span class="o">:</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;KEY_UP&quot;</span><span class="o">:</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;ITEM_ADDED&quot;</span><span class="o">:</span> <span class="s2">&quot;itemAdded&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;ITEM_REMOVED&quot;</span><span class="o">:</span> <span class="s2">&quot;itemRemoved&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;FOCUS&quot;</span><span class="o">:</span> <span class="s2">&quot;focus&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;BLUR&quot;</span><span class="o">:</span> <span class="s2">&quot;blur&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;DESTROY&quot;</span><span class="o">:</span> <span class="s2">&quot;destroy&quot;</span>
+
+<span class="o">};</span>
+
+
+<span class="c">/**</span>
+<span class="c">* Constant representing the MenuItem&#39;s configuration properties</span>
+<span class="c">* @property YAHOO.widget.MenuItem._DEFAULT_CONFIG</span>
+<span class="c">* @private</span>
+<span class="c">* @final</span>
+<span class="c">* @type Object</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span> <span class="o">=</span> <span class="o">{</span>
+
+    <span class="s2">&quot;TEXT&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;HELP_TEXT&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;helptext&quot;</span> 
+    <span class="o">},</span>
+
+    <span class="s2">&quot;URL&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;url&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;#&quot;</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;TARGET&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;target&quot;</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;EMPHASIS&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;emphasis&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isBoolean</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;STRONG_EMPHASIS&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;strongemphasis&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isBoolean</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+    <span class="o">},</span>
+
+    <span class="s2">&quot;CHECKED&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;checked&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isBoolean</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span> 
+        <span class="nx">supercedes</span><span class="o">:[</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span>
+    <span class="o">},</span> 
+
+    <span class="s2">&quot;DISABLED&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;disabled&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isBoolean</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="o">},</span>
+
+    <span class="s2">&quot;SELECTED&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;selected&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isBoolean</span><span class="o">,</span> 
+        <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="o">},</span>
+
+    <span class="s2">&quot;SUBMENU&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;submenu&quot;</span>
+    <span class="o">},</span>
+
+    <span class="s2">&quot;ONCLICK&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;onclick&quot;</span>
+    <span class="o">},</span>
+
+    <span class="s2">&quot;CLASS_NAME&quot;</span><span class="o">:</span> <span class="o">{</span> 
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;classname&quot;</span><span class="o">,</span> 
+        <span class="nx">value</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span> 
+        <span class="nx">validator</span><span class="o">:</span> <span class="nx">Lang</span><span class="o">.</span><span class="nx">isString</span>
+    <span class="o">}</span>
+
+<span class="o">};</span>
+
+
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="o">{</span>
 
     <span class="c">// Constants</span>
 <span class="c"></span>
 
     <span class="c">/**</span>
-<span class="c">    * @property SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for the </span>
-<span class="c">    * menu item&#39;s submenu arrow indicator.</span>
-<span class="c">    * @default &quot;nt/ic/ut/alt1/menuarorght8_nrm_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All submenu indicator images are applied via a CSS </span>
-<span class="c">    * background image.  See &quot;submenuindicator&quot; class name in menu.css.</span>
-<span class="c">    */</span>
-    <span class="nx">SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/alt1/menuarorght8_nrm_1.gif&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for the </span>
-<span class="c">    * submenu arrow indicator when the menu item is selected.</span>
-<span class="c">    * @default &quot;nt/ic/ut/alt1/menuarorght8_hov_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All submenu indicator images are applied via a CSS </span>
-<span class="c">    * background image.  See &quot;submenuindicator&quot; class name in menu.css.</span>
-<span class="c">    */</span>
-    <span class="nx">SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> 
-        <span class="s2">&quot;nt/ic/ut/alt1/menuarorght8_hov_1.gif&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for the </span>
-<span class="c">    * submenu arrow indicator when the menu item is disabled.</span>
-<span class="c">    * @default &quot;nt/ic/ut/alt1/menuarorght8_dim_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All submenu indicator images are applied via a CSS </span>
-<span class="c">    * background image.  See &quot;submenuindicator&quot; class name in menu.css.</span>
-<span class="c">    */</span>
-    <span class="nx">DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> 
-        <span class="s2">&quot;nt/ic/ut/alt1/menuarorght8_dim_1.gif&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property COLLAPSED_SUBMENU_INDICATOR_ALT_TEXT</span>
-<span class="c">    * @description String representing the alt text for the image to be used </span>
-<span class="c">    * for the submenu arrow indicator.</span>
-<span class="c">    * @default &quot;Collapsed.  Click to expand.&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated Use COLLAPSED_SUBMENU_INDICATOR_TEXT.</span>
-<span class="c">    */</span>
-    <span class="nx">COLLAPSED_SUBMENU_INDICATOR_ALT_TEXT</span><span class="o">:</span> <span class="s2">&quot;Collapsed.  Click to expand.&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property EXPANDED_SUBMENU_INDICATOR_ALT_TEXT</span>
-<span class="c">    * @description String representing the alt text for the image to be used </span>
-<span class="c">    * for the submenu arrow indicator when the submenu is visible.</span>
-<span class="c">    * @default &quot;Expanded.  Click to collapse.&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated Use EXPANDED_SUBMENU_INDICATOR_TEXT.</span>
-<span class="c">    */</span>
-    <span class="nx">EXPANDED_SUBMENU_INDICATOR_ALT_TEXT</span><span class="o">:</span> <span class="s2">&quot;Expanded.  Click to collapse.&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property DISABLED_SUBMENU_INDICATOR_ALT_TEXT</span>
-<span class="c">    * @description String representing the alt text for the image to be used </span>
-<span class="c">    * for the submenu arrow indicator when the menu item is disabled.</span>
-<span class="c">    * @default &quot;Disabled.&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated Use DISABLED_SUBMENU_INDICATOR_TEXT.</span>
-<span class="c">    */</span>
-    <span class="nx">DISABLED_SUBMENU_INDICATOR_ALT_TEXT</span><span class="o">:</span> <span class="s2">&quot;Disabled.&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
 <span class="c">    * @property COLLAPSED_SUBMENU_INDICATOR_TEXT</span>
-<span class="c">    * @description String representing the text for the &lt;code&gt;&amp;#60;em&amp;#62;&lt;code&gt;</span>
+<span class="c">    * @description String representing the text for the &lt;code&gt;&amp;#60;em&amp;#62;&lt;/code&gt;</span>
 <span class="c">    * element used for the submenu arrow indicator.</span>
 <span class="c">    * @default &quot;Submenu collapsed.  Click to expand submenu.&quot;</span>
 <span class="c">    * @final</span>
@@ -170,7 +200,7 @@
     <span class="c">/**</span>
 <span class="c">    * @property EXPANDED_SUBMENU_INDICATOR_TEXT</span>
 <span class="c">    * @description String representing the text for the submenu arrow indicator </span>
-<span class="c">    * element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;code&gt;) when the submenu is visible.</span>
+<span class="c">    * element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;/code&gt;) when the submenu is visible.</span>
 <span class="c">    * @default &quot;Submenu expanded.  Click to collapse submenu.&quot;</span>
 <span class="c">    * @final</span>
 <span class="c">    * @type String</span>
@@ -182,7 +212,7 @@
     <span class="c">/**</span>
 <span class="c">    * @property DISABLED_SUBMENU_INDICATOR_TEXT</span>
 <span class="c">    * @description String representing the text for the submenu arrow indicator </span>
-<span class="c">    * element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;code&gt;) when the menu item is disabled.</span>
+<span class="c">    * element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;/code&gt;) when the menu item is disabled.</span>
 <span class="c">    * @default &quot;Submenu collapsed.  (Item disabled.).&quot;</span>
 <span class="c">    * @final</span>
 <span class="c">    * @type String</span>
@@ -191,72 +221,9 @@
 
 
     <span class="c">/**</span>
-<span class="c">    * @property CHECKED_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for </span>
-<span class="c">    * the checked state.</span>
-<span class="c">    * @default &quot;nt/ic/ut/bsc/menuchk8_nrm_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All checked indicator images are applied via a CSS </span>
-<span class="c">    * background image.  See &quot;checkedindicator&quot; class name in menu.css.</span>
-<span class="c">    */</span>
-    <span class="nx">CHECKED_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/bsc/menuchk8_nrm_1.gif&quot;</span><span class="o">,</span>
-    
-
-    <span class="c">/**</span>
-<span class="c">    * @property SELECTED_CHECKED_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for </span>
-<span class="c">    * the selected checked state.</span>
-<span class="c">    * @default &quot;nt/ic/ut/bsc/menuchk8_hov_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All checked indicator images are applied via a CSS </span>
-<span class="c">    * background image.  See &quot;checkedindicator&quot; class name in menu.css.</span>
-<span class="c">    */</span>
-    <span class="nx">SELECTED_CHECKED_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/bsc/menuchk8_hov_1.gif&quot;</span><span class="o">,</span>
-    
-
-    <span class="c">/**</span>
-<span class="c">    * @property DISABLED_CHECKED_IMAGE_PATH</span>
-<span class="c">    * @description String representing the path to the image to be used for </span>
-<span class="c">    * the disabled checked state.</span>
-<span class="c">    * @default &quot;nt/ic/ut/bsc/menuchk8_dim_1.gif&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All checked indicator images are applied via a CSS </span>
-<span class="c">    * background image.</span>
-<span class="c">    */</span>
-    <span class="nx">DISABLED_CHECKED_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/bsc/menuchk8_dim_1.gif&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property CHECKED_IMAGE_ALT_TEXT</span>
-<span class="c">    * @description String representing the alt text for the image to be used </span>
-<span class="c">    * for the checked image.</span>
-<span class="c">    * @default &quot;Checked.&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated Use CHECKED_TEXT.</span>
-<span class="c">    */</span>
-    <span class="nx">CHECKED_IMAGE_ALT_TEXT</span><span class="o">:</span> <span class="s2">&quot;Checked.&quot;</span><span class="o">,</span>
-    
-    
-    <span class="c">/**</span>
-<span class="c">    * @property DISABLED_CHECKED_IMAGE_ALT_TEXT</span>
-<span class="c">    * @description String representing the alt text for the image to be used </span>
-<span class="c">    * for the checked image when the item is disabled.</span>
-<span class="c">    * @default &quot;Checked. (Item disabled.)&quot;</span>
-<span class="c">    * @final</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated Use DISABLED_CHECKED_TEXT.</span>
-<span class="c">    */</span>
-    <span class="nx">DISABLED_CHECKED_IMAGE_ALT_TEXT</span><span class="o">:</span> <span class="s2">&quot;Checked. (Item disabled.)&quot;</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
 <span class="c">    * @property CHECKED_TEXT</span>
 <span class="c">    * @description String representing the text to be used for the checked </span>
-<span class="c">    * indicator element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;code&gt;).</span>
+<span class="c">    * indicator element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;/code&gt;).</span>
 <span class="c">    * @default &quot;Checked.&quot;</span>
 <span class="c">    * @final</span>
 <span class="c">    * @type String</span>
@@ -267,7 +234,7 @@
     <span class="c">/**</span>
 <span class="c">    * @property DISABLED_CHECKED_TEXT</span>
 <span class="c">    * @description String representing the text to be used for the checked </span>
-<span class="c">    * indicator element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;code&gt;) when the menu item </span>
+<span class="c">    * indicator element (&lt;code&gt;&amp;#60;em&amp;#62;&lt;/code&gt;) when the menu item </span>
 <span class="c">    * is disabled.</span>
 <span class="c">    * @default &quot;Checked. (Item disabled.)&quot;</span>
 <span class="c">    * @final</span>
@@ -295,30 +262,6 @@
 <span class="c">    * @type YAHOO.widget.Menu</span>
 <span class="c">    */</span>
     <span class="nx">SUBMENU_TYPE</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @property IMG_ROOT</span>
-<span class="c">    * @description String representing the prefix path to use for </span>
-<span class="c">    * non-secure images.</span>
-<span class="c">    * @default &quot;http://us.i1.yimg.com/us.yimg.com/i/&quot;</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All menu item images are now applied via CSS </span>
-<span class="c">    * background images.</span>
-<span class="c">    */</span>
-    <span class="nx">IMG_ROOT</span><span class="o">:</span> <span class="s2">&quot;http://us.i1.yimg.com/us.yimg.com/i/&quot;</span><span class="o">,</span>
-    
-
-    <span class="c">/**</span>
-<span class="c">    * @property IMG_ROOT_SSL</span>
-<span class="c">    * @description String representing the prefix path to use for securely </span>
-<span class="c">    * served images.</span>
-<span class="c">    * @default &quot;https://a248.e.akamai.net/sec.yimg.com/i/&quot;</span>
-<span class="c">    * @type String</span>
-<span class="c">    * @deprecated All menu item images are now applied via CSS </span>
-<span class="c">    * background images.</span>
-<span class="c">    */</span>
-    <span class="nx">IMG_ROOT_SSL</span><span class="o">:</span> <span class="s2">&quot;https://a248.e.akamai.net/sec.yimg.com/i/&quot;</span><span class="o">,</span>
 
 
 
@@ -370,18 +313,6 @@
     
 
     <span class="c">/**</span>
-<span class="c">    * @property _checkImage</span>
-<span class="c">    * @description Object reference to the menu item&#39;s checkmark image.</span>
-<span class="c">    * @default null</span>
-<span class="c">    * @private</span>
-<span class="c">    * @type &lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-</span>
-<span class="c">    * one-html.html#ID-17701901&quot;&gt;HTMLImageElement&lt;/a&gt;</span>
-<span class="c">    * @deprecated Use _oCheckedIndicator.</span>
-<span class="c">    */</span>
-    <span class="nx">_checkImage</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>   
-
-
-    <span class="c">/**</span>
 <span class="c">    * @property _oCheckedIndicator</span>
 <span class="c">    * @description Object reference to the menu item&#39;s checkmark image.</span>
 <span class="c">    * @default &lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/</span>
@@ -425,28 +356,6 @@
 <span class="c">	* @type YAHOO.widget.MenuItem</span>
 <span class="c">	*/</span>
 	<span class="nx">constructor</span><span class="o">:</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">,</span>
-
-
-	<span class="c">/**</span>
-<span class="c">    * @property imageRoot</span>
-<span class="c">	* @description String representing the root path for all of the menu </span>
-<span class="c">	* item&#39;s images.</span>
-<span class="c">	* @type String</span>
-<span class="c">    * @deprecated All menu item images are now applied via CSS </span>
-<span class="c">    * background images.</span>
-<span class="c">	*/</span>
-	<span class="nx">imageRoot</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
-
-
-	<span class="c">/**</span>
-<span class="c">    * @property isSecure</span>
-<span class="c">	* @description Boolean representing whether or not the current browsing </span>
-<span class="c">	* context is secure (HTTPS).</span>
-<span class="c">	* @type Boolean</span>
-<span class="c">    * @deprecated All menu item images are now applied via CSS </span>
-<span class="c">    * background images.</span>
-<span class="c">	*/</span>
-	<span class="nx">isSecure</span><span class="o">:</span> <span class="nx">Module</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">isSecure</span><span class="o">,</span>
 
 
     <span class="c">/**</span>
@@ -690,7 +599,7 @@
         <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">;</span>
 
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_checkString</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">Lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">))</span> <span class="o">{</span>
 
             <span class="k">this</span><span class="o">.</span><span class="nx">_createRootNodeStructure</span><span class="o">();</span>
 
@@ -860,21 +769,20 @@
 
 
             <span class="c">// Create custom events</span>
-<span class="c"></span>    
-            <span class="k">var</span> <span class="nx">CustomEvent</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">CustomEvent</span><span class="o">;</span>
-    
-            <span class="k">this</span><span class="o">.</span><span class="nx">destroyEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;destroyEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">mouseOverEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;mouseOverEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">mouseOutEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;mouseOutEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">mouseDownEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;mouseDownEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">mouseUpEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;mouseUpEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">clickEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;clickEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">keyPressEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;keyPressEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">keyDownEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;keyDownEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">keyUpEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;keyUpEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">focusEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;focusEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">blurEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="s2">&quot;blurEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+<span class="c"></span>
+            <span class="k">var</span> <span class="nx">EVENT_TYPES</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_EVENT_TYPES</span><span class="o">;</span>
 
+            <span class="k">this</span><span class="o">.</span><span class="nx">mouseOverEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">MOUSE_OVER</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">mouseOutEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">MOUSE_OUT</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">mouseDownEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">MOUSE_DOWN</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">mouseUpEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">MOUSE_UP</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">clickEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">CLICK</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">keyPressEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">KEY_PRESS</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">keyDownEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">KEY_DOWN</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">keyUpEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">KEY_UP</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">focusEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">FOCUS</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">blurEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">BLUR</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">destroyEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="o">(</span><span class="nx">EVENT_TYPES</span><span class="o">.</span><span class="nx">DESTROY</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
             <span class="k">if</span><span class="o">(</span><span class="nx">p_oConfig</span><span class="o">)</span> <span class="o">{</span>
     
@@ -883,9 +791,6 @@
             <span class="o">}</span>        
 
             <span class="nx">oConfig</span><span class="o">.</span><span class="nx">fireQueue</span><span class="o">();</span>
-
-
-
 
         <span class="o">}</span>
 
@@ -948,20 +853,6 @@
 
 
     <span class="c">/**</span>
-<span class="c">    * @method _checkString</span>
-<span class="c">    * @description Determines if an object is a string.</span>
-<span class="c">    * @private</span>
-<span class="c">    * @param {Object} p_oObject Object to be evaluated.</span>
-<span class="c">    * @return {Boolean}</span>
-<span class="c">    */</span>
-    <span class="nx">_checkString</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">return</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">p_oObject</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="o">);</span>
-
-    <span class="o">},</span>
-
-
-    <span class="c">/**</span>
 <span class="c">    * @method _checkDOMNode</span>
 <span class="c">    * @description Determines if an object is an HTML element.</span>
 <span class="c">    * @private</span>
@@ -982,14 +873,18 @@
 <span class="c">    */</span>
     <span class="nx">_createRootNodeStructure</span><span class="o">:</span> <span class="k">function</span> <span class="o">()</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(!</span><span class="nx">m_oMenuItemElement</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">oTemplate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_MenuItemTemplate</span><span class="o">;</span>
 
-            <span class="nx">m_oMenuItemElement</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;li&quot;</span><span class="o">);</span>
-            <span class="nx">m_oMenuItemElement</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;a href=\&quot;#\&quot;&gt;s&lt;/a&gt;&quot;</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(!</span><span class="nx">oTemplate</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nx">oTemplate</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;li&quot;</span><span class="o">);</span>
+            <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;a href=\&quot;#\&quot;&gt;s&lt;/a&gt;&quot;</span><span class="o">;</span>
+
+            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_MenuItemTemplate</span> <span class="o">=</span> <span class="nx">oTemplate</span><span class="o">;</span>
 
         <span class="o">}</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">m_oMenuItemElement</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_oAnchor</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_oText</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oAnchor</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">;</span>
 
@@ -1075,34 +970,6 @@
 
         <span class="o">}</span>
 
-    <span class="o">},</span>
-
-
-    <span class="c">/**</span>
-<span class="c">    * @method _preloadImage</span>
-<span class="c">    * @description Preloads an image by creating an image element from the </span>
-<span class="c">    * specified path and appending the image to the body of the document.</span>
-<span class="c">    * @private</span>
-<span class="c">    * @param {String} p_sPath String specifying the path to the image.  </span>
-<span class="c">    * @deprecated All menu item images are now applied via CSS </span>
-<span class="c">    * background images.</span>
-<span class="c">    */</span>
-    <span class="nx">_preloadImage</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sPath</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">var</span> <span class="nx">sPath</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">imageRoot</span> <span class="o">+</span> <span class="nx">p_sPath</span><span class="o">;</span>
-
-        <span class="k">if</span><span class="o">(!</span><span class="nb">document</span><span class="o">.</span><span class="nx">images</span><span class="o">[</span><span class="nx">sPath</span><span class="o">])</span> <span class="o">{</span>
-
-            <span class="k">var</span> <span class="nx">oImage</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;img&quot;</span><span class="o">);</span>
-            <span class="nx">oImage</span><span class="o">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">sPath</span><span class="o">;</span>
-            <span class="nx">oImage</span><span class="o">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">sPath</span><span class="o">;</span>
-            <span class="nx">oImage</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">sPath</span><span class="o">;</span>
-            <span class="nx">oImage</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>
-            
-            <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oImage</span><span class="o">);</span>
-
-        <span class="o">}</span>
-    
     <span class="o">},</span>
 
 
@@ -1206,7 +1073,7 @@
             <span class="nx">initHelpText</span><span class="o">();</span>
 
         <span class="o">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_checkString</span><span class="o">(</span><span class="nx">oHelpText</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">Lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">oHelpText</span><span class="o">))</span> <span class="o">{</span>
 
             <span class="k">if</span><span class="o">(</span><span class="nx">oHelpText</span><span class="o">.</span><span class="nx">length</span> <span class="o">===</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
 
@@ -1420,15 +1287,19 @@
 
         <span class="k">if</span><span class="o">(</span><span class="nx">bChecked</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">if</span><span class="o">(!</span><span class="nx">m_oCheckedIndicator</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">var</span> <span class="nx">oTemplate</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_CheckedIndicatorTemplate</span><span class="o">;</span>
 
-                <span class="nx">m_oCheckedIndicator</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;em&quot;</span><span class="o">);</span>
-                <span class="nx">m_oCheckedIndicator</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">CHECKED_TEXT</span><span class="o">;</span>
-                <span class="nx">m_oCheckedIndicator</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;checkedindicator&quot;</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(!</span><span class="nx">oTemplate</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">oTemplate</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;em&quot;</span><span class="o">);</span>
+                <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">CHECKED_TEXT</span><span class="o">;</span>
+                <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;checkedindicator&quot;</span><span class="o">;</span>
+
+                <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_CheckedIndicatorTemplate</span> <span class="o">=</span> <span class="nx">oTemplate</span><span class="o">;</span>
 
             <span class="o">}</span>
 
-            <span class="nx">oEM</span> <span class="o">=</span> <span class="nx">m_oCheckedIndicator</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="nx">oEM</span> <span class="o">=</span> <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 
             <span class="k">var</span> <span class="nx">oSubmenu</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;submenu&quot;</span><span class="o">);</span>
 
@@ -1693,18 +1564,23 @@
 
                 <span class="k">if</span><span class="o">(!</span><span class="nx">oSubmenuIndicator</span><span class="o">)</span> <span class="o">{</span> 
 
+                    <span class="k">var</span> <span class="nx">oTemplate</span> <span class="o">=</span> 
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_oSubmenuIndicatorTemplate</span><span class="o">;</span>
 
-                    <span class="k">if</span><span class="o">(!</span><span class="nx">m_oSubmenuIndicator</span><span class="o">)</span> <span class="o">{</span>
-                    
-                        <span class="nx">m_oSubmenuIndicator</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;em&quot;</span><span class="o">);</span>
-                        <span class="nx">m_oSubmenuIndicator</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> 
+                    <span class="k">if</span><span class="o">(!</span><span class="nx">oTemplate</span><span class="o">)</span> <span class="o">{</span>
+                   
+                        <span class="nx">oTemplate</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;em&quot;</span><span class="o">);</span>
+                        <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span>  
                             <span class="k">this</span><span class="o">.</span><span class="nx">COLLAPSED_SUBMENU_INDICATOR_TEXT</span><span class="o">;</span>
-                        <span class="nx">m_oSubmenuIndicator</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;submenuindicator&quot;</span><span class="o">;</span>
+                        <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;submenuindicator&quot;</span><span class="o">;</span>
+                        
+                        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_oSubmenuIndicatorTemplate</span> <span class="o">=</span> 
+                            <span class="nx">oTemplate</span><span class="o">;</span>
 
                     <span class="o">}</span>
 
 
-                    <span class="nx">oSubmenuIndicator</span> <span class="o">=</span> <span class="nx">m_oSubmenuIndicator</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+                    <span class="nx">oSubmenuIndicator</span> <span class="o">=</span> <span class="nx">oTemplate</span><span class="o">.</span><span class="nx">cloneNode</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 
 
                     <span class="k">if</span><span class="o">(</span><span class="nx">oMenu</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">parentNode</span> <span class="o">==</span> <span class="nx">oEl</span><span class="o">)</span> <span class="o">{</span>
@@ -1870,7 +1746,7 @@
 	<span class="nx">initDefaultConfig</span> <span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
         <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">,</span>
-            <span class="nx">CheckBoolean</span> <span class="o">=</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">checkBoolean</span><span class="o">;</span>
+            <span class="nx">DEFAULT_CONFIG</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">.</span><span class="nx">_DEFAULT_CONFIG</span><span class="o">;</span>
 
 
         <span class="c">// Define the configuration attributes</span>
@@ -1884,12 +1760,12 @@
 <span class="c">        * @type String</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;text&quot;</span><span class="o">,</span> 
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TEXT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
             <span class="o">{</span> 
-                <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="o">,</span> 
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configText</span><span class="o">,</span> 
-                <span class="nx">validator</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_checkString</span><span class="o">,</span> 
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TEXT</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TEXT</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span> 
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TEXT</span><span class="o">.</span><span class="nx">suppressEvent</span> 
             <span class="o">}</span>
         <span class="o">);</span>
         
@@ -1903,7 +1779,10 @@
 <span class="c">        * 2000/WD-DOM-Level-1-20000929/level-one-html.html#ID-58190037&quot;&gt;</span>
 <span class="c">        * HTMLElement&lt;/a&gt;</span>
 <span class="c">        */</span>
-        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;helptext&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configHelpText</span> <span class="o">});</span>
+        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">HELP_TEXT</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>
+            <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configHelpText</span> <span class="o">}</span>
+        <span class="o">);</span>
 
 
         <span class="c">/**</span>
@@ -1915,8 +1794,12 @@
 <span class="c">        * @type String</span>
 <span class="c">        */</span>        
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;url&quot;</span><span class="o">,</span> 
-            <span class="o">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&quot;#&quot;</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configURL</span><span class="o">,</span> <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> <span class="o">}</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">URL</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+            <span class="o">{</span>
+                <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configURL</span><span class="o">,</span> 
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">URL</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">URL</span><span class="o">.</span><span class="nx">suppressEvent</span>
+            <span class="o">}</span>
         <span class="o">);</span>
 
 
@@ -1932,8 +1815,11 @@
 <span class="c">        * @type String</span>
 <span class="c">        */</span>        
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;target&quot;</span><span class="o">,</span> 
-            <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configTarget</span><span class="o">,</span> <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> <span class="o">}</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TARGET</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+            <span class="o">{</span>
+                <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configTarget</span><span class="o">,</span> 
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">TARGET</span><span class="o">.</span><span class="nx">suppressEvent</span>
+            <span class="o">}</span>
         <span class="o">);</span>
 
 
@@ -1946,12 +1832,12 @@
 <span class="c">        * @type Boolean</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;emphasis&quot;</span><span class="o">,</span> 
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">EMPHASIS</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
             <span class="o">{</span> 
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configEmphasis</span><span class="o">,</span> 
-                <span class="nx">validator</span><span class="o">:</span> <span class="nx">CheckBoolean</span><span class="o">,</span> 
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span> 
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">EMPHASIS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">EMPHASIS</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span> 
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">EMPHASIS</span><span class="o">.</span><span class="nx">suppressEvent</span> 
             <span class="o">}</span>
         <span class="o">);</span>
 
@@ -1966,12 +1852,12 @@
 <span class="c">        * @type Boolean</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;strongemphasis&quot;</span><span class="o">,</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">STRONG_EMPHASIS</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>
             <span class="o">{</span>
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configStrongEmphasis</span><span class="o">,</span>
-                <span class="nx">validator</span><span class="o">:</span> <span class="nx">CheckBoolean</span><span class="o">,</span>
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span>
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">STRONG_EMPHASIS</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span>
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">STRONG_EMPHASIS</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span>
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">STRONG_EMPHASIS</span><span class="o">.</span><span class="nx">suppressEvent</span>
             <span class="o">}</span>
         <span class="o">);</span>
 
@@ -1984,13 +1870,13 @@
 <span class="c">        * @type Boolean</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;checked&quot;</span><span class="o">,</span> 
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CHECKED</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
             <span class="o">{</span>
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span> 
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configChecked</span><span class="o">,</span> 
-                <span class="nx">validator</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">checkBoolean</span><span class="o">,</span> 
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-                <span class="nx">supercedes</span><span class="o">:[</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span>
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CHECKED</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CHECKED</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span> 
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CHECKED</span><span class="o">.</span><span class="nx">suppressEvent</span><span class="o">,</span>
+                <span class="nx">supercedes</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CHECKED</span><span class="o">.</span><span class="nx">supercedes</span>
             <span class="o">}</span> 
         <span class="o">);</span>
 
@@ -2004,12 +1890,12 @@
 <span class="c">        * @type Boolean</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;disabled&quot;</span><span class="o">,</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">DISABLED</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>
             <span class="o">{</span>
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configDisabled</span><span class="o">,</span>
-                <span class="nx">validator</span><span class="o">:</span> <span class="nx">CheckBoolean</span><span class="o">,</span>
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span>
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">DISABLED</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span>
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">DISABLED</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span>
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">DISABLED</span><span class="o">.</span><span class="nx">suppressEvent</span>
             <span class="o">}</span>
         <span class="o">);</span>
 
@@ -2022,12 +1908,12 @@
 <span class="c">        * @type Boolean</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;selected&quot;</span><span class="o">,</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span>
             <span class="o">{</span>
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configSelected</span><span class="o">,</span>
-                <span class="nx">validator</span><span class="o">:</span> <span class="nx">CheckBoolean</span><span class="o">,</span>
-                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="kc">true</span>
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span>
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">validator</span><span class="o">,</span>
+                <span class="nx">suppressEvent</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SELECTED</span><span class="o">.</span><span class="nx">suppressEvent</span>
             <span class="o">}</span>
         <span class="o">);</span>
 
@@ -2048,7 +1934,10 @@
 <span class="c">        * WD-DOM-Level-1-20000929/level-one-html.html#ID-58190037&quot;&gt;</span>
 <span class="c">        * HTMLElement&lt;/a&gt;</span>
 <span class="c">        */</span>
-        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;submenu&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configSubmenu</span> <span class="o">});</span>
+        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">SUBMENU</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+            <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configSubmenu</span> <span class="o">}</span>
+        <span class="o">);</span>
 
 
         <span class="c">/**</span>
@@ -2063,7 +1952,10 @@
 <span class="c">        * @type Object</span>
 <span class="c">        * @default null</span>
 <span class="c">        */</span>
-        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span><span class="s2">&quot;onclick&quot;</span><span class="o">,</span> <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configOnClick</span> <span class="o">});</span>
+        <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">ONCLICK</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
+            <span class="o">{</span> <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configOnClick</span> <span class="o">}</span>
+        <span class="o">);</span>
 
 
         <span class="c">/**</span>
@@ -2076,11 +1968,11 @@
 <span class="c">        * @type String</span>
 <span class="c">        */</span>
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
-            <span class="s2">&quot;classname&quot;</span><span class="o">,</span> 
+            <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CLASS_NAME</span><span class="o">.</span><span class="nx">key</span><span class="o">,</span> 
             <span class="o">{</span> 
-                <span class="nx">value</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span> 
                 <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configClassName</span><span class="o">,</span>
-                <span class="nx">validator</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_checkString</span>
+                <span class="nx">value</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CLASS_NAME</span><span class="o">.</span><span class="nx">value</span><span class="o">,</span> 
+                <span class="nx">validator</span><span class="o">:</span> <span class="nx">DEFAULT_CONFIG</span><span class="o">.</span><span class="nx">CLASS_NAME</span><span class="o">.</span><span class="nx">validator</span>
             <span class="o">}</span>
         <span class="o">);</span>
 
@@ -2238,12 +2130,22 @@
 
         <span class="k">var</span> <span class="nx">oParent</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">,</span>
             <span class="nx">oAnchor</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oAnchor</span><span class="o">,</span>
-            <span class="nx">oActiveItem</span> <span class="o">=</span> <span class="nx">oParent</span><span class="o">.</span><span class="nx">activeItem</span><span class="o">;</span>
+            <span class="nx">oActiveItem</span> <span class="o">=</span> <span class="nx">oParent</span><span class="o">.</span><span class="nx">activeItem</span><span class="o">,</span>
+            <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
 
 
         <span class="k">function</span> <span class="nx">setFocus</span><span class="o">()</span> <span class="o">{</span>
 
             <span class="k">try</span> <span class="o">{</span>
+
+                <span class="k">if</span> <span class="o">(</span>
+                    <span class="o">(</span><span class="nx">me</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;ie&quot;</span> <span class="o">||</span> <span class="nx">me</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;ie7&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+                    <span class="o">!</span><span class="nb">document</span><span class="o">.</span><span class="nx">hasFocus</span><span class="o">()</span>
+                <span class="o">)</span> <span class="o">{</span>
+                
+                    <span class="k">return</span><span class="o">;</span>
+                
+                <span class="o">}</span>
 
                 <span class="nx">oAnchor</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
 
@@ -2287,7 +2189,7 @@
     <span class="c">/**</span>
 <span class="c">    * @method blur</span>
 <span class="c">    * @description Causes the menu item to lose focus and fires the </span>
-<span class="c">    * onblur event.</span>
+<span class="c">    * blur event.</span>
 <span class="c">    */</span>    
     <span class="nx">blur</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
@@ -2305,6 +2207,19 @@
 
         <span class="o">}</span>
 
+    <span class="o">},</span>
+
+
+    <span class="c">/**</span>
+<span class="c">    * @method hasFocus</span>
+<span class="c">    * @description Returns a boolean indicating whether or not the menu item</span>
+<span class="c">    * has focus.</span>
+<span class="c">    * @return {Boolean}</span>
+<span class="c">    */</span>
+    <span class="nx">hasFocus</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    
+        <span class="k">return</span> <span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuManager</span><span class="o">.</span><span class="nx">getFocusedMenuItem</span><span class="o">()</span> <span class="o">==</span> <span class="k">this</span><span class="o">);</span>
+    
     <span class="o">},</span>
 
 
@@ -2371,8 +2286,16 @@
 <span class="c">    * @return {String}</span>
 <span class="c">    */</span>
     <span class="nx">toString</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">sReturnVal</span> <span class="o">=</span> <span class="s2">&quot;MenuItem&quot;</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;text&quot;</span><span class="o">))</span> <span class="o">{</span>
     
-        <span class="k">return</span> <span class="o">(</span><span class="s2">&quot;MenuItem: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;text&quot;</span><span class="o">));</span>
+            <span class="nx">sReturnVal</span> <span class="o">+=</span> <span class="o">(</span><span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;text&quot;</span><span class="o">));</span>
+    
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="nx">sReturnVal</span><span class="o">;</span>
     
     <span class="o">}</span>
 

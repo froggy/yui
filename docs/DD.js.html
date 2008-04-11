@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dragdrop.html">dragdrop</a>
@@ -226,43 +226,6 @@
                 <span class="nb">window</span><span class="o">.</span><span class="nx">scrollTo</span><span class="o">(</span><span class="nx">sl</span> <span class="o">-</span> <span class="nx">scrAmt</span><span class="o">,</span> <span class="nx">st</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
-    <span class="o">},</span>
-
-    <span class="c">/**</span>
-<span class="c">     * Finds the location the element should be placed if we want to move</span>
-<span class="c">     * it to where the mouse location less the click offset would place us.</span>
-<span class="c">     * @method getTargetCoord</span>
-<span class="c">     * @param {int} iPageX the X coordinate of the click</span>
-<span class="c">     * @param {int} iPageY the Y coordinate of the click</span>
-<span class="c">     * @return an object that contains the coordinates (Object.x and Object.y)</span>
-<span class="c">     * @private</span>
-<span class="c">     */</span>
-    <span class="nx">getTargetCoord</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">iPageX</span><span class="o">,</span> <span class="nx">iPageY</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="c">// this.logger.log(&quot;getTargetCoord: &quot; + iPageX + &quot;, &quot; + iPageY);</span>
-<span class="c"></span>
-        <span class="k">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">iPageX</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">deltaX</span><span class="o">;</span>
-        <span class="k">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">iPageY</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">deltaY</span><span class="o">;</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">constrainX</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minX</span><span class="o">)</span> <span class="o">{</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">minX</span><span class="o">;</span> <span class="o">}</span>
-            <span class="k">if</span> <span class="o">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">maxX</span><span class="o">)</span> <span class="o">{</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">maxX</span><span class="o">;</span> <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">constrainY</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minY</span><span class="o">)</span> <span class="o">{</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">minY</span><span class="o">;</span> <span class="o">}</span>
-            <span class="k">if</span> <span class="o">(</span><span class="nx">y</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">maxY</span><span class="o">)</span> <span class="o">{</span> <span class="nx">y</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">maxY</span><span class="o">;</span> <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="nx">x</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getTick</span><span class="o">(</span><span class="nx">x</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">xTicks</span><span class="o">);</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getTick</span><span class="o">(</span><span class="nx">y</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">yTicks</span><span class="o">);</span>
-
-        <span class="c">// this.logger.log(&quot;getTargetCoord &quot; + </span>
-<span class="c"></span>                <span class="c">// &quot; iPageX: &quot; + iPageX +</span>
-<span class="c"></span>                <span class="c">// &quot; iPageY: &quot; + iPageY +</span>
-<span class="c"></span>                <span class="c">// &quot; x: &quot; + x + &quot;, y: &quot; + y);</span>
-<span class="c"></span>
-        <span class="k">return</span> <span class="o">{</span><span class="nx">x</span><span class="o">:</span><span class="nx">x</span><span class="o">,</span> <span class="nx">y</span><span class="o">:</span><span class="nx">y</span><span class="o">};</span>
     <span class="o">},</span>
 
     <span class="c">/*</span>

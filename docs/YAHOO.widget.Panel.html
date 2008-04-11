@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Container&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Container&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_container.html">container</a>
@@ -103,6 +103,32 @@
                         <div class="section field details">
                             <h3><a name="field_detail">Properties</a></h3>
                             <div class="content">
+                                    <h4><a name="YAHOO.widget.Panel._DEFAULT_CONFIG">YAHOO.widget.Panel._DEFAULT_CONFIG</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the Panel's configuration properties
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Panel._EVENT_TYPES">YAHOO.widget.Panel._EVENT_TYPES</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the name of the Panel's events
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="YAHOO.widget.Panel.CSS_PANEL">YAHOO.widget.Panel.CSS_PANEL</a>
                                         <code>- static final String</code>
                                     </h4>
@@ -149,7 +175,9 @@
                                         <a href="YAHOO.widget.Module.html#id">id</a>,
                                         <a href="YAHOO.widget.Module.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.Module.html#isSecure">isSecure</a>,
-                                        <a href="YAHOO.widget.Module.html#platform">platform</a>
+                                        <a href="YAHOO.widget.Module.html#platform">platform</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._DEFAULT_CONFIG">YAHOO.widget.Module._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._EVENT_TYPES">YAHOO.widget.Module._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -158,6 +186,8 @@
                             <div class="content">
                                 <code>
                                     
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._DEFAULT_CONFIG">YAHOO.widget.Overlay._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._EVENT_TYPES">YAHOO.widget.Overlay._EVENT_TYPES</a>,
                                         <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._initialized">YAHOO.widget.Overlay._initialized</a>
                                 </code>
                             </div>
@@ -697,6 +727,38 @@
                                                             	The scope object. For configuration handlers, this will usually equal the owner.
                                                         </dd>
                                                 </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="destroy">destroy</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>destroy</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Removes the Panel element from the DOM and sets all child elements to null.
+                                        </div>
+
+                                        <div class="description">
+
 
                                                 <dl>
                                                     <dt>Returns:
@@ -1370,7 +1432,7 @@
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            True if the Panel should be draggable
+                                            True if the Panel should be draggable.  Default value is "true" if the Drag and Drop utility is included, otherwise it is "false."
                                         </div>
                                     </div>
  
@@ -1512,7 +1574,6 @@
                         <h4>Classes</h4>
                         <ul class="content">
                                 <li class=""><a href="YAHOO.util.Config.html">YAHOO.util.Config</a></li>
-                                <li class=""><a href="YAHOO.util.KeyListener.html">YAHOO.util.KeyListener</a></li>
                                 <li class=""><a href="YAHOO.widget.ContainerEffect.html">YAHOO.widget.ContainerEffect</a></li>
                                 <li class=""><a href="YAHOO.widget.Dialog.html">YAHOO.widget.Dialog</a></li>
                                 <li class=""><a href="YAHOO.widget.Module.html">YAHOO.widget.Module</a></li>
@@ -1530,7 +1591,6 @@
                                 <li class=""><a href="Config.js.html">Config.js</a></li>
                                 <li class=""><a href="ContainerEffect.js.html">ContainerEffect.js</a></li>
                                 <li class=""><a href="Dialog.js.html">Dialog.js</a></li>
-                                <li class=""><a href="KeyListener.js.html">KeyListener.js</a></li>
                                 <li class=""><a href="Module.js.html">Module.js</a></li>
                                 <li class=""><a href="Overlay.js.html">Overlay.js</a></li>
                                 <li class=""><a href="OverlayManager.js.html">OverlayManager.js</a></li>
@@ -1543,6 +1603,12 @@
                     <div class="module">
                         <h4>Properties</h4>
                         <ul class="content">        
+                                <li><a href="#YAHOO.widget.Panel._DEFAULT_CONFIG">YAHOO.widget.Panel._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Panel._EVENT_TYPES">YAHOO.widget.Panel._EVENT_TYPES</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.Panel.CSS_PANEL">YAHOO.widget.Panel.CSS_PANEL</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -1584,6 +1650,9 @@
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#configzIndex">configzIndex</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#destroy">destroy</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#hideMask">hideMask</a>

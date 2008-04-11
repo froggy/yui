@@ -2,7 +2,7 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
 (function() {
 
@@ -1018,4 +1018,4 @@ version: 2.2.0
      */
 })();
 
-YAHOO.register("tabview", YAHOO.widget.TabView, {version: "2.2.0", build: "127"});
+YAHOO.register("tabview", YAHOO.widget.TabView, {version: "2.2.2", build: "204"});

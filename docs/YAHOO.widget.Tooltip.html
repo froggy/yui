@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Container&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Container&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_container.html">container</a>
@@ -110,6 +110,19 @@
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.Tooltip._DEFAULT_CONFIG">YAHOO.widget.Tooltip._DEFAULT_CONFIG</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the Tooltip's configuration properties
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="YAHOO.widget.Tooltip.CSS_TOOLTIP">YAHOO.widget.Tooltip.CSS_TOOLTIP</a>
                                         <code>- static final String</code>
                                     </h4>
@@ -143,7 +156,9 @@
                                         <a href="YAHOO.widget.Module.html#id">id</a>,
                                         <a href="YAHOO.widget.Module.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.Module.html#isSecure">isSecure</a>,
-                                        <a href="YAHOO.widget.Module.html#platform">platform</a>
+                                        <a href="YAHOO.widget.Module.html#platform">platform</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._DEFAULT_CONFIG">YAHOO.widget.Module._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._EVENT_TYPES">YAHOO.widget.Module._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -152,6 +167,8 @@
                             <div class="content">
                                 <code>
                                     
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._DEFAULT_CONFIG">YAHOO.widget.Overlay._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._EVENT_TYPES">YAHOO.widget.Overlay._EVENT_TYPES</a>,
                                         <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._initialized">YAHOO.widget.Overlay._initialized</a>
                                 </code>
                             </div>
@@ -160,6 +177,39 @@
                         <div class="section method details">
                             <h3><a name="methodDetails">Methods</a></h3>
                             <div class="content">
+                                    <h4>
+                                        <a name="_removeEventListeners">_removeEventListeners</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_removeEventListeners</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Removes all of the DOM event handlers from the HTML element(s) 
+that trigger the display of the tooltip.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
                                     <h4>
                                         <a name="configContainer">configContainer</a></h4>
                                     <div class="detail">
@@ -327,6 +377,38 @@
                                                             	The scope object. For configuration handlers, this will usually equal the owner.
                                                         </dd>
                                                 </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="destroy">destroy</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>destroy</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Removes the Tooltip element from the DOM and sets all child elements to null.
+                                        </div>
+
+                                        <div class="description">
+
 
                                                 <dl>
                                                     <dt>Returns:
@@ -1044,7 +1126,6 @@
                         <h4>Classes</h4>
                         <ul class="content">
                                 <li class=""><a href="YAHOO.util.Config.html">YAHOO.util.Config</a></li>
-                                <li class=""><a href="YAHOO.util.KeyListener.html">YAHOO.util.KeyListener</a></li>
                                 <li class=""><a href="YAHOO.widget.ContainerEffect.html">YAHOO.widget.ContainerEffect</a></li>
                                 <li class=""><a href="YAHOO.widget.Dialog.html">YAHOO.widget.Dialog</a></li>
                                 <li class=""><a href="YAHOO.widget.Module.html">YAHOO.widget.Module</a></li>
@@ -1062,7 +1143,6 @@
                                 <li class=""><a href="Config.js.html">Config.js</a></li>
                                 <li class=""><a href="ContainerEffect.js.html">ContainerEffect.js</a></li>
                                 <li class=""><a href="Dialog.js.html">Dialog.js</a></li>
-                                <li class=""><a href="KeyListener.js.html">KeyListener.js</a></li>
                                 <li class=""><a href="Module.js.html">Module.js</a></li>
                                 <li class=""><a href="Overlay.js.html">Overlay.js</a></li>
                                 <li class=""><a href="OverlayManager.js.html">OverlayManager.js</a></li>
@@ -1078,6 +1158,9 @@
                                 <li><a href="#showProcId">showProcId</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#YAHOO.widget.Tooltip._DEFAULT_CONFIG">YAHOO.widget.Tooltip._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.Tooltip.CSS_TOOLTIP">YAHOO.widget.Tooltip.CSS_TOOLTIP</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -1088,6 +1171,9 @@
                         <h4>Methods</h4>
                         <ul class="content">        
                                 <li><!--<code>void</code>-->
+                                <a href="#_removeEventListeners">_removeEventListeners</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#configContainer">configContainer</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -1095,6 +1181,9 @@
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#configText">configText</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#destroy">destroy</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#doHide">doHide</a>

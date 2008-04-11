@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Event Utility&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Event Utility&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_event.html">event</a>
@@ -93,6 +93,19 @@ on or the custom object passed in by the listener, int constant
 
 
                                     <hr />
+                                    <h4><a name="DOMReady">DOMReady</a>
+                                        <code>- private static boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            True when the document is initially usable
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
                                     <h4><a name="EL">EL</a>
                                         <code>- static final int</code>
                                     </h4>
@@ -119,6 +132,9 @@ DOM element cache</a>
      
                                         
 
+                                    <div class="deprecated">
+                                        <strong>Deprecated: </strong>Elements are not cached any longer
+                                    </div>        
 
                                     <hr />
                                     <h4><a name="FN">FN</a>
@@ -353,12 +369,14 @@ are detached
 
                                     <hr />
                                     <h4><a name="webkit">webkit</a>
-                                        <code>- object</code>
+                                        <code>- static string</code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
                                             If WebKit is detected, we keep track of the version number of
-the engine.
+the engine.  The webkit property will contain a string with
+the webkit version number if webkit is detected, null
+otherwise.
 Safari 1.3.2 (312.6): 312.8.1 <-- currently the latest
 available on Mac OSX 10.3.
 Safari 2.0.2: 416 <-- hasOwnProperty introduced
@@ -586,6 +604,39 @@ fail if the object is an array, but is empty.
                                         
                                         <div class="description">
                                             hook up any deferred listeners
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_ready">_ready</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                         static 
+                                        
+                                        void
+                                            <strong>_ready</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Fires the DOMReady event listeners the first time the document is
+usable.
                                         </div>
 
                                         <div class="description">
@@ -1074,6 +1125,9 @@ fires, we can no longer use document.getElementById
                                                     <dd></dd>
                                                 </dl>
              
+                                            <div class="deprecated">
+                                                <strong>Deprecated</strong> Elements are not cached any longer
+                                            </div>        
                                         </div>
 
                                     </div>
@@ -1674,6 +1728,69 @@ in the scope of p_obj
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="onDOMReady">onDOMReady</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong>onDOMReady</strong>
+                                           (
+                                                
+                                                        
+                                                         p_fn
+                                                    
+                                                
+                                                        , 
+                                                         p_obj
+                                                    
+                                                
+                                                        , 
+                                                         p_scope
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Executes the supplied callback when the DOM is first usable.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_fn &lt;function&gt;</code>
+                                                             what to execute when the element is found.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_obj &lt;object&gt;</code>
+                                                             an optional object to be passed back as
+a parameter to p_fn.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_scope &lt;boolean&gt;</code>
+                                                             If set to true, p_fn will execute
+in the scope of p_obj, if set to an object it
+will execute in the scope of that object
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="preventDefault">preventDefault</a></h4>
                                     <div class="detail">
                                         <code>
@@ -2082,6 +2199,38 @@ Safari browsers with a broken preventDefault
                         </div>
 
 
+                        <div class="section method details">
+                            <h3><a name="methodDetails">Events</a></h3>
+                            <div class="content">
+                                    <h4>
+                                        <a name="DOMReadyEvent">DOMReadyEvent</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong>DOMReadyEvent</strong>
+
+                                            (
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Custom event the fires when the dom is initially usable
+                                        </div>
+
+                                        <div class="description">
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                            </div>
+                        </div>
 
 
 
@@ -2165,6 +2314,9 @@ Safari browsers with a broken preventDefault
                                         <!--<code>&lt;int&gt;</code>-->
                                 </li>
                                 <li><a href="#counter">counter</a>
+                                        <!--<code>&lt;int&gt;</code>-->
+                                </li>
+                                <li><a href="#DOMReady">DOMReady</a>
                                         <!--<code>&lt;int&gt;</code>-->
                                 </li>
                                 <li><a href="#EL">EL</a>
@@ -2254,6 +2406,9 @@ DOM element cache</a>
                                 <a href="#_load">_load</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#_ready">_ready</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#_simpleAdd">_simpleAdd</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -2320,6 +2475,9 @@ DOM element cache</a>
                                 <a href="#onContentReady">onContentReady</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#onDOMReady">onDOMReady</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#preventDefault">preventDefault</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -2349,6 +2507,14 @@ DOM element cache</a>
                         </ul>
                     </div>
 
+                    <div class="module">
+                        <h4>Events</h4>
+                        <ul class="content">        
+                                <li>
+                                <a href="#DOMReadyEvent">DOMReadyEvent</a>
+                                </li>
+                        </ul>
+                    </div>
 
 
             </div>

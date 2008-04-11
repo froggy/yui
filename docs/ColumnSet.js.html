@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_datatable.html">datatable</a>
@@ -291,7 +291,7 @@
 <span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">_id</span> <span class="o">=</span> <span class="s2">&quot;yui-dtcol&quot;</span><span class="o">+</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Column</span><span class="o">.</span><span class="nx">_nCount</span><span class="o">;</span>
     
     <span class="c">// Object literal defines Column attributes</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="k">typeof</span> <span class="nx">oConfigs</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">oConfigs</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oConfigs</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Object</span><span class="o">))</span> <span class="o">{</span>
         <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">sConfig</span> <span class="k">in</span> <span class="nx">oConfigs</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span><span class="o">(</span><span class="nx">sConfig</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">this</span><span class="o">[</span><span class="nx">sConfig</span><span class="o">]</span> <span class="o">=</span> <span class="nx">oConfigs</span><span class="o">[</span><span class="nx">sConfig</span><span class="o">];</span>
@@ -386,7 +386,7 @@
 
 <span class="c">/**</span>
 <span class="c"> * Minimum width the Column can support (in pixels). Value is populated only if table</span>
-<span class="c"> * is fixedwidth, null otherwise.</span>
+<span class="c"> * is fixedWidth, null otherwise.</span>
 <span class="c"> *</span>
 <span class="c"> * @property _minWidth</span>
 <span class="c"> * @type Number</span>
@@ -551,6 +551,17 @@
 <span class="o">};</span>
 
 <span class="c">/**</span>
+<span class="c"> * Public accessor returns Column&#39;s index within its ColumnSet&#39;s key array, or</span>
+<span class="c"> * null if not applicable.</span>
+<span class="c"> *</span>
+<span class="c"> * @property getIndex</span>
+<span class="c"> * @return {Number} Column&#39;s index within its ColumnSet key array, if applicable.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Column</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getIndex</span> <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_index</span><span class="o">;</span>
+<span class="o">};</span>
+
+<span class="c">/**</span>
 <span class="c"> * Public accessor returns Column&#39;s colspan number.</span>
 <span class="c"> *</span>
 <span class="c"> * @method getColSpan</span>
@@ -667,16 +678,18 @@
     <span class="c">// Make it dollars</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">nAmount</span> <span class="o">=</span> <span class="nx">oData</span><span class="o">;</span>
     <span class="k">var</span> <span class="nx">markup</span><span class="o">;</span>
-        <span class="k">if</span><span class="o">(</span><span class="nx">nAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">((</span><span class="nx">nAmount</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">nAmount</span> <span class="o">!==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">isNaN</span><span class="o">(</span><span class="nb">parseFloat</span><span class="o">(</span><span class="nx">nAmount</span><span class="o">)))</span> <span class="o">{</span>
+             <span class="c">// Round to the penny</span>
+<span class="c"></span>             <span class="nx">nAmount</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">round</span><span class="o">(</span><span class="nx">nAmount</span><span class="o">*</span><span class="m">100</span><span class="o">)/</span><span class="m">100</span><span class="o">;</span>
              <span class="nx">markup</span> <span class="o">=</span> <span class="s2">&quot;$&quot;</span><span class="o">+</span><span class="nx">nAmount</span><span class="o">;</span>
 
-            <span class="c">// Normalize to the penny</span>
+            <span class="c">// Normalize digits</span>
 <span class="c"></span>            <span class="k">var</span> <span class="nx">dotIndex</span> <span class="o">=</span> <span class="nx">markup</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s2">&quot;.&quot;</span><span class="o">);</span>
             <span class="k">if</span><span class="o">(</span><span class="nx">dotIndex</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
                 <span class="nx">markup</span> <span class="o">+=</span> <span class="s2">&quot;.00&quot;</span><span class="o">;</span>
             <span class="o">}</span>
             <span class="k">else</span> <span class="o">{</span>
-                <span class="k">while</span><span class="o">(</span><span class="nx">dotIndex</span> <span class="o">!=</span> <span class="nx">markup</span><span class="o">.</span><span class="nx">length</span><span class="o">-</span><span class="m">3</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">while</span><span class="o">(</span><span class="nx">dotIndex</span> <span class="o">&gt;</span> <span class="nx">markup</span><span class="o">.</span><span class="nx">length</span><span class="o">-</span><span class="m">3</span><span class="o">)</span> <span class="o">{</span>
                     <span class="nx">markup</span> <span class="o">+=</span> <span class="s2">&quot;0&quot;</span><span class="o">;</span>
                 <span class="o">}</span>
             <span class="o">}</span>
@@ -699,11 +712,12 @@
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Column</span><span class="o">.</span><span class="nx">formatDate</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">,</span> <span class="nx">oColumn</span><span class="o">,</span> <span class="nx">oData</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">var</span> <span class="nx">oDate</span> <span class="o">=</span> <span class="nx">oData</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">oDate</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">oDate</span><span class="o">.</span><span class="nx">getMonth</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">oDate</span><span class="o">.</span><span class="nx">getDate</span><span class="o">()</span>  <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">oDate</span><span class="o">.</span><span class="nx">getFullYear</span><span class="o">();</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">oDate</span> <span class="k">instanceof</span> <span class="nb">Date</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="o">(</span><span class="nx">oDate</span><span class="o">.</span><span class="nx">getMonth</span><span class="o">()+</span><span class="m">1</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">oDate</span><span class="o">.</span><span class="nx">getDate</span><span class="o">()</span>  <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">oDate</span><span class="o">.</span><span class="nx">getFullYear</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
         <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Could not format date&quot;</span><span class="o">,</span><span class="s2">&quot;warn&quot;</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -759,7 +773,7 @@
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Column</span><span class="o">.</span><span class="nx">formatNumber</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">,</span> <span class="nx">oColumn</span><span class="o">,</span> <span class="nx">oData</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">var</span> <span class="nx">nNumber</span> <span class="o">=</span> <span class="nx">oData</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">nNumber</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">((</span><span class="nx">nNumber</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">nNumber</span> <span class="o">!==</span> <span class="kc">null</span><span class="o">))</span> <span class="o">{</span>
         <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">nNumber</span><span class="o">.</span><span class="nx">toString</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
@@ -915,7 +929,7 @@
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Column</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getEditor</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">)</span> <span class="o">{</span>
 <span class="c">//Sync up the arg signature for ColumnEditor constructor and show()</span>
 <span class="c"></span>    <span class="k">var</span> <span class="nx">oEditor</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">editor</span><span class="o">;</span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">oEditor</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">oEditor</span><span class="o">))</span> <span class="o">{</span>
         <span class="nx">oEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">editor</span><span class="o">);</span>
         <span class="nx">oEditor</span><span class="o">.</span><span class="nx">show</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">editor</span> <span class="o">=</span> <span class="nx">oEditor</span><span class="o">;</span>
@@ -958,7 +972,8 @@
     <span class="k">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nb">document</span><span class="o">.</span><span class="nx">createElement</span><span class="o">(</span><span class="s2">&quot;div&quot;</span><span class="o">));</span><span class="c">//this.tableContainer.appendChild(document.createElement(&quot;div&quot;));</span>
 <span class="c"></span>    <span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s2">&quot;absolute&quot;</span><span class="o">;</span>
     <span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">zIndex</span> <span class="o">=</span> <span class="m">9000</span><span class="o">;</span>
-    <span class="nx">container</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;yui-dt-coled&quot;</span> <span class="o">+</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">.</span><span class="nx">_nCount</span><span class="o">;</span>
+    <span class="nx">container</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;yui-dt-editor&quot;</span> <span class="o">+</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">.</span><span class="nx">_nCount</span><span class="o">;</span>
+    <span class="nx">container</span><span class="o">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataTable</span><span class="o">.</span><span class="nx">CLASS_EDITOR</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nx">container</span><span class="o">;</span>
 
     <span class="nx">switch</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">type</span><span class="o">)</span> <span class="o">{</span>
@@ -1064,6 +1079,41 @@
 <span class="o">};</span>
 
 <span class="c">/**</span>
+<span class="c"> * Positions container over given element, aligning upper-left corners.</span>
+<span class="c"> *</span>
+<span class="c"> * @method moveContainerTo</span>
+<span class="c"> * @param elCell {HTMLElement} The element.</span>
+<span class="c"> */</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">moveContainerTo</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">x</span><span class="o">,</span><span class="nx">y</span><span class="o">;</span>
+
+    <span class="c">// Don&#39;t use getXY for Opera</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">navigator</span><span class="o">.</span><span class="nx">userAgent</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">().</span><span class="nx">indexOf</span><span class="o">(</span><span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nx">x</span> <span class="o">+=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
+            <span class="nx">y</span> <span class="o">+=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
+            <span class="nx">el</span> <span class="o">=</span> <span class="nx">el</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="nx">el</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[0] + 1;</span>
+<span class="c"></span>        <span class="nx">y</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getY</span><span class="o">(</span><span class="nx">el</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[1] + 1;</span>
+<span class="c"></span>            <span class="c">// Workaround getXY scroll bug for FF and SF</span>
+<span class="c"></span>            <span class="k">if</span><span class="o">(</span><span class="nb">window</span><span class="o">.</span><span class="nx">scrollX</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">x</span> <span class="o">+=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">scrollX</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span><span class="o">(</span><span class="nb">window</span><span class="o">.</span><span class="nx">scrollY</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">y</span> <span class="o">+=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">scrollY</span><span class="o">;</span>
+            <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+<span class="o">};</span>
+
+
+<span class="c">/**</span>
 <span class="c"> * Returns ColumnEditor data value.</span>
 <span class="c"> *</span>
 <span class="c"> * @method getValue</span>
@@ -1109,7 +1159,7 @@
 <span class="o">};</span>
 
 <span class="c">/**</span>
-<span class="c"> * Shows ColumnEditor</span>
+<span class="c"> * Shows textbox.</span>
 <span class="c"> *</span>
 <span class="c"> * @method showTextboxEditor</span>
 <span class="c"> * @param elCell {HTMLElement} The cell to edit.</span>
@@ -1117,40 +1167,25 @@
 <span class="c"> * @param oColumn {YAHOO.widget.Column} The DataTable Column of the cell.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">showTextboxEditor</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">,</span> <span class="nx">oColumn</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c">// Size and value</span>
-<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">width</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span><span class="m">10</span><span class="o">)-</span><span class="m">7</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">height</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span><span class="m">10</span><span class="o">)-</span><span class="m">7</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span><span class="o">;</span>
+    <span class="c">// Position container</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">moveContainerTo</span><span class="o">(</span><span class="nx">elCell</span><span class="o">);</span>
 
-    <span class="c">// Position and show</span>
-<span class="c"></span>    <span class="k">var</span> <span class="nx">x</span><span class="o">,</span><span class="nx">y</span><span class="o">;</span>
-    
-    <span class="c">// Don&#39;t use getXY for Opera</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">navigator</span><span class="o">.</span><span class="nx">userAgent</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">().</span><span class="nx">indexOf</span><span class="o">(</span><span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nx">x</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
-        <span class="k">while</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">)</span> <span class="o">{</span>
-            <span class="nx">x</span> <span class="o">+=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
-            <span class="nx">y</span> <span class="o">+=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
-            <span class="nx">elCell</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">else</span> <span class="o">{</span>
-        <span class="k">var</span> <span class="nx">xy</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getXY</span><span class="o">(</span><span class="nx">elCell</span><span class="o">);</span>
-        <span class="nx">x</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="nx">elCell</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[0] + 1;</span>
-<span class="c"></span>        <span class="nx">y</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getY</span><span class="o">(</span><span class="nx">elCell</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[1] + 1;</span>
-<span class="c"></span>    <span class="o">}</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="o">;</span>
-
+    <span class="c">// Update form field</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">width</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span><span class="m">10</span><span class="o">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">height</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span><span class="m">10</span><span class="o">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">tabIndex</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
+
+    <span class="c">// Display container</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="o">;</span>
+
+    <span class="c">// Highlight input</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">select</span><span class="o">();</span>
 <span class="o">};</span>
 
 <span class="c">/**</span>
-<span class="c"> * Shows ColumnEditor</span>
+<span class="c"> * Shows textarea.</span>
 <span class="c"> *</span>
 <span class="c"> * @method showTextareaEditor</span>
 <span class="c"> * @param elCell {HTMLElement} The cell to edit.</span>
@@ -1158,35 +1193,20 @@
 <span class="c"> * @param oColumn {YAHOO.widget.Column} The DataTable Column of the cell.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">ColumnEditor</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">showTextareaEditor</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elCell</span><span class="o">,</span> <span class="nx">oRecord</span><span class="o">,</span> <span class="nx">oColumn</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c">// Size and value</span>
-<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">width</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span><span class="m">10</span><span class="o">)-</span><span class="m">7</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">height</span> <span class="o">=</span> <span class="m">4</span><span class="o">*(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span><span class="m">10</span><span class="o">)-</span><span class="m">7</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span><span class="o">;</span>
-
-    <span class="c">// Position and show</span>
-<span class="c"></span>    <span class="k">var</span> <span class="nx">x</span><span class="o">,</span><span class="nx">y</span><span class="o">;</span>
-
-    <span class="c">// Don&#39;t use getXY for Opera</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">navigator</span><span class="o">.</span><span class="nx">userAgent</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">().</span><span class="nx">indexOf</span><span class="o">(</span><span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nx">x</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
-        <span class="k">while</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">)</span> <span class="o">{</span>
-            <span class="nx">x</span> <span class="o">+=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetLeft</span><span class="o">;</span>
-            <span class="nx">y</span> <span class="o">+=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">.</span><span class="nx">offsetTop</span><span class="o">;</span>
-            <span class="nx">elCell</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetParent</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">else</span> <span class="o">{</span>
-        <span class="k">var</span> <span class="nx">xy</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getXY</span><span class="o">(</span><span class="nx">elCell</span><span class="o">);</span>
-        <span class="nx">x</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="nx">elCell</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[0] + 1;</span>
-<span class="c"></span>        <span class="nx">y</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getY</span><span class="o">(</span><span class="nx">elCell</span><span class="o">),</span><span class="m">10</span><span class="o">);</span><span class="c">//xy[1] + 1;</span>
-<span class="c"></span>    <span class="o">}</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="o">;</span>
-
+    <span class="c">// Position container</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">moveContainerTo</span><span class="o">(</span><span class="nx">elCell</span><span class="o">);</span>
+    
+    <span class="c">// Update form field</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">width</span> <span class="o">=</span> <span class="o">(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span><span class="m">10</span><span class="o">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">height</span> <span class="o">=</span> <span class="m">4</span><span class="o">*(</span><span class="nb">parseInt</span><span class="o">(</span><span class="nx">elCell</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span><span class="m">10</span><span class="o">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">tabIndex</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
+
+    <span class="c">// Display container</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">container</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="o">;</span>
+    
+    <span class="c">// Highlight input</span>
+<span class="c"></span>    <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">input</span><span class="o">.</span><span class="nx">select</span><span class="o">();</span>
 <span class="o">};</span>
 
@@ -1245,8 +1265,19 @@
 <span class="c">     * @param b {object} Second sort argument.</span>
 <span class="c">     */</span>
     <span class="nx">compareAsc</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">b</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c">//TODO: is typeof better or is constructor property better?</span>
-<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">a</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">((</span><span class="nx">a</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">((</span><span class="nx">b</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="m">0</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="m">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">((</span><span class="nx">b</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="m">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    
+        <span class="k">if</span><span class="o">(</span><span class="nx">a</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">();</span>
         <span class="o">}</span>
         <span class="k">if</span><span class="o">(</span><span class="nx">b</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
@@ -1271,8 +1302,19 @@
 <span class="c">     * @param b {object} Second sort argument.</span>
 <span class="c">     */</span>
     <span class="nx">compareDesc</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">b</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c">//TODO: is typeof better or is constructor property better?</span>
-<span class="c"></span>        <span class="k">if</span><span class="o">(</span><span class="nx">a</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">((</span><span class="nx">a</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">((</span><span class="nx">b</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="m">0</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="o">-</span><span class="m">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">((</span><span class="nx">b</span> <span class="o">===</span> <span class="kc">null</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">b</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="m">1</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="nx">a</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
             <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">();</span>
         <span class="o">}</span>
         <span class="k">if</span><span class="o">(</span><span class="nx">b</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">String</span><span class="o">)</span> <span class="o">{</span>
@@ -1337,11 +1379,11 @@
     <span class="k">this</span><span class="o">.</span><span class="nx">startWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cell</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">startPos</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">getDragEl</span><span class="o">());</span>
 
-    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">datatable</span><span class="o">.</span><span class="nx">fixedwidth</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">var</span> <span class="nx">cellText</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getElementsByClassName</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataTable</span><span class="o">.</span><span class="nx">CLASS_COLUMNTEXT</span><span class="o">,</span><span class="s2">&quot;span&quot;</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="nx">cell</span><span class="o">)[</span><span class="m">0</span><span class="o">];</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">datatable</span><span class="o">.</span><span class="nx">fixedWidth</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">cellText</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getElementsByClassName</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataTable</span><span class="o">.</span><span class="nx">CLASS_HEADTEXT</span><span class="o">,</span><span class="s2">&quot;span&quot;</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="nx">cell</span><span class="o">)[</span><span class="m">0</span><span class="o">];</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">minWidth</span> <span class="o">=</span> <span class="nx">cellText</span><span class="o">.</span><span class="nx">offsetWidth</span> <span class="o">+</span> <span class="m">6</span><span class="o">;</span>
         <span class="k">var</span> <span class="nx">sib</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cell</span><span class="o">.</span><span class="nx">nextSibling</span><span class="o">;</span>
-        <span class="k">var</span> <span class="nx">sibCellText</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getElementsByClassName</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataTable</span><span class="o">.</span><span class="nx">CLASS_COLUMNTEXT</span><span class="o">,</span><span class="s2">&quot;span&quot;</span><span class="o">,</span><span class="nx">sib</span><span class="o">)[</span><span class="m">0</span><span class="o">];</span>
+        <span class="k">var</span> <span class="nx">sibCellText</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getElementsByClassName</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">DataTable</span><span class="o">.</span><span class="nx">CLASS_HEADTEXT</span><span class="o">,</span><span class="s2">&quot;span&quot;</span><span class="o">,</span><span class="nx">sib</span><span class="o">)[</span><span class="m">0</span><span class="o">];</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">sibMinWidth</span> <span class="o">=</span> <span class="nx">sibCellText</span><span class="o">.</span><span class="nx">offsetWidth</span> <span class="o">+</span> <span class="m">6</span><span class="o">;</span>
 <span class="c">//!!</span>
 <span class="c"></span>        <span class="k">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="o">((</span><span class="k">this</span><span class="o">.</span><span class="nx">startWidth</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">minWidth</span><span class="o">)</span> <span class="o">&lt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">?</span> <span class="m">0</span> <span class="o">:</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">startWidth</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">minWidth</span><span class="o">);</span>
@@ -1388,10 +1430,13 @@
 <span class="c"> * @param e {string} The drag event</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">WidthResizer</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">onDrag</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">var</span> <span class="nx">newPos</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">getDragEl</span><span class="o">());</span><span class="c">//YAHOO.log(&quot;newpos:&quot;+newPos,&quot;warn&quot;);//YAHOO.util.Event.getPageX(e);</span>
-<span class="c"></span>    <span class="k">var</span> <span class="nx">offsetX</span> <span class="o">=</span> <span class="nx">newPos</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">startPos</span><span class="o">;</span><span class="c">//YAHOO.log(&quot;offset:&quot;+offsetX,&quot;warn&quot;);</span>
+    <span class="k">var</span> <span class="nx">newPos</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">getDragEl</span><span class="o">());</span>
+    <span class="c">//YAHOO.log(&quot;newpos:&quot;+newPos,&quot;warn&quot;);//YAHOO.util.Event.getPageX(e);</span>
+<span class="c"></span>    <span class="k">var</span> <span class="nx">offsetX</span> <span class="o">=</span> <span class="nx">newPos</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">startPos</span><span class="o">;</span>
+    <span class="c">//YAHOO.log(&quot;offset:&quot;+offsetX,&quot;warn&quot;);</span>
 <span class="c"></span>    <span class="c">//YAHOO.log(&quot;startwidth:&quot;+this.startWidth + &quot; and offset:&quot;+offsetX,&quot;warn&quot;);</span>
-<span class="c"></span>    <span class="k">var</span> <span class="nx">newWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">startWidth</span> <span class="o">+</span> <span class="nx">offsetX</span><span class="o">;</span><span class="c">//YAHOO.log(&quot;newwidth:&quot;+newWidth,&quot;warn&quot;);</span>
+<span class="c"></span>    <span class="k">var</span> <span class="nx">newWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">startWidth</span> <span class="o">+</span> <span class="nx">offsetX</span><span class="o">;</span>
+    <span class="c">//YAHOO.log(&quot;newwidth:&quot;+newWidth,&quot;warn&quot;);</span>
 <span class="c"></span>
     <span class="k">if</span><span class="o">(</span><span class="nx">newWidth</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">.</span><span class="nx">minWidth</span><span class="o">)</span> <span class="o">{</span>
         <span class="nx">newWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">minWidth</span><span class="o">;</span>
@@ -1405,7 +1450,7 @@
 <span class="c"></span>    <span class="c">//YAHOO.log(newWidth + &quot; AND &quot;+ elColumn.offsetWidth + &quot; AND &quot; + elColumn.id,&quot;warn&quot;);</span>
 <span class="c"></span>
     <span class="c">// Resize the other Columns</span>
-<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">oDataTable</span><span class="o">.</span><span class="nx">fixedwidth</span><span class="o">)</span> <span class="o">{</span>
+<span class="c"></span>    <span class="k">if</span><span class="o">(</span><span class="nx">oDataTable</span><span class="o">.</span><span class="nx">fixedWidth</span><span class="o">)</span> <span class="o">{</span>
         <span class="c">// Moving right or left?</span>
 <span class="c"></span>        <span class="k">var</span> <span class="nx">sib</span> <span class="o">=</span> <span class="nx">elCell</span><span class="o">.</span><span class="nx">nextSibling</span><span class="o">;</span>
         <span class="c">//var sibIndex = elCell.index + 1;</span>

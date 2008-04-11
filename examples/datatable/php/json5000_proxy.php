@@ -2,7 +2,7 @@
 
 // This script returns a JSON dataset of 5000 records in 14 columns
 
-header('Content-type: application/x-javascript');
+header('Content-type: application/json');
 
 print '{"totalResultsReturned":"5000","totalResultsAvailable":"13089","firstResultPosition":"1","result":['.
 '{"extid":"6643","name":"f","date":"19-Jul-2006","price":"6300","number":"6131","address":"jkkypiox","company":"dteahmbuukznxqodffvvvdffo","desc":"vwr","age":"7088","title":"umavunwohgnuedjiiodejh","phone":"pvnksfdoz","email":"pujcrxkylfdoolx","zip":"pujcrxkylfdoolx","country":"pbn"},'.

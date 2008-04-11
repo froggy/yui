@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dragdrop.html">dragdrop</a>
@@ -224,6 +224,31 @@ object.
                                         <div class="description">
                                             Internal flag that is set to true when drag and drop has been
 intialized
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="interactionInfo">interactionInfo</a>
+                                        <code>- static object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Provides additional information about the the current set of
+interactions.  Can be accessed from the event handlers. It
+contains the following properties:
+out:       onDragOut interactions
+enter:     onDragEnter interactions
+over:      onDragOver interactions
+drop:      onDragDrop interactions
+point:     The location of the cursor
+draggedRegion: The location of dragged element at the time
+of the interaction
+sourceRegion: The location of the source elemtn at the time
+of the interaction
+validDrop: boolean
                                         </div>
                                     </div>
      
@@ -1710,6 +1735,14 @@ dd obj</dd>
                                                          oTarget
                                                     
                                                 
+                                                        , 
+                                                         intersect
+                                                    
+                                                
+                                                        , 
+                                                         pre-cached
+                                                    
+                                                
                                             )
                                         </code>
                                         
@@ -1728,6 +1761,14 @@ dd obj</dd>
                                                         <dd>
                                                             <code>oTarget &lt;DragDrop&gt;</code>
                                                              the DragDrop object we are inspecting
+                                                        </dd>
+                                                        <dd>
+                                                            <code>intersect &lt;boolean&gt;</code>
+                                                             true if we are in intersect mode
+                                                        </dd>
+                                                        <dd>
+                                                            <code>pre-cached &lt;YAHOO.util.Region&gt;</code>
+                                                             location of the dragged element
                                                         </dd>
                                                 </dl>
 
@@ -2530,6 +2571,9 @@ error' when trying to access the offsetParent of such an element
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#initialized">initialized</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
+                                <li><a href="#interactionInfo">interactionInfo</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#INTERSECT">INTERSECT</a>

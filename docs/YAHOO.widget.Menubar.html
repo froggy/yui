@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -138,6 +138,19 @@ bar's <code>&#60;div&#62;</code> element.
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.MenuBar._DEFAULT_CONFIG">YAHOO.widget.MenuBar._DEFAULT_CONFIG</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the MenuBar's configuration properties
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
 
 
                             </div>
@@ -148,6 +161,8 @@ bar's <code>&#60;div&#62;</code> element.
                             <div class="content">
                                 <code>
                                     
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._DEFAULT_CONFIG">YAHOO.widget.Overlay._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._EVENT_TYPES">YAHOO.widget.Overlay._EVENT_TYPES</a>,
                                         <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._initialized">YAHOO.widget.Overlay._initialized</a>
                                 </code>
                             </div>
@@ -167,7 +182,9 @@ bar's <code>&#60;div&#62;</code> element.
                                         <a href="YAHOO.widget.Module.html#id">id</a>,
                                         <a href="YAHOO.widget.Module.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.Module.html#isSecure">isSecure</a>,
-                                        <a href="YAHOO.widget.Module.html#platform">platform</a>
+                                        <a href="YAHOO.widget.Module.html#platform">platform</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._DEFAULT_CONFIG">YAHOO.widget.Module._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._EVENT_TYPES">YAHOO.widget.Module._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -197,7 +214,9 @@ bar's <code>&#60;div&#62;</code> element.
                                         <a href="YAHOO.widget.Menu.html#itemData">itemData</a>,
                                         <a href="YAHOO.widget.Menu.html#lazyLoad">lazyLoad</a>,
                                         <a href="YAHOO.widget.Menu.html#parent">parent</a>,
-                                        <a href="YAHOO.widget.Menu.html#srcElement">srcElement</a>
+                                        <a href="YAHOO.widget.Menu.html#srcElement">srcElement</a>,
+                                        <a href="YAHOO.widget.Menu.html#YAHOO.widget.Menu._DEFAULT_CONFIG">YAHOO.widget.Menu._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Menu.html#YAHOO.widget.Menu._EVENT_TYPES">YAHOO.widget.Menu._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -578,6 +597,7 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onMouseOver">_onMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuConfigChange">_onParentMenuConfigChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuRender">_onParentMenuRender</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onRender">_onRender</a>,
                                             <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOut">_onScrollTargetMouseOut</a>,
                                             <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOver">_onScrollTargetMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onShow">_onShow</a>,
@@ -585,13 +605,17 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuHide">_onSubmenuHide</a>,
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuShow">_onSubmenuShow</a>,
                                             <a href="YAHOO.widget.Menu.html#_onTextResize">_onTextResize</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onVisibleChange">_onVisibleChange</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onWidthChange">_onWidthChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByIndex">_removeItemFromGroupByIndex</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByValue">_removeItemFromGroupByValue</a>,
+                                            <a href="YAHOO.widget.Menu.html#_setMaxHeight">_setMaxHeight</a>,
                                             <a href="YAHOO.widget.Menu.html#_setWidth">_setWidth</a>,
                                             <a href="YAHOO.widget.Menu.html#_subscribeToItemEvents">_subscribeToItemEvents</a>,
                                             <a href="YAHOO.widget.Menu.html#_updateItemProperties">_updateItemProperties</a>,
                                             <a href="YAHOO.widget.Menu.html#addItem">addItem</a>,
                                             <a href="YAHOO.widget.Menu.html#addItems">addItems</a>,
+                                            <a href="YAHOO.widget.Menu.html#blur">blur</a>,
                                             <a href="YAHOO.widget.Menu.html#clearActiveItem">clearActiveItem</a>,
                                             <a href="YAHOO.widget.Menu.html#clearContent">clearContent</a>,
                                             <a href="YAHOO.widget.Menu.html#configClassName">configClassName</a>,
@@ -603,10 +627,12 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#configVisible">configVisible</a>,
                                             <a href="YAHOO.widget.Menu.html#destroy">destroy</a>,
                                             <a href="YAHOO.widget.Menu.html#enforceConstraints">enforceConstraints</a>,
+                                            <a href="YAHOO.widget.Menu.html#focus">focus</a>,
                                             <a href="YAHOO.widget.Menu.html#getItem">getItem</a>,
                                             <a href="YAHOO.widget.Menu.html#getItemGroups">getItemGroups</a>,
                                             <a href="YAHOO.widget.Menu.html#getItems">getItems</a>,
                                             <a href="YAHOO.widget.Menu.html#getRoot">getRoot</a>,
+                                            <a href="YAHOO.widget.Menu.html#hasFocus">hasFocus</a>,
                                             <a href="YAHOO.widget.Menu.html#init">init</a>,
                                             <a href="YAHOO.widget.Menu.html#initDefaultConfig">initDefaultConfig</a>,
                                             <a href="YAHOO.widget.Menu.html#initEvents">initEvents</a>,
@@ -864,7 +890,10 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#CSS_CLASS_NAME">CSS_CLASS_NAME</a>
-                                        <!--<code>&lt;String&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.MenuBar._DEFAULT_CONFIG">YAHOO.widget.MenuBar._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                         </ul>
                     </div>

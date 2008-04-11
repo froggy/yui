@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Button&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Button&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_button.html">button</a>
@@ -77,6 +77,12 @@
 
     <span class="c">// Private member variables</span>
 <span class="c"></span>
+    <span class="nx">m_oUserAgent</span> <span class="o">=</span> <span class="nx">navigator</span><span class="o">.</span><span class="nx">userAgent</span><span class="o">.</span><span class="nx">toLowerCase</span><span class="o">(),</span>
+    <span class="nx">m_bOpera</span> <span class="o">=</span> <span class="o">(</span><span class="nx">m_oUserAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;opera&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">),</span>
+    <span class="nx">m_bSafari</span> <span class="o">=</span> <span class="o">(</span><span class="nx">m_oUserAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;safari&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">),</span>
+    <span class="nx">m_bGecko</span> <span class="o">=</span> <span class="o">(!</span><span class="nx">m_bOpera</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">m_bSafari</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oUserAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;gecko&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">),</span>
+    <span class="nx">m_bIE7</span> <span class="o">=</span> <span class="o">(!</span><span class="nx">m_bOpera</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oUserAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;msie 7&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">),</span>
+    <span class="nx">m_bIE</span> <span class="o">=</span> <span class="o">(!</span><span class="nx">m_bOpera</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oUserAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;msie&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">),</span>
     <span class="nx">m_oButtons</span> <span class="o">=</span> <span class="o">{},</span>
     <span class="nx">m_oFocusedButton</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -148,20 +154,22 @@
             <span class="nx">element</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
             <span class="nx">attributes</span><span class="o">:</span> <span class="o">(</span><span class="nx">p_oAttributes</span> <span class="o">||</span> <span class="o">{})</span>
             
-        <span class="o">};</span>
+        <span class="o">},</span>
+
+        <span class="nx">sTagName</span><span class="o">;</span>
 
 
         <span class="k">if</span><span class="o">(</span><span class="nx">Lang</span><span class="o">.</span><span class="nx">isString</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">))</span> <span class="o">{</span>
 
-            <span class="k">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+            <span class="k">var</span> <span class="nx">oElement</span> <span class="o">=</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">);</span>
 
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">onAvailable</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">oElement</span><span class="o">)</span> <span class="o">{</span>
 
-                <span class="k">var</span> <span class="nx">sTagName</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">();</span>
+                <span class="nx">sTagName</span> <span class="o">=</span> <span class="nx">oElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">();</span>
             
-                <span class="k">if</span><span class="o">(</span><span class="nx">sTagName</span> <span class="o">==</span> <span class="nx">me</span><span class="o">.</span><span class="nx">TAG_NAME</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">sTagName</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">TAG_NAME</span><span class="o">)</span> <span class="o">{</span>
             
-                    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+                    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">oElement</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
             
                 <span class="o">}</span>
                 <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">sTagName</span> <span class="o">==</span> <span class="s2">&quot;INPUT&quot;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">id</span><span class="o">)</span> <span class="o">{</span>
@@ -177,41 +185,41 @@
                 
                 <span class="o">}</span>
             
-                <span class="nx">me</span><span class="o">.</span><span class="nx">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span>
                                     <span class="s2">&quot;Button &quot;</span> <span class="o">+</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">id</span>
                                         <span class="o">);</span>
             
-                <span class="nx">me</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span>
                         <span class="s2">&quot;Building the button using an existing HTML &quot;</span> <span class="o">+</span> 
                         <span class="s2">&quot;element as a source element.&quot;</span> 
                     <span class="o">);</span>
             
             
-                <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">srcelement</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+                <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">srcelement</span> <span class="o">=</span> <span class="nx">oElement</span><span class="o">;</span>
             
-                <span class="nx">initConfig</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="nx">me</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">);</span>
+                <span class="nx">initConfig</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">);</span>
             
             
                 <span class="k">if</span><span class="o">(!</span><span class="nx">oConfig</span><span class="o">.</span><span class="nx">element</span><span class="o">)</span> <span class="o">{</span>
             
-                    <span class="nx">me</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span>
+                    <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span>
                             <span class="s2">&quot;Source element could not be used as is.  &quot;</span> <span class="o">+</span>
                             <span class="s2">&quot;Creating a new HTML element for the button.&quot;</span>
                         <span class="o">);</span>
             
                     <span class="nx">oConfig</span><span class="o">.</span><span class="nx">element</span> <span class="o">=</span> 
-                        <span class="nx">me</span><span class="o">.</span><span class="nx">_createButtonElement</span><span class="o">(</span><span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">type</span><span class="o">);</span>
+                        <span class="k">this</span><span class="o">.</span><span class="nx">_createButtonElement</span><span class="o">(</span><span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">.</span><span class="nx">type</span><span class="o">);</span>
             
                 <span class="o">}</span>
             
-                <span class="nx">fnSuperClass</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="nx">me</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">);</span>
+                <span class="nx">fnSuperClass</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">attributes</span><span class="o">);</span>
 
-            <span class="o">});</span>
+            <span class="o">}</span>
 
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
 
-            <span class="k">var</span> <span class="nx">sTagName</span> <span class="o">=</span> <span class="nx">p_oElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">();</span>
+            <span class="nx">sTagName</span> <span class="o">=</span> <span class="nx">p_oElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">();</span>
 
             <span class="k">if</span><span class="o">(</span><span class="nx">sTagName</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">TAG_NAME</span><span class="o">)</span> <span class="o">{</span>
 
@@ -345,7 +353,7 @@
 
     <span class="k">var</span> <span class="nx">oInput</span><span class="o">;</span>
 
-    <span class="k">if</span><span class="o">(</span><span class="nx">navigator</span><span class="o">.</span><span class="nx">userAgent</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s2">&quot;MSIE&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">m_bIE</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="c">/*</span>
 <span class="c">            For IE it is necessary to create the element with the </span>
@@ -635,6 +643,18 @@
 
 
 <span class="c">/** </span>
+<span class="c">* @property _hiddenField</span>
+<span class="c">* @description Object reference to the &lt;code&gt;&amp;#60;input&amp;#62;&lt;/code&gt; element </span>
+<span class="c">* used when the button&#39;s parent form is submitted.</span>
+<span class="c">* @default null</span>
+<span class="c">* @protected</span>
+<span class="c">* @type &lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-</span>
+<span class="c">* one-html.html#ID-6043025&quot;&gt;HTMLInputElement&lt;/a&gt;</span>
+<span class="c">*/</span>
+<span class="nx">_hiddenField</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+
+
+<span class="c">/** </span>
 <span class="c">* @property _onclickAttributeValue</span>
 <span class="c">* @description Object reference to the button&#39;s current value for the &quot;onclick&quot;</span>
 <span class="c">* configuration attribute.</span>
@@ -643,17 +663,6 @@
 <span class="c">* @type Object</span>
 <span class="c">*/</span>
 <span class="nx">_onclickAttributeValue</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
-
-
-<span class="c">/** </span>
-<span class="c">* @property _oninitAttributeValue</span>
-<span class="c">* @description Object reference to the button&#39;s current value for the &quot;oninit&quot;</span>
-<span class="c">* configuration attribute.</span>
-<span class="c">* @default null</span>
-<span class="c">* @protected</span>
-<span class="c">* @type Object</span>
-<span class="c">*/</span>
-<span class="nx">_oninitAttributeValue</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
 
 
 <span class="c">/** </span>
@@ -1265,46 +1274,6 @@
 
 <span class="o">},</span>
 
-<span class="c">/**</span>
-<span class="c">* @method _setOnInit</span>
-<span class="c">* @description Sets the value of the button&#39;s &quot;init&quot; attribute.</span>
-<span class="c">* @protected</span>
-<span class="c">* @param {Object} p_oObject Object indicating the value for the button&#39;s </span>
-<span class="c">* &quot;oninit&quot; attribute.</span>
-<span class="c">*/</span>
-<span class="nx">_setOnInit</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="c">/*</span>
-<span class="c">        Remove any existing listeners if a &quot;init&quot; event handler has already </span>
-<span class="c">        been specified.</span>
-<span class="c">    */</span>
-
-    <span class="k">if</span><span class="o">(</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span> <span class="o">&amp;&amp;</span> 
-        <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span> <span class="o">!=</span> <span class="nx">p_oObject</span><span class="o">)</span>
-    <span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="s2">&quot;init&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span><span class="o">.</span><span class="nx">fn</span><span class="o">);</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-    <span class="o">}</span>
-
-
-    <span class="k">if</span><span class="o">(</span>
-        <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span> <span class="o">&amp;&amp;</span> 
-        <span class="nx">Lang</span><span class="o">.</span><span class="nx">isObject</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
-        <span class="nx">Lang</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">p_oObject</span><span class="o">.</span><span class="nx">fn</span><span class="o">)</span>
-    <span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;init&quot;</span><span class="o">,</span> <span class="nx">p_oObject</span><span class="o">.</span><span class="nx">fn</span><span class="o">,</span> <span class="nx">p_oObject</span><span class="o">.</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">p_oObject</span><span class="o">.</span><span class="nx">scope</span><span class="o">);</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">_oninitAttributeValue</span> <span class="o">=</span> <span class="nx">p_oObject</span><span class="o">;</span>
-
-    <span class="o">}</span>
-
-<span class="o">},</span>
-
 
 
 <span class="c">// Protected methods</span>
@@ -1374,6 +1343,7 @@
 <span class="c">* @method _isSplitButtonOptionKey</span>
 <span class="c">* @description Determines if the specified keycode is one that toggles the </span>
 <span class="c">* display of the split button&#39;s menu.</span>
+<span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
 <span class="c">* @return {Boolean}</span>
@@ -1389,6 +1359,81 @@
 <span class="o">},</span>
 
 
+<span class="c">/**</span>
+<span class="c">* @method _addListenersToForm</span>
+<span class="c">* @description Adds event handlers to the button&#39;s form.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">_addListenersToForm</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;reset&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormReset</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormSubmit</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+
+        <span class="k">var</span> <span class="nx">oSrcElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;srcelement&quot;</span><span class="o">);</span>
+
+
+        <span class="k">if</span> <span class="o">(</span>
+            <span class="o">(</span><span class="nx">m_bIE</span> <span class="o">||</span> <span class="nx">m_bGecko</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+            <span class="o">(</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span> <span class="o">||</span> 
+                <span class="o">(</span><span class="nx">oSrcElement</span> <span class="o">&amp;&amp;</span> <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span><span class="o">)</span>
+            <span class="o">)</span>
+        <span class="o">)</span> <span class="o">{</span>
+        
+            <span class="k">var</span> <span class="nx">aListeners</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getListeners</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">),</span>
+                <span class="nx">bHasKeyDownListener</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    
+            <span class="k">if</span><span class="o">(</span><span class="nx">aListeners</span><span class="o">)</span> <span class="o">{</span>
+    
+                <span class="k">var</span> <span class="nx">nListeners</span> <span class="o">=</span> <span class="nx">aListeners</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
+    
+                <span class="k">if</span><span class="o">(</span><span class="nx">nListeners</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    
+                    <span class="k">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">nListeners</span> <span class="o">-</span> <span class="m">1</span><span class="o">;</span>
+                    
+                    <span class="k">do</span> <span class="o">{</span>
+       
+                        <span class="k">if</span><span class="o">(</span>
+                            <span class="nx">aListeners</span><span class="o">[</span><span class="nx">i</span><span class="o">].</span><span class="nx">fn</span> <span class="o">==</span> 
+                            <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Button</span><span class="o">.</span><span class="nx">onFormKeyDown</span>
+                        <span class="o">)</span> <span class="o">{</span>
+        
+                            <span class="nx">bHasKeyDownListener</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                            <span class="k">break</span><span class="o">;</span>
+                        
+                        <span class="o">}</span>
+        
+                    <span class="o">}</span>
+                    <span class="k">while</span><span class="o">(</span><span class="nx">i</span><span class="o">--);</span>
+                
+                <span class="o">}</span>
+            
+            <span class="o">}</span>
+    
+    
+            <span class="k">if</span><span class="o">(!</span><span class="nx">bHasKeyDownListener</span><span class="o">)</span> <span class="o">{</span>
+    
+                <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span>
+                        <span class="nx">oForm</span><span class="o">,</span> 
+                        <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> 
+                        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Button</span><span class="o">.</span><span class="nx">onFormKeyDown</span><span class="o">,</span> 
+                        <span class="kc">null</span><span class="o">,</span> 
+                        <span class="k">this</span>
+                    <span class="o">);</span>
+    
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+    
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
 <span class="nx">_originalMaxHeight</span><span class="o">:</span> <span class="o">-</span><span class="m">1</span><span class="o">,</span>
 
 
@@ -1396,8 +1441,11 @@
 <span class="c">* @method _showMenu</span>
 <span class="c">* @description Shows the button&#39;s menu.</span>
 <span class="c">* @protected</span>
+<span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
+<span class="c">* back by the event utility (YAHOO.util.Event) that triggered the display of</span>
+<span class="c">* the menu.</span>
 <span class="c">*/</span>
-<span class="nx">_showMenu</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+<span class="nx">_showMenu</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">oMenu</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_menu</span><span class="o">;</span>
 
@@ -1413,6 +1461,20 @@
             <span class="o">});</span>
             
         <span class="nx">oMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">fireQueue</span><span class="o">();</span>
+
+        <span class="c">/*</span>
+<span class="c">            Stop the propagation of the event so that the MenuManager </span>
+<span class="c">            doesn&#39;t blur the menu after it gets focus.</span>
+<span class="c">        */</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">stopPropagation</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>
+
+        <span class="o">}</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">_menu</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span> 
+
 
         <span class="k">var</span> <span class="nx">nViewportHeight</span> <span class="o">=</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportHeight</span><span class="o">(),</span>
             <span class="nx">nMenuHeight</span> <span class="o">=</span> <span class="nx">oMenu</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">;</span>
@@ -1479,27 +1541,6 @@
 <span class="o">},</span>
 
 
-<span class="c">/**</span>
-<span class="c">* @method _submitForm</span>
-<span class="c">* @description Submits the form to which the button belongs.</span>
-<span class="c">* @protected</span>
-<span class="c">*/</span>
-<span class="nx">_submitForm</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
-
-    <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
-
-    <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Button</span><span class="o">.</span><span class="nx">addHiddenFieldsToForm</span><span class="o">(</span><span class="nx">oForm</span><span class="o">);</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">createHiddenField</span><span class="o">();</span>
-        
-        <span class="nx">oForm</span><span class="o">.</span><span class="nx">submit</span><span class="o">();</span>
-    
-    <span class="o">}</span>
-
-<span class="o">},</span>
-
 
 
 <span class="c">// Protected event handlers</span>
@@ -1514,33 +1555,29 @@
 <span class="c">*/</span>
 <span class="nx">_onMouseOver</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_hasMouseEventHandlers</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_hasMouseEventHandlers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseOut</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseDown</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseUp</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseOut</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseDown</span><span class="o">);</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseUp</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_hasMouseEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_hasMouseEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
 
-        <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;hover&quot;</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;hover&quot;</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
-
-        <span class="o">}</span>
+    <span class="o">}</span>
 
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;activeoption&quot;</span><span class="o">);</span>
-        
-        <span class="o">}</span>
-
+        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;activeoption&quot;</span><span class="o">);</span>
+    
     <span class="o">}</span>
 
 <span class="o">},</span>
@@ -1555,21 +1592,17 @@
 <span class="c">*/</span>
 <span class="nx">_onMouseOut</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;hover&quot;</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;hover&quot;</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-        <span class="o">}</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentMouseUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-
-        <span class="o">}</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentMouseUp</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
     <span class="o">}</span>
     
@@ -1582,9 +1615,8 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onDocumentMouseUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onDocumentMouseUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
@@ -1613,87 +1645,83 @@
 <span class="c">*/</span>
 <span class="nx">_onMouseDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">((</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">which</span> <span class="o">||</span> <span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">button</span><span class="o">)</span> <span class="o">==</span> <span class="m">1</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">((</span><span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">which</span> <span class="o">||</span> <span class="nx">p_oEvent</span><span class="o">.</span><span class="nx">button</span><span class="o">)</span> <span class="o">==</span> <span class="m">1</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">hasFocus</span><span class="o">())</span> <span class="o">{</span>
-            
-                <span class="k">this</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
-            
-            <span class="o">}</span>
+        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">hasFocus</span><span class="o">())</span> <span class="o">{</span>
+        
+            <span class="k">this</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
+        
+        <span class="o">}</span>
 
 
-            <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
+        <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
 
 
-            <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-            
-                <span class="k">var</span> <span class="nx">oElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;element&quot;</span><span class="o">),</span>
-                    <span class="nx">nX</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getPageX</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">-</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="nx">oElement</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+        
+            <span class="k">var</span> <span class="nx">oElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;element&quot;</span><span class="o">),</span>
+                <span class="nx">nX</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getPageX</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">-</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">getX</span><span class="o">(</span><span class="nx">oElement</span><span class="o">);</span>
 
-                <span class="k">if</span><span class="o">((</span><span class="nx">oElement</span><span class="o">.</span><span class="nx">offsetWidth</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">OPTION_AREA_WIDTH</span><span class="o">)</span> <span class="o">&lt;</span> <span class="nx">nX</span><span class="o">)</span> <span class="o">{</span>
-                    
-                    <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;option&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
-
-                <span class="o">}</span>
-                <span class="k">else</span> <span class="o">{</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-
-                <span class="o">}</span>
-
-            <span class="o">}</span>
-            <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-                <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">))</span> <span class="o">{</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_hideMenu</span><span class="o">();</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-
-                <span class="o">}</span>
-                <span class="k">else</span> <span class="o">{</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">();</span>
-
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">((</span><span class="nx">oElement</span><span class="o">.</span><span class="nx">offsetWidth</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">OPTION_AREA_WIDTH</span><span class="o">)</span> <span class="o">&lt;</span> <span class="nx">nX</span><span class="o">)</span> <span class="o">{</span>
                 
-                <span class="o">}</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;option&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
 
             <span class="o">}</span>
             <span class="k">else</span> <span class="o">{</span>
-    
+
                 <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="nx">_hideMenu</span><span class="o">();</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>
 
                 <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
             
             <span class="o">}</span>
 
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        
+        <span class="o">}</span>
 
 
-            <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-                <span class="k">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-                
-                <span class="k">function</span> <span class="nx">onMouseUp</span><span class="o">()</span> <span class="o">{</span>
-                
-                    <span class="nx">me</span><span class="o">.</span><span class="nx">_hideMenu</span><span class="o">();</span>
-                    <span class="nx">me</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onMouseUp</span><span class="o">);</span>
-                
-                <span class="o">}</span>
+            <span class="k">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
 
-
-                <span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
-                
-                    <span class="nx">me</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onMouseUp</span><span class="o">);</span>
-                
-                <span class="o">},</span> <span class="m">250</span><span class="o">);</span>
-
+            
+            <span class="k">function</span> <span class="nx">onMouseUp</span><span class="o">()</span> <span class="o">{</span>
+            
+                <span class="nx">me</span><span class="o">.</span><span class="nx">_hideMenu</span><span class="o">();</span>
+                <span class="nx">me</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onMouseUp</span><span class="o">);</span>
+            
             <span class="o">}</span>
+
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+            
+                <span class="nx">me</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseup&quot;</span><span class="o">,</span> <span class="nx">onMouseUp</span><span class="o">);</span>
+            
+            <span class="o">},</span> <span class="m">250</span><span class="o">);</span>
 
         <span class="o">}</span>
 
@@ -1711,32 +1739,27 @@
 <span class="c">*/</span>
 <span class="nx">_onMouseUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nb">window</span><span class="o">.</span><span class="nx">clearTimeout</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">set</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">,</span> <span class="o">!(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">)));</span>
+    
+    <span class="o">}</span>
 
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    
 
-            <span class="nb">window</span><span class="o">.</span><span class="nx">clearTimeout</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_hideMenuTimerId</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="o">}</span>
-
-        <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
-
-        <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="k">this</span><span class="o">.</span><span class="nx">set</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">,</span> <span class="o">!(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">)));</span>
-        
-        <span class="o">}</span>
-
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">_activationButtonPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-        
-
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
-        
-        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
     
     <span class="o">}</span>
     
@@ -1749,40 +1772,34 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button that</span>
-<span class="c">* fired the event.</span>
 <span class="c">*/</span>
-<span class="nx">_onFocus</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onFocus</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+   
+    <span class="o">}</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
-       
-        <span class="o">}</span>
-
-        <span class="nx">m_oFocusedButton</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+    <span class="nx">m_oFocusedButton</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
 
 
-        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_hasKeyEventHandlers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_hasKeyEventHandlers</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">var</span> <span class="nx">oElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_button</span><span class="o">;</span>
+        <span class="k">var</span> <span class="nx">oElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_button</span><span class="o">;</span>
 
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;blur&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onBlur</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onKeyDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onKeyUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;blur&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onBlur</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;keydown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onKeyDown</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oElement</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onKeyUp</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_hasKeyEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-
-        <span class="o">}</span>
-
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_hasKeyEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 
     <span class="o">}</span>
+
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
 
 <span class="o">},</span>
 
@@ -1793,32 +1810,27 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onBlur</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onBlur</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;focus&quot;</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+    <span class="o">}</span>    
 
-        <span class="o">}</span>    
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentKeyUp</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-
-        <span class="o">}</span>
-
-
-        <span class="nx">m_oFocusedButton</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-        <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;blur&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentKeyUp</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
     <span class="o">}</span>
+
+
+    <span class="nx">m_oFocusedButton</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;blur&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
    
 <span class="o">},</span>
 
@@ -1829,9 +1841,8 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onDocumentKeyUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onDocumentKeyUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_isActivationKey</span><span class="o">(</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)))</span> <span class="o">{</span>
 
@@ -1850,50 +1861,45 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onKeyDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onKeyDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span> <span class="o">&amp;&amp;</span> 
+        <span class="k">this</span><span class="o">.</span><span class="nx">_isSplitButtonOptionKey</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span>
+    <span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span> <span class="o">&amp;&amp;</span> 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_isSplitButtonOptionKey</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span>
-        <span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;option&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;option&quot;</span><span class="o">,</span> <span class="nx">p_oEvent</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_isActivationKey</span><span class="o">(</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)))</span> <span class="o">{</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>
 
         <span class="o">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_isActivationKey</span><span class="o">(</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)))</span> <span class="o">{</span>
+        <span class="k">else</span> <span class="o">{</span>
 
-            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-                <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">();</span>
-
-            <span class="o">}</span>
-            <span class="k">else</span> <span class="o">{</span>
-
-                <span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-                
-                <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
             
-            <span class="o">}</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
         
         <span class="o">}</span>
+    
+    <span class="o">}</span>
 
 
-        <span class="k">var</span> <span class="nx">oMenu</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_menu</span><span class="o">;</span>
+    <span class="k">var</span> <span class="nx">oMenu</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_menu</span><span class="o">;</span>
 
-        <span class="k">if</span><span class="o">(</span>
-            <span class="nx">oMenu</span> <span class="o">&amp;&amp;</span> <span class="nx">oMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;visible&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">==</span> <span class="m">27</span>
-        <span class="o">)</span> <span class="o">{</span>
-        
-            <span class="nx">oMenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
-        
-        <span class="o">}</span>
-
+    <span class="k">if</span><span class="o">(</span>
+        <span class="nx">oMenu</span> <span class="o">&amp;&amp;</span> <span class="nx">oMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;visible&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">==</span> <span class="m">27</span>
+    <span class="o">)</span> <span class="o">{</span>
+    
+        <span class="nx">oMenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
+    
     <span class="o">}</span>
 
 <span class="o">},</span>
@@ -1905,29 +1911,24 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onKeyUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onKeyUp</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_isActivationKey</span><span class="o">(</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)))</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_isActivationKey</span><span class="o">(</span><span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)))</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
 
-            <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">if</span><span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">set</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">,</span> <span class="o">!(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">)));</span>
+        
+        <span class="o">}</span>
 
-                <span class="k">this</span><span class="o">.</span><span class="nx">set</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">,</span> <span class="o">!(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">)));</span>
-            
-            <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_activationKeyPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">!=</span> <span class="s2">&quot;menubutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-                <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
-
-            <span class="o">}</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="s2">&quot;active&quot;</span><span class="o">);</span>
 
         <span class="o">}</span>
 
@@ -1974,7 +1975,7 @@
 
         <span class="nx">case</span> <span class="s2">&quot;submit&quot;</span><span class="o">:</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_submitForm</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">submitForm</span><span class="o">();</span>
         
         <span class="k">break</span><span class="o">;</span>
 
@@ -2018,7 +2019,7 @@
     
                 <span class="k">if</span><span class="o">(</span><span class="nx">oSrcElement</span> <span class="o">&amp;&amp;</span> <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span><span class="o">)</span> <span class="o">{</span>
     
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_submitForm</span><span class="o">();</span>
+                    <span class="k">this</span><span class="o">.</span><span class="nx">submitForm</span><span class="o">();</span>
                 
                 <span class="o">}</span>
             
@@ -2057,14 +2058,7 @@
 
     <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
-        <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="nx">me</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
-
-        <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
-    
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;reset&quot;</span><span class="o">,</span> <span class="nx">me</span><span class="o">.</span><span class="nx">_onFormReset</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="nx">me</span><span class="o">.</span><span class="nx">_onFormSubmit</span><span class="o">,</span> <span class="nx">me</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-        
-        <span class="o">}</span>
+        <span class="nx">me</span><span class="o">.</span><span class="nx">_addListenersToForm</span><span class="o">();</span>
 
     <span class="o">},</span> <span class="m">0</span><span class="o">);</span>
 
@@ -2077,9 +2071,8 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onFormSubmit</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onFormSubmit</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">),</span>
         <span class="nx">oMenuItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;selectedMenuItem&quot;</span><span class="o">),</span>
@@ -2135,9 +2128,8 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onFormReset</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onFormReset</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">);</span>
 
@@ -2162,9 +2154,8 @@
 <span class="c">* @protected</span>
 <span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
 <span class="c">* back by the event utility (YAHOO.util.Event).</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onDocumentMouseDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onDocumentMouseDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">oTarget</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getTarget</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">),</span>
         <span class="nx">oButtonElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;element&quot;</span><span class="o">),</span>
@@ -2208,7 +2199,7 @@
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">();</span>    
+        <span class="k">this</span><span class="o">.</span><span class="nx">_showMenu</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>    
 
         <span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 
@@ -2224,11 +2215,10 @@
 <span class="c">* @param {String} p_sType String representing the name of the event that </span>
 <span class="c">* was fired.</span>
 <span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onMenuShow</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onMenuShow</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentMouseDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentMouseDown</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
     <span class="k">var</span> <span class="nx">sTitle</span><span class="o">,</span>
         <span class="nx">sClass</span><span class="o">;</span>
@@ -2259,9 +2249,8 @@
 <span class="c">* @param {String} p_sType String representing the name of the event that </span>
 <span class="c">* was fired.</span>
 <span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onMenuHide</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onMenuHide</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
     
     <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_originalMaxHeight</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
     
@@ -2274,10 +2263,10 @@
         <span class="nx">sClass</span><span class="o">;</span>
     
     <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span><span class="o">)</span> <span class="o">{</span>
-    
+
         <span class="nx">sTitle</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">SPLITBUTTON_DEFAULT_TITLE</span><span class="o">;</span>
         <span class="nx">sClass</span> <span class="o">=</span> <span class="s2">&quot;activeoption&quot;</span><span class="o">;</span>
-    
+
     <span class="o">}</span>
     <span class="k">else</span> <span class="o">{</span>
 
@@ -2289,6 +2278,13 @@
     <span class="k">this</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="nx">sClass</span><span class="o">);</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">set</span><span class="o">(</span><span class="s2">&quot;title&quot;</span><span class="o">,</span> <span class="nx">sTitle</span><span class="o">);</span>
 
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;splitbutton&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bOptionPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
 <span class="o">},</span>
 
 
@@ -2299,9 +2295,8 @@
 <span class="c">* @param {String} p_sType String representing the name of the event that </span>
 <span class="c">* was fired.</span>
 <span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onMenuKeyDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onMenuKeyDown</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
 
@@ -2327,9 +2322,8 @@
 <span class="c">* @param {String} p_sType String representing the name of the event that </span>
 <span class="c">* was fired.</span>
 <span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the button.</span>
 <span class="c">*/</span>
-<span class="nx">_onMenuRender</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onMenuRender</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;element&quot;</span><span class="o">).</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_menu</span><span class="o">.</span><span class="nx">element</span><span class="o">);</span>
 
@@ -2385,11 +2379,10 @@
 <span class="c">* @param {String} p_sType String representing the name of the event that </span>
 <span class="c">* was fired.</span>
 <span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Button} p_oButton Object representing the menu&#39;s button.</span>
 <span class="c">*/</span>
-<span class="nx">_onMenuClick</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oButton</span><span class="o">)</span> <span class="o">{</span>
+<span class="nx">_onMenuClick</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">var</span> <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
+    <span class="k">var</span> <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">1</span><span class="o">];</span>
 
     <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
 
@@ -2397,7 +2390,7 @@
     
         <span class="k">if</span><span class="o">(</span><span class="nx">oSrcElement</span> <span class="o">&amp;&amp;</span> <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="k">this</span><span class="o">.</span><span class="nx">_submitForm</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">submitForm</span><span class="o">();</span>
     
         <span class="o">}</span>
     
@@ -2421,14 +2414,21 @@
 <span class="c">*/</span>
 <span class="nx">createHiddenField</span><span class="o">:</span> <span class="k">function</span> <span class="o">()</span> <span class="o">{</span>
 
-    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
 
         <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">),</span>
         
             <span class="nx">bCheckable</span> <span class="o">=</span> <span class="o">(</span><span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span><span class="o">),</span>
         
             <span class="nx">oField</span> <span class="o">=</span> <span class="nx">createInputElement</span><span class="o">(</span>
-                        <span class="o">(</span><span class="nx">bCheckable</span> <span class="o">?</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">),</span>
+            
+                        <span class="c">/*</span>
+<span class="c">                            Use &quot;submit&quot; type for IE so that the input </span>
+<span class="c">                            element will be able to be clicked via a call to </span>
+<span class="c">                            the &quot;click&quot; method by the &quot;submitForm&quot; method.</span>
+<span class="c">                        */</span>
+            
+                        <span class="o">(</span><span class="nx">bCheckable</span> <span class="o">?</span> <span class="nx">sType</span> <span class="o">:</span> <span class="o">(</span><span class="nx">m_bIE</span> <span class="o">?</span> <span class="s2">&quot;submit&quot;</span> <span class="o">:</span> <span class="s2">&quot;hidden&quot;</span><span class="o">)),</span>
                         <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">),</span>
                         <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;value&quot;</span><span class="o">),</span>
                         <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;checked&quot;</span><span class="o">)</span>
@@ -2437,22 +2437,90 @@
             <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
     
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">oField</span> <span class="o">&amp;&amp;</span> <span class="nx">bCheckable</span><span class="o">)</span> <span class="o">{</span>
-    
-            <span class="nx">oField</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>      
+        <span class="k">if</span> <span class="o">(</span><span class="nx">oField</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">bCheckable</span> <span class="o">||</span> <span class="nx">oField</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-    
-        <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
-    
-            <span class="nx">oForm</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">);</span>
+                <span class="nx">oField</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>
+
+            <span class="o">}</span>
+
+
+            <span class="k">if</span> <span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
         
+                <span class="k">var</span> <span class="nx">oHiddenField</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_hiddenField</span><span class="o">;</span>
+        
+                <span class="k">if</span> <span class="o">(</span><span class="nx">oHiddenField</span> <span class="o">&amp;&amp;</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="nx">oHiddenField</span><span class="o">))</span> <span class="o">{</span>
+        
+                    <span class="nx">oForm</span><span class="o">.</span><span class="nx">replaceChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">,</span> <span class="nx">oHiddenField</span><span class="o">);</span>
+        
+                <span class="o">}</span>
+                <span class="k">else</span> <span class="o">{</span>
+        
+                    <span class="nx">oForm</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">);</span>
+                    
+                <span class="o">}</span>
+            
+            <span class="o">}</span>
+    
+            <span class="k">this</span><span class="o">.</span><span class="nx">_hiddenField</span> <span class="o">=</span> <span class="nx">oField</span><span class="o">;</span>
+    
+            <span class="k">return</span> <span class="nx">oField</span><span class="o">;</span>
+
         <span class="o">}</span>
 
+    <span class="o">}</span>
 
-        <span class="k">return</span> <span class="nx">oField</span><span class="o">;</span>
+<span class="o">},</span>
 
+
+<span class="c">/**</span>
+<span class="c">* @method submitForm</span>
+<span class="c">* @description Submits the form to which the button belongs.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">submitForm</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oMenuItem</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">oInput</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">createHiddenField</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="nx">m_bIE</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="c">/*</span>
+<span class="c">                Clicking the button via a call to the &quot;click&quot; method will </span>
+<span class="c">                cause IE to both fire the form&#39;s &quot;submit&quot; event as well as </span>
+<span class="c">                submit the form.  Originally tried just firing the &quot;submit&quot;</span>
+<span class="c">                event via &quot;fireEvent,&quot; but then the event could not </span>
+<span class="c">                be cancelled.</span>
+<span class="c">            */</span>            
+
+            <span class="nx">oInput</span><span class="o">.</span><span class="nx">click</span><span class="o">();</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>  <span class="c">// Gecko, Opera, and Safari</span>
+<span class="c"></span>
+            <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nb">document</span><span class="o">.</span><span class="nx">createEvent</span><span class="o">(</span><span class="s2">&quot;HTMLEvents&quot;</span><span class="o">);</span>
+            <span class="nx">oEvent</span><span class="o">.</span><span class="nx">initEvent</span><span class="o">(</span><span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+
+            <span class="c">/*</span>
+<span class="c">                In Safari, dispatching a &quot;submit&quot; event to a form WILL cause  </span>
+<span class="c">                the form&#39;s &quot;submit&quot; event to fire, but WILL NOT submit the   </span>
+<span class="c">                form.  Therefore, we need to call the &quot;submit&quot; method as well.</span>
+<span class="c">            */</span>
+
+            <span class="k">var</span> <span class="nx">bSubmitForm</span> <span class="o">=</span> <span class="nx">oForm</span><span class="o">.</span><span class="nx">dispatchEvent</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
+          
+            <span class="k">if</span><span class="o">(</span><span class="nx">m_bSafari</span> <span class="o">&amp;&amp;</span> <span class="nx">bSubmitForm</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">oForm</span><span class="o">.</span><span class="nx">submit</span><span class="o">();</span>
+            
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+    
     <span class="o">}</span>
 
 <span class="o">},</span>
@@ -2494,9 +2562,16 @@
 
 
     <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">CSS_CLASS_NAME</span><span class="o">);</span>
+    
+    <span class="k">if</span><span class="o">(</span><span class="nx">m_bIE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">m_bIE7</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="s2">&quot;ie6&quot;</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    
     <span class="k">this</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">));</span>
 
-    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_button</span><span class="o">,</span> <span class="s2">&quot;focus&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFocus</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_button</span><span class="o">,</span> <span class="s2">&quot;focus&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFocus</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseOver</span><span class="o">);</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onClick</span><span class="o">);</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="s2">&quot;appendTo&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onAppendTo</span><span class="o">);</span>
@@ -2555,18 +2630,9 @@
         <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;SPAN&quot;</span>
     <span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
-        
-        <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
-    
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;reset&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormReset</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-            <span class="nx">Event</span><span class="o">.</span><span class="nx">on</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormSubmit</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-        
-        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_addListenersToForm</span><span class="o">();</span>
 
     <span class="o">}</span>
-
-    <span class="k">this</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">(</span><span class="s2">&quot;init&quot;</span><span class="o">);</span>
 
     <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Initialization completed.&quot;</span><span class="o">);</span>
 
@@ -2681,7 +2747,7 @@
 <span class="c">    * @config disabled</span>
 <span class="c">    * @description Boolean indicating if the button should be disabled.  </span>
 <span class="c">    * (Disabled buttons are dimmed and will not respond to user input </span>
-<span class="c">    * or fire events.)</span>
+<span class="c">    * or fire events.  Does not apply to button&#39;s of type &quot;link.&quot;)</span>
 <span class="c">    * @default false</span>
 <span class="c">    * @type Boolean</span>
 <span class="c">    */</span>
@@ -2838,25 +2904,6 @@
     
     <span class="o">});</span>
 
-
-	<span class="c">/**</span>
-<span class="c">	* @config oninit</span>
-<span class="c">    * @description Object literal representing the code to be executed when </span>
-<span class="c">    * the button is initialized.  Format:&lt;br&gt; &lt;code&gt; {&lt;br&gt; </span>
-<span class="c">    * &lt;strong&gt;fn:&lt;/strong&gt; Function,   &amp;#47;&amp;#47; The handler to call when the </span>
-<span class="c">    * event fires.&lt;br&gt; &lt;strong&gt;obj:&lt;/strong&gt; Object, &amp;#47;&amp;#47; An object to </span>
-<span class="c">    * pass back to the handler.&lt;br&gt; &lt;strong&gt;scope:&lt;/strong&gt; Object &amp;#47;&amp;#47; </span>
-<span class="c">    * The object to use for the scope of the handler.&lt;br&gt; } &lt;/code&gt;</span>
-<span class="c">    * @type Object</span>
-<span class="c">	* @default null</span>
-<span class="c">	*/</span>
-    <span class="k">this</span><span class="o">.</span><span class="nx">setAttributeConfig</span><span class="o">(</span><span class="s2">&quot;oninit&quot;</span><span class="o">,</span> <span class="o">{</span>
-
-        <span class="nx">value</span><span class="o">:</span> <span class="nx">oAttributes</span><span class="o">.</span><span class="nx">oninit</span><span class="o">,</span>
-        <span class="nx">method</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_setOnInit</span>
-    
-    <span class="o">});</span>
-
 <span class="o">},</span>
 
 
@@ -2930,13 +2977,27 @@
 
 <span class="c">/**</span>
 <span class="c">* @method getForm</span>
-<span class="c">* @description Returns a reference to the button&#39;s menu.</span>
+<span class="c">* @description Returns a reference to the button&#39;s parent form.</span>
 <span class="c">* @return {&lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-</span>
 <span class="c">* one-html.html#ID-40002357&quot;&gt;HTMLFormElement&lt;/a&gt;}</span>
 <span class="c">*/</span>
 <span class="nx">getForm</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
     <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_button</span><span class="o">.</span><span class="nx">form</span><span class="o">;</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/** </span>
+<span class="c">* @method getHiddenField</span>
+<span class="c">* @description Returns a reference to the &lt;code&gt;&amp;#60;input&amp;#62;&lt;/code&gt; element </span>
+<span class="c">* used when the button&#39;s parent form is submitted.</span>
+<span class="c">* @return {&lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-</span>
+<span class="c">* one-html.html#ID-6043025&quot;&gt;HTMLInputElement&lt;/a&gt;}</span>
+<span class="c">*/</span>
+<span class="nx">getHiddenField</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">_hiddenField</span><span class="o">;</span>
 
 <span class="o">},</span>
 
@@ -2970,12 +3031,14 @@
     <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;keyup&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentKeyUp</span><span class="o">);</span>
     <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nb">document</span><span class="o">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onDocumentMouseDown</span><span class="o">);</span>
 
+
     <span class="k">var</span> <span class="nx">oForm</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">();</span>
     
     <span class="k">if</span><span class="o">(</span><span class="nx">oForm</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;reset&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormReset</span><span class="o">);</span>
-    
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oForm</span><span class="o">,</span> <span class="s2">&quot;submit&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onFormSubmit</span><span class="o">);</span>
+
     <span class="o">}</span>
 
 
@@ -2986,6 +3049,21 @@
     <span class="nx">delete</span> <span class="nx">m_oButtons</span><span class="o">[</span><span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;id&quot;</span><span class="o">)];</span>
 
     <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Destroyed.&quot;</span><span class="o">);</span>
+
+<span class="o">},</span>
+
+
+<span class="nx">fireEvent</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span> <span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="c">//  Disabled buttons should not respond to DOM events</span>
+<span class="c"></span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">DOM_EVENTS</span><span class="o">[</span><span class="nx">p_sType</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+        <span class="k">return</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Button</span><span class="o">.</span><span class="nx">superclass</span><span class="o">.</span><span class="nx">fireEvent</span><span class="o">.</span><span class="nx">call</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">);</span>
 
 <span class="o">},</span>
 
@@ -3002,6 +3080,83 @@
 <span class="o">}</span>
 
 <span class="o">});</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method onFormKeyDown</span>
+<span class="c">* @description &quot;keydown&quot; event handler for the button&#39;s form.</span>
+<span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
+<span class="c">* back by the event utility (YAHOO.util.Event).</span>
+<span class="c">*/</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Button</span><span class="o">.</span><span class="nx">onFormKeyDown</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">oTarget</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getTarget</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">),</span>
+        <span class="nx">nCharCode</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getCharCode</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>
+
+
+    <span class="k">if</span> <span class="o">(</span>
+        <span class="nx">nCharCode</span> <span class="o">==</span> <span class="m">13</span> <span class="o">&amp;&amp;</span> 
+        <span class="nx">oTarget</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">&amp;&amp;</span> 
+        <span class="nx">oTarget</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;INPUT&quot;</span>
+    <span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">sType</span> <span class="o">=</span> <span class="nx">oTarget</span><span class="o">.</span><span class="nx">type</span><span class="o">;</span>
+
+
+        <span class="k">if</span><span class="o">(</span>
+            <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;password&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;checkbox&quot;</span> <span class="o">||</span> 
+            <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;radio&quot;</span> <span class="o">||</span> <span class="nx">sType</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span>
+        <span class="o">)</span> <span class="o">{</span>
+
+
+            <span class="k">function</span> <span class="nx">isYUISubmitButton</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">)</span> <span class="o">{</span>
+    
+                <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">p_oElement</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
+    
+                <span class="k">if</span> <span class="o">(</span><span class="nx">sId</span><span class="o">)</span> <span class="o">{</span>
+    
+                    <span class="k">var</span> <span class="nx">oButton</span> <span class="o">=</span> <span class="nx">m_oButtons</span><span class="o">[</span><span class="nx">sId</span><span class="o">];</span>
+        
+                    <span class="k">if</span> <span class="o">(</span><span class="nx">oButton</span><span class="o">)</span> <span class="o">{</span>
+        
+                        <span class="k">var</span> <span class="nx">oSrcElement</span> <span class="o">=</span> <span class="nx">oButton</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;srcelement&quot;</span><span class="o">);</span>
+        
+                        <span class="k">return</span> <span class="o">(</span>
+                                    <span class="nx">oButton</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;type&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span> <span class="o">||</span> 
+                                    <span class="o">(</span>
+                                        <span class="nx">oSrcElement</span> <span class="o">&amp;&amp;</span> 
+                                        <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;submit&quot;</span>
+                                    <span class="o">)</span>
+                                <span class="o">);</span>
+        
+                    <span class="o">}</span>
+                
+                <span class="o">}</span>
+            
+            <span class="o">}</span>
+    
+    
+            <span class="k">var</span> <span class="nx">aButtons</span> <span class="o">=</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">getElementsBy</span><span class="o">(</span>
+                                <span class="nx">isYUISubmitButton</span><span class="o">,</span>
+                                <span class="k">this</span><span class="o">.</span><span class="nx">TAG_NAME</span><span class="o">,</span> 
+                                <span class="k">this</span><span class="o">.</span><span class="nx">getForm</span><span class="o">()</span>
+                            <span class="o">),</span>
+    
+                <span class="nx">nButtons</span> <span class="o">=</span> <span class="nx">aButtons</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
+    
+    
+            <span class="k">if</span> <span class="o">(</span><span class="nx">nButtons</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    
+                <span class="nx">m_oButtons</span><span class="o">[</span><span class="nx">aButtons</span><span class="o">[</span><span class="m">0</span><span class="o">].</span><span class="nx">id</span><span class="o">].</span><span class="nx">submitForm</span><span class="o">();</span>
+            
+            <span class="o">}</span>
+
+        
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+<span class="o">};</span>
 
 
 <span class="c">/**</span>
@@ -3056,7 +3211,7 @@
                         <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;SELECT&quot;</span>
                     <span class="o">)</span> <span class="o">{</span>
             
-                        <span class="nx">oButton</span><span class="o">.</span><span class="nx">getForm</span><span class="o">().</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">);</span>
+                        <span class="nx">p_oForm</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">);</span>
                         <span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">selectedIndex</span> <span class="o">=</span> <span class="nx">oMenuItem</span><span class="o">.</span><span class="nx">index</span><span class="o">;</span>
             
                     <span class="o">}</span>
@@ -3069,14 +3224,25 @@
                                     <span class="nx">oMenuItem</span><span class="o">.</span><span class="nx">value</span><span class="o">;</span>
 
                         <span class="k">if</span><span class="o">(</span><span class="nx">oValue</span><span class="o">)</span> <span class="o">{</span>
+
+                            <span class="k">var</span> <span class="nx">oHiddenField</span> <span class="o">=</span> <span class="nx">oButton</span><span class="o">.</span><span class="nx">getHiddenField</span><span class="o">(),</span>
     
-                            <span class="k">var</span> <span class="nx">oField</span> <span class="o">=</span> <span class="nx">createInputElement</span><span class="o">(</span>
+                                <span class="nx">oField</span> <span class="o">=</span> <span class="nx">createInputElement</span><span class="o">(</span>
                                             <span class="s2">&quot;hidden&quot;</span><span class="o">,</span>
                                             <span class="o">(</span><span class="nx">oButton</span><span class="o">.</span><span class="nx">get</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">)</span> <span class="o">+</span> <span class="s2">&quot;_options&quot;</span><span class="o">),</span>
                                             <span class="nx">oValue</span>
                                         <span class="o">);</span>
-        
-                            <span class="nx">oButton</span><span class="o">.</span><span class="nx">getForm</span><span class="o">().</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">);</span>
+                                        
+                            <span class="k">if</span><span class="o">(</span><span class="nx">oHiddenField</span> <span class="o">&amp;&amp;</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="nx">oHiddenField</span><span class="o">))</span> <span class="o">{</span>
+
+                                <span class="nx">p_oForm</span><span class="o">.</span><span class="nx">replaceChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">,</span> <span class="nx">oHiddenField</span><span class="o">);</span>
+
+                            <span class="o">}</span>
+                            <span class="k">else</span> <span class="o">{</span>
+
+                                <span class="nx">p_oForm</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oField</span><span class="o">);</span>
+                            
+                            <span class="o">}</span>
     
                         <span class="o">}</span>
     
@@ -3126,18 +3292,6 @@
 <span class="c">* &quot;keydown&quot;) that caused the &quot;option&quot; event to fire.  See &lt;a href=&quot;</span>
 <span class="c">* YAHOO.util.Element.html#addListener&quot;&gt;Element.addListener&lt;/a&gt; for more </span>
 <span class="c">* information on listening for this event.</span>
-<span class="c">* @type YAHOO.util.CustomEvent</span>
-<span class="c">*/</span>
-
-
-<span class="c">/**</span>
-<span class="c">* @event init</span>
-<span class="c">* @description Fires when the Button is initialized.  Subscribe to this event</span>
-<span class="c">* by specifying a value for the &quot;oninit&quot; configuration attribute.  Format:&lt;br&gt; </span>
-<span class="c">* &lt;code&gt; {&lt;br&gt; &lt;strong&gt;fn:&lt;/strong&gt; Function,   &amp;#47;&amp;#47; The handler to call  </span>
-<span class="c">* when the event fires.&lt;br&gt; &lt;strong&gt;obj:&lt;/strong&gt; Object, &amp;#47;&amp;#47; An object</span>
-<span class="c">* to pass back to the handler.&lt;br&gt; &lt;strong&gt;scope:&lt;/strong&gt; Object &amp;#47;&amp;#47; </span>
-<span class="c">* The object to use for the scope of the handler.&lt;br&gt; } &lt;/code&gt;</span>
 <span class="c">* @type YAHOO.util.CustomEvent</span>
 <span class="c">*/</span>
 

@@ -2,14 +2,8 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-*/
-
 /**
  * The animation module provides allows effects to be added to HTMLElements.
  * @module animation
@@ -1358,4 +1352,4 @@ YAHOO.util.Easing = {
         }
     };
 })();
-YAHOO.register("animation", YAHOO.util.Anim, {version: "2.2.0", build: "127"});
+YAHOO.register("animation", YAHOO.util.Anim, {version: "2.2.2", build: "204"});

@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>DataTable Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_datatable.html">datatable</a>
@@ -138,7 +138,7 @@
                                     <div class="detail">
                                         <div class="description">
                                             Minimum width the Column can support (in pixels). Value is populated only if table
-is fixedwidth, null otherwise.
+is fixedWidth, null otherwise.
                                         </div>
                                     </div>
      
@@ -260,6 +260,20 @@ is fixedwidth, null otherwise.
                                         <div class="description">
                                             Defines a custom format function for Column, otherwise default is used,
 according to Column type.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="getIndex">getIndex</a>
+                                        <code>- object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Public accessor returns Column's index within its ColumnSet's key array, or
+null if not applicable.
                                         </div>
                                     </div>
      
@@ -1479,6 +1493,9 @@ data. Can be overridden for custom parsing.
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#formatter">formatter</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
+                                <li><a href="#getIndex">getIndex</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#key">key</a>

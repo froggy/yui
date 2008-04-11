@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Button&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Button&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_button.html">button</a>
@@ -201,6 +201,24 @@ and "mouseup" event handlers are assigned
 
 
                                     <hr />
+                                    <h4><a name="_hiddenField">_hiddenField</a>
+                                        <code>- protected <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+one-html.html#ID-6043025">HTMLInputElement</a></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Object reference to the <code>&#60;input&#62;</code> element 
+used when the button's parent form is submitted.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: null
+                                    </div>        
+
+
+                                    <hr />
                                     <h4><a name="_menu">_menu</a>
                                         <code>- protected <a href="YAHOO.widget.Menu.html">YAHOO.widget.Menu</a></code>
                                     </h4>
@@ -223,23 +241,6 @@ and "mouseup" event handlers are assigned
                                     <div class="detail">
                                         <div class="description">
                                             Object reference to the button's current value for the "onclick"
-configuration attribute.
-                                        </div>
-                                    </div>
-     
-                                        
-                                    <div class="default">
-                                        Default Value: null
-                                    </div>        
-
-
-                                    <hr />
-                                    <h4><a name="_oninitAttributeValue">_oninitAttributeValue</a>
-                                        <code>- protected Object</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            Object reference to the button's current value for the "oninit"
 configuration attribute.
                                         </div>
                                     </div>
@@ -527,6 +528,38 @@ type "submit."
                             <h3><a name="methodDetails">Methods</a></h3>
                             <div class="content">
                                     <h4>
+                                        <a name="_addListenersToForm">_addListenersToForm</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_addListenersToForm</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Adds event handlers to the button's form.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="_createButtonElement">_createButtonElement</a></h4>
                                     <div class="detail">
                                         <code>
@@ -653,7 +686,7 @@ button's "active" state.
                                         <a name="_isSplitButtonOptionKey">_isSplitButtonOptionKey</a></h4>
                                     <div class="detail">
                                         <code>
-                                        
+                                         protected 
                                         
                                         
                                         Boolean
@@ -755,10 +788,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -774,10 +803,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -853,10 +878,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -872,10 +893,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -906,10 +923,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -925,10 +938,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -959,10 +968,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -978,10 +983,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1012,10 +1013,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1031,11 +1028,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button that
-fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -1066,10 +1058,6 @@ fired the event.
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1085,10 +1073,6 @@ fired the event.
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1119,10 +1103,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1138,10 +1118,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1172,10 +1148,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1191,10 +1163,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1225,10 +1193,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_oEvent
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1244,10 +1208,6 @@ back by the event utility (YAHOO.util.Event).
                                                             <code>p_oEvent &lt;Event&gt;</code>
                                                              Object representing the DOM event object passed 
 back by the event utility (YAHOO.util.Event).
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1282,10 +1242,6 @@ back by the event utility (YAHOO.util.Event).
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1305,10 +1261,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the menu's button.
                                                         </dd>
                                                 </dl>
 
@@ -1343,10 +1295,6 @@ was fired.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1366,10 +1314,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1527,10 +1471,6 @@ was fired.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1550,10 +1490,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1588,10 +1524,6 @@ was fired.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1611,10 +1543,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -1649,10 +1577,6 @@ was fired.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oButton
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1672,10 +1596,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oButton &lt;YAHOO.widget.Button&gt;</code>
-                                                             Object representing the button.
                                                         </dd>
                                                 </dl>
 
@@ -2232,51 +2152,6 @@ back by the event utility (YAHOO.util.Event).
                                     </div>
                                     <hr />
                                     <h4>
-                                        <a name="_setOnInit">_setOnInit</a></h4>
-                                    <div class="detail">
-                                        <code>
-                                         protected 
-                                        
-                                        
-                                        void
-                                            <strong>_setOnInit</strong>
-                                           (
-                                                
-                                                        
-                                                         p_oObject
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description">
-                                            Sets the value of the button's "init" attribute.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl>
-                                                    <dt>Parameters:</dt>
-                                                        <dd>
-                                                            <code>p_oObject &lt;Object&gt;</code>
-                                                             Object indicating the value for the button's 
-"oninit" attribute.
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code>
-                                                        void
-                                                    </code></dt>
-                                                    <dd></dd>
-                                                </dl>
-             
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    <h4>
                                         <a name="_setTabIndex">_setTabIndex</a></h4>
                                     <div class="detail">
                                         <code>
@@ -2466,6 +2341,11 @@ back by the event utility (YAHOO.util.Event).
                                         void
                                             <strong>_showMenu</strong>
                                            (
+                                                
+                                                        
+                                                         p_oEvent
+                                                    
+                                                
                                             )
                                         </code>
                                         
@@ -2475,38 +2355,15 @@ back by the event utility (YAHOO.util.Event).
 
                                         <div class="description">
 
-
                                                 <dl>
-                                                    <dt>Returns:
-                                                    <code>
-                                                        void
-                                                    </code></dt>
-                                                    <dd></dd>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_oEvent &lt;Event&gt;</code>
+                                                             Object representing the DOM event object passed 
+back by the event utility (YAHOO.util.Event) that triggered the display of
+the menu.
+                                                        </dd>
                                                 </dl>
-             
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    <h4>
-                                        <a name="_submitForm">_submitForm</a></h4>
-                                    <div class="detail">
-                                        <code>
-                                         protected 
-                                        
-                                        
-                                        void
-                                            <strong>_submitForm</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description">
-                                            Submits the form to which the button belongs.
-                                        </div>
-
-                                        <div class="description">
-
 
                                                 <dl>
                                                     <dt>Returns:
@@ -2840,7 +2697,7 @@ one-html.html#ID-40002357">HTMLFormElement</a>
                                         </code>
                                         
                                         <div class="description">
-                                            Returns a reference to the button's menu.
+                                            Returns a reference to the button's parent form.
                                         </div>
 
                                         <div class="description">
@@ -2851,6 +2708,41 @@ one-html.html#ID-40002357">HTMLFormElement</a>
                                                     <code>
                                                         <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
 one-html.html#ID-40002357">HTMLFormElement</a>
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="getHiddenField">getHiddenField</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+one-html.html#ID-6043025">HTMLInputElement</a>
+                                            <strong>getHiddenField</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Returns a reference to the <code>&#60;input&#62;</code> element 
+used when the button's parent form is submitted.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+one-html.html#ID-6043025">HTMLInputElement</a>
                                                     </code></dt>
                                                     <dd></dd>
                                                 </dl>
@@ -3121,6 +3013,51 @@ configuration attributes.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="onFormKeyDown">onFormKeyDown</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>onFormKeyDown</strong>
+                                           (
+                                                
+                                                        
+                                                         p_oEvent
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "keydown" event handler for the button's form.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_oEvent &lt;Event&gt;</code>
+                                                             Object representing the DOM event object passed 
+back by the event utility (YAHOO.util.Event).
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="setAttributeFromDOMAttribute">setAttributeFromDOMAttribute</a></h4>
                                     <div class="detail">
                                         <code>
@@ -3245,6 +3182,38 @@ configuration attributes used to create the button.
                                             Gets the value of the attributes from the form element and 
 sets them into the collection of configuration attributes used to 
 configure the button.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="submitForm">submitForm</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>submitForm</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Submits the form to which the button belongs.
                                         </div>
 
                                         <div class="description">
@@ -3427,38 +3396,6 @@ information on listening for this event.
                                     </div>
                                     <hr />
                                     <h4>
-                                        <a name="init">init</a></h4>
-                                    <div class="detail">
-                                        <code>
-                                        
-                                        
-                                        
-                                            <strong>init</strong>
-
-                                            (
-                                            )
-
-                                        </code>
-                                        
-                                        <div class="description">
-                                            Fires when the Button is initialized.  Subscribe to this event
-by specifying a value for the "oninit" configuration attribute.  Format:<br> 
-<code> {<br> <strong>fn:</strong> Function,   &#47;&#47; The handler to call  
-when the event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object
-to pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-The object to use for the scope of the handler.<br> } </code>
-                                        </div>
-
-                                        <div class="description">
-
-
-
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    <h4>
                                         <a name="option">option</a></h4>
                                     <div class="detail">
                                         <code>
@@ -3548,7 +3485,7 @@ rendered into.
                                         <div class="description">
                                             Boolean indicating if the button should be disabled.  
 (Disabled buttons are dimmed and will not respond to user input 
-or fire events.)
+or fire events.  Does not apply to button's of type "link.")
                                         </div>
                                     </div>
  
@@ -3642,26 +3579,6 @@ the menu.</li>
                                         <div class="description">
                                             Object literal representing the code to be executed when 
 the button is clicked.  Format:<br> <code> {<br> 
-<strong>fn:</strong> Function,   &#47;&#47; The handler to call when the 
-event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object to 
-pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
-The object to use for the scope of the handler.<br> } </code>
-                                        </div>
-                                    </div>
- 
-     
-                                    <div class="default">
-                                        Default Value: null
-                                    </div>        
-
-                                    <hr />
-                                    <h4><a name="oninit">oninit</a>
-                                        <code>- Object</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            Object literal representing the code to be executed when 
-the button is initialized.  Format:<br> <code> {<br> 
 <strong>fn:</strong> Function,   &#47;&#47; The handler to call when the 
 event fires.<br> <strong>obj:</strong> Object, &#47;&#47; An object to 
 pass back to the handler.<br> <strong>scope:</strong> Object &#47;&#47; 
@@ -3881,13 +3798,13 @@ and "splitbutton."
                                 <li><a href="#_hasMouseEventHandlers">_hasMouseEventHandlers</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#_hiddenField">_hiddenField</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#_menu">_menu</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#_onclickAttributeValue">_onclickAttributeValue</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
-                                <li><a href="#_oninitAttributeValue">_oninitAttributeValue</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                                 <li><a href="#ACTIVATION_KEYS">ACTIVATION_KEYS</a>
@@ -3938,6 +3855,9 @@ and "splitbutton."
                     <div class="module">
                         <h4>Methods</h4>
                         <ul class="content">        
+                                <li><!--<code>void</code>-->
+                                <a href="#_addListenersToForm">_addListenersToForm</a>
+                                </li>
                                 <li><!--<code><a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
 level-one-html.html#ID-58190037">HTMLElement</a></code>-->
                                 <a href="#_createButtonElement">_createButtonElement</a>
@@ -4042,9 +3962,6 @@ level-one-html.html#ID-58190037">HTMLElement</a></code>-->
                                 <a href="#_setOnClick">_setOnClick</a>
                                 </li>
                                 <li><!--<code>void</code>-->
-                                <a href="#_setOnInit">_setOnInit</a>
-                                </li>
-                                <li><!--<code>void</code>-->
                                 <a href="#_setTabIndex">_setTabIndex</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -4058,9 +3975,6 @@ level-one-html.html#ID-58190037">HTMLElement</a></code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_showMenu">_showMenu</a>
-                                </li>
-                                <li><!--<code>void</code>-->
-                                <a href="#_submitForm">_submitForm</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#addHiddenFieldsToForm">addHiddenFieldsToForm</a>
@@ -4090,6 +4004,10 @@ level-one-html.html#ID-58190037">HTMLElement</a></code>-->
 one-html.html#ID-40002357">HTMLFormElement</a></code>-->
                                 <a href="#getForm">getForm</a>
                                 </li>
+                                <li><!--<code><a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
+one-html.html#ID-6043025">HTMLInputElement</a></code>-->
+                                <a href="#getHiddenField">getHiddenField</a>
+                                </li>
                                 <li><!--<code><a href="YAHOO.widget.Menu.html">YAHOO.widget.Menu</a></code>-->
                                 <a href="#getMenu">getMenu</a>
                                 </li>
@@ -4109,6 +4027,9 @@ one-html.html#ID-40002357">HTMLFormElement</a></code>-->
                                 <a href="#isActive">isActive</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#onFormKeyDown">onFormKeyDown</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#setAttributeFromDOMAttribute">setAttributeFromDOMAttribute</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -4116,6 +4037,9 @@ one-html.html#ID-40002357">HTMLFormElement</a></code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#setFormElementProperties">setFormElementProperties</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#submitForm">submitForm</a>
                                 </li>
                                 <li><!--<code>String</code>-->
                                 <a href="#toString">toString</a>
@@ -4131,9 +4055,6 @@ one-html.html#ID-40002357">HTMLFormElement</a></code>-->
                                 </li>
                                 <li>
                                 <a href="#focus">focus</a>
-                                </li>
-                                <li>
-                                <a href="#init">init</a>
                                 </li>
                                 <li>
                                 <a href="#option">option</a>
@@ -4167,9 +4088,6 @@ one-html.html#ID-40002357">HTMLFormElement</a></code>-->
                                 </li>
                                 <li>
                                 <a href="#onclick">onclick</a>
-                                </li>
-                                <li>
-                                <a href="#oninit">oninit</a>
                                 </li>
                                 <li>
                                 <a href="#selectedMenuItem">selectedMenuItem</a>

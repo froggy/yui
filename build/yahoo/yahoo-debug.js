@@ -2,7 +2,7 @@
 Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 2.2.0
+version: 2.2.2
 */
 /**
  * The YAHOO object is the single global object used by YUI Library.  It
@@ -227,7 +227,8 @@ YAHOO.lang = {
      * @return Boolean
      */
     isArray: function(obj) { // frames lose type, so test constructor string
-        if (obj.constructor && obj.constructor.toString().indexOf('Array') > -1) {
+        if (obj && obj.constructor && 
+                   obj.constructor.toString().indexOf('Array') > -1) {
             return true;
         } else {
             return YAHOO.lang.isObject(obj) && obj.constructor == Array;
@@ -282,7 +283,7 @@ YAHOO.lang = {
      * @return Boolean
      */  
     isObject: function(obj) {
-        return typeof obj == 'object' || YAHOO.lang.isFunction(obj);
+        return obj && (typeof obj == 'object' || YAHOO.lang.isFunction(obj));
     },
         
     /**
@@ -348,6 +349,10 @@ YAHOO.lang = {
      *                              if present.
      */
     extend: function(subc, superc, overrides) {
+        if (!superc||!subc) {
+            throw new Error("YAHOO.lang.extend failed, please check that " +
+                            "all dependencies are included.");
+        }
         var F = function() {};
         F.prototype=superc.prototype;
         subc.prototype=new F();
@@ -380,6 +385,10 @@ YAHOO.lang = {
      *                             overwrite an existing property in the receiver
      */
     augment: function(r, s) {
+        if (!s||!r) {
+            throw new Error("YAHOO.lang.augment failed, please check that " +
+                            "all dependencies are included.");
+        }
         var rp=r.prototype, sp=s.prototype, a=arguments, i, p;
         if (a[2]) {
             for (i=2; i<a.length; i=i+1) {
@@ -430,4 +439,4 @@ YAHOO.augment = YAHOO.lang.augment;
  */
 YAHOO.extend = YAHOO.lang.extend;
 
-YAHOO.register("yahoo", YAHOO, {version: "2.2.0", build: "127"});
+YAHOO.register("yahoo", YAHOO, {version: "2.2.2", build: "204"});

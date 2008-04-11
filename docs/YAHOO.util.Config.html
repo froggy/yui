@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Container&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Container&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_container.html">container</a>
@@ -139,6 +139,32 @@ This object is used when resetting a property.
                                     <div class="detail">
                                         <div class="description">
                                             Boolean flag that specifies whether a queue is currently being executed
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.util.Config.BOOLEAN_TYPE">YAHOO.util.Config.BOOLEAN_TYPE</a>
+                                        <code>- private static final object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the boolean type string
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.util.Config.CONFIG_CHANGED_EVENT">YAHOO.util.Config.CONFIG_CHANGED_EVENT</a>
+                                        <code>- private static final object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the CustomEvent type for the config changed event.
                                         </div>
                                     </div>
      
@@ -1059,7 +1085,7 @@ moved from its current position to the end of the queue.
                                         </code>
                                         
                                         <div class="description">
-                                            Object reference to the owner of this Config Object
+                                            Custom Event, notifying subscribers when Config properties are set (setProperty is called without the silent flag
                                         </div>
 
                                         <div class="description">
@@ -1131,7 +1157,6 @@ moved from its current position to the end of the queue.
                         <h4>Classes</h4>
                         <ul class="content">
                                 <li class="selected"><a href="YAHOO.util.Config.html">YAHOO.util.Config</a></li>
-                                <li class=""><a href="YAHOO.util.KeyListener.html">YAHOO.util.KeyListener</a></li>
                                 <li class=""><a href="YAHOO.widget.ContainerEffect.html">YAHOO.widget.ContainerEffect</a></li>
                                 <li class=""><a href="YAHOO.widget.Dialog.html">YAHOO.widget.Dialog</a></li>
                                 <li class=""><a href="YAHOO.widget.Module.html">YAHOO.widget.Module</a></li>
@@ -1149,7 +1174,6 @@ moved from its current position to the end of the queue.
                                 <li class=""><a href="Config.js.html">Config.js</a></li>
                                 <li class=""><a href="ContainerEffect.js.html">ContainerEffect.js</a></li>
                                 <li class=""><a href="Dialog.js.html">Dialog.js</a></li>
-                                <li class=""><a href="KeyListener.js.html">KeyListener.js</a></li>
                                 <li class=""><a href="Module.js.html">Module.js</a></li>
                                 <li class=""><a href="Overlay.js.html">Overlay.js</a></li>
                                 <li class=""><a href="OverlayManager.js.html">OverlayManager.js</a></li>
@@ -1163,19 +1187,25 @@ moved from its current position to the end of the queue.
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#config">config</a>
-                                        <!--<code>&lt;Boolean&gt;</code>-->
+                                        <!--<code>&lt;object&gt;</code>-->
                                 </li>
                                 <li><a href="#eventQueue">eventQueue</a>
-                                        <!--<code>&lt;Boolean&gt;</code>-->
+                                        <!--<code>&lt;object&gt;</code>-->
                                 </li>
                                 <li><a href="#initialConfig">initialConfig</a>
-                                        <!--<code>&lt;Boolean&gt;</code>-->
+                                        <!--<code>&lt;object&gt;</code>-->
                                 </li>
                                 <li><a href="#owner">owner</a>
-                                        <!--<code>&lt;Boolean&gt;</code>-->
+                                        <!--<code>&lt;object&gt;</code>-->
                                 </li>
                                 <li><a href="#queueInProgress">queueInProgress</a>
-                                        <!--<code>&lt;Boolean&gt;</code>-->
+                                        <!--<code>&lt;object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.util.Config.BOOLEAN_TYPE">YAHOO.util.Config.BOOLEAN_TYPE</a>
+                                        <!--<code>&lt;object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.util.Config.CONFIG_CHANGED_EVENT">YAHOO.util.Config.CONFIG_CHANGED_EVENT</a>
+                                        <!--<code>&lt;object&gt;</code>-->
                                 </li>
                         </ul>
                     </div>

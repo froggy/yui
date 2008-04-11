@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Calendar&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Calendar&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_calendar.html">calendar</a>
@@ -198,6 +198,19 @@ The tables for the calendars ("cal1_0" and "cal1_1") will be inserted into those
                                     <div class="detail">
                                         <div class="description">
                                             The collection of Calendar pages contained within the CalendarGroup
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.CalendarGroup._DEFAULT_CONFIG">YAHOO.widget.CalendarGroup._DEFAULT_CONFIG</a>
+                                        <code>- private static final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The set of default Config property keys and values for the CalendarGroup
                                         </div>
                                     </div>
      
@@ -779,6 +792,66 @@ to the current month and year.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="configSelected">configSelected</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>configSelected</strong>
+                                           (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         args
+                                                    
+                                                
+                                                        , 
+                                                         obj
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            The default Config handler for the CalendarGroup "selected" property
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>type &lt;String&gt;</code>
+                                                            	The CustomEvent type (usually the property name)
+                                                        </dd>
+                                                        <dd>
+                                                            <code>args &lt;Object[]&gt;</code>
+                                                            	The CustomEvent arguments. For configuration handlers, args[0] will equal the newly applied value for the property.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>obj &lt;Object&gt;</code>
+                                                            	The scope object. For configuration handlers, this will usually equal the owner.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="constructChild">constructChild</a></h4>
                                     <div class="detail">
                                         <code>
@@ -1002,9 +1075,8 @@ of the calendar.</dd>
                                         </code>
                                         
                                         <div class="description">
-                                            Deselects a date on the current calendar by referencing the index of the cell that should be deselected.
-This method is used to easily deselect a single cell (usually with a mouse click) without having to do
-a full render. The selected style is removed from the cell directly.
+                                            Deselects dates in the CalendarGroup based on the cell index provided. This method is used to select cells without having to do a full render. The selected style is applied to the cells directly.
+deselectCell will deselect the cell at the specified index on each displayed Calendar page.
                                         </div>
 
                                         <div class="description">
@@ -1013,7 +1085,7 @@ a full render. The selected style is removed from the cell directly.
                                                     <dt>Parameters:</dt>
                                                         <dd>
                                                             <code>cellIndex &lt;Number&gt;</code>
-                                                            	The index of the cell to deselect in the current calendar.
+                                                            	The index of the cell to deselect.
                                                         </dd>
                                                 </dl>
 
@@ -1480,9 +1552,12 @@ This method can also take a JavaScript Date object or an array of Date objects.
                                         </code>
                                         
                                         <div class="description">
-                                            Selects a date on the current calendar by referencing the index of the cell that should be selected.
-This method is used to easily select a single cell (usually with a mouse click) without having to do
-a full render. The selected style is applied to the cell directly.
+                                            Selects dates in the CalendarGroup based on the cell index provided. This method is used to select cells without having to do a full render. The selected style is applied to the cells directly.
+The value of the MULTI_SELECT Configuration attribute will determine the set of dates which get selected. 
+<ul>
+<li>If MULTI_SELECT is false, selectCell will select the cell at the specified index for only the last displayed Calendar page.</li>
+<li>If MULTI_SELECT is true, selectCell will select the cell at the specified index, on each displayed Calendar page.</li>
+</ul>
                                         </div>
 
                                         <div class="description">
@@ -1491,7 +1566,7 @@ a full render. The selected style is applied to the cell directly.
                                                     <dt>Parameters:</dt>
                                                         <dd>
                                                             <code>cellIndex &lt;Number&gt;</code>
-                                                            	The index of the cell to select in the current calendar.
+                                                            	The index of the cell to be selected.
                                                         </dd>
                                                 </dl>
 
@@ -2779,6 +2854,9 @@ calendar page date to the new month.
                                 <li><a href="#pages">pages</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
+                                <li><a href="#YAHOO.widget.CalendarGroup._DEFAULT_CONFIG">YAHOO.widget.CalendarGroup._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;String&gt;</code>-->
+                                </li>
                                 <li><a href="#YAHOO.widget.CalendarGroup.CSS_2UPCLOSE">YAHOO.widget.CalendarGroup.CSS_2UPCLOSE</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
@@ -2826,6 +2904,9 @@ calendar page date to the new month.
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#configPages">configPages</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#configSelected">configSelected</a>
                                 </li>
                                 <li><!--<code>YAHOO.widget.Calendar</code>-->
                                 <a href="#constructChild">constructChild</a>

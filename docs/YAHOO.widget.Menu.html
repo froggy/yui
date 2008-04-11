@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -372,7 +372,7 @@ hiding of a submenu.
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            Object reference to the item in the menu that has focus.
+                                            Object reference to the item in the menu that has is selected.
                                         </div>
                                     </div>
      
@@ -515,6 +515,32 @@ create the menu.
 
 
                                     <hr />
+                                    <h4><a name="YAHOO.widget.Menu._DEFAULT_CONFIG">YAHOO.widget.Menu._DEFAULT_CONFIG</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the Menu's configuration properties
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="YAHOO.widget.Menu._EVENT_TYPES">YAHOO.widget.Menu._EVENT_TYPES</a>
+                                        <code>- private final Object</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Constant representing the name of the Menu's events
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
 
 
                             </div>
@@ -535,7 +561,9 @@ create the menu.
                                         <a href="YAHOO.widget.Module.html#id">id</a>,
                                         <a href="YAHOO.widget.Module.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.Module.html#isSecure">isSecure</a>,
-                                        <a href="YAHOO.widget.Module.html#platform">platform</a>
+                                        <a href="YAHOO.widget.Module.html#platform">platform</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._DEFAULT_CONFIG">YAHOO.widget.Module._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Module.html#YAHOO.widget.Module._EVENT_TYPES">YAHOO.widget.Module._EVENT_TYPES</a>
                                 </code>
                             </div>
                         </div>
@@ -544,6 +572,8 @@ create the menu.
                             <div class="content">
                                 <code>
                                     
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._DEFAULT_CONFIG">YAHOO.widget.Overlay._DEFAULT_CONFIG</a>,
+                                        <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._EVENT_TYPES">YAHOO.widget.Overlay._EVENT_TYPES</a>,
                                         <a href="YAHOO.widget.Overlay.html#YAHOO.widget.Overlay._initialized">YAHOO.widget.Overlay._initialized</a>
                                 </code>
                             </div>
@@ -1873,10 +1903,6 @@ that fired the event.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oItem
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -1896,11 +1922,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oItem &lt;YAHOO.widget.MenuItem&gt;</code>
-                                                             Object representing the menu item 
-that fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -2220,6 +2241,59 @@ subscribed to the event.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="_onRender">_onRender</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_onRender</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "render" event handler for the menu.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="_onScrollTargetMouseOut">_onScrollTargetMouseOut</a></h4>
                                     <div class="detail">
                                         <code>
@@ -2474,10 +2548,6 @@ subscribed to the event.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oSubmenu
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -2497,11 +2567,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oSubmenu &lt;YAHOO.widget.Menu&gt;</code>
-                                                             Object representing the submenu that 
-subscribed to the event.
                                                         </dd>
                                                 </dl>
 
@@ -2536,10 +2601,6 @@ subscribed to the event.
                                                          p_aArgs
                                                     
                                                 
-                                                        , 
-                                                         p_oSubmenu
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -2559,11 +2620,6 @@ was fired.
                                                         <dd>
                                                             <code>p_aArgs &lt;Array&gt;</code>
                                                              Array of arguments sent when the event was fired.
-                                                        </dd>
-                                                        <dd>
-                                                            <code>p_oSubmenu &lt;YAHOO.widget.Menu&gt;</code>
-                                                             Object representing the submenu that 
-subscribed to the event.
                                                         </dd>
                                                 </dl>
 
@@ -2626,6 +2682,114 @@ was fired.
                                                             <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
                                                              Object representing the menu that 
 fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_onVisibleChange">_onVisibleChange</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_onVisibleChange</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Change event handler for the the menu's "visible" configuration
+property.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_onWidthChange">_onWidthChange</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_onWidthChange</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Change event handler for the the menu's "width" configuration
+property.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
                                                         </dd>
                                                 </dl>
 
@@ -2743,6 +2907,70 @@ instance to be removed.
                                                     <dt>Returns:
                                                     <code>
                                                         YAHOO.widget.MenuItem
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_setMaxHeight">_setMaxHeight</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_setMaxHeight</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                                        , 
+                                                         p_nMaxHeight
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "renderEvent" handler used to defer the setting of the 
+"maxheight" configuration property until the menu is rendered in lazy 
+load scenarios.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             The name of the event that was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Collection of arguments sent when the event 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_nMaxHeight &lt;Number&gt;</code>
+                                                             Number representing the value to set for the 
+"maxheight" configuration property.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
                                                     </code></dt>
                                                     <dd></dd>
                                                 </dl>
@@ -2990,6 +3218,38 @@ which the items belongs.
                                                     <dt>Returns:
                                                     <code>
                                                         Array
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="blur">blur</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>blur</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Causes the menu to lose focus and fires the "blur" event.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
                                                     </code></dt>
                                                     <dd></dd>
                                                 </dl>
@@ -3613,6 +3873,38 @@ and the item that fired the event.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="focus">focus</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>focus</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Causes the menu to receive focus and fires the "focus" event.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="getItem">getItem</a></h4>
                                     <div class="detail">
                                         <code>
@@ -3755,6 +4047,38 @@ are grouped in the menu.
                                                     <dt>Returns:
                                                     <code>
                                                         void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="hasFocus">hasFocus</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        Boolean
+                                            <strong>hasFocus</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Returns a boolean indicating whether or not the menu has focus.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        Boolean
                                                     </code></dt>
                                                     <dd></dd>
                                                 </dl>
@@ -4912,136 +5236,76 @@ between "block" (true) or "none" (false).
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#_aGroupTitleElements">_aGroupTitleElements</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_aItemGroups">_aItemGroups</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_aListElements">_aListElements</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_bHandledMouseOutEvent">_bHandledMouseOutEvent</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_bHandledMouseOverEvent">_bHandledMouseOverEvent</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_bHideDelayEventHandlersAssigned">_bHideDelayEventHandlersAssigned</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_bStopMouseEventHandlers">_bStopMouseEventHandlers</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nBodyScrollId">_nBodyScrollId</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nCurrentMouseX">_nCurrentMouseX</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nHideDelayId">_nHideDelayId</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nMaxHeight">_nMaxHeight</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nShowDelayId">_nShowDelayId</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_nSubmenuHideDelayId">_nSubmenuHideDelayId</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#_sClassName">_sClassName</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#activeItem">activeItem</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#CSS_CLASS_NAME">CSS_CLASS_NAME</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#GROUP_TITLE_TAG_NAME">GROUP_TITLE_TAG_NAME</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#ITEM_TYPE">ITEM_TYPE</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#itemData">itemData</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#lazyLoad">lazyLoad</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#parent">parent</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                                 <li><a href="#srcElement">srcElement</a>
-                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
-level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
-href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
-html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                        <!--<code>&lt;Object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Menu._DEFAULT_CONFIG">YAHOO.widget.Menu._DEFAULT_CONFIG</a>
+                                        <!--<code>&lt;Object&gt;</code>-->
+                                </li>
+                                <li><a href="#YAHOO.widget.Menu._EVENT_TYPES">YAHOO.widget.Menu._EVENT_TYPES</a>
+                                        <!--<code>&lt;Object&gt;</code>-->
                                 </li>
                         </ul>
                     </div>
@@ -5149,6 +5413,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#_onParentMenuRender">_onParentMenuRender</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#_onRender">_onRender</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#_onScrollTargetMouseOut">_onScrollTargetMouseOut</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -5169,11 +5436,20 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <li><!--<code>void</code>-->
                                 <a href="#_onTextResize">_onTextResize</a>
                                 </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_onVisibleChange">_onVisibleChange</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_onWidthChange">_onWidthChange</a>
+                                </li>
                                 <li><!--<code>YAHOO.widget.MenuItem</code>-->
                                 <a href="#_removeItemFromGroupByIndex">_removeItemFromGroupByIndex</a>
                                 </li>
                                 <li><!--<code>YAHOO.widget.MenuItem</code>-->
                                 <a href="#_removeItemFromGroupByValue">_removeItemFromGroupByValue</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_setMaxHeight">_setMaxHeight</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_setWidth">_setWidth</a>
@@ -5189,6 +5465,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li><!--<code>Array</code>-->
                                 <a href="#addItems">addItems</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#blur">blur</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#clearActiveItem">clearActiveItem</a>
@@ -5223,6 +5502,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <li><!--<code>void</code>-->
                                 <a href="#enforceConstraints">enforceConstraints</a>
                                 </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#focus">focus</a>
+                                </li>
                                 <li><!--<code>YAHOO.widget.MenuItem</code>-->
                                 <a href="#getItem">getItem</a>
                                 </li>
@@ -5234,6 +5516,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#getRoot">getRoot</a>
+                                </li>
+                                <li><!--<code>Boolean</code>-->
+                                <a href="#hasFocus">hasFocus</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#init">init</a>

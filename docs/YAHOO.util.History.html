@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Browser History Manager&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>Browser History Manager&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_history.html">history</a>
@@ -196,6 +196,22 @@ the list of all states across pages within a single browser session.
                                         
                                     <div class="default">
                                         Default Value: false
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_ua">_ua</a>
+                                        <code>- private string</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            User agent string used for browser detection.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: null
                                     </div>        
 
 
@@ -611,7 +627,8 @@ from a script block located right after the opening body tag.
                                                             <code>iframeTarget &lt;string&gt;</code>
                                                              Optional - Path to an existing
 HTML document accessible from the same domain. If not
-specified, defaults to "blank.html"
+specified, defaults to "blank.html". This is only useful
+if you use https.
                                                         </dd>
                                                 </dl>
 
@@ -702,6 +719,14 @@ specified, defaults to "blank.html"
                                                          onStateChange
                                                     
                                                 
+                                                        , 
+                                                         obj
+                                                    
+                                                
+                                                        , 
+                                                         override
+                                                    
+                                                
                                             )
                                         </code>
                                         
@@ -727,6 +752,16 @@ module corresponding to its earliest history entry.
                                                             <code>onStateChange &lt;function&gt;</code>
                                                              Callback called when the
 state of the specified module has changed.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>obj &lt;object&gt;</code>
+                                                             An arbitrary object that will be passed as a
+parameter to the handler.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>override &lt;boolean&gt;</code>
+                                                             If true, the obj passed in becomes the
+execution scope of the listener.
                                                         </dd>
                                                 </dl>
 
@@ -850,28 +885,31 @@ state of the specified module has changed.
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#_bhmReady">_bhmReady</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_browser">_browser</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_fqstates">_fqstates</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_iframe">_iframe</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_initialized">_initialized</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_modules">_modules</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_storageField">_storageField</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                                 <li><a href="#_storageFieldReady">_storageFieldReady</a>
-                                        <!--<code>&lt;boolean&gt;</code>-->
+                                        <!--<code>&lt;string&gt;</code>-->
+                                </li>
+                                <li><a href="#_ua">_ua</a>
+                                        <!--<code>&lt;string&gt;</code>-->
                                 </li>
                         </ul>
                     </div>

@@ -10,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
+        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.2</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_autocomplete.html">autocomplete</a>
@@ -167,9 +167,9 @@ not an issue.
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            Enables query case-sensitivity matching. If caching is on and
-queryMatchCase is true, queries will only return results for case-sensitive
-matches.
+                                            Enables case-sensitivity in the matching algorithm used against JS Array
+types of DataSources and DataSource caches. If queryMatchCase is true, only
+case-sensitive matches will return.
                                         </div>
                                     </div>
      
@@ -185,11 +185,11 @@ matches.
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            Use this to equate cache matching with the type of matching done by your live
-data source. If caching is on and queryMatchContains is true, the cache
-returns results that "contain" the query string. By default,
-queryMatchContains is set to false, meaning the cache only returns results
-that "start with" the query string.
+                                            Use this to fine-tune the matching algorithm used against JS Array types of
+DataSource and DataSource caches. If queryMatchContains is true, then the JS
+Array or cache returns results that "contain" the query string. By default,
+queryMatchContains is set to false, so that only results that "start with"
+the query string are returned.
                                         </div>
                                     </div>
      
