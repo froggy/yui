@@ -18,7 +18,8 @@
 
 	<div class="breadcrumbs">
 		
-
+			<a href="javascript: alert('This location is TBD');">Home</a>
+			&gt;
 			
 			
 			
@@ -58,6 +59,11 @@
 				<ul class="content">
 					
 						<li>
+							<a href="YAHOO.util.html">
+								YAHOO.util</a>
+						</li>
+					
+						<li>
 							<a href="YAHOO.util.Anim.html">
 								YAHOO.util.Anim</a>
 						</li>
@@ -70,6 +76,11 @@
 						<li>
 							<a href="YAHOO.util.Bezier.html">
 								YAHOO.util.Bezier</a>
+						</li>
+					
+						<li>
+							<a href="YAHOO.util.ColorAnim.html">
+								YAHOO.util.ColorAnim</a>
 						</li>
 					
 						<li>
@@ -112,6 +123,11 @@
 						</li>
 					
 						<li>
+							<a href="overview-summary-ColorAnim.js.html">
+								ColorAnim.js</a>
+						</li>
+					
+						<li>
 							<a href="overview-summary-Easing.js.html">
 								Easing.js</a>
 						</li>
@@ -139,7 +155,9 @@
    |
    +--<a href='YAHOO.util.Anim.html'>YAHOO.util.Anim</a>
          |
-         +--<b>YAHOO.util.Motion</b>
+         +--<a href='YAHOO.util.ColorAnim.html'>YAHOO.util.ColorAnim</a>
+               |
+               +--<b>YAHOO.util.Motion</b>
 </pre>
 			
 			
@@ -157,7 +175,7 @@
 				</div>
 				<div class="class-extends">
 					
-						<dd>extends <a href='YAHOO.util.Anim.html'>YAHOO.util.Anim</a></dd>
+						<dd>extends <a href='YAHOO.util.ColorAnim.html'>YAHOO.util.ColorAnim</a></dd>
 					
 				</div>
 			</div>
@@ -173,12 +191,41 @@
 	
 	
 	
+	
+		<dl class="requires">
+			<dt><strong>Requires:</strong></dt>
+			
+				<dd><a href="YAHOO.util.Anim.html#">YAHOO.util.Anim</a></dd>
+			
+				<dd><a href="YAHOO.util.AnimMgr.html#">YAHOO.util.AnimMgr</a></dd>
+			
+				<dd><a href="YAHOO.util.Easing.html#">YAHOO.util.Easing</a></dd>
+			
+				<dd><a href="YAHOO.util.Bezier.html#">YAHOO.util.Bezier</a></dd>
+			
+				<dd><a href="YAHOO.util.ColorAnim.html#">YAHOO.util.ColorAnim</a></dd>
+			
+				<dd>YAHOO.util.Dom  </dd>
+			
+				<dd>YAHOO.util.Event  </dd>
+			
+				<dd>YAHOO.util.CustomEvent   </dd>
+			
+		</dl>
 		
 	
 	
 	
 	
 	
+	
+		<div class="summary">
+			<p>
+				Anim subclass for moving elements along a path defined by the "points" member of "attributes".  All "points" are arrays with x, y coordinates.
+ <p>Usage: <code>var myAnim = new YAHOO.util.Motion(el, { points: { to: [800, 800] } }, 1, YAHOO.util.Easing.easeOut);</code></p>
+ 
+			</p>
+		</div>
 	
 </div>
 
@@ -218,7 +265,7 @@
 					<div class="section field inheritance">
 						<h3>Fields inherited from class <a href="YAHOO.util.Anim.html">YAHOO.util.Anim</a> <span class="top">[<a href="#top">top</a>]</span></h3>
 						<div class="content">
-							<code><a href="YAHOO.util.Anim.html#defaultUnit">defaultUnit</a>, <a href="YAHOO.util.Anim.html#defaultUnits">defaultUnits</a>, <a href="YAHOO.util.Anim.html#attributes">attributes</a>, <a href="YAHOO.util.Anim.html#duration">duration</a>, <a href="YAHOO.util.Anim.html#method">method</a>, <a href="YAHOO.util.Anim.html#useSeconds">useSeconds</a>, <a href="YAHOO.util.Anim.html#currentFrame">currentFrame</a>, <a href="YAHOO.util.Anim.html#totalFrames">totalFrames</a>, <a href="YAHOO.util.Anim.html#onStart">onStart</a>, <a href="YAHOO.util.Anim.html#onTween">onTween</a>, <a href="YAHOO.util.Anim.html#onComplete">onComplete</a></code>
+							<code><a href="YAHOO.util.Anim.html#attributes">attributes</a>, <a href="YAHOO.util.Anim.html#duration">duration</a>, <a href="YAHOO.util.Anim.html#method">method</a>, <a href="YAHOO.util.Anim.html#useSeconds">useSeconds</a>, <a href="YAHOO.util.Anim.html#currentFrame">currentFrame</a>, <a href="YAHOO.util.Anim.html#totalFrames">totalFrames</a>, <a href="YAHOO.util.Anim.html#onStart">onStart</a>, <a href="YAHOO.util.Anim.html#onTween">onTween</a>, <a href="YAHOO.util.Anim.html#onComplete">onComplete</a></code>
 						</div>
 					</div>
 				
@@ -227,6 +274,18 @@
 	
 	
 			<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+			
+				<div class="section contructor summaries">
+					<h3><a name="constructor_summary">Constructor Summary</a> <span class="top">[<a href="#top">top</a>]</span></h3>
+					<div class="content">
+						<code class="spec">
+							<a href="YAHOO.util.Motion.html#YAHOO.util.Motion()">YAHOO.util.Motion</a>
+						</code>
+						<div class="description">
+							&nbsp;
+						</div>
+					</div>
+				</div>
 			
 			<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
 	
@@ -243,7 +302,7 @@
 									<td class="spec">
 										<code>
 											<a href="#doMethod">doMethod</a>
-											(&lt;String&gt; attribute, &lt;Number&gt; start, &lt;Number&gt; end)
+											(&lt;String&gt; attr, &lt;Number&gt; start, &lt;Number&gt; end)
 										</code>
 										<div class="description">
 											Returns the value computed by the animation's "method".&nbsp;
@@ -252,27 +311,14 @@
 								</tr>
 							
 								<tr>
-									<td class="flags">Number</td>
+									<td class="flags">Object</td>
 									<td class="spec">
 										<code>
 											<a href="#getAttribute">getAttribute</a>
-											(&lt;String&gt; attribute)
+											(&lt;String&gt; attr)
 										</code>
 										<div class="description">
-											Returns current value of the attribute.&nbsp;
-										</div>
-									</td>
-								</tr>
-							
-								<tr>
-									<td class="flags">void</td>
-									<td class="spec">
-										<code>
-											<a href="#initMotion">initMotion</a>
-											(el, &lt;Object&gt; attributes, &lt;Number&gt; duration, &lt;Function&gt; method)
-										</code>
-										<div class="description">
-											&nbsp;
+											Sets the default value to be used when "from" is not supplied.&nbsp;
 										</div>
 									</td>
 								</tr>
@@ -282,10 +328,23 @@
 									<td class="spec">
 										<code>
 											<a href="#setAttribute">setAttribute</a>
-											(&lt;String&gt; attribute, &lt;Number&gt; val, &lt;String&gt; unit)
+											(&lt;String&gt; attr, &lt;Number&gt; val, &lt;String&gt; unit)
 										</code>
 										<div class="description">
 											Applies a value to an attribute&nbsp;
+										</div>
+									</td>
+								</tr>
+							
+								<tr>
+									<td class="flags">String</td>
+									<td class="spec">
+										<code>
+											<a href="#toString">toString</a>
+											()
+										</code>
+										<div class="description">
+											toString method&nbsp;
 										</div>
 									</td>
 								</tr>
@@ -297,9 +356,16 @@
 			
 			
 				<div class="section method inheritance">
+					<h3>Methods inherited from class  <a href="YAHOO.util.ColorAnim.html">YAHOO.util.ColorAnim</a></h3>
+					<div class="content">
+						<code><a href="YAHOO.util.ColorAnim.html#parseColor">parseColor</a></code>
+					</div>
+				</div>
+			
+				<div class="section method inheritance">
 					<h3>Methods inherited from class  <a href="YAHOO.util.Anim.html">YAHOO.util.Anim</a></h3>
 					<div class="content">
-						<code><a href="YAHOO.util.Anim.html#init">init</a>, <a href="YAHOO.util.Anim.html#getEl">getEl</a>, <a href="YAHOO.util.Anim.html#setDefault">setDefault</a>, <a href="YAHOO.util.Anim.html#getDefault">getDefault</a>, <a href="YAHOO.util.Anim.html#isAnimated">isAnimated</a>, <a href="YAHOO.util.Anim.html#getStartTime">getStartTime</a>, <a href="YAHOO.util.Anim.html#animate">animate</a>, <a href="YAHOO.util.Anim.html#stop">stop</a></code>
+						<code><a href="YAHOO.util.Anim.html#getDefaultUnit">getDefaultUnit</a>, <a href="YAHOO.util.Anim.html#init">init</a>, <a href="YAHOO.util.Anim.html#getEl">getEl</a>, <a href="YAHOO.util.Anim.html#isAnimated">isAnimated</a>, <a href="YAHOO.util.Anim.html#getStartTime">getStartTime</a>, <a href="YAHOO.util.Anim.html#animate">animate</a>, <a href="YAHOO.util.Anim.html#stop">stop</a></code>
 					</div>
 				</div>
 			
@@ -319,11 +385,36 @@
 						<div class="detail">
 							<code>
 								<strong>YAHOO.util.Motion</strong>
-								
+								()
 							</code>
 							<div class="description">
 								
 								
+								
+									<dl>
+										<dt>Parameters:</dt>
+										
+											<dd>
+												<code>String</code> - 
+												 or HTMLElement} el Reference to the element that will be animated  
+											</dd>
+										
+											<dd>
+												<code>attributes</code> - 
+												 The attribute(s) to be animated.    Each attribute is an object with at minimum a "to" or "by" member defined.    Additional optional members are "from" (defaults to current value), "units" (defaults to "px").    All attribute names use camelCase.  
+											</dd>
+										
+											<dd>
+												<code>duration</code> - 
+												 (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based  
+											</dd>
+										
+											<dd>
+												<code>method</code> - 
+												 (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
+											</dd>
+										
+									</dl>
 								
 								
 								
@@ -349,7 +440,7 @@
 								<code>
 									Number 
 									<strong>doMethod</strong>
-									(&lt;String&gt; attribute, &lt;Number&gt; start, &lt;Number&gt; end)
+									(&lt;String&gt; attr, &lt;Number&gt; start, &lt;Number&gt; end)
 								</code>
 										
 								<div class="description">
@@ -361,7 +452,7 @@
 											<dt>Parameters:</dt>
 											
 												<dd>
-													<code>attribute</code> - 
+													<code>attr</code> - 
 													 The name of the attribute.  
 												</dd>
 											
@@ -393,71 +484,27 @@
 							<h4><a name="getAttribute">getAttribute</a></h4>
 							<div class="detail">
 								<code>
-									Number 
+									Object 
 									<strong>getAttribute</strong>
-									(&lt;String&gt; attribute)
+									(&lt;String&gt; attr)
 								</code>
 										
 								<div class="description">
 									
-										Returns current value of the attribute.
+										Sets the default value to be used when "from" is not supplied.
 									
 									
 										<dl>
 											<dt>Parameters:</dt>
 											
 												<dd>
-													<code>attribute</code> - 
-													 The name of the attribute.  
-												</dd>
-											
-										</dl>
-									
-									
-										<dl>
-											<dt>Returns:</dt>
-											<dd> val The current value of the attribute.</dd>
-										</dl>
-									
-															
-	
-									
-								</div>
-							</div>
-							<hr />
-						
-							<h4><a name="initMotion">initMotion</a></h4>
-							<div class="detail">
-								<code>
-									void 
-									<strong>initMotion</strong>
-									(el, &lt;Object&gt; attributes, &lt;Number&gt; duration, &lt;Function&gt; method)
-								</code>
-										
-								<div class="description">
-									
-									
-										<dl>
-											<dt>Parameters:</dt>
-											
-												<dd>
-													<code>attributes</code> - 
-													 The attribute(s) to be animated.    Each attribute is an object with at minimum a "to" or "by" member defined.    Additional optional members are "from" (defaults to current value), "units" (defaults to "px").    All attribute names use camelCase.  
+													<code>attr</code> - 
+													 The attribute being set.  
 												</dd>
 											
 												<dd>
-													<code>duration</code> - 
-													 (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based  
-												</dd>
-											
-												<dd>
-													<code>method</code> - 
-													 (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)    
-												</dd>
-											
-												<dd>
-													<code>String</code> - 
-													 or HTMLElement} el Reference to the element that will be animated  
+													<code>val</code> - 
+													 The default value to be applied to the attribute.
 												</dd>
 											
 										</dl>
@@ -475,7 +522,7 @@
 								<code>
 									void 
 									<strong>setAttribute</strong>
-									(&lt;String&gt; attribute, &lt;Number&gt; val, &lt;String&gt; unit)
+									(&lt;String&gt; attr, &lt;Number&gt; val, &lt;String&gt; unit)
 								</code>
 										
 								<div class="description">
@@ -487,7 +534,7 @@
 											<dt>Parameters:</dt>
 											
 												<dd>
-													<code>attribute</code> - 
+													<code>attr</code> - 
 													 The name of the attribute.  
 												</dd>
 											
@@ -498,11 +545,37 @@
 											
 												<dd>
 													<code>unit</code> - 
-													 The unit ('px', '%', etc.) of the value.    
+													 The unit ('px', '%', etc.) of the value.       
 												</dd>
 											
 										</dl>
 									
+									
+															
+	
+									
+								</div>
+							</div>
+							<hr />
+						
+							<h4><a name="toString">toString</a></h4>
+							<div class="detail">
+								<code>
+									String 
+									<strong>toString</strong>
+									()
+								</code>
+										
+								<div class="description">
+									
+										toString method
+									
+									
+									
+										<dl>
+											<dt>Returns:</dt>
+											<dd> string represenation of anim obj</dd>
+										</dl>
 									
 															
 	
@@ -523,7 +596,12 @@
 
 <div id="footer">
 	<hr />
-	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+	Copyright &copy; 2004 - 2005 Yahoo! Inc. All rights reserved.
+	<br />
+	Yahoo! Confidential.
+	<br /><br />
+	Documentation generated by <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
+	version 1.9.5.8
 </div>
 
 

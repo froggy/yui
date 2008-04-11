@@ -1,12 +1,7 @@
 
 <html>
 <head>
-	<title>
-		JavaScript Documentation - 
-		
-			Overlay.js
-		
-	</title>
+	<title>JavaScript Documentation - Overlay.js</title>
 	<link href="stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -17,7 +12,7 @@
 	<h3><a href="./index.html">Yahoo! UI Library: Container</a></h3>
 
 	<div class="breadcrumbs">
-			
+					
 			
 			
 			
@@ -55,6 +50,8 @@
 				<h4><a href="./allclasses-noframe.html">Classes</a></h4>
 				<ul class="content">
 					
+
+					
 						<li>
 							<a href="YAHOO.util.Config.html">
 								YAHOO.util.Config</a>
@@ -85,11 +82,6 @@
 						<li>
 							<a href="YAHOO.widget.Overlay.html">
 								YAHOO.widget.Overlay</a>
-						</li>
-					
-						<li>
-							<a href="YAHOO.widget.OverlayEffect.html">
-								YAHOO.widget.OverlayEffect</a>
 						</li>
 					
 						<li>
@@ -149,11 +141,6 @@
 						<li>
 							<a href="overview-summary-Overlay.js.html">
 								Overlay.js</a>
-						</li>
-					
-						<li>
-							<a href="overview-summary-OverlayEffect.js.html">
-								OverlayEffect.js</a>
 						</li>
 					
 						<li>
@@ -244,7 +231,7 @@
 							<td class="name">
 								<a href="YAHOO.widget.Overlay.html">YAHOO.widget.Overlay</a>
 							</td>
-							<td class="overview">Overlay is a Module that is absolutely positioned above the page flow.</td>
+							<td class="overview">&nbsp;</td>
 						</tr>
 						
 					</table>
@@ -259,31 +246,26 @@
 		
 			<div class="section source">
 				<h3><a name="source">Souce Code</a> <span class="top">[<a href="#top">top</a>]</span></h3>
-				<pre class="sourceview"><span class="comment">/**
+				<pre class="sourceview"><span class="comment">/*
 Copyright (c) 2006, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-* <span class="attrib">@class</span> Overlay is a Module that is absolutely positioned above the page flow. It has convenience methods for positioning and sizing, as well as options for controlling zIndex and constraining the Overlay's position to the current visible viewport. Overlay also contains a dynamicly generated IFRAME which is placed beneath it for Internet Explorer 6 and 5.x so that it will be properly rendered above SELECT elements.
+Version 0.11.3
+*/</span>
+
+<span class="comment">/**
+* Overlay is a Module that is absolutely positioned above the page flow. It has convenience methods for positioning and sizing, as well as options for controlling zIndex and constraining the Overlay's position to the current visible viewport. Overlay also contains a dynamicly generated IFRAME which is placed beneath it for Internet Explorer 6 and 5.x so that it will be properly rendered above SELECT elements.
+* <span class="attrib">@extends</span> YAHOO.widget.Module
 * <span class="attrib">@param</span> {string}	el	The element ID representing the Overlay &lt;em&gt;OR&lt;/em&gt;
 * <span class="attrib">@param</span> {Element}	el	The element representing the Overlay
 * <span class="attrib">@param</span> {object}	userConfig	The configuration object literal containing the configuration that should be set for this Overlay. See configuration documentation for more details.
 * <span class="attrib">@constructor</span>
 */</span>
 YAHOO.widget.Overlay = <span class="reserved">function</span>(el, userConfig) {
-	<span class="reserved">if</span> (arguments.length &gt; 0) {
-		YAHOO.widget.Overlay.superclass.constructor.call(<span class="reserved">this</span>, el, userConfig);
-	}
-}
+	YAHOO.widget.Overlay.superclass.constructor.call(<span class="reserved">this</span>, el, userConfig);
+};
 
-YAHOO.widget.Overlay.<span class="reserved">prototype</span> = new YAHOO.widget.Module();
-YAHOO.widget.Overlay.<span class="reserved">prototype</span>.constructor = YAHOO.widget.Overlay;
-
-<span class="comment">/**
-* Reference to the Overlay's superclass, Module
-* <span class="attrib">@type</span> class
-* <span class="attrib">@final</span>
-*/</span>
-YAHOO.widget.Overlay.superclass = YAHOO.widget.Module.<span class="reserved">prototype</span>;
+YAHOO.extend(YAHOO.widget.Overlay, YAHOO.widget.Module);
 
 <span class="comment">/**
 * The URL of the blank image that will be placed in the iframe
@@ -341,7 +323,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.beforeMoveEvent = n
 */</span>
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.moveEvent = null;
 
-<span class="comment">/*
+<span class="comment">/**
 * The Overlay initialization method, which is executed for Overlay and all of its subclasses. This method is automatically called by the constructor, and  sets up all DOM references for pre-existing markup, and creates required markup if it is not already present.
 * <span class="attrib">@param</span> {string}	el	The element ID representing the Overlay &lt;em&gt;OR&lt;/em&gt;
 * <span class="attrib">@param</span> {Element}	el	The element representing the Overlay
@@ -369,7 +351,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.init = <span class=
 
 	<span class="reserved">this</span>.initEvent.fire(YAHOO.widget.Overlay);
 
-}
+};
 
 <span class="comment">/**
 * Initializes the custom events for Overlay which are fired automatically at appropriate times by the Overlay class.
@@ -379,7 +361,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.initEvents = <span 
 
 	<span class="reserved">this</span>.beforeMoveEvent = new YAHOO.util.CustomEvent(<span class="literal">"beforeMove"</span>, <span class="reserved">this</span>);
 	<span class="reserved">this</span>.moveEvent = new YAHOO.util.CustomEvent(<span class="literal">"move"</span>, <span class="reserved">this</span>);
-}
+};
 
 <span class="comment">/**
 * Initializes the class's configurable properties which can be changed using the Overlay's Config object (cfg).
@@ -402,7 +384,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.initDefaultConfig =
 
 	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"constraintoviewport"</span>, { value:false, handler:<span class="reserved">this</span>.configConstrainToViewport, validator:<span class="reserved">this</span>.cfg.checkBoolean, supercedes:[<span class="literal">"iframe"</span>,<span class="literal">"x"</span>,<span class="literal">"y"</span>,<span class="literal">"xy"</span>] } );
 	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"iframe"</span>, { value:(<span class="reserved">this</span>.browser == <span class="literal">"ie"</span> ? true : false), handler:<span class="reserved">this</span>.configIframe, validator:<span class="reserved">this</span>.cfg.checkBoolean, supercedes:[<span class="literal">"zIndex"</span>] } );
-}
+};
 
 <span class="comment">/**
 * Moves the Overlay to the specified position. This function is identical to calling this.cfg.setProperty("xy", [x,y]);
@@ -411,7 +393,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.initDefaultConfig =
 */</span>
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.moveTo = <span class="reserved">function</span>(x, y) {
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"xy"</span>,[x,y]);
-}
+};
 
 <span class="comment">/**
 * Adds a special CSS class to the Overlay when Mac/Gecko is in use, to work around a Gecko bug where
@@ -420,7 +402,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.moveTo = <span clas
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.hideMacGeckoScrollbars = <span class="reserved">function</span>() {
 	YAHOO.util.Dom.removeClass(<span class="reserved">this</span>.element, <span class="literal">"show-scrollbars"</span>);
 	YAHOO.util.Dom.addClass(<span class="reserved">this</span>.element, <span class="literal">"hide-scrollbars"</span>);
-}
+};
 
 <span class="comment">/**
 * Removes a special CSS class from the Overlay when Mac/Gecko is in use, to work around a Gecko bug where
@@ -429,7 +411,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.hideMacGeckoScrollb
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.showMacGeckoScrollbars = <span class="reserved">function</span>() {
 	YAHOO.util.Dom.removeClass(<span class="reserved">this</span>.element, <span class="literal">"hide-scrollbars"</span>);
 	YAHOO.util.Dom.addClass(<span class="reserved">this</span>.element, <span class="literal">"show-scrollbars"</span>);
-}
+};
 
 <span class="comment">// BEGIN BUILT-IN PROPERTY EVENT HANDLERS //</span>
 
@@ -442,7 +424,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configVisible = <sp
 
 	var effect = <span class="reserved">this</span>.cfg.getProperty(<span class="literal">"effect"</span>);
 
-	var effectInstances = new Array();
+	var effectInstances = [];
 	<span class="reserved">if</span> (effect) {
 		<span class="reserved">if</span> (effect instanceof Array) {
 			<span class="reserved">for</span> (var i=0;i&lt;effect.length;i++) {
@@ -465,9 +447,9 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configVisible = <sp
 			<span class="reserved">if</span> (visible) { <span class="comment">// Animate in if not showing</span>
 				<span class="reserved">if</span> (currentVis != <span class="literal">"visible"</span>) {
 					<span class="reserved">this</span>.beforeShowEvent.fire();
-					<span class="reserved">for</span> (var i=0;i&lt;effectInstances.length;i++) {
-						var e = effectInstances[i];
-						<span class="reserved">if</span> (i == 0 &amp;&amp; ! YAHOO.util.Config.alreadySubscribed(e.animateInCompleteEvent,<span class="reserved">this</span>.showEvent.fire,<span class="reserved">this</span>.showEvent)) {
+					<span class="reserved">for</span> (var j=0;j&lt;effectInstances.length;j++) {
+						var e = effectInstances[j];
+						<span class="reserved">if</span> (j === 0 &amp;&amp; ! YAHOO.util.Config.alreadySubscribed(e.animateInCompleteEvent,<span class="reserved">this</span>.showEvent.fire,<span class="reserved">this</span>.showEvent)) {
 							e.animateInCompleteEvent.subscribe(<span class="reserved">this</span>.showEvent.fire,<span class="reserved">this</span>.showEvent,true); <span class="comment">// Delegate showEvent until end of animateInComplete</span>
 						}
 						e.animateIn();
@@ -489,18 +471,18 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configVisible = <sp
 		}	
 
 		<span class="reserved">if</span> (effect) { <span class="comment">// Animate out if showing</span>
-			<span class="reserved">if</span> (currentVis != <span class="literal">"hidden"</span>) {
+			<span class="reserved">if</span> (currentVis == <span class="literal">"visible"</span>) {
 				<span class="reserved">this</span>.beforeHideEvent.fire();
-				<span class="reserved">for</span> (var i=0;i&lt;effectInstances.length;i++) {
-					var e = effectInstances[i];
-					<span class="reserved">if</span> (i == 0 &amp;&amp; ! YAHOO.util.Config.alreadySubscribed(e.animateOutCompleteEvent,<span class="reserved">this</span>.hideEvent.fire,<span class="reserved">this</span>.hideEvent)) {				
-						e.animateOutCompleteEvent.subscribe(<span class="reserved">this</span>.hideEvent.fire,<span class="reserved">this</span>.hideEvent,true); <span class="comment">// Delegate hideEvent until end of animateOutComplete</span>
+				<span class="reserved">for</span> (var k=0;k&lt;effectInstances.length;k++) {
+					var h = effectInstances[k];
+					<span class="reserved">if</span> (k === 0 &amp;&amp; ! YAHOO.util.Config.alreadySubscribed(h.animateOutCompleteEvent,<span class="reserved">this</span>.hideEvent.fire,<span class="reserved">this</span>.hideEvent)) {				
+						h.animateOutCompleteEvent.subscribe(<span class="reserved">this</span>.hideEvent.fire,<span class="reserved">this</span>.hideEvent,true); <span class="comment">// Delegate hideEvent until end of animateOutComplete</span>
 					}
-					e.animateOut();
+					h.animateOut();
 				}
 			}
 		} <span class="reserved">else</span> { <span class="comment">// Simple hide</span>
-			<span class="reserved">if</span> (currentVis != <span class="literal">"hidden"</span>) {
+			<span class="reserved">if</span> (currentVis == <span class="literal">"visible"</span>) {
 				<span class="reserved">this</span>.beforeHideEvent.fire();
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.element, <span class="literal">"visibility"</span>, <span class="literal">"hidden"</span>);
 				<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
@@ -508,7 +490,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configVisible = <sp
 			}
 		}	
 	}
-}
+};
 
 <span class="comment">/**
 * Center event handler used for centering on scroll/resize, but only if the Overlay is visible
@@ -517,7 +499,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.doCenterOnDOMEvent 
 	<span class="reserved">if</span> (<span class="reserved">this</span>.cfg.getProperty(<span class="literal">"visible"</span>)) {
 		<span class="reserved">this</span>.center();
 	}
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "fixedcenter" property is changed.
@@ -543,7 +525,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configFixedCenter =
 		YAHOO.widget.Overlay.windowResizeEvent.unsubscribe(<span class="reserved">this</span>.doCenterOnDOMEvent, <span class="reserved">this</span>);
 		YAHOO.widget.Overlay.windowScrollEvent.unsubscribe(<span class="reserved">this</span>.doCenterOnDOMEvent, <span class="reserved">this</span>);
 	}
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "height" property is changed.
@@ -553,7 +535,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configHeight = <spa
 	var el = <span class="reserved">this</span>.element;
 	YAHOO.util.Dom.setStyle(el, <span class="literal">"height"</span>, height);
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "width" property is changed.
@@ -563,7 +545,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configWidth = <span
 	var el = <span class="reserved">this</span>.element;
 	YAHOO.util.Dom.setStyle(el, <span class="literal">"width"</span>, width);
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "zIndex" property is changed.
@@ -589,7 +571,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configzIndex = <spa
 
 	YAHOO.util.Dom.setStyle(el, <span class="literal">"zIndex"</span>, zIndex);
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"zIndex"</span>, zIndex, true);
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "xy" property is changed.
@@ -609,7 +591,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configXY = <span cl
 
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
 	<span class="reserved">this</span>.moveEvent.fire([x,y]);
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "x" property is changed.
@@ -632,7 +614,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configX = <span cla
 
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
 	<span class="reserved">this</span>.moveEvent.fire([x, y]);
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "y" property is changed.
@@ -655,17 +637,42 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configY = <span cla
 
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
 	<span class="reserved">this</span>.moveEvent.fire([x, y]);
+};
+
+<span class="comment">/**
+* Shows the iframe shim, if it has been enabled
+*/</span>
+YAHOO.widget.Overlay.<span class="reserved">prototype</span>.showIframe = <span class="reserved">function</span>() {
+	<span class="reserved">if</span> (<span class="reserved">this</span>.iframe) {
+		<span class="reserved">this</span>.iframe.style.display = <span class="literal">"block"</span>;
+	}
+}
+
+<span class="comment">/**
+* Hides the iframe shim, if it has been enabled
+*/</span>
+YAHOO.widget.Overlay.<span class="reserved">prototype</span>.hideIframe = <span class="reserved">function</span>() {
+	<span class="reserved">if</span> (<span class="reserved">this</span>.iframe) {
+		<span class="reserved">this</span>.iframe.style.display = <span class="literal">"none"</span>;
+	}
 }
 
 <span class="comment">/**
 * The default event handler fired when the "iframe" property is changed.
 */</span>
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configIframe = <span class="reserved">function</span>(type, args, obj) {
+
 	var val = args[0];
 
-	var el = <span class="reserved">this</span>.element;
+	<span class="reserved">if</span> (val) { <span class="comment">// IFRAME shim is enabled</span>
 
-	<span class="reserved">if</span> (val) {
+		<span class="reserved">if</span> (! YAHOO.util.Config.alreadySubscribed(<span class="reserved">this</span>.showEvent, <span class="reserved">this</span>.showIframe, <span class="reserved">this</span>)) {
+			<span class="reserved">this</span>.showEvent.subscribe(<span class="reserved">this</span>.showIframe, <span class="reserved">this</span>, true);
+		}
+		<span class="reserved">if</span> (! YAHOO.util.Config.alreadySubscribed(<span class="reserved">this</span>.hideEvent, <span class="reserved">this</span>.hideIframe, <span class="reserved">this</span>)) {
+			<span class="reserved">this</span>.hideEvent.subscribe(<span class="reserved">this</span>.hideIframe, <span class="reserved">this</span>, true);
+		}
+
 		var x = <span class="reserved">this</span>.cfg.getProperty(<span class="literal">"x"</span>);
 		var y = <span class="reserved">this</span>.cfg.getProperty(<span class="literal">"y"</span>);
 
@@ -678,43 +685,56 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configIframe = <spa
 		<span class="reserved">if</span> (! isNaN(x) &amp;&amp; ! isNaN(y)) {
 			<span class="reserved">if</span> (! <span class="reserved">this</span>.iframe) {
 				<span class="reserved">this</span>.iframe = document.createElement(<span class="literal">"iframe"</span>);
+				<span class="reserved">if</span> (<span class="reserved">this</span>.isSecure) {
+					<span class="reserved">this</span>.iframe.src = <span class="reserved">this</span>.imageRoot + YAHOO.widget.Overlay.IFRAME_SRC;
+				}
 				
-				var parent = el.parentNode;
+				var parent = <span class="reserved">this</span>.element.parentNode;
 				<span class="reserved">if</span> (parent) {
 					parent.appendChild(<span class="reserved">this</span>.iframe);
 				} <span class="reserved">else</span> {
 					document.body.appendChild(<span class="reserved">this</span>.iframe);
 				}
 
-				<span class="reserved">this</span>.iframe.src = <span class="reserved">this</span>.imageRoot + YAHOO.widget.Overlay.IFRAME_SRC;
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"position"</span>, <span class="literal">"absolute"</span>);
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"border"</span>, <span class="literal">"none"</span>);
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"margin"</span>, <span class="literal">"0"</span>);
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"padding"</span>, <span class="literal">"0"</span>);
 				YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"opacity"</span>, <span class="literal">"0"</span>);
+				<span class="reserved">if</span> (<span class="reserved">this</span>.cfg.getProperty(<span class="literal">"visible"</span>)) {
+					<span class="reserved">this</span>.showIframe();
+				} <span class="reserved">else</span> {
+					<span class="reserved">this</span>.hideIframe();
+				}
+			}
+			
+			var iframeDisplay = YAHOO.util.Dom.getStyle(<span class="reserved">this</span>.iframe, <span class="literal">"display"</span>);
+
+			<span class="reserved">if</span> (iframeDisplay == <span class="literal">"none"</span>) {
+				<span class="reserved">this</span>.iframe.style.display = <span class="literal">"block"</span>;
 			}
 
-			YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"left"</span>, x-2 + <span class="literal">"px"</span>);
-			YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"top"</span>, y-2 + <span class="literal">"px"</span>);
+			YAHOO.util.Dom.setXY(<span class="reserved">this</span>.iframe, [x,y]);
 
-			var width = el.clientWidth;
-			var height = el.clientHeight;
+			var width = <span class="reserved">this</span>.element.clientWidth;
+			var height = <span class="reserved">this</span>.element.clientHeight;
 
 			YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"width"</span>, (width+2) + <span class="literal">"px"</span>);
 			YAHOO.util.Dom.setStyle(<span class="reserved">this</span>.iframe, <span class="literal">"height"</span>, (height+2) + <span class="literal">"px"</span>);
 
-			<span class="reserved">if</span> (! <span class="reserved">this</span>.cfg.getProperty(<span class="literal">"visible"</span>)) {
+			<span class="reserved">if</span> (iframeDisplay == <span class="literal">"none"</span>) {
 				<span class="reserved">this</span>.iframe.style.display = <span class="literal">"none"</span>;
-			} <span class="reserved">else</span> {
-				<span class="reserved">this</span>.iframe.style.display = <span class="literal">"block"</span>;
 			}
 		}
 	} <span class="reserved">else</span> {
 		<span class="reserved">if</span> (<span class="reserved">this</span>.iframe) {
 			<span class="reserved">this</span>.iframe.style.display = <span class="literal">"none"</span>;
 		}
+		<span class="reserved">this</span>.showEvent.unsubscribe(<span class="reserved">this</span>.showIframe, <span class="reserved">this</span>);
+		<span class="reserved">this</span>.hideEvent.unsubscribe(<span class="reserved">this</span>.hideIframe, <span class="reserved">this</span>);
 	}
-}
+};
+
 
 <span class="comment">/**
 * The default event handler fired when the "constraintoviewport" property is changed.
@@ -728,7 +748,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configConstrainToVi
 	} <span class="reserved">else</span> {
 		<span class="reserved">this</span>.beforeMoveEvent.unsubscribe(<span class="reserved">this</span>.enforceConstraints, <span class="reserved">this</span>);
 	}
-}
+};
 
 <span class="comment">/**
 * The default event handler fired when the "context" property is changed.
@@ -751,7 +771,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.configContext = <sp
 			}
 		}	
 	}
-}
+};
 
 
 <span class="comment">// END BUILT-IN PROPERTY EVENT HANDLERS //</span>
@@ -796,7 +816,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.align = <span class
 						me.moveTo(h-element.offsetWidth,v-element.offsetHeight);
 						break;
 				}
-			}
+			};
 
 			switch (contextAlign) {
 				case YAHOO.widget.Overlay.TOP_LEFT:
@@ -814,7 +834,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.align = <span class
 			}
 		}
 	}
-}
+};
 
 <span class="comment">/**
 * The default event handler executed when the moveEvent is fired, if the "constraintoviewport" is set to true.
@@ -825,20 +845,14 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.enforceConstraints 
 	var x = pos[0];
 	var y = pos[1];
 
-	var width = parseInt(<span class="reserved">this</span>.cfg.getProperty(<span class="literal">"width"</span>));
-
-	<span class="reserved">if</span> (isNaN(width)) {
-		width = 0;
-	}
-
 	var offsetHeight = <span class="reserved">this</span>.element.offsetHeight;
-	var offsetWidth = (width&gt;0?width:<span class="reserved">this</span>.element.offsetWidth); <span class="comment">//this.element.offsetWidth;</span>
+	var offsetWidth = <span class="reserved">this</span>.element.offsetWidth;
 
 	var viewPortWidth = YAHOO.util.Dom.getViewportWidth();
 	var viewPortHeight = YAHOO.util.Dom.getViewportHeight();
 
-	var scrollX = window.scrollX || document.documentElement.scrollLeft;
-	var scrollY = window.scrollY || document.documentElement.scrollTop;
+	var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+	var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 
 	var topConstraint = scrollY + 10;
 	var leftConstraint = scrollX + 10;
@@ -860,14 +874,14 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.enforceConstraints 
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"x"</span>, x, true);
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"y"</span>, y, true);
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"xy"</span>, [x,y], true);
-}
+};
 
 <span class="comment">/**
 * Centers the container in the viewport.
 */</span>
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.center = <span class="reserved">function</span>() {
-	var scrollX = window.scrollX || document.documentElement.scrollLeft;
-	var scrollY = window.scrollY || document.documentElement.scrollTop;
+	var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+	var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 
 	var viewPortWidth = YAHOO.util.Dom.getClientWidth();
 	var viewPortHeight = YAHOO.util.Dom.getClientHeight();
@@ -878,12 +892,12 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.center = <span clas
 	var x = (viewPortWidth / 2) - (elementWidth / 2) + scrollX;
 	var y = (viewPortHeight / 2) - (elementHeight / 2) + scrollY;
 	
-	<span class="reserved">this</span>.element.style.left = parseInt(x) + <span class="literal">"px"</span>;
-	<span class="reserved">this</span>.element.style.top = parseInt(y) + <span class="literal">"px"</span>;
+	<span class="reserved">this</span>.element.style.left = parseInt(x, 10) + <span class="literal">"px"</span>;
+	<span class="reserved">this</span>.element.style.top = parseInt(y, 10) + <span class="literal">"px"</span>;
 	<span class="reserved">this</span>.syncPosition();
 
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
-}
+};
 
 <span class="comment">/**
 * Synchronizes the Panel's "xy", "x", and "y" properties with the Panel's position in the DOM. This is primarily used to update position information during drag &amp; drop.
@@ -893,7 +907,7 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.syncPosition = <spa
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"x"</span>, pos[0], true);
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"y"</span>, pos[1], true);
 	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"xy"</span>, pos, true);
-}
+};
 
 <span class="comment">/**
 * Event handler fired when the resize monitor element is resized.
@@ -901,7 +915,28 @@ YAHOO.widget.Overlay.<span class="reserved">prototype</span>.syncPosition = <spa
 YAHOO.widget.Overlay.<span class="reserved">prototype</span>.onDomResize = <span class="reserved">function</span>(e, obj) {
 	YAHOO.widget.Overlay.superclass.onDomResize.call(<span class="reserved">this</span>, e, obj);
 	<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
-}
+};
+
+<span class="comment">/**
+* Removes the Overlay element from the DOM and sets all child elements to null.
+*/</span>
+YAHOO.widget.Overlay.<span class="reserved">prototype</span>.destroy = <span class="reserved">function</span>() {
+	<span class="reserved">if</span> (<span class="reserved">this</span>.iframe) {
+		<span class="reserved">this</span>.iframe.parentNode.removeChild(<span class="reserved">this</span>.iframe);
+	}
+	
+	<span class="reserved">this</span>.iframe = null;
+
+	YAHOO.widget.Overlay.superclass.destroy.call(<span class="reserved">this</span>);  
+};
+
+<span class="comment">/**
+* Returns a string representation of the object.
+* <span class="attrib">@type</span> string
+*/</span> 
+YAHOO.widget.Overlay.<span class="reserved">prototype</span>.toString = <span class="reserved">function</span>() {
+	<span class="reserved">return</span> <span class="literal">"Overlay "</span> + <span class="reserved">this</span>.id;
+};
 
 <span class="comment">/**
 * A singleton CustomEvent used for reacting to the DOM event for window scroll
@@ -921,7 +956,7 @@ YAHOO.widget.Overlay.windowResizeEvent = new YAHOO.util.CustomEvent(<span class=
 */</span>
 YAHOO.widget.Overlay.windowScrollHandler = <span class="reserved">function</span>(e) {
 	YAHOO.widget.Overlay.windowScrollEvent.fire();
-}
+};
 
 <span class="comment">/**
 * The DOM event handler used to fire the CustomEvent for window resize
@@ -929,15 +964,17 @@ YAHOO.widget.Overlay.windowScrollHandler = <span class="reserved">function</span
 */</span>
 YAHOO.widget.Overlay.windowResizeHandler = <span class="reserved">function</span>(e) {
 	YAHOO.widget.Overlay.windowResizeEvent.fire();
-}
+};
 
+<span class="comment">/**
+* <span class="attrib">@private</span>
+*/</span>
+YAHOO.widget.Overlay._initialized = null;
 
-<span class="reserved">if</span> (YAHOO.widget.Overlay._initialized == undefined) {
+<span class="reserved">if</span> (YAHOO.widget.Overlay._initialized === null) {
 	YAHOO.util.Event.addListener(window, <span class="literal">"scroll"</span>, YAHOO.widget.Overlay.windowScrollHandler);
 	YAHOO.util.Event.addListener(window, <span class="literal">"resize"</span>, YAHOO.widget.Overlay.windowResizeHandler);
-	<span class="comment">/**
-	* <span class="attrib">@private</span>
-	*/</span>
+
 	YAHOO.widget.Overlay._initialized = true;
 }
 </pre>
@@ -948,11 +985,13 @@ YAHOO.widget.Overlay.windowResizeHandler = <span class="reserved">function</span
 
 
 <div id="footer">
-	<hr />	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+	<hr />
+	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
 	<br /><br />
-	Documentation generated by <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
-	version 1.9.5.8
+	Documentation generated by <a href="http://jsdoc.sourceforge.net/">
+	JSDoc</a>
 </div>
+
 
 
 </body>

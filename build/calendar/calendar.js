@@ -2,10 +2,10 @@
 Copyright (c) 2006, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 0.10.0
+Version 0.11.3
 */
+
 /**
-* @class
 * <p>YAHOO.widget.DateMath is used for simple date manipulation. The class is a static utility
 * used for adding, subtracting, and comparing dates.</p>
 */
@@ -49,22 +49,19 @@ YAHOO.widget.DateMath = new function() {
 	*/
 	this.add = function(date, field, amount) {
 		var d = new Date(date.getTime());
-		switch (field)
-		{
+		switch (field) {
 			case this.MONTH:
 				var newMonth = date.getMonth() + amount;
 				var years = 0;
 
 
 				if (newMonth < 0) {
-					while (newMonth < 0)
-					{
+					while (newMonth < 0) {
 						newMonth += 12;
 						years -= 1;
 					}
 				} else if (newMonth > 11) {
-					while (newMonth > 11)
-					{
+					while (newMonth > 11) {
 						newMonth -= 12;
 						years += 1;
 					}
@@ -80,7 +77,7 @@ YAHOO.widget.DateMath = new function() {
 				d.setFullYear(date.getFullYear() + amount);
 				break;
 			case this.WEEK:
-				d.setDate(date.getDate() + 7);
+				d.setDate(date.getDate() + (amount * 7));
 				break;
 		}
 		return d;
@@ -127,6 +124,21 @@ YAHOO.widget.DateMath = new function() {
 	};
 
 	/**
+	* Determines whether a given date is between two other dates on the calendar.
+	* @param {Date} date		The date to check for
+	* @param {Date} dateBegin	The start of the range
+	* @param {Date} dateEnd		The end of the range
+	* @return {Boolean} true if the date occurs between the compared dates; false if not.
+	*/
+	this.between = function(date, dateBegin, dateEnd) {
+		if (this.after(date, dateBegin) && this.before(date, dateEnd)) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	
+	/**
 	* Retrieves a JavaScript Date object representing January 1 of any given year.
 	* @param {Integer} calendarYear		The calendar year for which to retrieve January 1
 	* @return {Date}	January 1 of the calendar year specified.
@@ -164,32 +176,42 @@ YAHOO.widget.DateMath = new function() {
 	* @return {Integer}	The week number of the given date.
 	*/
 	this.getWeekNumber = function(date, calendarYear, weekStartsOn) {
+		date.setHours(12,0,0,0);
+
 		if (! weekStartsOn) {
 			weekStartsOn = 0;
 		}
 		if (! calendarYear) {
 			calendarYear = date.getFullYear();
 		}
+		
 		var weekNum = -1;
 		
 		var jan1 = this.getJan1(calendarYear);
-		var jan1DayOfWeek = jan1.getDay();
-		
+
+		var jan1Offset = jan1.getDay() - weekStartsOn;
+		var jan1DayOfWeek = (jan1Offset >= 0 ? jan1Offset : (7 + jan1Offset));
+
+		var endOfWeek1 = this.add(jan1, this.DAY, (6 - jan1DayOfWeek));
+		endOfWeek1.setHours(23,59,59,999);
+
 		var month = date.getMonth();
 		var day = date.getDate();
 		var year = date.getFullYear();
 		
 		var dayOffset = this.getDayOffset(date, calendarYear); // Days since Jan 1, Calendar Year
 			
-		if (dayOffset < 0 && dayOffset >= (-1 * jan1DayOfWeek)) {
+		if (dayOffset < 0 || this.before(date, endOfWeek1)) {
 			weekNum = 1;
 		} else {
-			weekNum = 1;
-			var testDate = this.getJan1(calendarYear);
-			
-			while (testDate.getTime() < date.getTime() && testDate.getFullYear() == calendarYear) {
+			weekNum = 2;
+			var weekBegin = new Date(endOfWeek1.getTime() + 1);
+			var weekEnd = this.add(weekBegin, this.WEEK, 1);
+
+			while (! this.between(date, weekBegin, weekEnd)) {
+				weekBegin = this.add(weekBegin, this.WEEK, 1);
+				weekEnd = this.add(weekEnd, this.WEEK, 1);
 				weekNum += 1;
-				testDate = this.add(testDate, this.WEEK, 1);
 			}
 		}
 		
@@ -256,9 +278,7 @@ YAHOO.widget.DateMath = new function() {
 		return date;
 	};
 }
-
 /**
-* @class
 * <p>Calendar_Core is the base class for the Calendar widget. In its most basic
 * implementation, it has the ability to render a calendar widget on the page
 * that can be manipulated to select a single date, move back and forth between
@@ -281,12 +301,15 @@ YAHOO.widget.DateMath = new function() {
 								commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
 */
 YAHOO.widget.Calendar_Core = function(id, containerId, monthyear, selected) {
-	if (arguments.length > 0)
-	{
+	if (arguments.length > 0) {
 		this.init(id, containerId, monthyear, selected);
 	}
 }
 
+/**
+* The path to be used for images loaded for the Calendar
+* @type String
+*/
 YAHOO.widget.Calendar_Core.IMG_ROOT = (window.location.href.toLowerCase().indexOf("https") == 0 ? "https://a248.e.akamai.net/sec.yimg.com/i/" : "http://us.i1.yimg.com/us.yimg.com/i/");
 
 /**
@@ -509,8 +532,7 @@ YAHOO.widget.Calendar_Core.prototype.init = function(id, containerId, monthyear,
 	var month;
 	var year;
 
-	if (monthyear)
-	{
+	if (monthyear) {
 		var aMonthYear = monthyear.split(this.Locale.DATE_FIELD_DELIMITER);
 		month = parseInt(aMonthYear[this.Locale.MY_MONTH_POSITION-1]);
 		year = parseInt(aMonthYear[this.Locale.MY_YEAR_POSITION-1]);
@@ -522,8 +544,7 @@ YAHOO.widget.Calendar_Core.prototype.init = function(id, containerId, monthyear,
 	this.pageDate = new Date(year, month-1, 1);
 	this._pageDate = new Date(this.pageDate.getTime());
 
-	if (selected)
-	{
+	if (selected) {
 		this.selectedDates = this._parseDates(selected);
 		this._selectedDates = this.selectedDates.concat();
 	} else {
@@ -562,8 +583,7 @@ YAHOO.widget.Calendar_Core.prototype.wireDefaultEvents = function() {
 				var cellDate = cal.cellDates[index];
 				var cellDateIndex = cal._indexOfSelectedFieldArray(cellDate);
 				
-				if (cellDateIndex > -1)
-				{	
+				if (cellDateIndex > -1) {	
 					cal.deselectCell(index);
 				} else {
 					cal.selectCell(index);
@@ -590,7 +610,7 @@ YAHOO.widget.Calendar_Core.prototype.wireDefaultEvents = function() {
 		var date = new Date(d[0],d[1]-1,d[2]);
 
 		if (! cal.isDateOOM(date) && ! YAHOO.util.Dom.hasClass(cell, cal.Style.CSS_CELL_RESTRICTED) && ! YAHOO.util.Dom.hasClass(cell, cal.Style.CSS_CELL_OOB)) {
-			YAHOO.widget.Calendar_Core.prependCssClass(cell, cal.Style.CSS_CELL_HOVER);
+			YAHOO.util.Dom.addClass(cell, cal.Style.CSS_CELL_HOVER);
 		}
 	}
 
@@ -601,7 +621,7 @@ YAHOO.widget.Calendar_Core.prototype.wireDefaultEvents = function() {
 	* @private
 	*/
 	this.doCellMouseOut = function(e, cal) {
-		YAHOO.widget.Calendar_Core.removeCssClass(this, cal.Style.CSS_CELL_HOVER);
+		YAHOO.util.Dom.removeClass(this, cal.Style.CSS_CELL_HOVER);
 	}
 	
 	/**
@@ -650,8 +670,8 @@ style, localization, and other display and behavioral options.
 	<div><em>CSS_ROW_FOOTER</em> : The cell following a row (not implemented by default)</div>
 	<div><em>CSS_WEEKDAY_CELL</em> : The cells used for labeling weekdays</div>
 	<div><em>CSS_WEEKDAY_ROW</em> : The row containing the weekday label cells</div>
-	<div><em>CSS_BORDER</em> : The border style used for the default UED rendering</div>
-	<div><em>CSS_CONTAINER</em> : Special container class used to properly adjust the sizing and float</div>
+	<div><em>CSS_CONTAINER</em> : The border style used for the default UED rendering</div>
+	<div><em>CSS_2UPWRAPPER</em> : Special container class used to properly adjust the sizing and float</div>
 	<div><em>CSS_NAV_LEFT</em> : Left navigation arrow</div>
 	<div><em>CSS_NAV_RIGHT</em> : Right navigation arrow</div>
 	<div><em>CSS_CELL_TOP</em> : Outlying cell along the top row</div>
@@ -718,9 +738,9 @@ YAHOO.widget.Calendar_Core.prototype.setupConfig = function() {
 		CSS_WEEKDAY_CELL : "calweekdaycell",
 		CSS_WEEKDAY_ROW : "calweekdayrow",
 		CSS_FOOTER : "calfoot",
-		CSS_CALENDAR : "calendar",
-		CSS_BORDER : "calbordered",
-		CSS_CONTAINER : "calcontainer", 
+		CSS_CALENDAR : "yui-calendar",
+		CSS_CONTAINER : "yui-calcontainer",
+		CSS_2UPWRAPPER : "yui-cal2upwrapper", 
 		CSS_NAV_LEFT : "calnavleft",
 		CSS_NAV_RIGHT : "calnavright",
 		CSS_CELL_TOP : "calcelltop",
@@ -782,8 +802,7 @@ YAHOO.widget.Calendar_Core.prototype.setupConfig = function() {
 	}
 
 	// If true, reconfigure weekday arrays to place Mondays first
-	if (this.Options.START_WEEKDAY > 0)
-	{
+	if (this.Options.START_WEEKDAY > 0) {
 		for (var w=0;w<this.Options.START_WEEKDAY;++w) {
 			this.Locale.WEEKDAYS_SHORT.push(this.Locale.WEEKDAYS_SHORT.shift());
 			this.Locale.WEEKDAYS_MEDIUM.push(this.Locale.WEEKDAYS_MEDIUM.shift());
@@ -875,8 +894,7 @@ YAHOO.widget.Calendar_Core.prototype.buildShellHeader = function() {
 	head.appendChild(headRow);
 
 	// Append day labels, if needed
-	if (this.Options.SHOW_WEEKDAYS)
-	{
+	if (this.Options.SHOW_WEEKDAYS) {
 		var row = document.createElement("TR");
 		var fillerCell;
 
@@ -888,8 +906,7 @@ YAHOO.widget.Calendar_Core.prototype.buildShellHeader = function() {
 			row.appendChild(fillerCell);
 		}
 		
-		for(var i=0;i<this.Options.LOCALE_WEEKDAYS.length;++i)
-		{
+		for(var i=0;i<this.Options.LOCALE_WEEKDAYS.length;++i) {
 			var cell = document.createElement("TH");
 			YAHOO.widget.Calendar_Core.setCssClasses(cell,[this.Style.CSS_WEEKDAY_CELL]);
 			cell.innerHTML=this.Options.LOCALE_WEEKDAYS[i];
@@ -915,12 +932,10 @@ YAHOO.widget.Calendar_Core.prototype.buildShellBody = function() {
 	// This should only get executed once
 	this.tbody = document.createElement("TBODY");
 
-	for (var r=0;r<6;++r)
-	{
+	for (var r=0;r<6;++r) {
 		var row = document.createElement("TR");
 		
-		for (var c=0;c<this.headerCell.colSpan;++c)
-		{
+		for (var c=0;c<this.headerCell.colSpan;++c) {
 			var cell;
 			if (this.Config.Options.SHOW_WEEK_HEADER && c===0) { // Row header
 				cell = document.createElement("TH");
@@ -966,8 +981,7 @@ YAHOO.widget.Calendar_Core.prototype.renderShell = function() {
 * individual render tasks.
 */
 YAHOO.widget.Calendar_Core.prototype.render = function() {
-	if (! this.shellRendered)
-	{
+	if (! this.shellRendered) {
 		this.buildShell();
 		this.renderShell();
 	}
@@ -1030,8 +1044,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 	
 	var weekRowIndex = 0;
 	
-	for (var c=0;c<this.cells.length;++c)
-	{
+	for (var c=0;c<this.cells.length;++c) {
 		var cellRenderers = new Array();
 		
 		var cell = this.cells[c];
@@ -1075,17 +1088,14 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 		
 		if (workingDate.getFullYear()	== this.today.getFullYear() &&
 			workingDate.getMonth()		== this.today.getMonth() &&
-			workingDate.getDate()		== this.today.getDate())
-		{
+			workingDate.getDate()		== this.today.getDate()) {
 			cellRenderers[cellRenderers.length]=this.renderCellStyleToday;
 		}
 		
-		if (this.isDateOOM(workingDate))
-		{
+		if (this.isDateOOM(workingDate)) {
 			cellRenderers[cellRenderers.length]=this.renderCellNotThisMonth;
 		} else {
-			for (var r=0;r<this.renderStack.length;++r)
-			{
+			for (var r=0;r<this.renderStack.length;++r) {
 				var rArray = this.renderStack[r];
 				var type = rArray[0];
 				
@@ -1099,8 +1109,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 						day = rArray[1][2];
 						year = rArray[1][0];
 
-						if (workingDate.getMonth()+1 == month && workingDate.getDate() == day && workingDate.getFullYear() == year)
-						{
+						if (workingDate.getMonth()+1 == month && workingDate.getDate() == day && workingDate.getFullYear() == year) {
 							renderer = rArray[2];
 							this.renderStack.splice(r,1);
 						}
@@ -1109,8 +1118,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 						month = rArray[1][0];
 						day = rArray[1][1];
 						
-						if (workingDate.getMonth()+1 == month && workingDate.getDate() == day)
-						{
+						if (workingDate.getMonth()+1 == month && workingDate.getDate() == day) {
 							renderer = rArray[2];
 							this.renderStack.splice(r,1);
 						}
@@ -1131,8 +1139,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 
 						var d2 = new Date(d2year, d2month-1, d2day);
 
-						if (workingDate.getTime() >= d1.getTime() && workingDate.getTime() <= d2.getTime())
-						{
+						if (workingDate.getTime() >= d1.getTime() && workingDate.getTime() <= d2.getTime()) {
 							renderer = rArray[2];
 
 							if (workingDate.getTime()==d2.getTime()) { 
@@ -1143,16 +1150,14 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 					case YAHOO.widget.Calendar_Core.WEEKDAY:
 						
 						var weekday = rArray[1][0];
-						if (workingDate.getDay()+1 == weekday)
-						{
+						if (workingDate.getDay()+1 == weekday) {
 							renderer = rArray[2];
 						}
 						break;
 					case YAHOO.widget.Calendar_Core.MONTH:
 						
 						month = rArray[1][0];
-						if (workingDate.getMonth()+1 == month)
-						{
+						if (workingDate.getMonth()+1 == month) {
 							renderer = rArray[2];
 						}
 						break;
@@ -1165,17 +1170,14 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 
 		}
 
-		if (this._indexOfSelectedFieldArray([workingDate.getFullYear(),workingDate.getMonth()+1,workingDate.getDate()]) > -1)
-		{
+		if (this._indexOfSelectedFieldArray([workingDate.getFullYear(),workingDate.getMonth()+1,workingDate.getDate()]) > -1) {
 			cellRenderers[cellRenderers.length]=this.renderCellStyleSelected; 
 		}
 
-		if (this.minDate)
-		{
+		if (this.minDate) {
 			this.minDate = YAHOO.widget.DateMath.clearTime(this.minDate);
 		}
-		if (this.maxDate)
-		{
+		if (this.maxDate) {
 			this.maxDate = YAHOO.widget.DateMath.clearTime(this.maxDate);
 		}
 
@@ -1188,8 +1190,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 			cellRenderers[cellRenderers.length]=this.renderCellDefault;	
 		}
 		
-		for (var x=0;x<cellRenderers.length;++x)
-		{
+		for (var x=0;x<cellRenderers.length;++x) {
 			var ren = cellRenderers[x];
 			if (ren.call(this,workingDate,cell) == YAHOO.widget.Calendar_Core.STOP_RENDER) {
 				break;
@@ -1201,15 +1202,16 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 			weekRowIndex += 1;
 		}
 
-		YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL);
+		YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL);
+
 		if (c >= 0 && c <= 6) {
-			YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_TOP);
+			YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_TOP);
 		}
 		if ((c % 7) == 0) {
-			YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_LEFT);
+			YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_LEFT);
 		}
 		if (((c+1) % 7) == 0) {
-			YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_RIGHT);
+			YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_RIGHT);
 		}
 		
 		var postDays = this.postMonthDays; 
@@ -1221,7 +1223,7 @@ YAHOO.widget.Calendar_Core.prototype.renderBody = function(workingDate) {
 		}
 		
 		if (c >= ((this.preMonthDays+postDays+this.monthDays)-7)) {
-			YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_BOTTOM);
+			YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_BOTTOM);
 		}
 	}
 		
@@ -1256,7 +1258,7 @@ YAHOO.widget.Calendar_Core.prototype._unload = function(e, cal) {
 /****************** BEGIN BUILT-IN TABLE CELL RENDERERS ************************************/
 
 YAHOO.widget.Calendar_Core.prototype.renderOutOfBoundsDate = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_OOB);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_OOB);
 	cell.innerHTML = workingDate.getDate();
 	return YAHOO.widget.Calendar_Core.STOP_RENDER;
 }
@@ -1268,7 +1270,7 @@ YAHOO.widget.Calendar_Core.prototype.renderOutOfBoundsDate = function(workingDat
 * @param {HTMLTableCellElement}	cell			The current working cell in the calendar
 */
 YAHOO.widget.Calendar_Core.prototype.renderRowHeader = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_ROW_HEADER);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_ROW_HEADER);
 	
 	var useYear = this.pageDate.getFullYear();
 	
@@ -1280,7 +1282,7 @@ YAHOO.widget.Calendar_Core.prototype.renderRowHeader = function(workingDate, cel
 	cell.innerHTML = weekNum;
 	
 	if (this.isDateOOM(workingDate) && ! YAHOO.widget.DateMath.isMonthOverlapWeek(workingDate)) {
-		YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_OOM);	
+		YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_OOM);	
 	}
 };
 
@@ -1291,10 +1293,10 @@ YAHOO.widget.Calendar_Core.prototype.renderRowHeader = function(workingDate, cel
 * @param {HTMLTableCellElement}	cell			The current working cell in the calendar
 */
 YAHOO.widget.Calendar_Core.prototype.renderRowFooter = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_ROW_FOOTER);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_ROW_FOOTER);
 	
 	if (this.isDateOOM(workingDate) && ! YAHOO.widget.DateMath.isMonthOverlapWeek(workingDate)) {
-		YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_OOM);	
+		YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_OOM);	
 	}
 };
 
@@ -1320,17 +1322,52 @@ YAHOO.widget.Calendar_Core.prototype.renderCellDefault = function(workingDate, c
 	cell.appendChild(link);
 };
 
+/**
+* Renders a single standard calendar cell using the CSS hightlight1 style
+* @param {Date}					workingDate		The current working Date object being used to generate the calendar
+* @param {HTMLTableCellElement}	cell			The current working cell in the calendar
+* @return YAHOO.widget.Calendar_Core.STOP_RENDER if rendering should stop with this style, null or nothing if rendering
+*			should not be terminated
+* @type String
+*/
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleHighlight1 = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_HIGHLIGHT1);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_HIGHLIGHT1);
 };
+
+/**
+* Renders a single standard calendar cell using the CSS hightlight2 style
+* @param {Date}					workingDate		The current working Date object being used to generate the calendar
+* @param {HTMLTableCellElement}	cell			The current working cell in the calendar
+* @return YAHOO.widget.Calendar_Core.STOP_RENDER if rendering should stop with this style, null or nothing if rendering
+*			should not be terminated
+* @type String
+*/
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleHighlight2 = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_HIGHLIGHT2);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_HIGHLIGHT2);
 };
+
+/**
+* Renders a single standard calendar cell using the CSS hightlight3 style
+* @param {Date}					workingDate		The current working Date object being used to generate the calendar
+* @param {HTMLTableCellElement}	cell			The current working cell in the calendar
+* @return YAHOO.widget.Calendar_Core.STOP_RENDER if rendering should stop with this style, null or nothing if rendering
+*			should not be terminated
+* @type String
+*/
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleHighlight3 = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_HIGHLIGHT3);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_HIGHLIGHT3);
 };
+
+/**
+* Renders a single standard calendar cell using the CSS hightlight4 style
+* @param {Date}					workingDate		The current working Date object being used to generate the calendar
+* @param {HTMLTableCellElement}	cell			The current working cell in the calendar
+* @return YAHOO.widget.Calendar_Core.STOP_RENDER if rendering should stop with this style, null or nothing if rendering
+*			should not be terminated
+* @type String
+*/
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleHighlight4 = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_HIGHLIGHT4);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_HIGHLIGHT4);
 };
 
 /**
@@ -1342,7 +1379,7 @@ YAHOO.widget.Calendar_Core.prototype.renderCellStyleHighlight4 = function(workin
 * @type String
 */
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleToday = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_TODAY);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_TODAY);
 };
 
 /**
@@ -1354,7 +1391,7 @@ YAHOO.widget.Calendar_Core.prototype.renderCellStyleToday = function(workingDate
 * @type String
 */
 YAHOO.widget.Calendar_Core.prototype.renderCellStyleSelected = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_SELECTED);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_SELECTED);
 };
 
 /**
@@ -1367,7 +1404,7 @@ YAHOO.widget.Calendar_Core.prototype.renderCellStyleSelected = function(workingD
 * @type String
 */
 YAHOO.widget.Calendar_Core.prototype.renderCellNotThisMonth = function(workingDate, cell) {
-	YAHOO.widget.Calendar_Core.addCssClass(cell, this.Style.CSS_CELL_OOM);
+	YAHOO.util.Dom.addClass(cell, this.Style.CSS_CELL_OOM);
 	cell.innerHTML=workingDate.getDate();
 	return YAHOO.widget.Calendar_Core.STOP_RENDER;
 };
@@ -1503,11 +1540,9 @@ YAHOO.widget.Calendar_Core.prototype.select = function(date) {
 
 	var aToBeSelected = this._toFieldArray(date);
 
-	for (var a=0;a<aToBeSelected.length;++a)
-	{
+	for (var a=0;a<aToBeSelected.length;++a) {
 		var toSelect = aToBeSelected[a]; // For each date item in the list of dates we're trying to select
-		if (this._indexOfSelectedFieldArray(toSelect) == -1) // not already selected?
-		{	
+		if (this._indexOfSelectedFieldArray(toSelect) == -1) { // not already selected?
 			this.selectedDates[this.selectedDates.length]=toSelect;
 		}
 	}
@@ -1516,7 +1551,7 @@ YAHOO.widget.Calendar_Core.prototype.select = function(date) {
 		this.parent.sync(this);
 	}
 
-	this.onSelect();
+	this.onSelect(aToBeSelected);
 
 	return this.getSelectedDates();
 };
@@ -1549,7 +1584,7 @@ YAHOO.widget.Calendar_Core.prototype.selectCell = function(cellIndex) {
 
 	this.renderCellStyleSelected(dCellDate,cell);
 
-	this.onSelect();
+	this.onSelect([selectDate]);
 	this.doCellMouseOut.call(cell, null, this);
 
 	return this.getSelectedDates();
@@ -1571,13 +1606,11 @@ YAHOO.widget.Calendar_Core.prototype.deselect = function(date) {
 
 	var aToBeSelected = this._toFieldArray(date);
 
-	for (var a=0;a<aToBeSelected.length;++a)
-	{
+	for (var a=0;a<aToBeSelected.length;++a) {
 		var toSelect = aToBeSelected[a]; // For each date item in the list of dates we're trying to select
 		var index = this._indexOfSelectedFieldArray(toSelect);
 	
-		if (index != -1)
-		{	
+		if (index != -1) {	
 			this.selectedDates.splice(index,1);
 		}
 	}
@@ -1586,7 +1619,7 @@ YAHOO.widget.Calendar_Core.prototype.deselect = function(date) {
 		this.parent.sync(this);
 	} 
 
-	this.onDeselect();
+	this.onDeselect(aToBeSelected);
 	return this.getSelectedDates();
 };
 
@@ -1610,12 +1643,10 @@ YAHOO.widget.Calendar_Core.prototype.deselectCell = function(i) {
 
 	var selectDate = cellDate.concat();
 
-	if (cellDateIndex > -1)
-	{
+	if (cellDateIndex > -1) {
 		if (this.pageDate.getMonth() == dCellDate.getMonth() &&
-			this.pageDate.getFullYear() == dCellDate.getFullYear())
-		{
-			YAHOO.widget.Calendar_Core.removeCssClass(cell, this.Style.CSS_CELL_SELECTED);
+			this.pageDate.getFullYear() == dCellDate.getFullYear()) {
+			YAHOO.util.Dom.removeClass(cell, this.Style.CSS_CELL_SELECTED);
 		}
 
 		this.selectedDates.splice(cellDateIndex, 1);
@@ -1626,7 +1657,7 @@ YAHOO.widget.Calendar_Core.prototype.deselectCell = function(i) {
 		this.parent.sync(this);
 	}
 
-	this.onDeselect();
+	this.onDeselect(selectDate);
 	return this.getSelectedDates();
 };
 
@@ -1641,6 +1672,7 @@ YAHOO.widget.Calendar_Core.prototype.deselectCell = function(i) {
 YAHOO.widget.Calendar_Core.prototype.deselectAll = function() {
 	this.onBeforeDeselect();
 	var count = this.selectedDates.length;
+	var sel = this.selectedDates.concat();
 	this.selectedDates.length = 0;
 
 	if (this.parent) {
@@ -1648,7 +1680,7 @@ YAHOO.widget.Calendar_Core.prototype.deselectAll = function() {
 	}
 	
 	if (count > 0) {
-		this.onDeselect();
+		this.onDeselect(sel);
 	}
 
 	return this.getSelectedDates();
@@ -1672,18 +1704,12 @@ YAHOO.widget.Calendar_Core.prototype.deselectAll = function() {
 YAHOO.widget.Calendar_Core.prototype._toFieldArray = function(date) {
 	var returnDate = new Array();
 
-	if (date instanceof Date)
-	{
+	if (date instanceof Date) {
 		returnDate = [[date.getFullYear(), date.getMonth()+1, date.getDate()]];
-	} 
-	else if (typeof date == 'string')
-	{
+	} else if (typeof date == 'string') {
 		returnDate = this._parseDates(date);
-	}
-	else if (date instanceof Array)
-	{
-		for (var i=0;i<date.length;++i)
-		{
+	} else if (date instanceof Array) {
+		for (var i=0;i<date.length;++i) {
 			var d = date[i];
 			returnDate[returnDate.length] = [d.getFullYear(),d.getMonth()+1,d.getDate()];
 		}
@@ -1700,11 +1726,9 @@ YAHOO.widget.Calendar_Core.prototype._toFieldArray = function(date) {
 * @type Date
 */
 YAHOO.widget.Calendar_Core.prototype._toDate = function(dateFieldArray) {
-	if (dateFieldArray instanceof Date)
-	{
+	if (dateFieldArray instanceof Date) {
 		return dateFieldArray;
-	} else 	
-	{
+	} else {
 		return new Date(dateFieldArray[0],dateFieldArray[1]-1,dateFieldArray[2]);
 	}
 };
@@ -1723,8 +1747,7 @@ YAHOO.widget.Calendar_Core.prototype._toDate = function(dateFieldArray) {
 YAHOO.widget.Calendar_Core.prototype._fieldArraysAreEqual = function(array1, array2) {
 	var match = false;
 
-	if (array1[0]==array2[0]&&array1[1]==array2[1]&&array1[2]==array2[2])
-	{
+	if (array1[0]==array2[0]&&array1[1]==array2[1]&&array1[2]==array2[2]) {
 		match=true;	
 	}
 
@@ -1742,11 +1765,9 @@ YAHOO.widget.Calendar_Core.prototype._fieldArraysAreEqual = function(array1, arr
 YAHOO.widget.Calendar_Core.prototype._indexOfSelectedFieldArray = function(find) {
 	var selected = -1;
 
-	for (var s=0;s<this.selectedDates.length;++s)
-	{
+	for (var s=0;s<this.selectedDates.length;++s) {
 		var sArray = this.selectedDates[s];
-		if (find[0]==sArray[0]&&find[1]==sArray[1]&&find[2]==sArray[2])
-		{
+		if (find[0]==sArray[0]&&find[1]==sArray[1]&&find[2]==sArray[2]) {
 			selected = s;
 			break;
 		}
@@ -1784,8 +1805,9 @@ YAHOO.widget.Calendar_Core.prototype.onBeforeSelect = function() {
 
 /**
 * Event executed when a date is selected in the calendar widget.
+* @param	{Array}	selected	An array of date field arrays representing which date or dates were selected. Example: [ [2006,8,6],[2006,8,7],[2006,8,8] ]
 */
-YAHOO.widget.Calendar_Core.prototype.onSelect = function() { };
+YAHOO.widget.Calendar_Core.prototype.onSelect = function(selected) { };
 
 /**
 * Event executed before a date is deselected in the calendar widget.
@@ -1794,8 +1816,9 @@ YAHOO.widget.Calendar_Core.prototype.onBeforeDeselect = function() { };
 
 /**
 * Event executed when a date is deselected in the calendar widget.
+* @param	{Array}	selected	An array of date field arrays representing which date or dates were deselected. Example: [ [2006,8,6],[2006,8,7],[2006,8,8] ]
 */
-YAHOO.widget.Calendar_Core.prototype.onDeselect = function() { };
+YAHOO.widget.Calendar_Core.prototype.onDeselect = function(deselected) { };
 
 /**
 * Event executed when the user navigates to a different calendar page.
@@ -1854,8 +1877,7 @@ YAHOO.widget.Calendar_Core.prototype._parseDate = function(sDate) {
 	var aDate = sDate.split(this.Locale.DATE_FIELD_DELIMITER);
 	var rArray;
 
-	if (aDate.length == 2)
-	{
+	if (aDate.length == 2) {
 		rArray = [aDate[this.Locale.MD_MONTH_POSITION-1],aDate[this.Locale.MD_DAY_POSITION-1]];
 		rArray.type = YAHOO.widget.Calendar_Core.MONTH_DAY;
 	} else {
@@ -1877,8 +1899,7 @@ YAHOO.widget.Calendar_Core.prototype._parseDates = function(sDates) {
 
 	var aDates = sDates.split(this.Locale.DATE_DELIMITER);
 	
-	for (var d=0;d<aDates.length;++d)
-	{
+	for (var d=0;d<aDates.length;++d) {
 		var sDate = aDates[d];
 
 		if (sDate.indexOf(this.Locale.DATE_RANGE_DELIMITER) != -1) {
@@ -1914,8 +1935,7 @@ YAHOO.widget.Calendar_Core.prototype._parseRange = function(startDate, endDate) 
 
 	var results = new Array();
 	results.push(startDate);
-	while (dCurrent.getTime() <= dEnd.getTime())
-	{
+	while (dCurrent.getTime() <= dEnd.getTime()) {
 		results.push([dCurrent.getFullYear(),dCurrent.getMonth()+1,dCurrent.getDate()]);
 		dCurrent = YAHOO.widget.DateMath.add(dCurrent,YAHOO.widget.DateMath.DAY,1);
 	}
@@ -1951,20 +1971,16 @@ YAHOO.widget.Calendar_Core.prototype.clearElement = function(cell) {
 */
 YAHOO.widget.Calendar_Core.prototype.addRenderer = function(sDates, fnRender) {
 	var aDates = this._parseDates(sDates);
-	for (var i=0;i<aDates.length;++i)
-	{
+	for (var i=0;i<aDates.length;++i) {
 		var aDate = aDates[i];
 	
-		if (aDate.length == 2) // this is either a range or a month/day combo
-		{
-			if (aDate[0] instanceof Array) // this is a range
-			{
+		if (aDate.length == 2) { // this is either a range or a month/day combo
+			if (aDate[0] instanceof Array) { // this is a range
 				this._addRenderer(YAHOO.widget.Calendar_Core.RANGE,aDate,fnRender);
 			} else { // this is a month/day combo
 				this._addRenderer(YAHOO.widget.Calendar_Core.MONTH_DAY,aDate,fnRender);
 			}
-		} else if (aDate.length == 3)
-		{
+		} else if (aDate.length == 3) {
 			this._addRenderer(YAHOO.widget.Calendar_Core.DATE,aDate,fnRender);
 		}
 	}
@@ -2007,44 +2023,9 @@ YAHOO.widget.Calendar_Core.prototype.addMonthRenderer = function(month, fnRender
 YAHOO.widget.Calendar_Core.prototype.addWeekdayRenderer = function(weekday, fnRender) {
 	this._addRenderer(YAHOO.widget.Calendar_Core.WEEKDAY,[weekday],fnRender);
 };
-/************* END RENDERER METHODS *******************************************************/
+//// END RENDERER METHODS ////
 
-/***************** BEGIN CSS METHODS *******************************************/
-/**
-* Adds the specified CSS class to the element passed to this method.
-* @param	{HTMLElement}	element		The element to which the CSS class should be applied
-* @param	{String}	style		The CSS class name to add to the referenced element
-*/
-YAHOO.widget.Calendar_Core.addCssClass = function(element, style) {
-	if (element.className.length === 0)
-	{
-		element.className += style;
-	} else {
-		element.className += " " + style;
-	}
-};
-
-YAHOO.widget.Calendar_Core.prependCssClass = function(element, style) {
-	element.className = style + " " + element.className;
-}
-
-/**
-* Removed the specified CSS class from the element passed to this method.
-* @param	{HTMLElement}	element		The element from which the CSS class should be removed
-* @param	{String}	style		The CSS class name to remove from the referenced element
-*/
-YAHOO.widget.Calendar_Core.removeCssClass = function(element, style) {
-	var aStyles = element.className.split(" ");
-	for (var s=0;s<aStyles.length;++s)
-	{
-		if (aStyles[s] == style)
-		{
-			aStyles.splice(s,1);
-			break;
-		}
-	}
-	YAHOO.widget.Calendar_Core.setCssClasses(element, aStyles);
-};
+//// BEGIN CSS METHODS ////
 
 /**
 * Sets the specified array of CSS classes into the referenced element
@@ -2062,15 +2043,14 @@ YAHOO.widget.Calendar_Core.setCssClasses = function(element, aStyles) {
 * @param	{style}		The CSS class name to remove from all calendar body cells
 */
 YAHOO.widget.Calendar_Core.prototype.clearAllBodyCellStyles = function(style) {
-	for (var c=0;c<this.cells.length;++c)
-	{
-		YAHOO.widget.Calendar_Core.removeCssClass(this.cells[c],style);
+	for (var c=0;c<this.cells.length;++c) {
+		YAHOO.util.Dom.removeClass(this.cells[c],style);
 	}
 };
 
-/***************** END CSS METHODS *********************************************/
+//// END CSS METHODS ////
 
-/***************** BEGIN GETTER/SETTER METHODS *********************************/
+//// BEGIN GETTER/SETTER METHODS ////
 /**
 * Sets the calendar's month explicitly.
 * @param {Integer}	month		The numeric month, from 1 (January) to 12 (December)
@@ -2095,8 +2075,7 @@ YAHOO.widget.Calendar_Core.prototype.setYear = function(year) {
 YAHOO.widget.Calendar_Core.prototype.getSelectedDates = function() {
 	var returnDates = new Array();
 
-	for (var d=0;d<this.selectedDates.length;++d)
-	{
+	for (var d=0;d<this.selectedDates.length;++d) {
 		var dateArray = this.selectedDates[d];
 
 		var date = new Date(dateArray[0],dateArray[1]-1,dateArray[2]);
@@ -2107,10 +2086,13 @@ YAHOO.widget.Calendar_Core.prototype.getSelectedDates = function() {
 	return returnDates;
 };
 
-/***************** END GETTER/SETTER METHODS *********************************/
+/// END GETTER/SETTER METHODS ///
 
-YAHOO.widget.Calendar_Core._getBrowser = function()
-{
+/**
+* Returns a string representing the current browser.
+* @type String
+*/
+YAHOO.widget.Calendar_Core._getBrowser = function() {
   /**
    * UserAgent
    * @private
@@ -2130,11 +2112,16 @@ YAHOO.widget.Calendar_Core._getBrowser = function()
   return false;
 }
 
+/**
+* Returns a string representation of the object.
+* @type string
+*/
+YAHOO.widget.Calendar_Core.prototype.toString = function() {
+	return "Calendar_Core " + this.id;
+}
 
 YAHOO.widget.Cal_Core = YAHOO.widget.Calendar_Core;
-
 /**
-* @class
 * Calendar is the default implementation of the YAHOO.widget.Calendar_Core base class.
 * This class is the UED-approved version of the calendar selector widget. For all documentation
 * on the implemented methods listed here, see the documentation for YAHOO.widget.Calendar_Core.
@@ -2147,10 +2134,10 @@ YAHOO.widget.Cal_Core = YAHOO.widget.Calendar_Core;
 								MM/DD/YYYY-MM/DD/YYYY. Month/day combinations are defined using MM/DD.
 								Any combination of these can be combined by delimiting the string with
 								commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
+* @extends YAHOO.widget.Calendar_Core
 */
 YAHOO.widget.Calendar = function(id, containerId, monthyear, selected) {
-	if (arguments.length > 0)
-	{
+	if (arguments.length > 0) {
 		this.init(id, containerId, monthyear, selected);
 	}
 }
@@ -2159,7 +2146,7 @@ YAHOO.widget.Calendar.prototype = new YAHOO.widget.Calendar_Core();
 
 YAHOO.widget.Calendar.prototype.buildShell = function() {
 	this.border = document.createElement("DIV");
-	this.border.className =  this.Style.CSS_BORDER;
+	this.border.className =  this.Style.CSS_CONTAINER;
 	
 	this.table = document.createElement("TABLE");
 	this.table.cellSpacing = 0;	
@@ -2185,31 +2172,33 @@ YAHOO.widget.Calendar.prototype.renderHeader = function() {
 	var headerContainer = document.createElement("DIV");
 	headerContainer.className = this.Style.CSS_HEADER;
 	
-	var linkLeft = document.createElement("A");
-	linkLeft.href = "javascript:" + this.id + ".previousMonth()";
-	var imgLeft = document.createElement("IMG");
-	imgLeft.src = this.Options.NAV_ARROW_LEFT;
-	imgLeft.className = this.Style.CSS_NAV_LEFT;
-	linkLeft.appendChild(imgLeft);
+	if (this.linkLeft) {
+		YAHOO.util.Event.removeListener(this.linkLeft, "mousedown", this.previousMonth);
+	}
+	this.linkLeft = document.createElement("A");
+	this.linkLeft.innerHTML = "&nbsp;";
+	YAHOO.util.Event.addListener(this.linkLeft, "mousedown", this.previousMonth, this, true);
+	this.linkLeft.style.backgroundImage =  "url(" + this.Options.NAV_ARROW_LEFT + ")";
+	this.linkLeft.className = this.Style.CSS_NAV_LEFT;
 	
-	var linkRight = document.createElement("A");
-	linkRight.href = "javascript:" + this.id + ".nextMonth()";
-	var imgRight = document.createElement("IMG");
-	imgRight.src = this.Options.NAV_ARROW_RIGHT;
-	imgRight.className = this.Style.CSS_NAV_RIGHT;
-	linkRight.appendChild(imgRight);
+	if (this.linkRight) {
+		YAHOO.util.Event.removeListener(this.linkRight, "mousedown", this.nextMonth);
+	}
+	this.linkRight = document.createElement("A");
+	this.linkRight.innerHTML = "&nbsp;";
+	YAHOO.util.Event.addListener(this.linkRight, "mousedown", this.nextMonth, this, true);
+	this.linkRight.style.backgroundImage = "url(" + this.Options.NAV_ARROW_RIGHT + ")";
+	this.linkRight.className = this.Style.CSS_NAV_RIGHT;
 	
-	headerContainer.appendChild(linkLeft);
+	headerContainer.appendChild(this.linkLeft);
 	headerContainer.appendChild(document.createTextNode(this.buildMonthLabel()));
-	headerContainer.appendChild(linkRight);
+	headerContainer.appendChild(this.linkRight);
 	
 	this.headerCell.appendChild(headerContainer);
 };
 
 YAHOO.widget.Cal = YAHOO.widget.Calendar;
-
 /**
-* @class
 * <p>YAHOO.widget.CalendarGroup is a special container class for YAHOO.widget.Calendar_Core. This class facilitates
 * the ability to have multi-page calendar views that share a single dataset and are
 * dependent on each other.</p>
@@ -2235,8 +2224,7 @@ YAHOO.widget.Cal = YAHOO.widget.Calendar;
 									commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
 */
 YAHOO.widget.CalendarGroup = function(pageCount, id, containerId, monthyear, selected) {
-	if (arguments.length > 0)
-	{
+	if (arguments.length > 0) {
 		this.init(pageCount, id, containerId, monthyear, selected);
 	}
 }
@@ -2255,8 +2243,6 @@ YAHOO.widget.CalendarGroup = function(pageCount, id, containerId, monthyear, sel
 									commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
 */
 YAHOO.widget.CalendarGroup.prototype.init = function(pageCount, id, containerId, monthyear, selected) {
-	//var self=this;
-	
 	this.id = id;
 	this.selectedDates = new Array();
 	this.containerId = containerId;
@@ -2265,8 +2251,7 @@ YAHOO.widget.CalendarGroup.prototype.init = function(pageCount, id, containerId,
 
 	this.pages = new Array();
 
-	for (var p=0;p<pageCount;++p)
-	{
+	for (var p=0;p<pageCount;++p) {
 		var cal = this.constructChild(id + "_" + p, this.containerId + "_" + p , monthyear, selected);
 				
 		cal.parent = this;
@@ -2278,21 +2263,33 @@ YAHOO.widget.CalendarGroup.prototype.init = function(pageCount, id, containerId,
 		this.pages.push(cal);
 	}
 	
+	this.sync();
+
 	this.doNextMonth = function(e, calGroup) {
 		calGroup.nextMonth();
-	}
+	};
 	
 	this.doPreviousMonth = function(e, calGroup) {
 		calGroup.previousMonth();
-	}
+	};
 };
 
+/**
+* Adds a function to all child Calendars within this CalendarGroup.
+* @param {String}		fnName		The name of the function
+* @param {Function}		fn			The function to apply to each Calendar page object
+*/
 YAHOO.widget.CalendarGroup.prototype.setChildFunction = function(fnName, fn) {
 	for (var p=0;p<this.pageCount;++p) {
 		this.pages[p][fnName] = fn;
 	}
 }
 
+/**
+* Calls a function within all child Calendars within this CalendarGroup.
+* @param {String}		fnName		The name of the function
+* @param {Array}		args		The arguments to pass to the function
+*/
 YAHOO.widget.CalendarGroup.prototype.callChildFunction = function(fnName, args) {
 	for (var p=0;p<this.pageCount;++p) {
 		var page = this.pages[p];
@@ -2617,10 +2614,16 @@ YAHOO.widget.CalendarGroup.prototype.wireEvent = function(eventName, fn) {
 	}
 };
 
-YAHOO.widget.CalGrp = YAHOO.widget.CalendarGroup;
-
 /**
-* @class
+* Returns a string representation of the object.
+* @type string
+*/ 
+YAHOO.widget.CalendarGroup.prototype.toString = function() {
+	return "CalendarGroup " + this.id;
+}
+
+YAHOO.widget.CalGrp = YAHOO.widget.CalendarGroup;
+/**
 * Calendar2up_Cal is the default implementation of the Calendar_Core base class, when used
 * in a 2-up view. This class is the UED-approved version of the calendar selector widget. For all documentation
 * on the implemented methods listed here, see the documentation for Calendar_Core. This class
@@ -2635,6 +2638,7 @@ YAHOO.widget.CalGrp = YAHOO.widget.CalendarGroup;
 								MM/DD/YYYY-MM/DD/YYYY. Month/day combinations are defined using MM/DD.
 								Any combination of these can be combined by delimiting the string with
 								commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
+* @extends YAHOO.widget.Calendar_Core
 */
 YAHOO.widget.Calendar2up_Cal = function(id, containerId, monthyear, selected) {
 	if (arguments.length > 0)
@@ -2657,27 +2661,33 @@ YAHOO.widget.Calendar2up_Cal.prototype.renderHeader = function() {
 	headerContainer.className = this.Style.CSS_HEADER;
 	
 	if (this.index == 0) {
-		var linkLeft = document.createElement("A");
-		linkLeft.href = "javascript:void(null)";
-		YAHOO.util.Event.addListener(linkLeft, "click", this.parent.doPreviousMonth, this.parent);
-		var imgLeft = document.createElement("IMG");
-		imgLeft.src = this.Options.NAV_ARROW_LEFT;
-		imgLeft.className = this.Style.CSS_NAV_LEFT;
-		linkLeft.appendChild(imgLeft);
-		headerContainer.appendChild(linkLeft);
+
+		if (this.linkLeft) {
+			YAHOO.util.Event.removeListener(this.linkLeft, "mousedown", this.parent.doPreviousMonth);
+		}
+		this.linkLeft = document.createElement("A");
+		this.linkLeft.innerHTML = "&nbsp;";
+		this.linkLeft.style.backgroundImage =  "url(" + this.Options.NAV_ARROW_LEFT + ")";
+		this.linkLeft.className = this.Style.CSS_NAV_LEFT;
+		
+		YAHOO.util.Event.addListener(this.linkLeft, "mousedown", this.parent.doPreviousMonth, this.parent);
+		headerContainer.appendChild(this.linkLeft);
 	}
 	
 	headerContainer.appendChild(document.createTextNode(this.buildMonthLabel()));
 	
 	if (this.index == 1) {
-		var linkRight = document.createElement("A");
-		linkRight.href = "javascript:void(null)";
-		YAHOO.util.Event.addListener(linkRight, "click", this.parent.doNextMonth, this.parent);
-		var imgRight = document.createElement("IMG");
-		imgRight.src = this.Options.NAV_ARROW_RIGHT;
-		imgRight.className = this.Style.CSS_NAV_RIGHT;
-		linkRight.appendChild(imgRight);
-		headerContainer.appendChild(linkRight);
+
+		if (this.linkRight) {
+			YAHOO.util.Event.removeListener(this.linkRight, "mousedown", this.parent.doNextMonth);
+		}
+		this.linkRight = document.createElement("A");
+		this.linkRight.innerHTML = "&nbsp;";
+		this.linkRight.style.backgroundImage = "url(" + this.Options.NAV_ARROW_RIGHT + ")";
+		this.linkRight.className = this.Style.CSS_NAV_RIGHT;
+
+		YAHOO.util.Event.addListener(this.linkRight, "mousedown", this.parent.doNextMonth, this.parent);
+		headerContainer.appendChild(this.linkRight);
 	}
 	
 	this.headerCell.appendChild(headerContainer);
@@ -2687,7 +2697,6 @@ YAHOO.widget.Calendar2up_Cal.prototype.renderHeader = function() {
 
 
 /**
-* @class
 * Calendar2up is the default implementation of the CalendarGroup base class, when used
 * in a 2-up view. This class is the UED-approved version of the 2-up calendar selector widget. For all documentation
 * on the implemented methods listed here, see the documentation for CalendarGroup. 
@@ -2700,6 +2709,7 @@ YAHOO.widget.Calendar2up_Cal.prototype.renderHeader = function() {
 								MM/DD/YYYY-MM/DD/YYYY. Month/day combinations are defined using MM/DD.
 								Any combination of these can be combined by delimiting the string with
 								commas. Example: "12/24/2005,12/25,1/18/2006-1/21/2006"
+* @extends YAHOO.widget.CalendarGroup
 */
 YAHOO.widget.Calendar2up = function(id, containerId, monthyear, selected) {
 	if (arguments.length > 0)
@@ -2710,6 +2720,36 @@ YAHOO.widget.Calendar2up = function(id, containerId, monthyear, selected) {
 }
 
 YAHOO.widget.Calendar2up.prototype = new YAHOO.widget.CalendarGroup();
+
+/**
+* CSS class representing the wrapper for the 2-up calendar
+* @type string
+*/
+YAHOO.widget.Calendar2up.CSS_2UPWRAPPER = "yui-cal2upwrapper";
+
+/**
+* CSS class representing the container for the calendar
+* @type string
+*/
+YAHOO.widget.Calendar2up.CSS_CONTAINER = "yui-calcontainer";
+
+/**
+* CSS class representing the container for the 2-up calendar
+* @type string
+*/
+YAHOO.widget.Calendar2up.CSS_2UPCONTAINER = "cal2up";
+
+/**
+* CSS class representing the title for the 2-up calendar
+* @type string
+*/
+YAHOO.widget.Calendar2up.CSS_2UPTITLE = "title";
+
+/**
+* CSS class representing the close icon for the 2-up calendar
+* @type string
+*/
+YAHOO.widget.Calendar2up.CSS_2UPCLOSE = "close-icon";
 
 /**
 * Implementation of CalendarGroup.constructChild that ensures that child calendars of 
@@ -2727,20 +2767,20 @@ YAHOO.widget.Calendar2up.prototype.constructChild = function(id,containerId,mont
 YAHOO.widget.Calendar2up.prototype.buildWrapper = function(containerId) {
 	var outerContainer = document.getElementById(containerId);
 	
-	outerContainer.className = "calcontainer";
+	outerContainer.className = YAHOO.widget.Calendar2up.CSS_2UPWRAPPER;
 	
 	var innerContainer = document.createElement("DIV");
-	innerContainer.className = "calbordered";
+	innerContainer.className = YAHOO.widget.Calendar2up.CSS_CONTAINER;
 	innerContainer.id = containerId + "_inner";
 	
 	var cal1Container = document.createElement("DIV");
 	cal1Container.id = containerId + "_0";
-	cal1Container.className = "cal2up";
+	cal1Container.className = YAHOO.widget.Calendar2up.CSS_2UPCONTAINER;
 	cal1Container.style.marginRight = "10px";
 	
 	var cal2Container = document.createElement("DIV");
 	cal2Container.id = containerId + "_1"; 
-	cal2Container.className = "cal2up";
+	cal2Container.className = YAHOO.widget.Calendar2up.CSS_2UPCONTAINER;
 	
 	outerContainer.appendChild(innerContainer);
 	innerContainer.appendChild(cal1Container);
@@ -2775,7 +2815,7 @@ YAHOO.widget.Calendar2up.prototype.renderHeader = function() {
 		}
 	}
 
-	this.titleDiv.className = "title";
+	this.titleDiv.className = YAHOO.widget.Calendar2up.CSS_2UPTITLE;
 	this.titleDiv.innerHTML = this.title;
 
 	if (this.outerContainer.style.position == "absolute")
@@ -2786,7 +2826,7 @@ YAHOO.widget.Calendar2up.prototype.renderHeader = function() {
 
 		var imgClose = document.createElement("IMG");
 		imgClose.src = YAHOO.widget.Calendar_Core.IMG_ROOT + "us/my/bn/x_d.gif";
-		imgClose.className = "close-icon";
+		imgClose.className = YAHOO.widget.Calendar2up.CSS_2UPCLOSE;
 
 		linkClose.appendChild(imgClose);
 
@@ -2795,7 +2835,9 @@ YAHOO.widget.Calendar2up.prototype.renderHeader = function() {
 		this.titleDiv.appendChild(linkClose);
 	}
 
-	this.innerContainer.insertBefore(this.titleDiv, this.innerContainer.firstChild);
+	if (this.titleDiv != this.innerContainer.firstChild) {
+		this.innerContainer.insertBefore(this.titleDiv, this.innerContainer.firstChild);
+	}
 }
 
 /**

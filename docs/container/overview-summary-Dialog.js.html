@@ -1,12 +1,7 @@
 
 <html>
 <head>
-	<title>
-		JavaScript Documentation - 
-		
-			Dialog.js
-		
-	</title>
+	<title>JavaScript Documentation - Dialog.js</title>
 	<link href="stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -17,7 +12,7 @@
 	<h3><a href="./index.html">Yahoo! UI Library: Container</a></h3>
 
 	<div class="breadcrumbs">
-			
+					
 			
 			
 			
@@ -55,6 +50,8 @@
 				<h4><a href="./allclasses-noframe.html">Classes</a></h4>
 				<ul class="content">
 					
+
+					
 						<li>
 							<a href="YAHOO.util.Config.html">
 								YAHOO.util.Config</a>
@@ -85,11 +82,6 @@
 						<li>
 							<a href="YAHOO.widget.Overlay.html">
 								YAHOO.widget.Overlay</a>
-						</li>
-					
-						<li>
-							<a href="YAHOO.widget.OverlayEffect.html">
-								YAHOO.widget.OverlayEffect</a>
 						</li>
 					
 						<li>
@@ -149,11 +141,6 @@
 						<li>
 							<a href="overview-summary-Overlay.js.html">
 								Overlay.js</a>
-						</li>
-					
-						<li>
-							<a href="overview-summary-OverlayEffect.js.html">
-								OverlayEffect.js</a>
 						</li>
 					
 						<li>
@@ -244,7 +231,7 @@
 							<td class="name">
 								<a href="YAHOO.widget.Dialog.html">YAHOO.widget.Dialog</a>
 							</td>
-							<td class="overview">Dialog is an implementation of Panel that can be used to submit form data.</td>
+							<td class="overview">&nbsp;</td>
 						</tr>
 						
 					</table>
@@ -259,32 +246,26 @@
 		
 			<div class="section source">
 				<h3><a name="source">Souce Code</a> <span class="top">[<a href="#top">top</a>]</span></h3>
-				<pre class="sourceview"><span class="comment">/**
+				<pre class="sourceview"><span class="comment">/*
 Copyright (c) 2006, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-* <span class="attrib">@class</span>
+Version 0.11.3
+*/</span>
+
+<span class="comment">/**
 * Dialog is an implementation of Panel that can be used to submit form data. Built-in functionality for buttons with event handlers is included, and button sets can be build dynamically, or the preincluded ones for Submit/Cancel and OK/Cancel can be utilized. Forms can be processed in 3 ways -- via an asynchronous Connection utility call, a simple form POST or GET, or manually.
+* <span class="attrib">@extends</span> YAHOO.widget.Panel
 * <span class="attrib">@param</span> {string}	el	The element ID representing the Dialog &lt;em&gt;OR&lt;/em&gt;
 * <span class="attrib">@param</span> {Element}	el	The element representing the Dialog
 * <span class="attrib">@param</span> {object}	userConfig	The configuration object literal containing the configuration that should be set for this Dialog. See configuration documentation for more details.
 * <span class="attrib">@constructor</span>
 */</span>
 YAHOO.widget.Dialog = <span class="reserved">function</span>(el, userConfig) {
-	<span class="reserved">if</span> (arguments.length &gt; 0) {
-		YAHOO.widget.Dialog.superclass.constructor.call(<span class="reserved">this</span>, el, userConfig);
-	}
-}
+	YAHOO.widget.Dialog.superclass.constructor.call(<span class="reserved">this</span>, el, userConfig);
+};
 
-YAHOO.widget.Dialog.<span class="reserved">prototype</span> = new YAHOO.widget.Panel();
-YAHOO.widget.Dialog.<span class="reserved">prototype</span>.constructor = YAHOO.widget.Dialog;
-
-<span class="comment">/**
-* Reference to the Dialog's superclass, Panel
-* <span class="attrib">@type</span> class
-* <span class="attrib">@final</span>
-*/</span>
-YAHOO.widget.Dialog.superclass = YAHOO.widget.Panel.<span class="reserved">prototype</span>;
+YAHOO.extend(YAHOO.widget.Dialog, YAHOO.widget.Panel);
 
 <span class="comment">/**
 * Constant representing the default CSS class used for a Dialog
@@ -342,30 +323,18 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.initDefaultConfig = 
 	* <span class="attrib">@type</span> object
 	* <span class="attrib">@private</span>
 	*/</span>
-	var callback = {
+	<span class="reserved">this</span>.callback = {
 		success : null,
 		failure : null,
-		argument: null,
-		scope : <span class="reserved">this</span>
-	}
-
-	<span class="reserved">this</span>.configOnSuccess = <span class="reserved">function</span>(type, args, obj) {
-		var fn = args[0];
-		callback.success = fn;
-	}
-
-	<span class="reserved">this</span>.configOnFailure = <span class="reserved">function</span>(type, args, obj) {
-		var fn = args[0];
-		callback.failure = fn;
-	}
-
+		argument: null
+	};
 
 	<span class="reserved">this</span>.doSubmit = <span class="reserved">function</span>() {
 		var method = <span class="reserved">this</span>.cfg.getProperty(<span class="literal">"postmethod"</span>);
 		switch (method) {
 			case <span class="literal">"async"</span>:
-				YAHOO.util.Connect.setForm(<span class="reserved">this</span>.form.name);
-				var cObj = YAHOO.util.Connect.asyncRequest(<span class="literal">'POST'</span>, <span class="reserved">this</span>.form.action, callback);
+				YAHOO.util.Connect.setForm(<span class="reserved">this</span>.form);
+				var cObj = YAHOO.util.Connect.asyncRequest(<span class="literal">'POST'</span>, <span class="reserved">this</span>.form.action, <span class="reserved">this</span>.callback);
 				<span class="reserved">this</span>.asyncSubmitEvent.fire();
 				break;
 			case <span class="literal">"form"</span>:
@@ -377,7 +346,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.initDefaultConfig = 
 				<span class="reserved">this</span>.manualSubmitEvent.fire();
 				break;
 		}
-	}
+	};
 
 	<span class="comment">// Add form dialog config properties //</span>
 	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"postmethod"</span>, { value:<span class="literal">"async"</span>, validator:<span class="reserved">function</span>(val) { 
@@ -388,11 +357,8 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.initDefaultConfig = 
 													}
 												} });
 
-	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"onsuccess"</span>,	{ handler:<span class="reserved">this</span>.configOnSuccess, suppressEvent:true } );
-	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"onfailure"</span>,	{ handler:<span class="reserved">this</span>.configOnFailure, suppressEvent:true } );
-
 	<span class="reserved">this</span>.cfg.addProperty(<span class="literal">"buttons"</span>,		{ value:<span class="literal">"none"</span>,	handler:<span class="reserved">this</span>.configButtons } );
-}
+};
 
 <span class="comment">/**
 * Initializes the custom events for Dialog which are fired automatically at appropriate times by the Dialog class.
@@ -408,9 +374,9 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.initEvents = <span c
 	<span class="reserved">this</span>.formSubmitEvent	= new YAHOO.util.CustomEvent(<span class="literal">"formSubmit"</span>);
 
 	<span class="reserved">this</span>.cancelEvent		= new YAHOO.util.CustomEvent(<span class="literal">"cancel"</span>);
-}
+};
 
-<span class="comment">/*
+<span class="comment">/**
 * The Dialog initialization method, which is executed for Dialog and all of its subclasses. This method is automatically called by the constructor, and  sets up all DOM references for pre-existing markup, and creates required markup if it is not already present.
 * <span class="attrib">@param</span> {string}	el	The element ID representing the Dialog &lt;em&gt;OR&lt;/em&gt;
 * <span class="attrib">@param</span> {Element}	el	The element representing the Dialog
@@ -422,6 +388,8 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.init = <span class="
 	<span class="reserved">this</span>.beforeInitEvent.fire(YAHOO.widget.Dialog);
 
 	YAHOO.util.Dom.addClass(<span class="reserved">this</span>.element, YAHOO.widget.Dialog.CSS_DIALOG);
+
+	<span class="reserved">this</span>.cfg.setProperty(<span class="literal">"visible"</span>, false);
 
 	<span class="reserved">if</span> (userConfig) {
 		<span class="reserved">this</span>.cfg.applyConfig(userConfig, true);
@@ -442,7 +410,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.init = <span class="
 	}, <span class="reserved">this</span>, true);
 
 	<span class="reserved">this</span>.initEvent.fire(YAHOO.widget.Dialog);
-}
+};
 
 <span class="comment">/**
 * Prepares the Dialog's internal FORM object, creating one if one is not currently present.
@@ -462,7 +430,6 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.registerForm = <span
 			<span class="reserved">if</span> (el.focus) {
 				<span class="reserved">if</span> (el.type &amp;&amp; el.type != <span class="literal">"hidden"</span>) {
 					<span class="reserved">return</span> el;
-					break;
 				}
 			}
 		}
@@ -475,7 +442,6 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.registerForm = <span
 			<span class="reserved">if</span> (el.focus) {
 				<span class="reserved">if</span> (el.type &amp;&amp; el.type != <span class="literal">"hidden"</span>) {
 					<span class="reserved">return</span> el;
-					break;
 				}
 			}
 		}
@@ -502,7 +468,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.registerForm = <span
 			<span class="reserved">this</span>.hideEvent.subscribe(<span class="reserved">this</span>.preventTabOut.disable, <span class="reserved">this</span>.preventTabOut, true);
 		}
 	}
-}
+};
 
 <span class="comment">// BEGIN BUILT-IN PROPERTY EVENT HANDLERS //</span>
 
@@ -520,6 +486,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.configButtons = <spa
 			var button = buttons[b];
 
 			var htmlButton = document.createElement(<span class="literal">"BUTTON"</span>);
+			htmlButton.setAttribute(<span class="literal">"type"</span>, <span class="literal">"button"</span>);
 
 			<span class="reserved">if</span> (button.isDefault) {
 				htmlButton.className = <span class="literal">"default"</span>;
@@ -532,7 +499,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.configButtons = <spa
 			<span class="reserved">this</span>.buttonSpan.appendChild(htmlButton);		
 			button.htmlButton = htmlButton;
 
-			<span class="reserved">if</span> (b == 0) {
+			<span class="reserved">if</span> (b === 0) {
 				<span class="reserved">this</span>.firstButton = button.htmlButton;
 			}
 
@@ -546,8 +513,19 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.configButtons = <spa
 
 		<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"iframe"</span>);
 		<span class="reserved">this</span>.cfg.refireEvent(<span class="literal">"underlay"</span>);
+	} <span class="reserved">else</span> { <span class="comment">// Do cleanup</span>
+		<span class="reserved">if</span> (<span class="reserved">this</span>.buttonSpan) {
+			<span class="reserved">if</span> (<span class="reserved">this</span>.buttonSpan.parentNode) {
+				<span class="reserved">this</span>.buttonSpan.parentNode.removeChild(<span class="reserved">this</span>.buttonSpan);
+			}
+
+			<span class="reserved">this</span>.buttonSpan = null;
+			<span class="reserved">this</span>.firstButton = null;
+			<span class="reserved">this</span>.lastButton = null;
+			<span class="reserved">this</span>.defaultHtmlButton = null;
+		}
 	}
-}
+};
 
 <span class="comment">/**
 * The default handler fired when the "success" property is changed. Used for asynchronous submission only.
@@ -580,7 +558,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusFirst = <span c
 	} <span class="reserved">else</span> {
 		<span class="reserved">this</span>.focusDefaultButton();
 	}
-}
+};
 
 <span class="comment">/**
 * Sets the focus to the last button in the button or form element in the Dialog
@@ -601,7 +579,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusLast = <span cl
 			<span class="reserved">this</span>.lastFormElement.focus();
 		}
 	}
-}
+};
 
 <span class="comment">/**
 * Sets the focus to the button that is designated as the default. By default, his handler is executed when the show event is fired.
@@ -610,7 +588,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusDefaultButton =
 	<span class="reserved">if</span> (<span class="reserved">this</span>.defaultHtmlButton) {
 		<span class="reserved">this</span>.defaultHtmlButton.focus();
 	}
-}
+};
 
 <span class="comment">/**
 * Blurs all the html buttons
@@ -623,7 +601,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.blurButtons = <span 
 			html.blur();
 		}
 	}
-}
+};
 
 <span class="comment">/**
 * Sets the focus to the first button in the button list
@@ -636,7 +614,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusFirstButton = <
 			html.focus();
 		}
 	}
-}
+};
 
 <span class="comment">/**
 * Sets the focus to the first button in the button list
@@ -649,7 +627,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusLastButton = <s
 			html.focus();
 		}
 	}
-}
+};
 
 <span class="comment">// END BUILT-IN PROPERTY EVENT HANDLERS //</span>
 
@@ -658,7 +636,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.focusLastButton = <s
 */</span>
 YAHOO.widget.Dialog.<span class="reserved">prototype</span>.validate = <span class="reserved">function</span>() {
 	<span class="reserved">return</span> true;
-}
+};
 
 <span class="comment">/**
 * Executes a submit of the Dialog followed by a hide, if validation is successful.
@@ -673,7 +651,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.submit = <span class
 	} <span class="reserved">else</span> {
 		<span class="reserved">return</span> false;
 	}
-}
+};
 
 <span class="comment">/**
 * Executes the cancel of the Dialog followed by a hide.
@@ -681,7 +659,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.submit = <span class
 YAHOO.widget.Dialog.<span class="reserved">prototype</span>.cancel = <span class="reserved">function</span>() {
 	<span class="reserved">this</span>.cancelEvent.fire();
 	<span class="reserved">this</span>.hide();	
-}
+};
 
 <span class="comment">/**
 * Returns a JSON-compatible data structure representing the data currently contained in the form.
@@ -713,12 +691,12 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.getData = <span clas
 							data[i] = formItem.value;
 							break;
 						case <span class="literal">"SELECT"</span>:
-							var val = new Array();
+							var val = [];
 							<span class="reserved">for</span> (var x=0;x&lt;formItem.options.length;x++)	{
 								var option = formItem.options[x];
 								<span class="reserved">if</span> (option.selected) {
 									var selval = option.value;
-									<span class="reserved">if</span> (! selval || selval == <span class="literal">""</span>) {
+									<span class="reserved">if</span> (! selval || selval === <span class="literal">""</span>) {
 										selval = option.text;
 									}
 									val[val.length] = selval;
@@ -741,7 +719,7 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.getData = <span clas
 									}
 									break;
 								case <span class="literal">"checkbox"</span>:
-									var cbArray = new Array();
+									var cbArray = [];
 									<span class="reserved">for</span> (var c=0; c&lt;formItem.length; c++) {
 										var check = formItem[c];
 										<span class="reserved">if</span> (check.checked) {
@@ -757,7 +735,15 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.getData = <span clas
 		}	
 	}
 	<span class="reserved">return</span> data;
-}</pre>
+};
+
+<span class="comment">/**
+* Returns a string representation of the object.
+* <span class="attrib">@type</span> string
+*/</span> 
+YAHOO.widget.Dialog.<span class="reserved">prototype</span>.toString = <span class="reserved">function</span>() {
+	<span class="reserved">return</span> <span class="literal">"Dialog "</span> + <span class="reserved">this</span>.id;
+};</pre>
 			</div>
 		
 	</div>
@@ -765,11 +751,13 @@ YAHOO.widget.Dialog.<span class="reserved">prototype</span>.getData = <span clas
 
 
 <div id="footer">
-	<hr />	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+	<hr />
+	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
 	<br /><br />
-	Documentation generated by <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
-	version 1.9.5.8
+	Documentation generated by <a href="http://jsdoc.sourceforge.net/">
+	JSDoc</a>
 </div>
+
 
 
 </body>

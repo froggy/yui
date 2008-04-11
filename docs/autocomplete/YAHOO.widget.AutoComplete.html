@@ -109,9 +109,9 @@
         <div class="main">
 	
 		<h2>Class YAHOO.widget.AutoComplete</h2>
-		<pre>Object
-   |
-   +--<b>YAHOO.widget.AutoComplete</b>
+		<pre>Object
+   |
+   +--<b>YAHOO.widget.AutoComplete</b>
 </pre>
 		
 		
@@ -188,10 +188,35 @@
 							<td class="flags">boolean</td>
 							<td class="spec">
 								<code>
+									<a href="#allowBrowserAutocomplete">allowBrowserAutocomplete</a>
+								</code>
+								<div class="description">
+									Whether or not to allow browsers to cache user-typed input in the input
+ field.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
+									<a href="#alwaysShowContainer">alwaysShowContainer</a>
+								</code>
+								<div class="description">
+									Whether or not the auto complete container should always be displayed.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
 									<a href="#animHoriz">animHoriz</a>
 								</code>
 								<div class="description">
-									Whether or not to animate the expansion/collapse of the auto complete
+									Whether or not to animate the expansion/collapse of the auto complete
  container in the horizontal direction.&nbsp;
 								</div>
 							</td>
@@ -216,8 +241,21 @@
 									<a href="#animVert">animVert</a>
 								</code>
 								<div class="description">
-									Whether or not to animate the expansion/collapse of the auto complete
+									Whether or not to animate the expansion/collapse of the auto complete
  container in the vertical direction.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
+									<a href="#autoHighlight">autoHighlight</a>
+								</code>
+								<div class="description">
+									Whether or not the first item in the auto complete container should be
+ automatically highlighted on expand.&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -253,7 +291,7 @@
 									<a href="#dataErrorEvent">dataErrorEvent</a>
 								</code>
 								<div class="description">
-									Fired when the auto complete instance does not receive query results from the
+									Fired when the auto complete instance does not receive query results from the
  data source due to an error.&nbsp;
 								</div>
 							</td>
@@ -278,7 +316,7 @@
 									<a href="#dataReturnEvent">dataReturnEvent</a>
 								</code>
 								<div class="description">
-									Fired when the auto complete instance receives query results from the data
+									Fired when the auto complete instance receives query results from the data
  source.&nbsp;
 								</div>
 							</td>
@@ -315,7 +353,7 @@
 									<a href="#forceSelection">forceSelection</a>
 								</code>
 								<div class="description">
-									Whether or not to force the user's selection to match one of the query
+									Whether or not to force the user's selection to match one of the query
  results.&nbsp;
 								</div>
 							</td>
@@ -418,6 +456,18 @@
 						</tr>
 					
 						<tr>
+							<td class="flags">string</td>
+							<td class="spec">
+								<code>
+									<a href="#prehighlightClassName">prehighlightClassName</a>
+								</code>
+								<div class="description">
+									Class name of a pre-highlighted item within the auto complete container.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
 							<td class="flags">number</td>
 							<td class="spec">
 								<code>
@@ -436,7 +486,7 @@
 									<a href="#selectionEnforceEvent">selectionEnforceEvent</a>
 								</code>
 								<div class="description">
-									Fired if forceSelection is enabled and the user's input has been cleared
+									Fired if forceSelection is enabled and the user's input has been cleared
  because it did not match one of the returned query results.&nbsp;
 								</div>
 							</td>
@@ -485,8 +535,8 @@
 									<a href="#typeAhead">typeAhead</a>
 								</code>
 								<div class="description">
-									Whether or not the auto complete input field should be automatically updated
- with the first query result as the user types, auto-selecting the substring
+									Whether or not the auto complete input field should be automatically updated
+ with the first query result as the user types, auto-selecting the substring
  that the user has not typed.&nbsp;
 								</div>
 							</td>
@@ -499,8 +549,20 @@
 									<a href="#typeAheadEvent">typeAheadEvent</a>
 								</code>
 								<div class="description">
-									Fired when the auto complete textbox has been prefilled by the type-ahead
+									Fired when the auto complete textbox has been prefilled by the type-ahead
  feature.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">Object</td>
+							<td class="spec">
+								<code>
+									<a href="#unmatchedItemSelectEvent">unmatchedItemSelectEvent</a>
+								</code>
+								<div class="description">
+									Fired when an user selection does not match any of the displayed result items.&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -512,8 +574,20 @@
 									<a href="#useIFrame">useIFrame</a>
 								</code>
 								<div class="description">
-									Whether or not to use an iFrame to layer over Windows form elements in
+									Whether or not to use an iFrame to layer over Windows form elements in
  IE.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
+									<a href="#useShadow">useShadow</a>
+								</code>
+								<div class="description">
+									Whether or not the auto complete container should have a shadow.&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -536,7 +610,7 @@
 						<a href="YAHOO.widget.AutoComplete.html#YAHOO.widget.AutoComplete()">YAHOO.widget.AutoComplete</a>
 					</code>
 					<div class="description">
-						Class providing the customizable functionality of a plug-and-play DHTML
+						Class providing the customizable functionality of a plug-and-play DHTML
  auto complete widget.&nbsp;
 					</div>
 				</div>
@@ -560,8 +634,22 @@
 										(&lt;object&gt; oResultItem, &lt;string&gt; sQuery)
 									</code>
 									<div class="description">
-										Overridable method that converts a result item object into HTML markup
+										Overridable method that converts a result item object into HTML markup
  for display.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
+							<tr>
+								<td class="flags">object or array</td>
+								<td class="spec">
+									<code>
+										<a href="#getListItemData">getListItemData</a>
+										(oListItem)
+									</code>
+									<div class="description">
+										Public accessor to the data held in an &lt;li&gt; element of the
+ auto complete container.&nbsp;
 									</div>
 								</td>
 							</tr>
@@ -570,25 +658,38 @@
 								<td class="flags">array</td>
 								<td class="spec">
 									<code>
-										<a href="#getListIds">getListIds</a>
+										<a href="#getListItems">getListItems</a>
 										()
 									</code>
 									<div class="description">
-										Public accessor to the internal array of DOM &lt;li&gt; element IDs that
+										Public accessor to the internal array of DOM &lt;li&gt; elements that
  display query results within the auto complete container.&nbsp;
 									</div>
 								</td>
 							</tr>
 						
 							<tr>
-								<td class="flags">string</td>
+								<td class="flags">void</td>
 								<td class="spec">
 									<code>
-										<a href="#getName">getName</a>
-										()
+										<a href="#sendQuery">sendQuery</a>
+										(&lt;string&gt; sQuery)
 									</code>
 									<div class="description">
-										Public accessor to the unique name of the auto complete instance.&nbsp;
+										Makes query request to the data source.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
+							<tr>
+								<td class="flags">void</td>
+								<td class="spec">
+									<code>
+										<a href="#setBody">setBody</a>
+										(sBody)
+									</code>
+									<div class="description">
+										Sets HTML markup for the auto complete container body.&nbsp;
 									</div>
 								</td>
 							</tr>
@@ -619,6 +720,19 @@
 								</td>
 							</tr>
 						
+							<tr>
+								<td class="flags">string</td>
+								<td class="spec">
+									<code>
+										<a href="#toString">toString</a>
+										()
+									</code>
+									<div class="description">
+										Public accessor to the unique name of the auto complete instance.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
 					</table>
 				</div>
 			</div>
@@ -634,6 +748,41 @@
 				<h3><a name="field_detail">Field Detail</a> <span class="top">[<a href="#top">top</a>]</span></h3>
 				<div class="content">
 					
+						<h4><a name="allowBrowserAutocomplete">allowBrowserAutocomplete</a></h4>
+						<div class="detail">
+							<code>
+								boolean
+								&nbsp;
+								<strong>allowBrowserAutocomplete</strong>
+							</code>
+							<div class="description">
+								Whether or not to allow browsers to cache user-typed input in the input
+ field. Disabling this feature will prevent the widget from setting the
+ autocomplete="off" on the auto complete input field. When autocomplete="off"
+ and users click the back button after form submission, user-typed input can
+ be prefilled by the browser from its cache. This caching of user input may
+ not be desired for sensitive data, such as credit card numbers, in which
+ case, implementers should consider setting allowBrowserAutocomplete to false.
+ Default: true.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="alwaysShowContainer">alwaysShowContainer</a></h4>
+						<div class="detail">
+							<code>
+								boolean
+								&nbsp;
+								<strong>alwaysShowContainer</strong>
+							</code>
+							<div class="description">
+								Whether or not the auto complete container should always be displayed.
+ Enabling this feature prevents the toggling of the container to a collapsed
+ state. Default: false.
+							</div>
+						</div>
+						<hr />
+					
 						<h4><a name="animHoriz">animHoriz</a></h4>
 						<div class="detail">
 							<code>
@@ -642,8 +791,8 @@
 								<strong>animHoriz</strong>
 							</code>
 							<div class="description">
-								Whether or not to animate the expansion/collapse of the auto complete
- container in the horizontal direction.  Default: false.
+								Whether or not to animate the expansion/collapse of the auto complete
+ container in the horizontal direction. Default: false.
 							</div>
 						</div>
 						<hr />
@@ -669,8 +818,22 @@
 								<strong>animVert</strong>
 							</code>
 							<div class="description">
-								Whether or not to animate the expansion/collapse of the auto complete
- container in the vertical direction.  Default: true.
+								Whether or not to animate the expansion/collapse of the auto complete
+ container in the vertical direction. Default: true.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="autoHighlight">autoHighlight</a></h4>
+						<div class="detail">
+							<code>
+								boolean
+								&nbsp;
+								<strong>autoHighlight</strong>
+							</code>
+							<div class="description">
+								Whether or not the first item in the auto complete container should be
+ automatically highlighted on expand. Default: true.
 							</div>
 						</div>
 						<hr />
@@ -683,8 +846,9 @@
 								<strong>containerCollapseEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete container is collapsed. Subscribers receive the
- following array:<br>
+								Fired when the auto complete container is collapsed. If alwaysShowContainer is
+ enabled, then containerCollapseEvent will be fired when the container is
+ cleared of results. Subscribers receive the following array:<br>
      - args[0] The auto complete object instance
 							</div>
 						</div>
@@ -698,8 +862,9 @@
 								<strong>containerExpandEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete container is expanded. Subscribers receive the
- following array:<br>
+								Fired when the auto complete container is expanded. If alwaysShowContainer is
+ enabled, then containerExpandEvent will be fired when the container is
+ populated with results. Subscribers receive the following array:<br>
      - args[0] The auto complete object instance
 							</div>
 						</div>
@@ -713,9 +878,9 @@
 								<strong>dataErrorEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete instance does not receive query results from the
- data source due to an error. Subscribers receive the following array:<br>
-     - args[0] The auto complete object instance
+								Fired when the auto complete instance does not receive query results from the
+ data source due to an error. Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The query string
 							</div>
 						</div>
@@ -729,9 +894,9 @@
 								<strong>dataRequestEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete instance makes a query to the data source.
- Subscribers receive the following array:<br>
-     - args[0] The auto complete object instance
+								Fired when the auto complete instance makes a query to the data source.
+ Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The query string
 							</div>
 						</div>
@@ -745,10 +910,10 @@
 								<strong>dataReturnEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete instance receives query results from the data
- source. Subscribers receive the following array:<br>
-     - args[0] The auto complete object instance
-     - args[1] The query string
+								Fired when the auto complete instance receives query results from the data
+ source. Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
+     - args[1] The query string
      - args[2] Results array
 							</div>
 						</div>
@@ -762,7 +927,7 @@
 								<strong>dataSource</strong>
 							</code>
 							<div class="description">
-								The data source object that encapsulates the data used for auto completion.
+								The data source object that encapsulates the data used for auto completion.
  This object should be an inherited object from YAHOO.widget.DataSource.
 							</div>
 						</div>
@@ -776,10 +941,10 @@
 								<strong>delimChar</strong>
 							</code>
 							<div class="description">
-								Query delimiter. A single character separator for multiple delimited
- selections. Multiple delimiter characteres may be defined as an array of
- strings. A null value or empty string indicates that query results cannot
- be delimited. This feature is not recommended if you need forceSelection to
+								Query delimiter. A single character separator for multiple delimited
+ selections. Multiple delimiter characteres may be defined as an array of
+ strings. A null value or empty string indicates that query results cannot
+ be delimited. This feature is not recommended if you need forceSelection to
  be true. Default: null.
 							</div>
 						</div>
@@ -793,9 +958,9 @@
 								<strong>forceSelection</strong>
 							</code>
 							<div class="description">
-								Whether or not to force the user's selection to match one of the query
- results. Enabling this feature essentially transforms the auto complete form
- input field into a &lt;select&gt; field. This feature is not recommended
+								Whether or not to force the user's selection to match one of the query
+ results. Enabling this feature essentially transforms the auto complete form
+ input field into a &lt;select&gt; field. This feature is not recommended
  with delimiter character(s) defined. Default: false.
 							</div>
 						</div>
@@ -809,8 +974,8 @@
 								<strong>highlightClassName</strong>
 							</code>
 							<div class="description">
-								Class name of a highlighted item within the auto complete container.
- Default: "highlight".
+								Class name of a highlighted item within the auto complete container.
+ Default: "yui-ac-highlight".
 							</div>
 						</div>
 						<hr />
@@ -823,9 +988,9 @@
 								<strong>itemArrowFromEvent</strong>
 							</code>
 							<div class="description">
-								Fired when result item has been arrowed away from. Subscribers receive the
- following array:<br>
-     - args[0] The auto complete object instance
+								Fired when result item has been arrowed away from. Subscribers receive the
+ following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The &lt;li&gt; element item arrowed from
 							</div>
 						</div>
@@ -839,9 +1004,9 @@
 								<strong>itemArrowToEvent</strong>
 							</code>
 							<div class="description">
-								Fired when result item has been arrowed to. Subscribers receive the following
- array:<br>
-     - args[0] The auto complete object instance
+								Fired when result item has been arrowed to. Subscribers receive the following
+ array:<br>
+     - args[0] The auto complete object instance
      - args[1] The &lt;li&gt; element item arrowed to
 							</div>
 						</div>
@@ -855,9 +1020,9 @@
 								<strong>itemMouseOutEvent</strong>
 							</code>
 							<div class="description">
-								Fired when result item has been moused out. Subscribers receive the
- following array:<br>
-     - args[0] The auto complete object instance
+								Fired when result item has been moused out. Subscribers receive the
+ following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The &lt;li&gt; element item moused from
 							</div>
 						</div>
@@ -871,9 +1036,9 @@
 								<strong>itemMouseOverEvent</strong>
 							</code>
 							<div class="description">
-								Fired when result item has been moused over. Subscribers receive the following
- array:<br>
-     - args[0] The auto complete object instance
+								Fired when result item has been moused over. Subscribers receive the following
+ array:<br>
+     - args[0] The auto complete object instance
      - args[1] The &lt;li&gt element item moused to
 							</div>
 						</div>
@@ -887,10 +1052,11 @@
 								<strong>itemSelectEvent</strong>
 							</code>
 							<div class="description">
-								Fired when an item is selected via mouse click, ENTER key, or TAB key.
- Subscribers receive the following array:<br>
-     - args[0] The auto complete object instance
+								Fired when an item is selected via mouse click, ENTER key, or TAB key.
+ Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The selected &lt;li&gt; element item
+     - args[2] The data returned for the item, either as an object, or mapped from the schema into an array
 							</div>
 						</div>
 						<hr />
@@ -916,8 +1082,22 @@
 								<strong>minQueryLength</strong>
 							</code>
 							<div class="description">
-								Number of characters that must be entered before querying for results.
+								Number of characters that must be entered before querying for results.
  Default: 1.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="prehighlightClassName">prehighlightClassName</a></h4>
+						<div class="detail">
+							<code>
+								string
+								&nbsp;
+								<strong>prehighlightClassName</strong>
+							</code>
+							<div class="description">
+								Class name of a pre-highlighted item within the auto complete container.
+ Default: null.
 							</div>
 						</div>
 						<hr />
@@ -930,9 +1110,9 @@
 								<strong>queryDelay</strong>
 							</code>
 							<div class="description">
-								Number of seconds to delay before submitting a query request.  If a query
- request is received before a previous one has completed its delay, the
- previous request is cancelled and the new request is set to the delay.
+								Number of seconds to delay before submitting a query request.  If a query
+ request is received before a previous one has completed its delay, the
+ previous request is cancelled and the new request is set to the delay.
  Default: 0.5.
 							</div>
 						</div>
@@ -946,9 +1126,9 @@
 								<strong>selectionEnforceEvent</strong>
 							</code>
 							<div class="description">
-								Fired if forceSelection is enabled and the user's input has been cleared
- because it did not match one of the returned query results. Subscribers
- receive the following array:<br>
+								Fired if forceSelection is enabled and the user's input has been cleared
+ because it did not match one of the returned query results. Subscribers
+ receive the following array:<br>
      - args[0] The auto complete object instance
 							</div>
 						</div>
@@ -962,8 +1142,8 @@
 								<strong>textboxBlurEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete text input box loses focus. Subscribers receive
- an array of the following array:<br>
+								Fired when the auto complete text input box loses focus. Subscribers receive
+ an array of the following array:<br>
      - args[0] The auto complete object instance
 							</div>
 						</div>
@@ -977,8 +1157,8 @@
 								<strong>textboxFocusEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete text input box receives focus. Subscribers
- receive the following array:<br>
+								Fired when the auto complete text input box receives focus. Subscribers
+ receive the following array:<br>
      -  args[0] The auto complete object instance
 							</div>
 						</div>
@@ -992,9 +1172,9 @@
 								<strong>textboxKeyEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete text input box receives key input. Subscribers
- receive the following array:<br>
-     - args[0] The auto complete object instance
+								Fired when the auto complete text input box receives key input. Subscribers
+ receive the following array:<br>
+     - args[0] The auto complete object instance
      - args[1] The keycode number
 							</div>
 						</div>
@@ -1008,8 +1188,8 @@
 								<strong>typeAhead</strong>
 							</code>
 							<div class="description">
-								Whether or not the auto complete input field should be automatically updated
- with the first query result as the user types, auto-selecting the substring
+								Whether or not the auto complete input field should be automatically updated
+ with the first query result as the user types, auto-selecting the substring
  that the user has not typed. Default: false.
 							</div>
 						</div>
@@ -1023,11 +1203,28 @@
 								<strong>typeAheadEvent</strong>
 							</code>
 							<div class="description">
-								Fired when the auto complete textbox has been prefilled by the type-ahead
- feature. Subscribers receive the following array:<br>
-     - args[0] The auto complete object instance
-     - args[1] The query string
+								Fired when the auto complete textbox has been prefilled by the type-ahead
+ feature. Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
+     - args[1] The query string
      - args[2] The prefill string
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="unmatchedItemSelectEvent">unmatchedItemSelectEvent</a></h4>
+						<div class="detail">
+							<code>
+								Object
+								&nbsp;
+								<strong>unmatchedItemSelectEvent</strong>
+							</code>
+							<div class="description">
+								Fired when an user selection does not match any of the displayed result items.
+ Note that this event may not behave as expected when delimiter characters
+ have been defined. Subscribers receive the following array:<br>
+     - args[0] The auto complete object instance
+     - args[1] The user selection
 							</div>
 						</div>
 						<hr />
@@ -1040,10 +1237,23 @@
 								<strong>useIFrame</strong>
 							</code>
 							<div class="description">
-								Whether or not to use an iFrame to layer over Windows form elements in
- IE. Set to true only when the auto complete container will be on top of a
- &lt;select&gt; field in IE and thus exposed to the IE z-index bug (i.e.,
+								Whether or not to use an iFrame to layer over Windows form elements in
+ IE. Set to true only when the auto complete container will be on top of a
+ &lt;select&gt; field in IE and thus exposed to the IE z-index bug (i.e.,
  5.5 < IE < 7). Default:false.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="useShadow">useShadow</a></h4>
+						<div class="detail">
+							<code>
+								boolean
+								&nbsp;
+								<strong>useShadow</strong>
+							</code>
+							<div class="description">
+								Whether or not the auto complete container should have a shadow. Default:false.
 							</div>
 						</div>
 						<hr />
@@ -1066,19 +1276,20 @@
 						</code>
 						<div class="description">
 							
-								Class providing the customizable functionality of a plug-and-play DHTML
- auto complete widget.  Some key features:
- <ul>
- <li>Navigate with up/down arrow keys and/or mouse to pick a selection</li>
- <li>The drop down container can "roll down" or "fly out" via configurable
- animation</li>
- <li>UI look-and-feel customizable through CSS, including container
- attributes, borders, position, fonts, etc</li>
- </ul>
-  
- requires YAHOO.util.Event Event utility
- requires YAHOO.widget.DataSource Data source class      
- see YAHOO.util.Animation Animation utility
+								Class providing the customizable functionality of a plug-and-play DHTML
+ auto complete widget.  Some key features:
+ <ul>
+ <li>Navigate with up/down arrow keys and/or mouse to pick a selection</li>
+ <li>The drop down container can "roll down" or "fly out" via configurable
+ animation</li>
+ <li>UI look-and-feel customizable through CSS, including container
+ attributes, borders, position, fonts, etc</li>
+ </ul>
+
+ requires YAHOO.util.Dom Dom utility
+ requires YAHOO.util.Event Event utility
+ requires YAHOO.widget.DataSource Data source class
+ see YAHOO.util.Animation Animation utility
  see JSON JSON library
 							
 							
@@ -1087,13 +1298,13 @@
 									<dt>Parameters:</dt>
 									
 										<dd>
-											<code>inputEl</code> - 
-											 DOM element reference or string ID of the auto complete input field  
+											<code>element</code> - 
+											 | string} inputEl DOM element reference or string ID of the auto complete input field  
 										</dd>
 									
 										<dd>
-											<code>containerEl</code> - 
-											 DOM element reference or string ID of the auto complete &lt;div&gt;                               container  
+											<code>element</code> - 
+											 | string} containerEl DOM element reference or string ID of the auto complete &lt;div&gt;                               container  
 										</dd>
 									
 										<dd>
@@ -1136,9 +1347,9 @@
 									
 							<div class="description">
 								
-									Overridable method that converts a result item object into HTML markup
- for display. Return data values are accessible via the oResultItem object,
- and the key return value will always be oResultItem[0]. Markup will be
+									Overridable method that converts a result item object into HTML markup
+ for display. Return data values are accessible via the oResultItem object,
+ and the key return value will always be oResultItem[0]. Markup will be
  displayed within &lt;li&gt; element tags in the container.
 								
 								
@@ -1168,24 +1379,24 @@
 						</div>
 						<hr />
 					
-						<h4><a name="getListIds">getListIds</a></h4>
+						<h4><a name="getListItemData">getListItemData</a></h4>
 						<div class="detail">
 							<code>
-								array 
-								<strong>getListIds</strong>
-								()
+								object or array
+								<strong>getListItemData</strong>
+								(oListItem)
 							</code>
 									
 							<div class="description">
 								
-									Public accessor to the internal array of DOM &lt;li&gt; element IDs that
- display query results within the auto complete container.
+									Public accessor to the data held in an &lt;li&gt; element of the
+ auto complete container.
 								
 								
 								
 									<dl>
 										<dt>Returns:</dt>
-										<dd> Array of &lt;li&gt; element IDs within the auto complete                  container</dd>
+										<dd> Object or array of result data or null</dd>
 									</dl>
 								
 								
@@ -1193,24 +1404,84 @@
 						</div>
 						<hr />
 					
-						<h4><a name="getName">getName</a></h4>
+						<h4><a name="getListItems">getListItems</a></h4>
 						<div class="detail">
 							<code>
-								string 
-								<strong>getName</strong>
+								array 
+								<strong>getListItems</strong>
 								()
 							</code>
 									
 							<div class="description">
 								
-									Public accessor to the unique name of the auto complete instance.
+									Public accessor to the internal array of DOM &lt;li&gt; elements that
+ display query results within the auto complete container.
 								
 								
 								
 									<dl>
 										<dt>Returns:</dt>
-										<dd> Unique name of the auto complete instance</dd>
+										<dd> Array of &lt;li&gt; elements within the auto complete                  container</dd>
 									</dl>
+								
+								
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="sendQuery">sendQuery</a></h4>
+						<div class="detail">
+							<code>
+								void 
+								<strong>sendQuery</strong>
+								(&lt;string&gt; sQuery)
+							</code>
+									
+							<div class="description">
+								
+									Makes query request to the data source.
+								
+								
+									<dl>
+										<dt>Parameters:</dt>
+										
+											<dd>
+												<code>sQuery</code> - 
+												 Query string.    
+											</dd>
+										
+									</dl>
+								
+								
+								
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="setBody">setBody</a></h4>
+						<div class="detail">
+							<code>
+								void 
+								<strong>setBody</strong>
+								(sBody)
+							</code>
+									
+							<div class="description">
+								
+									Sets HTML markup for the auto complete container body. This markup will be
+ inserted within a &lt;div&gt; tag with a class of "ac_bd".
+								
+								
+									<dl>
+										<dt>Parameters:</dt>
+										
+											<dd>
+												<code>sHeader</code> - 
+												 HTML markup for container body    
+											</dd>
+										
+									</dl>
+								
 								
 								
 							</div>
@@ -1227,7 +1498,7 @@
 									
 							<div class="description">
 								
-									Sets HTML markup for the auto complete container footer. This markup will be
+									Sets HTML markup for the auto complete container footer. This markup will be
  inserted within a &lt;div&gt; tag with a class of "ac_ft".
 								
 								
@@ -1257,7 +1528,7 @@
 									
 							<div class="description">
 								
-									Sets HTML markup for the auto complete container header. This markup will be
+									Sets HTML markup for the auto complete container header. This markup will be
  inserted within a &lt;div&gt; tag with a class of "ac_hd".
 								
 								
@@ -1271,6 +1542,30 @@
 										
 									</dl>
 								
+								
+								
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="toString">toString</a></h4>
+						<div class="detail">
+							<code>
+								string 
+								<strong>toString</strong>
+								()
+							</code>
+									
+							<div class="description">
+								
+									Public accessor to the unique name of the auto complete instance.
+								
+								
+								
+									<dl>
+										<dt>Returns:</dt>
+										<dd> Unique name of the auto complete instance</dd>
+									</dl>
 								
 								
 							</div>

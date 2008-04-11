@@ -5,32 +5,19 @@
 </head>
   
 <script type="text/javascript" src="../../build/yahoo/yahoo.js" ></script>
-<script type="text/javascript" src="js/log.js" ></script>
 <script type="text/javascript" src="../../build/event/event.js" ></script>
 <script type="text/javascript" src="../../build/dom/dom.js"></script>
-<script type="text/javascript" src="../../build/animation/animation.js"></script>
+<script type="text/javascript" src="../../build/logger/logger.js"></script>
 
-<script type="text/javascript" src="../../build/dragdrop/dragdrop.js" ></script>
-        <script type="text/javascript" src="js/DDOnTop.js" ></script>
-        <script type="text/javascript" src="js/DDSwap.js" ></script>
-        <script type="text/javascript" src="js/DDMy.js" ></script>
-        <script type="text/javascript" src="js/DDMy2.js" ></script>
-        <script type="text/javascript" src="js/DDList.js" ></script>
-        <script type="text/javascript" src="js/DDPlayer.js" ></script>
-        <script type="text/javascript" src="js/DDResize.js" ></script>
+<script type="text/javascript" src="../../build/dragdrop/dragdrop-debug.js" ></script>
+<script type="text/javascript" src="js/DDOnTop.js" ></script>
 
-    
 <script type="text/javascript">
 
 YAHOO.example.DDApp = function() {
     var dd, dd3, logger;
     return {
         init: function() {
-            if (typeof(ygLogger) != "undefined") {
-                ygLogger.init(document.getElementById("logDiv"));
-                logger = new ygLogger("test_noimpl.php");
-            }
-
             dd = new YAHOO.example.DDOnTop("dragDiv1");
             dd.setHandleElId("handle1");
             dd.setHandleElId("handle2");
@@ -50,25 +37,30 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
 
 <style type="text/css">
 
-    #logDiv {
-        font-family:Arial, Helvetica, sans-serif;
-        position:relative;overflow:auto;text-align:left;z-index:998;
-        font-size:84%;width:100%;top:0px; height:280px;
-    }
+/* logger default styles */
+/* font size is controlled here: default 77% */
+#yui-log {position:absolute;top:1em;right:1em;font-size:77%;text-align:left;}
+/* width is controlled here: default 31em */
+.yui-log {background-color:#AAA;border:1px solid black;font-family:monospace;z-index:9000;}
+.yui-log p {margin:1px;padding:.1em;}
+.yui-log button {font-family:monospace;}
+.yui-log .yui-log-hd {padding:.5em;background-color:#575757;color:#FFF;}
+/* height is controlled here: default 20em*/
+.yui-log .yui-log-bd {width:100%;height:20em;background-color:#FFF;border:1px solid gray;overflow:auto;}
+.yui-log .yui-log-ft {margin-top:.5em;margin-bottom:1em;}
+.yui-log .yui-log-ft .yui-log-categoryfilters {}
+.yui-log .yui-log-ft .yui-log-sourcefilters {width:100%;border-top:1px solid #575757;margin-top:.75em;padding-top:.75em;}
+.yui-log .yui-log-btns {position:relative;float:right;bottom:.25em;}
+.yui-log .yui-log-filtergrp {margin-right:.5em;}
+.yui-log .info {background-color:#A7CC25;} /* A7CC25 green */
+.yui-log .warn {background-color:#F58516;} /* F58516 orange */
+.yui-log .error {background-color:#E32F0B;} /* E32F0B red */
+.yui-log .time {background-color:#A6C9D7;} /* A6C9D7 blue */
+.yui-log .window {background-color:#F2E886;} /* F2E886 tan */
 
-    #logFooter { 
-        font-size:82%;background-color:#cccccc;padding:5px;line-height:14px 
-    }
-
-    #ylogo { 
-        position:absolute;top:5px;left:5px; 
-    }
-
-    #logHeader input {
-        font-size:80%;
-    }
 
 </style>
+
 
 <img id="ylogo" src="img/logo.gif" />
 
@@ -87,19 +79,44 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
 <div id="linkage">
 <ul>
 <li><a href="drag.html?mode=dist">Drag test</a></li>
-<li><a href="ontop.html?mode=dist">Always on top test</a></li>
-<li><a href="proxy.html?mode=dist">Framed test</a> </li>
-<li><a href="list.html?mode=dist">Sortable List</a> </li>
+<li><a href="ontop.html?mode=dist">Always on top</a></li>
+<li><a href="proxy.html?mode=dist">Proxy drag</a> </li>
+<li><a href="list.html?mode=dist">Sortable list</a> </li>
+<!--
 <li><a href="slider.html?mode=dist">Slider</a></li>
-<li><a href="multihandle.html?mode=dist">Multiple Handles</a></li>
-<li><a href="targetable.html?mode=dist">Targetable Affordance</a></li>
+-->
+<li><a href="multihandle.html?mode=dist">Multiple handles</a></li>
+<li><a href="targetable.html?mode=dist">Targetable affordance</a></li>
 <li><a href="grid.html?mode=dist">Grid</a></li>
-<li><a href="resize.html?mode=dist">Resize Pane</a></li>
+<li><a href="resize.html?mode=dist">Resize pane</a></li>
 
 </ul>
 </div> 
 
 
+
+<script type="text/javascript">
+//<![CDATA[
+    YAHOO.example.logApp = function() {
+        return {
+            init: function() {
+                if (YAHOO.widget.Logger) {
+                    var reader = new YAHOO.widget.LogReader( "logDiv", 
+                            { newestOnTop: true, height: "400px" } );
+
+                    reader._onClickPauseBtn(null, reader);
+
+                }
+            }
+        };
+    } (); 
+
+    YAHOO.util.Event.on(window, "load", YAHOO.example.logApp.init);
+//]]>
+</script>
+
+</h4>
+<div id="logDiv"></div>
 </div>
 
 
@@ -110,8 +127,9 @@ YAHOO.util.Event.addListener(window, "load", YAHOO.example.DDApp.init);
     <div class="newsItem">
       <h3>Multiple Drag Handles</h3>
       <p>
-        Demonstrates the support for multiple drag handles introduced in release 0.9.1.
+      &nbsp;
       </p>
+<strong>The logger is paused for performance reasons.  Click "Resume" to re-enable it.</strong>
 
     </div>
     </form>

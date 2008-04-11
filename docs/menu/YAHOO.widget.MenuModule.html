@@ -50,10 +50,6 @@
 				<h4><a href="./allclasses-noframe.html">Classes</a></h4>
 				<ul class="content">
 					
-						<li>
-							<a href="YAHOO.widget.html">
-								YAHOO.widget</a>
-						</li>
 					
 						<li>
 							<a href="YAHOO.widget.ContextMenu.html">
@@ -401,18 +397,6 @@
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="flags">Object</td>
-							<td class="spec">
-								<code>
-									<a href="#superclass">superclass</a>
-								</code>
-								<div class="description">
-									&nbsp;
-								</div>
-							</td>
-						</tr>
-					
 					</table>
 				</div>
 			</div>
@@ -477,8 +461,22 @@
 								<td class="flags">void</td>
 								<td class="spec">
 									<code>
+										<a href="#configIframe">configIframe</a>
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
+									</code>
+									<div class="description">
+										Event handler for when the "iframe" configuration property of a
+ MenuModule changes.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
+							<tr>
+								<td class="flags">void</td>
+								<td class="spec">
+									<code>
 										<a href="#configPosition">configPosition</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
 									</code>
 									<div class="description">
 										Event handler for when the "position" configuration property of a
@@ -546,7 +544,7 @@
 								<td class="spec">
 									<code>
 										<a href="#init">init</a>
-										(&#60;String Id or HTMLElement&#62; p_oElement, &lt;Object&gt; p_oUserConfig)
+										(&lt;String Id or HTMLElement&gt; p_oElement, &lt;Object&gt; p_oConfig)
 									</code>
 									<div class="description">
 										The MenuModule class's initialization method.&nbsp;
@@ -586,7 +584,7 @@
 								<td class="spec">
 									<code>
 										<a href="#removeItem">removeItem</a>
-										(&#60;String or HTMLElement&#62; p_oObject, &lt;Number&gt; p_nGroupIndex)
+										(p_oObject, &lt;Number&gt; p_nGroupIndex)
 									</code>
 									<div class="description">
 										Removes the specified item from a MenuModule instance.&nbsp;
@@ -630,6 +628,19 @@
 									</code>
 									<div class="description">
 										Sets the title of a group of items.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
+							<tr>
+								<td class="flags">Object</td>
+								<td class="spec">
+									<code>
+										<a href="#toString">toString</a>
+										()
+									</code>
+									<div class="description">
+										&nbsp;
 									</div>
 								</td>
 							</tr>
@@ -832,19 +843,6 @@
 						</div>
 						<hr />
 					
-						<h4><a name="superclass">superclass</a></h4>
-						<div class="detail">
-							<code>
-								Object
-								&nbsp;
-								<strong>superclass</strong>
-							</code>
-							<div class="description">
-								
-							</div>
-						</div>
-						<hr />
-					
 				</div>
 			</div>
 		
@@ -870,11 +868,11 @@
 									
 										<dd>
 											<code>p_oElement</code> - 
-											 String id or HTMLElement   (either HTMLSelectElement or HTMLDivElement) of the source HTMLElement node.  
+                                            String id or HTMLElement   (either HTMLSelectElement or HTMLDivElement) of the source HTMLElement node.  
 										</dd>
 									
 										<dd>
-											<code>p_oUserConfig</code> - 
+											<code>p_oConfig</code> - 
 											 Optional. The configuration object literal   containing the configuration for a MenuModule instance. See   configuration class documentation for more details.
 										</dd>
 									
@@ -957,12 +955,54 @@
 						</div>
 						<hr />
 					
+						<h4><a name="configIframe">configIframe</a></h4>
+						<div class="detail">
+							<code>
+								void 
+								<strong>configIframe</strong>
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
+							</code>
+									
+							<div class="description">
+								
+									Event handler for when the "iframe" configuration property of a
+ MenuModule changes.
+								
+								
+									<dl>
+										<dt>Parameters:</dt>
+										
+											<dd>
+												<code>p_sType</code> - 
+												 The name of the event that was fired.  
+											</dd>
+										
+											<dd>
+												<code>p_aArgs</code> - 
+												 Collection of arguments sent when the event   was fired.  
+											</dd>
+										
+											<dd>
+												<code>p_oMenuModule</code> - 
+												 The MenuModule instance fired  the event.  
+											</dd>
+										
+									</dl>
+								
+								
+								
+									ARRAY(0x847fe70)
+								
+							</div>
+						</div>
+						<hr />
+					
 						<h4><a name="configPosition">configPosition</a></h4>
 						<div class="detail">
 							<code>
 								void 
 								<strong>configPosition</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a>&gt; p_oMenuModule)
 							</code>
 									
 							<div class="description">
@@ -980,20 +1020,18 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the event   was fired.  
 											</dd>
 										
 											<dd>
 												<code>p_oMenuModule</code> - 
-												 The MenuModule instance fired  the event.  
+												 The MenuModule instance fired  the event.   
 											</dd>
 										
 									</dl>
 								
 								
-								
-									ARRAY(0x8462c30)
 								
 							</div>
 						</div>
@@ -1107,7 +1145,7 @@
 							<code>
 								void 
 								<strong>init</strong>
-								(&#60;String Id or HTMLElement&#62; p_oElement, &lt;Object&gt; p_oUserConfig)
+								(&lt;String Id or HTMLElement&gt; p_oElement, &lt;Object&gt; p_oConfig)
 							</code>
 									
 							<div class="description">
@@ -1121,12 +1159,13 @@
 										<dt>Parameters:</dt>
 										
 											<dd>
-												<code>p_oUserConfig</code> - 
+												<code>p_oConfig</code> - 
 												 Optional. The configuration object literal   containing the configuration for a MenuModule instance. See   configuration class documentation for more details.   
 											</dd>
 										
 											<dd>
-												<code>p_oElement</code> -  String id or HTMLElement   (either HTMLSelectElement or HTMLDivElement) of the source HTMLElement node.  
+												<code>String</code> - 
+												 or HTMLElement} p_oElement String id or HTMLElement   (either HTMLSelectElement or HTMLDivElement) of the source HTMLElement node.  
 											</dd>
 										
 									</dl>
@@ -1206,7 +1245,7 @@
 							<code>
 								<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a> 
 								<strong>removeItem</strong>
-								(&#60;String or HTMLElement&#62; p_oObject, &lt;Number&gt; p_nGroupIndex)
+								(p_oObject, &lt;Number&gt; p_nGroupIndex)
 							</code>
 									
 							<div class="description">
@@ -1224,7 +1263,7 @@
 										
 											<dd>
 												<code>YAHOO</code> - 
-												.widget.MenuModuleItem/Number} p_oObject The item or index of the  item to be removed.  
+												.widget.MenuModuleItem/Number} p_oObject The item or index of   the item to be removed.  
 											</dd>
 										
 									</dl>
@@ -1313,6 +1352,23 @@
 						</div>
 						<hr />
 					
+						<h4><a name="toString">toString</a></h4>
+						<div class="detail">
+							<code>
+								Object 
+								<strong>toString</strong>
+								()
+							</code>
+									
+							<div class="description">
+								
+								
+								
+								
+							</div>
+						</div>
+						<hr />
+					
 				</div>
 			</div>
 		
@@ -1326,7 +1382,6 @@
 <div id="footer">
 	<hr />
 	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
-
 	<br /><br />
 	Documentation generated by <a href="http://jsdoc.sourceforge.net/">
 	JSDoc</a>

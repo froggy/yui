@@ -50,10 +50,6 @@
 				<h4><a href="./allclasses-noframe.html">Classes</a></h4>
 				<ul class="content">
 					
-						<li>
-							<a href="YAHOO.widget.html">
-								YAHOO.widget</a>
-						</li>
 					
 						<li>
 							<a href="YAHOO.widget.ContextMenu.html">
@@ -248,6 +244,18 @@
 						</tr>
 					
 						<tr>
+							<td class="flags">string</td>
+							<td class="spec">
+								<code>
+									<a href="#browser">browser</a>
+								</code>
+								<div class="description">
+									String representing the browser&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
 							<td class="flags">{YAHOO.util.CustomEvent}</td>
 							<td class="spec">
 								<code>
@@ -386,6 +394,30 @@
 						</tr>
 					
 						<tr>
+							<td class="flags">string</td>
+							<td class="spec">
+								<code>
+									<a href="#IMG_ROOT">IMG_ROOT</a>
+								</code>
+								<div class="description">
+									Constant representing the prefix path to use for non-secure images&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">string</td>
+							<td class="spec">
+								<code>
+									<a href="#IMG_ROOT_SSL">IMG_ROOT_SSL</a>
+								</code>
+								<div class="description">
+									Constant representing the prefix path to use for securely served images&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
 							<td class="flags">Number</td>
 							<td class="spec">
 								<code>
@@ -393,6 +425,19 @@
 								</code>
 								<div class="description">
 									Returns the ordinal position of a MenuModuleItem instance in a group.&nbsp;
+								</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
+									<a href="#isSecure">isSecure</a>
+								</code>
+								<div class="description">
+									Boolean representing whether or not the current browsing context 
+ is secure (https)&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -502,7 +547,7 @@
 								</code>
 								<div class="description">
 									Constant representing the path to the image to be used for the submenu
- arrow indicator when a MenuModuleItem instance has focus.&nbsp;
+ arrow indicator when a MenuModuleItem instance is selected.&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -566,7 +611,7 @@
 							<td class="flags">{HTMLImageElement}</td>
 							<td class="spec">
 								<code>
-									<a href="#subMenuIndicator">subMenuIndicator</a>
+									<a href="#submenuIndicator">submenuIndicator</a>
 								</code>
 								<div class="description">
 									Reference to the HTMLImageElement used to create the submenu
@@ -634,24 +679,11 @@
 							</tr>
 						
 							<tr>
-								<td class="flags">string</td>
-								<td class="spec">
-									<code>
-										<a href="#browser">browser</a>
-										()
-									</code>
-									<div class="description">
-										String representing the browser&nbsp;
-									</div>
-								</td>
-							</tr>
-						
-							<tr>
 								<td class="flags">void</td>
 								<td class="spec">
 									<code>
 										<a href="#configDisabled">configDisabled</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "disabled" configuration property of
@@ -665,7 +697,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configEmphasis">configEmphasis</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "emphasis" configuration property of
@@ -679,7 +711,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configHelpText">configHelpText</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "helptext" configuration property of
@@ -693,7 +725,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configSelected">configSelected</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "selected" configuration property of
@@ -707,7 +739,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configStrongEmphasis">configStrongEmphasis</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "strongemphasis" configuration property of
@@ -721,7 +753,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configSubmenu">configSubmenu</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "submenu" configuration property of
@@ -734,8 +766,22 @@
 								<td class="flags">void</td>
 								<td class="spec">
 									<code>
+										<a href="#configTarget">configTarget</a>
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+									</code>
+									<div class="description">
+										Event handler for when the "target" configuration property of
+ a MenuModuleItem instance changes.&nbsp;
+									</div>
+								</td>
+							</tr>
+						
+							<tr>
+								<td class="flags">void</td>
+								<td class="spec">
+									<code>
 										<a href="#configText">configText</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "text" configuration property of
@@ -749,7 +795,7 @@
 								<td class="spec">
 									<code>
 										<a href="#configURL">configURL</a>
-										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+										(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 									</code>
 									<div class="description">
 										Event handler for when the "url" configuration property of
@@ -818,7 +864,7 @@
 								<td class="spec">
 									<code>
 										<a href="#init">init</a>
-										(&#60;String or HTMLElement&#62; p_oObject, &lt;Object&gt; p_oUserConfig)
+										(p_oObject, &lt;Object&gt; p_oConfig)
 									</code>
 									<div class="description">
 										The MenuModuleItem class's initialization method.&nbsp;
@@ -827,15 +873,14 @@
 							</tr>
 						
 							<tr>
-								<td class="flags">boolean</td>
+								<td class="flags">void</td>
 								<td class="spec">
 									<code>
-										<a href="#isSecure">isSecure</a>
+										<a href="#initDefaultConfig">initDefaultConfig</a>
 										()
 									</code>
 									<div class="description">
-										Boolean representing whether or not the current browsing context 
- is secure (https)&nbsp;
+										Initializes an item's configurable properties.&nbsp;
 									</div>
 								</td>
 							</tr>
@@ -864,6 +909,19 @@
 							</code>
 							<div class="description">
 								Fires when a MenuModuleItem instance loses the input focus.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="browser">browser</a></h4>
+						<div class="detail">
+							<code>
+								string
+								&nbsp;
+								<strong>browser</strong>
+							</code>
+							<div class="description">
+								String representing the browser
 							</div>
 						</div>
 						<hr />
@@ -1018,6 +1076,32 @@
 						</div>
 						<hr />
 					
+						<h4><a name="IMG_ROOT">IMG_ROOT</a></h4>
+						<div class="detail">
+							<code>
+								string
+								&nbsp;
+								<strong>IMG_ROOT</strong>
+							</code>
+							<div class="description">
+								Constant representing the prefix path to use for non-secure images
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="IMG_ROOT_SSL">IMG_ROOT_SSL</a></h4>
+						<div class="detail">
+							<code>
+								string
+								&nbsp;
+								<strong>IMG_ROOT_SSL</strong>
+							</code>
+							<div class="description">
+								Constant representing the prefix path to use for securely served images
+							</div>
+						</div>
+						<hr />
+					
 						<h4><a name="index">index</a></h4>
 						<div class="detail">
 							<code>
@@ -1027,6 +1111,20 @@
 							</code>
 							<div class="description">
 								Returns the ordinal position of a MenuModuleItem instance in a group.
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="isSecure">isSecure</a></h4>
+						<div class="detail">
+							<code>
+								boolean
+								&nbsp;
+								<strong>isSecure</strong>
+							</code>
+							<div class="description">
+								Boolean representing whether or not the current browsing context 
+ is secure (https)
 							</div>
 						</div>
 						<hr />
@@ -1152,7 +1250,7 @@
 							</code>
 							<div class="description">
 								Constant representing the path to the image to be used for the submenu
- arrow indicator when a MenuModuleItem instance has focus.
+ arrow indicator when a MenuModuleItem instance is selected.
 							</div>
 						</div>
 						<hr />
@@ -1218,12 +1316,12 @@
 						</div>
 						<hr />
 					
-						<h4><a name="subMenuIndicator">subMenuIndicator</a></h4>
+						<h4><a name="submenuIndicator">submenuIndicator</a></h4>
 						<div class="detail">
 							<code>
 								{HTMLImageElement}
 								&nbsp;
-								<strong>subMenuIndicator</strong>
+								<strong>submenuIndicator</strong>
 							</code>
 							<div class="description">
 								Reference to the HTMLImageElement used to create the submenu
@@ -1269,12 +1367,12 @@
 									<dt>Parameters:</dt>
 									
 										<dd>
-                                            <code>p_oObject</code> -  
-                                            String or HTMLElement   (either HTMLLIElement, HTMLOptGroupElement or HTMLOptionElement) of the   source HTMLElement node.  
+											<code>p_oObject</code> - 
+                                           String or HTMLElement   (either HTMLLIElement, HTMLOptGroupElement or HTMLOptionElement) of the   source HTMLElement node.  
 										</dd>
 									
 										<dd>
-											<code>p_oUserConfig</code> - 
+											<code>p_oConfig</code> - 
 											 The configuration object literal containing   the configuration for a MenuModuleItem instance. See the configuration   class documentation for more details.
 										</dd>
 									
@@ -1317,31 +1415,12 @@
 						</div>
 						<hr />
 					
-						<h4><a name="browser">browser</a></h4>
-						<div class="detail">
-							<code>
-								string 
-								<strong>browser</strong>
-								()
-							</code>
-									
-							<div class="description">
-								
-									String representing the browser
-								
-								
-								
-								
-							</div>
-						</div>
-						<hr />
-					
 						<h4><a name="configDisabled">configDisabled</a></h4>
 						<div class="detail">
 							<code>
 								void 
 								<strong>configDisabled</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1359,7 +1438,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1381,7 +1460,7 @@
 							<code>
 								void 
 								<strong>configEmphasis</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1399,7 +1478,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1421,7 +1500,7 @@
 							<code>
 								void 
 								<strong>configHelpText</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1439,7 +1518,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1461,7 +1540,7 @@
 							<code>
 								void 
 								<strong>configSelected</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1479,7 +1558,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1501,7 +1580,7 @@
 							<code>
 								void 
 								<strong>configStrongEmphasis</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1519,7 +1598,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1541,7 +1620,7 @@
 							<code>
 								void 
 								<strong>configSubmenu</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1559,7 +1638,47 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
+												 Collection of arguments sent when the   event was fired.  
+											</dd>
+										
+											<dd>
+												<code>p_oItem</code> - 
+												 The MenuModuleItem instance   that fired the event.       
+											</dd>
+										
+									</dl>
+								
+								
+								
+							</div>
+						</div>
+						<hr />
+					
+						<h4><a name="configTarget">configTarget</a></h4>
+						<div class="detail">
+							<code>
+								void 
+								<strong>configTarget</strong>
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+							</code>
+									
+							<div class="description">
+								
+									Event handler for when the "target" configuration property of
+ a MenuModuleItem instance changes.
+								
+								
+									<dl>
+										<dt>Parameters:</dt>
+										
+											<dd>
+												<code>p_sType</code> - 
+												 The name of the event that was fired.  
+											</dd>
+										
+											<dd>
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1581,7 +1700,7 @@
 							<code>
 								void 
 								<strong>configText</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1599,7 +1718,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1621,7 +1740,7 @@
 							<code>
 								void 
 								<strong>configURL</strong>
-								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArguments, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
+								(&lt;String&gt; p_sType, &lt;Array&gt; p_aArgs, &lt;<a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a>&gt; p_oItem)
 							</code>
 									
 							<div class="description">
@@ -1639,7 +1758,7 @@
 											</dd>
 										
 											<dd>
-												<code>p_aArguments</code> - 
+												<code>p_aArgs</code> - 
 												 Collection of arguments sent when the   event was fired.  
 											</dd>
 										
@@ -1750,7 +1869,7 @@
 							<code>
 								void 
 								<strong>init</strong>
-								(&#60;String or HTMLElement&#62; p_oObject, &lt;Object&gt; p_oUserConfig)
+								(p_oObject, &lt;Object&gt; p_oConfig)
 							</code>
 									
 							<div class="description">
@@ -1763,15 +1882,15 @@
 								
 									<dl>
 										<dt>Parameters:</dt>
-
+										
 											<dd>
-												<code>p_oObject</code> - 
-												 String or HTMLElement   (either HTMLLIElement, HTMLOptGroupElement or HTMLOptionElement) of the   source HTMLElement node.  
+												<code>p_oConfig</code> - 
+												 The configuration object literal containing   the configuration for a MenuModuleItem instance. See the configuration   class documentation for more details.       
 											</dd>
 										
 											<dd>
-												<code>p_oUserConfig</code> - 
-												 The configuration object literal containing   the configuration for a MenuModuleItem instance. See the configuration   class documentation for more details.       
+												<code>p_oObject</code> - 
+                                                 String or HTMLElement   (either HTMLLIElement, HTMLOptGroupElement or HTMLOptionElement) of the   source HTMLElement node.  
 											</dd>
 										
 									</dl>
@@ -1782,18 +1901,17 @@
 						</div>
 						<hr />
 					
-						<h4><a name="isSecure">isSecure</a></h4>
+						<h4><a name="initDefaultConfig">initDefaultConfig</a></h4>
 						<div class="detail">
 							<code>
-								boolean 
-								<strong>isSecure</strong>
+								void 
+								<strong>initDefaultConfig</strong>
 								()
 							</code>
 									
 							<div class="description">
 								
-									Boolean representing whether or not the current browsing context 
- is secure (https)
+									Initializes an item's configurable properties.
 								
 								
 								
@@ -1815,7 +1933,6 @@
 <div id="footer">
 	<hr />
 	Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
-
 	<br /><br />
 	Documentation generated by <a href="http://jsdoc.sourceforge.net/">
 	JSDoc</a>

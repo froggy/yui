@@ -178,6 +178,42 @@
 							<td class="flags">boolean</td>
 							<td class="spec">
 								<code>
+									<a href="#_default_post_header">_default_post_header</a>
+								</code>
+								<div class="description">
+									Determines if a default header of Content-Type of 'application/x-www-form-urlencoded' will be added to any client HTTP headers for POST transactions.
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="flags">object</td>
+							<td class="spec">
+								<code>
+									<a href="#_formNode">_formNode</a>
+								</code>
+								<div class="description">
+									Property modified by setForm() to set a reference to the HTML form node if the desired action is file upload.;
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
+									<a href="#_isFileUpload">_isFileUpload</a>
+								</code>
+								<div class="description">
+									Property modified by setForm() to set the HTML form data for each transaction.&nbsp;
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="flags">boolean</td>
+							<td class="spec">
+								<code>
 									<a href="#_isFormSubmit">_isFormSubmit</a>
 								</code>
 								<div class="description">
@@ -232,6 +268,18 @@
 								<div class="description">
 									Property modified by setForm() to set the HTML form data
  for each transaction.&nbsp;
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="flags">array</td>
+							<td class="spec">
+								<code>
+									<a href="#_timeOut">_timeOut</a>
+								</code>
+								<div class="description">
+									Queue of timeout values for each transaction callback with a defined timeout value.&nbsp;
 								</div>
 							</td>
 						</tr>
@@ -416,6 +464,19 @@
 									</code>
 									<div class="description">
 										Dereference the XHR instance and the connection object after the transaction is completed.&nbsp;
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="flags">Object</td>
+								<td class="spec">
+									<code>
+										<a href="#setDefaultPostHeader">setDefaultPostHeader</a>
+										(&lt;boolean&gt; b)
+									</code>
+									<div class="description">
+										Member to enable or disable the default POST header.&nbsp;
 									</div>
 								</td>
 							</tr>

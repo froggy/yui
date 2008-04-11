@@ -109,11 +109,11 @@
         <div class="main">
 	
 		<h2>Class YAHOO.widget.DS_XHR</h2>
-		<pre>Object
-   |
-   +--<a href='YAHOO.widget.DataSource.html'>YAHOO.widget.DataSource</a>
-         |
-         +--<b>YAHOO.widget.DS_XHR</b>
+		<pre>Object
+   |
+   +--<a href='YAHOO.widget.DataSource.html'>YAHOO.widget.DataSource</a>
+         |
+         +--<b>YAHOO.widget.DS_XHR</b>
 </pre>
 		
 		
@@ -187,6 +187,18 @@
 				<h3><a name="field_summary">Field Summary</a> <span class="top">[<a href="#top">top</a>]</span></h3>
 				<div class="content">
 					<table border="1" cellpadding="3" cellspacing="0">
+					
+						<tr>
+							<td class="flags">number</td>
+							<td class="spec">
+								<code>
+									<a href="#connTimeout">connTimeout</a>
+								</code>
+								<div class="description">
+									Number of milliseconds the XHR connection will wait for a server response.&nbsp;
+								</div>
+							</td>
+						</tr>
 					
 						<tr>
 							<td class="flags">constant</td>
@@ -335,7 +347,7 @@
 						<a href="YAHOO.widget.DS_XHR.html#YAHOO.widget.DS_XHR()">YAHOO.widget.DS_XHR</a>
 					</code>
 					<div class="description">
-						Implementation of YAHOO.widget.DataSource using XML HTTP requests that return
+						Implementation of YAHOO.widget.DataSource using XML HTTP requests that return
  query results.&nbsp;
 					</div>
 				</div>
@@ -386,7 +398,7 @@
 			<div class="section method inheritance">
 				<h3>Methods inherited from class  <a href="YAHOO.widget.DataSource.html">YAHOO.widget.DataSource</a></h3>
 				<div class="content">
-							<code><a href="YAHOO.widget.DataSource.html#getResults">getResults</a>, <a href="YAHOO.widget.DataSource.html#flushCache">flushCache</a></code>
+							<code><a href="YAHOO.widget.DataSource.html#toString">toString</a>, <a href="YAHOO.widget.DataSource.html#getResults">getResults</a>, <a href="YAHOO.widget.DataSource.html#flushCache">flushCache</a></code>
 				</div>
 			</div>
 		
@@ -398,6 +410,22 @@
 			<div class="section field details">
 				<h3><a name="field_detail">Field Detail</a> <span class="top">[<a href="#top">top</a>]</span></h3>
 				<div class="content">
+					
+						<h4><a name="connTimeout">connTimeout</a></h4>
+						<div class="detail">
+							<code>
+								number
+								&nbsp;
+								<strong>connTimeout</strong>
+							</code>
+							<div class="description">
+								Number of milliseconds the XHR connection will wait for a server response. A
+ a value of zero indicates the XHR connection will wait forever. Any value
+ greater than zero will use the Connection utility's Auto-Abort feature.
+ Default: 0.
+							</div>
+						</div>
+						<hr />
 					
 						<h4><a name="ERROR_DATAXHR">ERROR_DATAXHR</a></h4>
 						<div class="detail">
@@ -420,8 +448,8 @@
 								<strong>responseStripAfter</strong>
 							</code>
 							<div class="description">
-								String after which to strip results. If the results from the XHR are sent
- back as HTML, the gzip HTML comment appears at the end of the data and should
+								String after which to strip results. If the results from the XHR are sent
+ back as HTML, the gzip HTML comment appears at the end of the data and should
  be ignored.  Default: "\n&lt;!--"
 							</div>
 						</div>
@@ -435,7 +463,7 @@
 								<strong>responseType</strong>
 							</code>
 							<div class="description">
-								XHR response data type. Other types that may be defined are TYPE_XML and
+								XHR response data type. Other types that may be defined are TYPE_XML and
  TYPE_FLAT. Default: TYPE_JSON.
 							</div>
 						</div>
@@ -462,10 +490,10 @@
 								<strong>scriptQueryAppend</strong>
 							</code>
 							<div class="description">
-								String of key/value pairs to append to requests made to scriptURI. Define
- this string when you want to send additional query parameters to your script.
- When defined, queries will be sent to
-   <scriptURI>?<scriptQueryParam>=userinput&<scriptQueryAppend>
+								String of key/value pairs to append to requests made to scriptURI. Define
+ this string when you want to send additional query parameters to your script.
+ When defined, queries will be sent to
+   <scriptURI>?<scriptQueryParam>=userinput&<scriptQueryAppend>
  Default: "".
 							</div>
 						</div>
@@ -479,9 +507,9 @@
 								<strong>scriptQueryParam</strong>
 							</code>
 							<div class="description">
-								Query string parameter name sent to scriptURI. For instance, queries will be
- sent to
-   <scriptURI>?<scriptQueryParam>=userinput
+								Query string parameter name sent to scriptURI. For instance, queries will be
+ sent to
+   <scriptURI>?<scriptQueryParam>=userinput
  Default: "query".
 							</div>
 						</div>
@@ -495,8 +523,8 @@
 								<strong>scriptURI</strong>
 							</code>
 							<div class="description">
-								Absolute or relative URI to script that returns query results. For instance,
- queries will be sent to
+								Absolute or relative URI to script that returns query results. For instance,
+ queries will be sent to
    <scriptURI>?<scriptQueryParam>=userinput
 							</div>
 						</div>
@@ -559,9 +587,9 @@
 						</code>
 						<div class="description">
 							
-								Implementation of YAHOO.widget.DataSource using XML HTTP requests that return
- query results.
- requires YAHOO.util.Connect XMLHTTPRequest library
+								Implementation of YAHOO.widget.DataSource using XML HTTP requests that return
+ query results.
+ requires YAHOO.util.Connect XMLHTTPRequest library
  extends YAHOO.widget.DataSource
 							
 							
@@ -614,7 +642,7 @@
 									
 							<div class="description">
 								
-									Queries the live data source defined by scriptURI for results. Results are
+									Queries the live data source defined by scriptURI for results. Results are
  passed back to a callback function.
 								
 								
@@ -654,7 +682,7 @@
 									
 							<div class="description">
 								
-									Parses raw response data into an array of result objects. The result data key
+									Parses raw response data into an array of result objects. The result data key
  is always stashed in the [0] element of each result object.
 								
 								
