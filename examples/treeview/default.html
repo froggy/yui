@@ -4,9 +4,6 @@
 <head>
 
 <title>Yahoo! UI Library - Tree Control</title>
-<link rel="stylesheet" type="text/css" href="http://us.js2.yimg.com/us.js.yimg.com/lib/common/css/fonts_2.0.0-b3.css" />
-<link rel="stylesheet" type="text/css" href="http://us.js2.yimg.com/us.js.yimg.com/lib/common/css/grids_2.0.0-b3.css" />
-
 <link rel="stylesheet" type="text/css" href="css/screen.css" />
 <link rel="stylesheet" type="text/css" href="css/local/tree.css" />
 
@@ -15,13 +12,13 @@
 <body>
 
 <div id="pageTitle">
-	<h3>Tree Control</h3>
+    <h3>Tree Control</h3>
 </div>
 
 <script type="text/javascript" src="../../build/yahoo/yahoo.js" ></script>
+<script type="text/javascript" src="../../build/event/event.js"></script>
 
 <!-- The following are required for the logger -->
-<script type="text/javascript" src="../../build/event/event.js"></script>
 <script type="text/javascript" src="../../build/dom/dom.js"></script>
 <script type="text/javascript" src="../../build/logger/logger.js"></script>
 <!-- End logger reqs -->
@@ -77,6 +74,7 @@
 
 
 <li><a href="folders.html?mode=dist">Folder view</a></li>
+<li><a href="customicons.html?mode=dist">Custom icons</a></li>
 <li><a href="menu.html?mode=dist">Menu</a></li>
 <li><a href="html.html?mode=dist">HTML node</a></li>
 <li><a href="multi.html?mode=dist">Multiple trees, different styles</a></li>
@@ -98,7 +96,8 @@
 
             onload: function() {
                 if (YAHOO.widget.Logger) {
-                    new YAHOO.widget.LogReader( "logDiv", { height: "400px" } );
+                    var reader = new YAHOO.widget.LogReader( "logDiv", { height: "400px" } );
+                    //reader._onClickPauseBtn(null, reader);
                 }
             }
         };
@@ -119,22 +118,22 @@
 
   <div id="content">
     <form id="mainForm" action="javscript:;">
-	<div class="newsItem">
-	  <h3>Default TreeView Widget</h3>
-	  <p>
-		
-	  </p>
+    <div class="newsItem">
+      <h3>Default TreeView Widget</h3>
+      <p>
+        
+      </p>
 
-	  <div id="expandcontractdiv">
-		<a href="javascript:tree.expandAll()">Expand all</a>
-		<a href="javascript:tree.collapseAll()">Collapse all</a>
-	  </div>
-	  <div id="treeDiv1"></div>
+      <div id="expandcontractdiv">
+        <a href="javascript:tree.expandAll()">Expand all</a>
+        <a href="javascript:tree.collapseAll()">Collapse all</a>
+      </div>
+      <div id="treeDiv1"></div>
 
-	</div>
-	</form>
+    </div>
+    </form>
   </div>
-	
+    
       <div id="footerContainer">
         <div id="footer">
           <p>&nbsp;</p>
@@ -148,49 +147,67 @@
 
 <script type="text/javascript">
 //<![CDATA[
-	var tree, nodeIndex;
-	var nodes = [];
-	
-	function treeInit() {
-		buildRandomTextNodeTree();
-	}
-	
-	function buildRandomTextNodeTree() {
-		tree = new YAHOO.widget.TreeView("treeDiv1");
 
-		for (var i = 0; i < Math.floor((Math.random()*4) + 3); i++) {
-			var tmpNode = new YAHOO.widget.TextNode("label-" + i, tree.getRoot(), false);
-			// tmpNode.collapse();
-			// tmpNode.expand();
-			// buildRandomTextBranch(tmpNode);
-			buildLargeBranch(tmpNode);
-		}
+var tree;
+(function() {
 
-		tree.draw();
-	}
+    function treeInit() {
+        buildRandomTextNodeTree();
+    }
+    
+    function buildRandomTextNodeTree() {
+        tree = new YAHOO.widget.TreeView("treeDiv1");
 
-	var callback = null;
+        for (var i = 0; i < Math.floor((Math.random()*4) + 3); i++) {
+            var tmpNode = new YAHOO.widget.TextNode("label-" + i, tree.getRoot(), false);
+            // tmpNode.collapse();
+            // tmpNode.expand();
+            // buildRandomTextBranch(tmpNode);
+            buildLargeBranch(tmpNode);
+        }
 
-	function buildLargeBranch(node) {
-		if (node.depth < 10) {
-			YAHOO.log("buildRandomTextBranch: " + node.index);
-			for ( var i = 0; i < 10; i++ ) {
-				new YAHOO.widget.TextNode(node.label + "-" + i, node, false);
-			}
-		}
-	}
+       // Expand and collapse happen prior to the actual expand/collapse,
+       // and can be used to cancel the operation
+       tree.subscribe("expand", function(node) {
+              //alert(node.index + " was expanded");
+              // return false; // return false to cancel the expand
+           });
 
-	function buildRandomTextBranch(node) {
-		if (node.depth < 10) {
-			YAHOO.log("buildRandomTextBranch: " + node.index);
-			for ( var i = 0; i < Math.floor(Math.random() * 4) ; i++ ) {
-				var tmpNode = new YAHOO.widget.TextNode(node.label + "-" + i, node, false);
-				buildRandomTextBranch(tmpNode);
-			}
-		}
-	}
+       tree.subscribe("collapse", function(node) {
+              //alert(node.index + " was collapsed");
+           });
+
+       // Trees with TextNodes will fire an event for when the label is clicked:
+       tree.subscribe("labelClick", function(node) {
+              //alert(node.index + " label was clicked");
+           });
+
+
+        tree.draw();
+    }
+
+    function buildLargeBranch(node) {
+        if (node.depth < 10) {
+            YAHOO.log("buildRandomTextBranch: " + node.index);
+            for ( var i = 0; i < 10; i++ ) {
+                new YAHOO.widget.TextNode(node.label + "-" + i, node, false);
+            }
+        }
+    }
+
+    function buildRandomTextBranch(node) {
+        if (node.depth < 10) {
+            YAHOO.log("buildRandomTextBranch: " + node.index);
+            for ( var i = 0; i < Math.floor(Math.random() * 4) ; i++ ) {
+                var tmpNode = new YAHOO.widget.TextNode(node.label + "-" + i, node, false);
+                buildRandomTextBranch(tmpNode);
+            }
+        }
+    }
 
     YAHOO.util.Event.addListener(window, "load", treeInit);
+
+})();
 
 //]]>
 </script>

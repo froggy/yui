@@ -1,5 +1,4 @@
 /* Copyright (c) 2006 Yahoo! Inc. All rights reserved. */
-
 /////////////////////////////////////////////////////////////////////////
 
 /**
@@ -12,7 +11,7 @@
  * @param {String} sGroup the group of related DragDrop objects
  */
 YAHOO.example.DDPlayer = function(id, sGroup, config) {
-    this.initPlayer(id, sGroup);
+    this.initPlayer(id, sGroup, config);
 };
 
 // YAHOO.example.DDPlayer.prototype = new YAHOO.util.DDProxy();
@@ -27,11 +26,9 @@ YAHOO.example.DDPlayer.prototype.initPlayer = function(id, sGroup, config) {
     this.initFrame();
 
     this.logger = this.logger || YAHOO;
-    var s = this.getDragEl().style;
-    s.borderColor = "transparent";
-    // s.backgroundColor = "#cccccc";
-    s.opacity = 0.76;
-    s.filter = "alpha(opacity=76)";
+    var el = this.getDragEl()
+    YAHOO.util.Dom.setStyle(el, "borderColor", "transparent");
+    YAHOO.util.Dom.setStyle(el, "opacity", 0.76);
 
     // specify that this is not currently a drop target
     this.isTarget = false;
@@ -47,18 +44,18 @@ YAHOO.example.DDPlayer.prototype.initPlayer = function(id, sGroup, config) {
 
 YAHOO.example.DDPlayer.prototype.startDrag = function(x, y) {
     this.logger.log(this.id + " startDrag");
+    var Dom = YAHOO.util.Dom;
 
     var dragEl = this.getDragEl();
     var clickEl = this.getEl();
 
     dragEl.innerHTML = clickEl.innerHTML;
     dragEl.className = clickEl.className;
-    dragEl.style.color = this.DDM.getStyle(clickEl, "color");;
-    dragEl.style.backgroundColor = this.DDM.getStyle(clickEl, "backgroundColor");
 
-    var s = clickEl.style;
-    s.opacity = .1;
-    s.filter = "alpha(opacity=10)";
+    Dom.setStyle(dragEl, "color",  Dom.getStyle(clickEl, "color"));
+    Dom.setStyle(dragEl, "backgroundColor", Dom.getStyle(clickEl, "backgroundColor"));
+
+    Dom.setStyle(clickEl, "opacity", 0.1);
 
     var targets = YAHOO.util.DDM.getRelated(this, true);
     this.logger.log(targets.length + " targets");
@@ -84,9 +81,7 @@ YAHOO.example.DDPlayer.prototype.getTargetDomRef = function(oDD) {
 
 YAHOO.example.DDPlayer.prototype.endDrag = function(e) {
     // reset the linked element styles
-    var s = this.getEl().style;
-    s.opacity = 1;
-    s.filter = "alpha(opacity=100)";
+    YAHOO.util.Dom.setStyle(this.getEl(), "opacity", 1);
 
     this.resetTargets();
 };
@@ -156,11 +151,11 @@ YAHOO.example.DDPlayer.prototype.onDragDrop = function(e, id) {
 };
 
 YAHOO.example.DDPlayer.prototype.swap = function(el1, el2) {
-    var dom = YAHOO.util.Dom;
-    var pos1 = dom.getXY(el1);
-    var pos2 = dom.getXY(el2);
-    dom.setXY(el1, pos2);
-    dom.setXY(el2, pos1);
+    var Dom = YAHOO.util.Dom;
+    var pos1 = Dom.getXY(el1);
+    var pos2 = Dom.getXY(el2);
+    Dom.setXY(el1, pos2);
+    Dom.setXY(el2, pos1);
 };
 
 YAHOO.example.DDPlayer.prototype.onDragOver = function(e, id) {};

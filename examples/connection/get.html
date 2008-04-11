@@ -1,7 +1,7 @@
 <html>
 	<head>
-        <script src = "../../build/yahoo.js" ></script>
-        <script src = "../../build/connection-min.js" ></script>
+        <script src = "../../build/yahoo/yahoo-min.js" ></script>
+        <script src = "../../build/connection/connection-min.js" ></script>
 		<link rel="stylesheet" type="text/css" href="../../docs/assets/dpSyntaxHighlighter.css" />
 	</head>
 <body>
@@ -27,7 +27,7 @@ The following code example provides a step-by-step approach to creating a simple
    * if and when the string contains special characters.
    *
    */
-  var sUrl = "get.php?username=anonymous&userid=0";</textarea></pre>
+  var sUrl = "php/get.php?username=anonymous&userid=0";</textarea></pre>
 
 <h3>The Callback Object</h3>
 <p>Create a callback object to handle the response, and pass an object literal to both success and failure as the argument.</p>
@@ -74,7 +74,7 @@ the server response data.
 Note: Caching and GET idempotency.
 </p>
 
-<pre><textarea name="code" class="JScript" cols="60" rows="1">var request = YAHOO.util.Connection.asyncRequest('GET', sUrl, callback);</textarea></pre>
+<pre><textarea name="code" class="JScript" cols="60" rows="1">var request = YAHOO.util.Connect.asyncRequest('GET', sUrl, callback);</textarea></pre>
 
 <div id="container"></div>
 <script>
@@ -107,7 +107,7 @@ var callback =
   argument: { foo:"foo", bar:"bar" }
 };
 
-var sUrl = "get.php?username=anonymous&userid=0";
+var sUrl = "php/get.php?username=anonymous&userid=0";
 
 function makeRequest(){
 	var request = YAHOO.util.Connect.asyncRequest('GET', sUrl, callback);
@@ -116,8 +116,8 @@ function makeRequest(){
 <form><input type="button" value="Send a GET Request" onClick="makeRequest();"></form>
 
 <script src="../../docs/assets/dpSyntaxHighlighter.js"></script>
-<script language="javascript"> 
-dp.SyntaxHighlighter.HighlightAll('code'); 
+<script language="javascript">
+dp.SyntaxHighlighter.HighlightAll('code');
 </script>
 </body>
 </html>

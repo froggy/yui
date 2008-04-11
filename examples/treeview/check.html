@@ -15,9 +15,9 @@
 </div>
 
 <script type="text/javascript" src="../../build/yahoo/yahoo.js" ></script>
+<script type="text/javascript" src="../../build/event/event.js"></script>
 
 <!-- The following are required for the logger -->
-<script type="text/javascript" src="../../build/event/event.js"></script>
 <script type="text/javascript" src="../../build/dom/dom.js"></script>
 <script type="text/javascript" src="../../build/logger/logger.js"></script>
 <!-- End logger reqs -->
@@ -73,6 +73,7 @@
 
 
 <li><a href="folders.html?mode=dist">Folder view</a></li>
+<li><a href="customicons.html?mode=dist">Custom icons</a></li>
 <li><a href="menu.html?mode=dist">Menu</a></li>
 <li><a href="html.html?mode=dist">HTML node</a></li>
 <li><a href="multi.html?mode=dist">Multiple trees, different styles</a></li>
@@ -94,7 +95,8 @@
 
             onload: function() {
                 if (YAHOO.widget.Logger) {
-                    new YAHOO.widget.LogReader( "logDiv", { height: "400px" } );
+                    var reader = new YAHOO.widget.LogReader( "logDiv", { height: "400px" } );
+                    //reader._onClickPauseBtn(null, reader);
                 }
             }
         };
@@ -152,11 +154,12 @@
 <script type="text/javascript">
 
 	var tree;
-	var nodes = new Array();
+	var nodes = [];
 	var nodeIndex;
 	
 	function treeInit() {
 		buildRandomTextNodeTree();
+        // alert(tree);
 	}
 	
 	function buildRandomTextNodeTree() {
@@ -164,12 +167,12 @@
 
 		for (var i = 0; i < Math.floor((Math.random()*4) + 3); i++) {
 			var tmpNode = new YAHOO.widget.TaskNode("task-" + i, tree.getRoot(), false);
-            tmpNode.onCheckClick = onCheckClick;
+            //tmpNode.onCheckClick = onCheckClick;
 			buildRandomTextBranch(tmpNode);
 		}
         
+        tree.subscribe("checkClick", onCheckClick);
 		tree.draw();
-        // tree.checkClickEvent.subscribe(onCheckClick);
 	}
 
 	var callback = null;
@@ -179,7 +182,7 @@
 			YAHOO.log("buildRandomTextBranch: " + node.index);
 			for ( var i = 0; i < Math.floor(Math.random() * 4) ; i++ ) {
 				var tmpNode = new YAHOO.widget.TaskNode(node.label + "-" + i, node, false);
-                tmpNode.onCheckClick = onCheckClick;
+                // tmpNode.onCheckClick = onCheckClick;
 				buildRandomTextBranch(tmpNode);
 			}
 		} else {
@@ -188,46 +191,26 @@
 	}
 
 
-    // function onCheckClick(eventType, args, tree) {
-    //var node = args[0];
-    function onCheckClick(eventType, args, tree) {
-        var node = this;
+    function onCheckClick(node) {
         YAHOO.log(node.label + " check was clicked, new state: " + 
                 node.checkState);
     }
 
-    function showTreeState() {
-        var out = [];
-        for (var i in tree._nodes) {
-            var n = tree._nodes[i];
-            if (n && "undefined" != typeof n.checkState) {
-                out.push(n.data + ": " + n.checkState);
-            }
-        }
-
-        alert(out.join("\n"));
-    }
-
     function checkAll() {
         var topNodes = tree.getRoot().children;
-        for(var i = 0; i <= topNodes.length; ++i) {
+        for(var i=0; i<topNodes.length; ++i) {
             topNodes[i].check();
         }
     }
 
     function uncheckAll() {
         var topNodes = tree.getRoot().children;
-        for(var i = 0; i <= topNodes.length; ++i) {
+        for(var i=0; i<topNodes.length; ++i) {
             topNodes[i].uncheck();
         }
     }
 
-    function showJSON() {
-        alert(JSON.stringify(tree._nodes));
-    }
 
-    //YAHOO.util.Event.on("showButton", "click", showTreeState);
-    // YAHOO.util.Event.on("showButton", "click", showJSON);
 
 </script>
 
