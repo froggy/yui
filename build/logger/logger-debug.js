@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 0.12.2
+version: 2.2.0
 */
 /****************************************************************************/
 /****************************************************************************/
@@ -70,6 +70,7 @@ YAHOO.widget.LogMsg.prototype.source = null;
  * @type String
  */
 YAHOO.widget.LogMsg.prototype.sourceDetail = null;
+
 
 /****************************************************************************/
 /****************************************************************************/
@@ -162,6 +163,7 @@ YAHOO.widget.LogWriter.prototype._source = null;
 
 
 
+
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
@@ -232,7 +234,8 @@ YAHOO.widget.LogReader = function(elContainer, oConfigs) {
        if(this.fontSize) {
             containerStyle.fontSize = this.fontSize;
         }
-        if(window.opera) {
+        // For Opera
+        if(navigator.userAgent.toLowerCase().indexOf("opera") != -1) {
             document.body.style += '';
         }
     }
@@ -357,7 +360,7 @@ YAHOO.widget.LogReader = function(elContainer, oConfigs) {
 /////////////////////////////////////////////////////////////////////////////
 
 /**
- * Whether or not the log reader is enabled to output log messages.
+ * Whether or not LogReader is enabled to output log messages.
  *
  * @property logReaderEnabled
  * @type Boolean
@@ -366,7 +369,7 @@ YAHOO.widget.LogReader = function(elContainer, oConfigs) {
 YAHOO.widget.LogReader.prototype.logReaderEnabled = true;
 
 /**
- * Public member to access CSS width of the log reader container.
+ * Public member to access CSS width of the LogReader container.
  *
  * @property width
  * @type String
@@ -374,7 +377,7 @@ YAHOO.widget.LogReader.prototype.logReaderEnabled = true;
 YAHOO.widget.LogReader.prototype.width = null;
 
 /**
- * Public member to access CSS height of the log reader container.
+ * Public member to access CSS height of the LogReader container.
  *
  * @property height
  * @type String
@@ -382,7 +385,7 @@ YAHOO.widget.LogReader.prototype.width = null;
 YAHOO.widget.LogReader.prototype.height = null;
 
 /**
- * Public member to access CSS top position of the log reader container.
+ * Public member to access CSS top position of the LogReader container.
  *
  * @property top
  * @type String
@@ -390,7 +393,7 @@ YAHOO.widget.LogReader.prototype.height = null;
 YAHOO.widget.LogReader.prototype.top = null;
 
 /**
- * Public member to access CSS left position of the log reader container.
+ * Public member to access CSS left position of the LogReader container.
  *
  * @property left
  * @type String
@@ -398,7 +401,7 @@ YAHOO.widget.LogReader.prototype.top = null;
 YAHOO.widget.LogReader.prototype.left = null;
 
 /**
- * Public member to access CSS right position of the log reader container.
+ * Public member to access CSS right position of the LogReader container.
  *
  * @property right
  * @type String
@@ -406,7 +409,7 @@ YAHOO.widget.LogReader.prototype.left = null;
 YAHOO.widget.LogReader.prototype.right = null;
 
 /**
- * Public member to access CSS bottom position of the log reader container.
+ * Public member to access CSS bottom position of the LogReader container.
  *
  * @property bottom
  * @type String
@@ -414,7 +417,7 @@ YAHOO.widget.LogReader.prototype.right = null;
 YAHOO.widget.LogReader.prototype.bottom = null;
 
 /**
- * Public member to access CSS font size of the log reader container.
+ * Public member to access CSS font size of the LogReader container.
  *
  * @property fontSize
  * @type String
@@ -422,7 +425,7 @@ YAHOO.widget.LogReader.prototype.bottom = null;
 YAHOO.widget.LogReader.prototype.fontSize = null;
 
 /**
- * Whether or not the footer UI is enabled for the log reader.
+ * Whether or not the footer UI is enabled for the LogReader.
  *
  * @property footerEnabled
  * @type Boolean
@@ -467,6 +470,15 @@ YAHOO.widget.LogReader.prototype.thresholdMax = 500;
  */
 YAHOO.widget.LogReader.prototype.thresholdMin = 100;
 
+/**
+ * True when LogReader is in a collapsed state, false otherwise.
+ *
+ * @property isCollapsed
+ * @type Boolean
+ * @default false
+ */
+YAHOO.widget.LogReader.prototype.isCollapsed = false;
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Public methods
@@ -484,7 +496,7 @@ YAHOO.widget.LogReader.prototype.toString = function() {
 };
 /**
  * Pauses output of log messages. While paused, log messages are not lost, but
- * get saved to a buffer and then output upon resume of log reader.
+ * get saved to a buffer and then output upon resume of LogReader.
  *
  * @method pause
  */
@@ -505,7 +517,7 @@ YAHOO.widget.LogReader.prototype.resume = function() {
 };
 
 /**
- * Hides UI of log reader. Logging functionality is not disrupted.
+ * Hides UI of LogReader. Logging functionality is not disrupted.
  *
  * @method hide
  */
@@ -514,12 +526,40 @@ YAHOO.widget.LogReader.prototype.hide = function() {
 };
 
 /**
- * Shows UI of log reader. Logging functionality is not disrupted.
+ * Shows UI of LogReader. Logging functionality is not disrupted.
  *
  * @method show
  */
 YAHOO.widget.LogReader.prototype.show = function() {
     this._elContainer.style.display = "block";
+};
+
+/**
+ * Collapses UI of LogReader. Logging functionality is not disrupted.
+ *
+ * @method collapse
+ */
+YAHOO.widget.LogReader.prototype.collapse = function() {
+    this._elConsole.style.display = "none";
+    if(this._elFt) {
+        this._elFt.style.display = "none";
+    }
+    this._btnCollapse.value = "Expand";
+    this.isCollapsed = true;
+};
+
+/**
+ * Expands UI of LogReader. Logging functionality is not disrupted.
+ *
+ * @method expand
+ */
+YAHOO.widget.LogReader.prototype.expand = function() {
+    this._elConsole.style.display = "block";
+    if(this._elFt) {
+        this._elFt.style.display = "block";
+    }
+    this._btnCollapse.value = "Collapse";
+    this.isCollapsed = false;
 };
 
 /**
@@ -621,7 +661,7 @@ YAHOO.widget.LogReader.prototype.html2Text = function(sHtml) {
 /////////////////////////////////////////////////////////////////////////////
 
 /**
- * Internal class member to index multiple log reader instances.
+ * Internal class member to index multiple LogReader instances.
  *
  * @property _memberName
  * @static
@@ -641,7 +681,7 @@ YAHOO.widget.LogReader._index = 0;
 YAHOO.widget.LogReader.prototype._sName = null;
 
 /**
- * A class member shared by all log readers if a container needs to be
+ * A class member shared by all LogReaders if a container needs to be
  * created during instantiation. Will be null if a container element never needs to
  * be created on the fly, such as when the implementer passes in their own element.
  *
@@ -707,7 +747,7 @@ YAHOO.widget.LogReader.prototype._categoryFilters = null;
 YAHOO.widget.LogReader.prototype._sourceFilters = null;
 
 /**
- * Log reader container element.
+ * LogReader container element.
  *
  * @property _elContainer
  * @type HTMLElement
@@ -716,7 +756,7 @@ YAHOO.widget.LogReader.prototype._sourceFilters = null;
 YAHOO.widget.LogReader.prototype._elContainer = null;
 
 /**
- * Log reader header element.
+ * LogReader header element.
  *
  * @property _elHd
  * @type HTMLElement
@@ -725,7 +765,7 @@ YAHOO.widget.LogReader.prototype._elContainer = null;
 YAHOO.widget.LogReader.prototype._elHd = null;
 
 /**
- * Log reader collapse element.
+ * LogReader collapse element.
  *
  * @property _elCollapse
  * @type HTMLElement
@@ -734,7 +774,7 @@ YAHOO.widget.LogReader.prototype._elHd = null;
 YAHOO.widget.LogReader.prototype._elCollapse = null;
 
 /**
- * Log reader collapse button element.
+ * LogReader collapse button element.
  *
  * @property _btnCollapse
  * @type HTMLElement
@@ -743,7 +783,7 @@ YAHOO.widget.LogReader.prototype._elCollapse = null;
 YAHOO.widget.LogReader.prototype._btnCollapse = null;
 
 /**
- * Log reader title header element.
+ * LogReader title header element.
  *
  * @property _title
  * @type HTMLElement
@@ -752,7 +792,7 @@ YAHOO.widget.LogReader.prototype._btnCollapse = null;
 YAHOO.widget.LogReader.prototype._title = null;
 
 /**
- * Log reader console element.
+ * LogReader console element.
  *
  * @property _elConsole
  * @type HTMLElement
@@ -761,7 +801,7 @@ YAHOO.widget.LogReader.prototype._title = null;
 YAHOO.widget.LogReader.prototype._elConsole = null;
 
 /**
- * Log reader footer element.
+ * LogReader footer element.
  *
  * @property _elFt
  * @type HTMLElement
@@ -770,7 +810,7 @@ YAHOO.widget.LogReader.prototype._elConsole = null;
 YAHOO.widget.LogReader.prototype._elFt = null;
 
 /**
- * Log reader buttons container element.
+ * LogReader buttons container element.
  *
  * @property _elBtns
  * @type HTMLElement
@@ -779,7 +819,7 @@ YAHOO.widget.LogReader.prototype._elFt = null;
 YAHOO.widget.LogReader.prototype._elBtns = null;
 
 /**
- * Container element for log reader category filter checkboxes.
+ * Container element for LogReader category filter checkboxes.
  *
  * @property _elCategoryFilters
  * @type HTMLElement
@@ -788,7 +828,7 @@ YAHOO.widget.LogReader.prototype._elBtns = null;
 YAHOO.widget.LogReader.prototype._elCategoryFilters = null;
 
 /**
- * Container element for log reader source filter checkboxes.
+ * Container element for LogReader source filter checkboxes.
  *
  * @property _elSourceFilters
  * @type HTMLElement
@@ -797,7 +837,7 @@ YAHOO.widget.LogReader.prototype._elCategoryFilters = null;
 YAHOO.widget.LogReader.prototype._elSourceFilters = null;
 
 /**
- * Log reader pause button element.
+ * LogReader pause button element.
  *
  * @property _btnPause
  * @type HTMLElement
@@ -821,7 +861,7 @@ YAHOO.widget.LogReader.prototype._btnClear = null;
 /////////////////////////////////////////////////////////////////////////////
 
 /**
- * Creates the UI for a category filter in the log reader footer element.
+ * Creates the UI for a category filter in the LogReader footer element.
  *
  * @method _createCategoryCheckbox
  * @param sCategory {String} Category name.
@@ -860,7 +900,7 @@ YAHOO.widget.LogReader.prototype._createCategoryCheckbox = function(sCategory) {
 };
 
 /**
- * Creates a checkbox in the log reader footer element to filter by source.
+ * Creates a checkbox in the LogReader footer element to filter by source.
  *
  * @method _createSourceCheckbox
  * @param sSource {String} Source name.
@@ -1095,7 +1135,7 @@ YAHOO.widget.LogReader.prototype._onCheckCategory = function(v, oSelf) {
  *
  * @method _onCheckSource
  * @param v {HTMLEvent} The click event.
- * @param oSelf {Object} The log reader instance.
+ * @param oSelf {Object} The LogReader instance.
  * @private
  */
 YAHOO.widget.LogReader.prototype._onCheckSource = function(v, oSelf) {
@@ -1125,20 +1165,11 @@ YAHOO.widget.LogReader.prototype._onCheckSource = function(v, oSelf) {
  * @private
  */
 YAHOO.widget.LogReader.prototype._onClickCollapseBtn = function(v, oSelf) {
-    var btn = oSelf._btnCollapse;
-    if(btn.value == "Expand") {
-        oSelf._elConsole.style.display = "block";
-        if(oSelf._elFt) {
-            oSelf._elFt.style.display = "block";
-        }
-        btn.value = "Collapse";
+    if(!oSelf.isCollapsed) {
+        oSelf.collapse();
     }
     else {
-        oSelf._elConsole.style.display = "none";
-        if(oSelf._elFt) {
-            oSelf._elFt.style.display = "none";
-        }
-        btn.value = "Expand";
+        oSelf.expand();
     }
 };
 
@@ -1204,6 +1235,7 @@ YAHOO.widget.LogReader.prototype._onNewLog = function(sType, aArgs, oSelf) {
 YAHOO.widget.LogReader.prototype._onReset = function(sType, aArgs, oSelf) {
     oSelf._filterLogs();
 };
+
  /**
  * The Logger widget provides a simple way to read or write log messages in
  * JavaScript code. Integration with the YUI Library's debug builds allow
@@ -1561,3 +1593,5 @@ window.onerror = YAHOO.widget.Logger._onWindowError;
 
 YAHOO.widget.Logger.log("Logger initialized");
 
+
+YAHOO.register("logger", YAHOO.widget.Logger, {version: "2.2.0", build: "127"});

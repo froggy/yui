@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: dragdrop   DragDrop.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Drag and Drop&nbsp;</h3>
+        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dragdrop.html">dragdrop</a>
@@ -791,6 +790,13 @@
         <span class="o">}</span>
 
         <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;mousedown &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">id</span><span class="o">);</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;firing onMouseDown events&quot;</span><span class="o">);</span>
+
+        <span class="c">// firing the mousedown events prior to calculating positions</span>
+<span class="c"></span>        <span class="k">this</span><span class="o">.</span><span class="nx">b4MouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">onMouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
+
         <span class="k">this</span><span class="o">.</span><span class="nx">DDM</span><span class="o">.</span><span class="nx">refreshCache</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">groups</span><span class="o">);</span>
         <span class="c">// var self = this;</span>
 <span class="c"></span>        <span class="c">// setTimeout( function() { self.DDM.refreshCache(self.groups); }, 0);</span>
@@ -812,13 +818,12 @@
                 <span class="c">// set the initial element position</span>
 <span class="c"></span>                <span class="k">this</span><span class="o">.</span><span class="nx">setStartPosition</span><span class="o">();</span>
 
-                <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;firing onMouseDown events&quot;</span><span class="o">);</span>
+                <span class="c">// start tracking mousemove distance and mousedown time to</span>
+<span class="c"></span>                <span class="c">// determine when to start the actual drag</span>
+<span class="c"></span>                <span class="k">this</span><span class="o">.</span><span class="nx">DDM</span><span class="o">.</span><span class="nx">handleMouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
-                <span class="k">this</span><span class="o">.</span><span class="nx">b4MouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
-                <span class="k">this</span><span class="o">.</span><span class="nx">onMouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
-                <span class="k">this</span><span class="o">.</span><span class="nx">DDM</span><span class="o">.</span><span class="nx">handleMouseDown</span><span class="o">(</span><span class="nx">e</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-
-                <span class="k">this</span><span class="o">.</span><span class="nx">DDM</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
+                <span class="c">// this mousedown is mine</span>
+<span class="c"></span>                <span class="k">this</span><span class="o">.</span><span class="nx">DDM</span><span class="o">.</span><span class="nx">stopEvent</span><span class="o">(</span><span class="nx">e</span><span class="o">);</span>
             <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
 
 <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;clickValidator returned false, drag not initiated&quot;</span><span class="o">);</span>
@@ -1012,11 +1017,11 @@
 <span class="c">     * should move iTickSize pixels at a time.</span>
 <span class="c">     */</span>
     <span class="nx">setXConstraint</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">iLeft</span><span class="o">,</span> <span class="nx">iRight</span><span class="o">,</span> <span class="nx">iTickSize</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">leftConstraint</span> <span class="o">=</span> <span class="nx">iLeft</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">rightConstraint</span> <span class="o">=</span> <span class="nx">iRight</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">leftConstraint</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">iLeft</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">rightConstraint</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">iRight</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">minX</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageX</span> <span class="o">-</span> <span class="nx">iLeft</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">maxX</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageX</span> <span class="o">+</span> <span class="nx">iRight</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">minX</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageX</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">leftConstraint</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">maxX</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageX</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">rightConstraint</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="nx">iTickSize</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="nx">setXTicks</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">initPageX</span><span class="o">,</span> <span class="nx">iTickSize</span><span class="o">);</span> <span class="o">}</span>
 
         <span class="k">this</span><span class="o">.</span><span class="nx">constrainX</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
@@ -1060,11 +1065,11 @@
 <span class="c">     */</span>
     <span class="nx">setYConstraint</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">iUp</span><span class="o">,</span> <span class="nx">iDown</span><span class="o">,</span> <span class="nx">iTickSize</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;setYConstraint: &quot;</span> <span class="o">+</span> <span class="nx">iUp</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nx">iDown</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nx">iTickSize</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">topConstraint</span> <span class="o">=</span> <span class="nx">iUp</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">bottomConstraint</span> <span class="o">=</span> <span class="nx">iDown</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">topConstraint</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">iUp</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">bottomConstraint</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="o">(</span><span class="nx">iDown</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">minY</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageY</span> <span class="o">-</span> <span class="nx">iUp</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">maxY</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageY</span> <span class="o">+</span> <span class="nx">iDown</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">minY</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageY</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="nx">topConstraint</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">maxY</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">initPageY</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">bottomConstraint</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="nx">iTickSize</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="nx">setYTicks</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">initPageY</span><span class="o">,</span> <span class="nx">iTickSize</span><span class="o">);</span> <span class="o">}</span>
 
         <span class="k">this</span><span class="o">.</span><span class="nx">constrainY</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
@@ -1175,17 +1180,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class="selected"><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -1233,7 +1248,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

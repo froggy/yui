@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu  YAHOO.widget.MenuBarItem   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -137,57 +136,6 @@ for more details.
 
 
                                     <hr />
-                                    <h4><a name="DISABLED_SUBMENU_INDICATOR_IMAGE_PATH">DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</a>
-                                        <code>- final String</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            String representing the path to the image to be used for the 
-submenu arrow indicator when the menu bar item is disabled.
-                                        </div>
-                                    </div>
-     
-                                        
-                                    <div class="default">
-                                        Default Value: "nt/ic/ut/alt1/menuarodwn8_dim_1.gif"
-                                    </div>        
-
-
-                                    <hr />
-                                    <h4><a name="SELECTED_SUBMENU_INDICATOR_IMAGE_PATH">SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</a>
-                                        <code>- final String</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            String representing the path to the image to be used for the 
-submenu arrow indicator when the menu bar item is selected.
-                                        </div>
-                                    </div>
-     
-                                        
-                                    <div class="default">
-                                        Default Value: "nt/ic/ut/alt1/menuarodwn8_hov_1.gif"
-                                    </div>        
-
-
-                                    <hr />
-                                    <h4><a name="SUBMENU_INDICATOR_IMAGE_PATH">SUBMENU_INDICATOR_IMAGE_PATH</a>
-                                        <code>- final String</code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description">
-                                            String representing the path to the image to be used for the 
-menu bar item's submenu arrow indicator.
-                                        </div>
-                                    </div>
-     
-                                        
-                                    <div class="default">
-                                        Default Value: "nt/ic/ut/alt1/menuarodwn8_nrm_1.gif"
-                                    </div>        
-
-
-                                    <hr />
 
 
                             </div>
@@ -200,22 +148,31 @@ menu bar item's submenu arrow indicator.
                                     
                                         <a href="YAHOO.widget.MenuItem.html#_checkImage">_checkImage</a>,
                                         <a href="YAHOO.widget.MenuItem.html#_oAnchor">_oAnchor</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#_oCheckedIndicator">_oCheckedIndicator</a>,
                                         <a href="YAHOO.widget.MenuItem.html#_oHelpTextEM">_oHelpTextEM</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#_oOnclickAttributeValue">_oOnclickAttributeValue</a>,
                                         <a href="YAHOO.widget.MenuItem.html#_oSubmenu">_oSubmenu</a>,
                                         <a href="YAHOO.widget.MenuItem.html#_oText">_oText</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#_sClassName">_sClassName</a>,
                                         <a href="YAHOO.widget.MenuItem.html#browser">browser</a>,
                                         <a href="YAHOO.widget.MenuItem.html#CHECKED_IMAGE_ALT_TEXT">CHECKED_IMAGE_ALT_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#CHECKED_IMAGE_PATH">CHECKED_IMAGE_PATH</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#CHECKED_TEXT">CHECKED_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#COLLAPSED_SUBMENU_INDICATOR_ALT_TEXT">COLLAPSED_SUBMENU_INDICATOR_ALT_TEXT</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#COLLAPSED_SUBMENU_INDICATOR_TEXT">COLLAPSED_SUBMENU_INDICATOR_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#constructor">constructor</a>,
                                         <a href="YAHOO.widget.MenuItem.html#CSS_CLASS_NAME">CSS_CLASS_NAME</a>,
                                         <a href="YAHOO.widget.MenuItem.html#DISABLED_CHECKED_IMAGE_ALT_TEXT">DISABLED_CHECKED_IMAGE_ALT_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#DISABLED_CHECKED_IMAGE_PATH">DISABLED_CHECKED_IMAGE_PATH</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#DISABLED_CHECKED_TEXT">DISABLED_CHECKED_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#DISABLED_SUBMENU_INDICATOR_ALT_TEXT">DISABLED_SUBMENU_INDICATOR_ALT_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#DISABLED_SUBMENU_INDICATOR_IMAGE_PATH">DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#DISABLED_SUBMENU_INDICATOR_TEXT">DISABLED_SUBMENU_INDICATOR_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#element">element</a>,
                                         <a href="YAHOO.widget.MenuItem.html#EXPANDED_SUBMENU_INDICATOR_ALT_TEXT">EXPANDED_SUBMENU_INDICATOR_ALT_TEXT</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#EXPANDED_SUBMENU_INDICATOR_TEXT">EXPANDED_SUBMENU_INDICATOR_TEXT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#groupIndex">groupIndex</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#id">id</a>,
                                         <a href="YAHOO.widget.MenuItem.html#imageRoot">imageRoot</a>,
                                         <a href="YAHOO.widget.MenuItem.html#IMG_ROOT">IMG_ROOT</a>,
                                         <a href="YAHOO.widget.MenuItem.html#IMG_ROOT_SSL">IMG_ROOT_SSL</a>,
@@ -364,9 +321,11 @@ for more details.
                                             <a href="YAHOO.widget.MenuItem.html#_preloadImage">_preloadImage</a>,
                                             <a href="YAHOO.widget.MenuItem.html#blur">blur</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configChecked">configChecked</a>,
+                                            <a href="YAHOO.widget.MenuItem.html#configClassName">configClassName</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configDisabled">configDisabled</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configEmphasis">configEmphasis</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configHelpText">configHelpText</a>,
+                                            <a href="YAHOO.widget.MenuItem.html#configOnClick">configOnClick</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configSelected">configSelected</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configStrongEmphasis">configStrongEmphasis</a>,
                                             <a href="YAHOO.widget.MenuItem.html#configSubmenu">configSubmenu</a>,
@@ -413,9 +372,11 @@ for more details.
                                 <code>
                                     
                                         <a href="YAHOO.widget.MenuItem.html#checked">checked</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#classname">classname</a>,
                                         <a href="YAHOO.widget.MenuItem.html#disabled">disabled</a>,
                                         <a href="YAHOO.widget.MenuItem.html#emphasis">emphasis</a>,
                                         <a href="YAHOO.widget.MenuItem.html#helptext">helptext</a>,
+                                        <a href="YAHOO.widget.MenuItem.html#onclick">onclick</a>,
                                         <a href="YAHOO.widget.MenuItem.html#selected">selected</a>,
                                         <a href="YAHOO.widget.MenuItem.html#strongemphasis">strongemphasis</a>,
                                         <a href="YAHOO.widget.MenuItem.html#submenu">submenu</a>,
@@ -425,7 +386,6 @@ for more details.
                                 </code>
                             </div>
                         </div>
-
 
 			</div>
 		</div>
@@ -440,17 +400,27 @@ for more details.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -476,8 +446,6 @@ for more details.
                                 <li class="selected"><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -491,8 +459,6 @@ for more details.
                                 <li class=""><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class=""><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -500,15 +466,6 @@ for more details.
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li><a href="#CSS_CLASS_NAME">CSS_CLASS_NAME</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
-                                <li><a href="#DISABLED_SUBMENU_INDICATOR_IMAGE_PATH">DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
-                                <li><a href="#SELECTED_SUBMENU_INDICATOR_IMAGE_PATH">SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</a>
-                                        <!--<code>&lt;String&gt;</code>-->
-                                </li>
-                                <li><a href="#SUBMENU_INDICATOR_IMAGE_PATH">SUBMENU_INDICATOR_IMAGE_PATH</a>
                                         <!--<code>&lt;String&gt;</code>-->
                                 </li>
                         </ul>
@@ -533,7 +490,7 @@ for more details.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

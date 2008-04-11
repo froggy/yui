@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu  YAHOO.widget.Menu   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -152,7 +151,8 @@ more details.
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            Array of menu items.
+                                            Multi-dimensional Array representing the menu items as they
+are grouped in the menu.
                                         </div>
                                     </div>
      
@@ -214,7 +214,7 @@ the parent node for each item's <code>&#60;li&#62;</code> element.
 
 
                                     <hr />
-                                    <h4><a name="_hideDelayEventHandlersAssigned">_hideDelayEventHandlersAssigned</a>
+                                    <h4><a name="_bHideDelayEventHandlersAssigned">_bHideDelayEventHandlersAssigned</a>
                                         <code>- private Boolean</code>
                                     </h4>
                                     <div class="detail">
@@ -228,6 +228,57 @@ already been assigned.
                                         
                                     <div class="default">
                                         Default Value: false
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_bStopMouseEventHandlers">_bStopMouseEventHandlers</a>
+                                        <code>- private Boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Stops "mouseover," "mouseout," and "mousemove" event handlers 
+from executing.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: false
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_nBodyScrollId">_nBodyScrollId</a>
+                                        <code>- private Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Number representing the time-out setting used to cancel the 
+scrolling of the menu's body element.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: null
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_nCurrentMouseX">_nCurrentMouseX</a>
+                                        <code>- private Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The current x coordinate of the mouse inside the area of 
+the menu.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: 0
                                     </div>        
 
 
@@ -249,6 +300,23 @@ hiding of a menu.
 
 
                                     <hr />
+                                    <h4><a name="_nMaxHeight">_nMaxHeight</a>
+                                        <code>- private Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The original value of the "maxheight" configuration property 
+as set by the user.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: -1
+                                    </div>        
+
+
+                                    <hr />
                                     <h4><a name="_nShowDelayId">_nShowDelayId</a>
                                         <code>- private Number</code>
                                     </h4>
@@ -256,6 +324,39 @@ hiding of a menu.
                                         <div class="description">
                                             Number representing the time-out setting used to cancel the 
 showing of a menu.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: null
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_nSubmenuHideDelayId">_nSubmenuHideDelayId</a>
+                                        <code>- private Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Number representing the time-out setting used to cancel the 
+hiding of a submenu.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default">
+                                        Default Value: null
+                                    </div>        
+
+
+                                    <hr />
+                                    <h4><a name="_sClassName">_sClassName</a>
+                                        <code>- private String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The current value of the "classname" configuration attribute.
                                         </div>
                                     </div>
      
@@ -728,6 +829,134 @@ instance with the submenu to be configured.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="_disableScrollFooter">_disableScrollFooter</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_disableScrollFooter</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Disables the footer used for scrolling the body of the menu.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_disableScrollHeader">_disableScrollHeader</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_disableScrollHeader</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Disables the header used for scrolling the body of the menu.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_enableScrollFooter">_enableScrollFooter</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_enableScrollFooter</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Enables the footer used for scrolling the body of the menu.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_enableScrollHeader">_enableScrollHeader</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_enableScrollHeader</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Enables the header used for scrolling the body of the menu.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="_execHideDelay">_execHideDelay</a></h4>
                                     <div class="detail">
                                         <code>
@@ -791,6 +1020,70 @@ the "showdelay" configuration property have ellapsed.
                                                             <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
                                                              Object specifying the menu that should 
 be made visible.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_execSubmenuHideDelay">_execSubmenuHideDelay</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_execSubmenuHideDelay</strong>
+                                           (
+                                                
+                                                        
+                                                         p_oSubmenu
+                                                    
+                                                
+                                                        , 
+                                                         p_nMouseX
+                                                    
+                                                
+                                                        , 
+                                                         p_nHideDelay
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Hides a submenu after the number of milliseconds specified by 
+the "submenuhidedelay" configuration property have ellapsed.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_oSubmenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             Object specifying the submenu that  
+should be hidden.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_nMouseX &lt;Number&gt;</code>
+                                                             The x coordinate of the mouse when it left 
+the specified submenu's parent menu item.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_nHideDelay &lt;Number&gt;</code>
+                                                             The number of milliseconds that should ellapse
+before the submenu is hidden.
                                                         </dd>
                                                 </dl>
 
@@ -1200,6 +1493,68 @@ fired the event.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="_onHide">_onHide</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_onHide</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "hide" event handler for the menu.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             String representing the name of the event that 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Array of arguments sent when the event was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             Object representing the menu that fired 
+the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="_onInit">_onInit</a></h4>
                                     <div class="detail">
                                         <code>
@@ -1308,6 +1663,67 @@ was fired.
                                                             <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
                                                              Object representing the menu that 
 fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_onKeyPress">_onKeyPress</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_onKeyPress</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "keypress" event handler for a Menu instance.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             The name of the event that was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Collection of arguments sent when the event 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             The Menu instance that fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -1485,6 +1901,60 @@ was fired.
                                                             <code>p_oItem &lt;YAHOO.widget.MenuItem&gt;</code>
                                                              Object representing the menu item 
 that fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_onMouseMove">_onMouseMove</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_onMouseMove</strong>
+                                           (
+                                                
+                                                        
+                                                         p_oEvent
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "click" event handler for the menu.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_oEvent &lt;Event&gt;</code>
+                                                             Object representing the DOM event object passed 
+back by the event utility (YAHOO.util.Event).
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             Object representing the menu that 
+fired the event.
                                                         </dd>
                                                 </dl>
 
@@ -1750,22 +2220,18 @@ subscribed to the event.
                                     </div>
                                     <hr />
                                     <h4>
-                                        <a name="_onRender">_onRender</a></h4>
+                                        <a name="_onScrollTargetMouseOut">_onScrollTargetMouseOut</a></h4>
                                     <div class="detail">
                                         <code>
-                                         private 
+                                         protected 
                                         
                                         
                                         void
-                                            <strong>_onRender</strong>
+                                            <strong>_onScrollTargetMouseOut</strong>
                                            (
                                                 
                                                         
-                                                         p_sType
-                                                    
-                                                
-                                                        , 
-                                                         p_aArgs
+                                                         p_oEvent
                                                     
                                                 
                                                         , 
@@ -1776,7 +2242,9 @@ subscribed to the event.
                                         </code>
                                         
                                         <div class="description">
-                                            "render" event handler for the menu.
+                                            "mouseout" event handler for the menu's "header" and "footer" 
+elements.  Used to stop scrolling the body of the menu up and down when the 
+menu's "maxheight" configuration property is set to a value greater than 0.
                                         </div>
 
                                         <div class="description">
@@ -1784,13 +2252,65 @@ subscribed to the event.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>p_sType &lt;String&gt;</code>
-                                                             String representing the name of the event that 
-was fired.
+                                                            <code>p_oEvent &lt;Event&gt;</code>
+                                                             Object representing the DOM event object passed 
+back by the event utility (YAHOO.util.Event).
                                                         </dd>
                                                         <dd>
-                                                            <code>p_aArgs &lt;Array&gt;</code>
-                                                             Array of arguments sent when the event was fired.
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             Object representing the menu that 
+fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="_onScrollTargetMouseOver">_onScrollTargetMouseOver</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong>_onScrollTargetMouseOver</strong>
+                                           (
+                                                
+                                                        
+                                                         p_oEvent
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            "mouseover" event handler for the menu's "header" and "footer" 
+elements.  Used to scroll the body of the menu up and down when the 
+menu's "maxheight" configuration property is set to a value greater than 0.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_oEvent &lt;Event&gt;</code>
+                                                             Object representing the DOM event object passed 
+back by the event utility (YAHOO.util.Event).
                                                         </dd>
                                                         <dd>
                                                             <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
@@ -2232,6 +2752,39 @@ instance to be removed.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="_setWidth">_setWidth</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_setWidth</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Sets the width of the menu's root <code>&#60;div&#62;</code> 
+element to its offsetWidth.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="_subscribeToItemEvents">_subscribeToItemEvents</a></h4>
                                     <div class="detail">
                                         <code>
@@ -2492,6 +3045,100 @@ should be blurred.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="clearContent">clearContent</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>clearContent</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Removes all of the content from the menu, including the menu 
+items, group titles, header and footer.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="configClassName">configClassName</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>configClassName</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Event handler for when the "classname" configuration property of 
+a menu changes.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             The name of the event that was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Collection of arguments sent when the event was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             The Menu instance fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="configContainer">configContainer</a></h4>
                                     <div class="detail">
                                         <code>
@@ -2665,6 +3312,69 @@ was fired.
                                                             <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
                                                              Object representing the menu that 
 fired the event.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="configMaxHeight">configMaxHeight</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>configMaxHeight</strong>
+                                           (
+                                                
+                                                        
+                                                         p_sType
+                                                    
+                                                
+                                                        , 
+                                                         p_aArgs
+                                                    
+                                                
+                                                        , 
+                                                         p_oMenu
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Event handler for when the "maxheight" configuration property of 
+a Menu changes.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_sType &lt;String&gt;</code>
+                                                             The name of the event that was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_aArgs &lt;Array&gt;</code>
+                                                             Collection of arguments sent when the event 
+was fired.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>p_oMenu &lt;YAHOO.widget.Menu&gt;</code>
+                                                             The Menu instance fired
+the event.
                                                         </dd>
                                                 </dl>
 
@@ -2970,7 +3680,40 @@ the item belongs.
                                         </code>
                                         
                                         <div class="description">
-                                            Returns a multi-dimensional array of all of the items in the menu.
+                                            Multi-dimensional Array representing the menu items as they 
+are grouped in the menu.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        Array
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="getItems">getItems</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        Array
+                                            <strong>getItems</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Returns an array of all of the items in the menu.
                                         </div>
 
                                         <div class="description">
@@ -3861,6 +4604,24 @@ visible when the user mouses over the menu's items.
                                     </div>        
 
                                     <hr />
+                                    <h4><a name="classname">classname</a>
+                                        <code>- String</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            CSS class to be applied to the menu's root 
+<code>&#60;div&#62;</code> element.  The specified class(es) are 
+appended in addition to the default class as specified by the menu's
+CSS_CLASS_NAME constant.
+                                        </div>
+                                    </div>
+ 
+     
+                                    <div class="default">
+                                        Default Value: null
+                                    </div>        
+
+                                    <hr />
                                     <h4><a name="clicktohide">clicktohide</a>
                                         <code>- Boolean</code>
                                     </h4>
@@ -3900,7 +4661,8 @@ level-one-html.html#ID-58190037">HTMLElement</a>|String</code>
                                     <div class="detail">
                                         <div class="description">
                                             HTML element reference or string specifying the id 
-attribute of the HTML element that the menu's markup should be rendered into.
+attribute of the HTML element that the menu's markup should be 
+rendered into.
                                         </div>
                                     </div>
  
@@ -3917,6 +4679,22 @@ attribute of the HTML element that the menu's markup should be rendered into.
                                         <div class="description">
                                             Number indicating the time (in milliseconds) that should 
 expire before the menu is hidden.
+                                        </div>
+                                    </div>
+ 
+     
+                                    <div class="default">
+                                        Default Value: 0
+                                    </div>        
+
+                                    <hr />
+                                    <h4><a name="maxheight">maxheight</a>
+                                        <code>- Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Defines the maximum height (in pixels) for a menu before the
+contents of the body are scrolled.
                                         </div>
                                     </div>
  
@@ -3959,7 +4737,7 @@ the menu's items.
  
      
                                     <div class="default">
-                                        Default Value: 0
+                                        Default Value: 250
                                     </div>        
 
                                     <hr />
@@ -3978,6 +4756,24 @@ right corner.
      
                                     <div class="default">
                                         Default Value: ["tl","tr"]
+                                    </div>        
+
+                                    <hr />
+                                    <h4><a name="submenuhidedelay">submenuhidedelay</a>
+                                        <code>- Number</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Number indicating the time (in milliseconds) that should 
+expire before a submenu is hidden when the user mouses out of a menu item 
+heading in the direction of a submenu.  The value must be greater than or 
+equal to the value specified for the "showdelay" configuration property.
+                                        </div>
+                                    </div>
+ 
+     
+                                    <div class="default">
+                                        Default Value: 250
                                     </div>        
 
                                     <hr />
@@ -4037,7 +4833,6 @@ between "block" (true) or "none" (false).
                             </div>
                         </div>
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -4051,17 +4846,27 @@ between "block" (true) or "none" (false).
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -4087,8 +4892,6 @@ between "block" (true) or "none" (false).
                                 <li class=""><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -4102,8 +4905,6 @@ between "block" (true) or "none" (false).
                                 <li class=""><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class=""><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -4140,7 +4941,25 @@ level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a
 href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
 html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
-                                <li><a href="#_hideDelayEventHandlersAssigned">_hideDelayEventHandlersAssigned</a>
+                                <li><a href="#_bHideDelayEventHandlersAssigned">_bHideDelayEventHandlersAssigned</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
+                                <li><a href="#_bStopMouseEventHandlers">_bStopMouseEventHandlers</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
+                                <li><a href="#_nBodyScrollId">_nBodyScrollId</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
+                                <li><a href="#_nCurrentMouseX">_nCurrentMouseX</a>
                                         <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
 level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
 href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
@@ -4152,7 +4971,25 @@ level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a
 href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
 html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
+                                <li><a href="#_nMaxHeight">_nMaxHeight</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
                                 <li><a href="#_nShowDelayId">_nShowDelayId</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
+                                <li><a href="#_nSubmenuHideDelayId">_nSubmenuHideDelayId</a>
+                                        <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
+level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
+href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
+html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
+                                </li>
+                                <li><a href="#_sClassName">_sClassName</a>
                                         <!--<code>&lt;<a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/
 level-one-html.html#ID-94282980">HTMLSelectElement</a>|<a 
 href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-html.
@@ -4231,10 +5068,25 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#_createItemGroup">_createItemGroup</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#_disableScrollFooter">_disableScrollFooter</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_disableScrollHeader">_disableScrollHeader</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_enableScrollFooter">_enableScrollFooter</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_enableScrollHeader">_enableScrollHeader</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#_execHideDelay">_execHideDelay</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_execShowDelay">_execShowDelay</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_execSubmenuHideDelay">_execSubmenuHideDelay</a>
                                 </li>
                                 <li><!--<code>YAHOO.widget.MenuItem</code>-->
                                 <a href="#_getFirstEnabledItem">_getFirstEnabledItem</a>
@@ -4261,10 +5113,16 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#_onClick">_onClick</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#_onHide">_onHide</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#_onInit">_onInit</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_onKeyDown">_onKeyDown</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_onKeyPress">_onKeyPress</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_onMenuItemBlur">_onMenuItemBlur</a>
@@ -4274,6 +5132,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_onMenuItemFocus">_onMenuItemFocus</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_onMouseMove">_onMouseMove</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_onMouseOut">_onMouseOut</a>
@@ -4288,7 +5149,10 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#_onParentMenuRender">_onParentMenuRender</a>
                                 </li>
                                 <li><!--<code>void</code>-->
-                                <a href="#_onRender">_onRender</a>
+                                <a href="#_onScrollTargetMouseOut">_onScrollTargetMouseOut</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#_onScrollTargetMouseOver">_onScrollTargetMouseOver</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#_onShow">_onShow</a>
@@ -4312,6 +5176,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#_removeItemFromGroupByValue">_removeItemFromGroupByValue</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#_setWidth">_setWidth</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#_subscribeToItemEvents">_subscribeToItemEvents</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -4327,6 +5194,12 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#clearActiveItem">clearActiveItem</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#clearContent">clearContent</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#configClassName">configClassName</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#configContainer">configContainer</a>
                                 </li>
                                 <li><!--<code>void</code>-->
@@ -4334,6 +5207,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#configIframe">configIframe</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#configMaxHeight">configMaxHeight</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#configPosition">configPosition</a>
@@ -4352,6 +5228,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li><!--<code>Array</code>-->
                                 <a href="#getItemGroups">getItemGroups</a>
+                                </li>
+                                <li><!--<code>Array</code>-->
+                                <a href="#getItems">getItems</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#getRoot">getRoot</a>
@@ -4429,6 +5308,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#autosubmenudisplay">autosubmenudisplay</a>
                                 </li>
                                 <li>
+                                <a href="#classname">classname</a>
+                                </li>
+                                <li>
                                 <a href="#clicktohide">clicktohide</a>
                                 </li>
                                 <li>
@@ -4441,6 +5323,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 <a href="#hidedelay">hidedelay</a>
                                 </li>
                                 <li>
+                                <a href="#maxheight">maxheight</a>
+                                </li>
+                                <li>
                                 <a href="#position">position</a>
                                 </li>
                                 <li>
@@ -4448,6 +5333,9 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
                                 </li>
                                 <li>
                                 <a href="#submenualignment">submenualignment</a>
+                                </li>
+                                <li>
+                                <a href="#submenuhidedelay">submenuhidedelay</a>
                                 </li>
                                 <li>
                                 <a href="#visible">visible</a>
@@ -4460,7 +5348,7 @@ html#ID-22445964">HTMLDivElement</a>&gt;</code>-->
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

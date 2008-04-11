@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: event   EventProvider.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Event Utility&nbsp;</h3>
+        <h3>Event Utility&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_event.html">event</a>
@@ -85,11 +84,16 @@
     <span class="o">},</span>
 
     <span class="c">/**</span>
-<span class="c">     * Unsubscribes the from the specified event</span>
+<span class="c">     * Unsubscribes one or more listeners the from the specified event</span>
 <span class="c">     * @method unsubscribe</span>
 <span class="c">     * @param p_type {string}   The type, or name of the event</span>
-<span class="c">     * @param p_fn   {Function} The function to execute</span>
-<span class="c">     * @param p_obj  {Object}   The custom object passed to subscribe (optional)</span>
+<span class="c">     * @param p_fn   {Function} The subscribed function to unsubscribe, if not</span>
+<span class="c">     *                          supplied, all subscribers will be removed.</span>
+<span class="c">     * @param p_obj  {Object}   The custom object passed to subscribe.  This is</span>
+<span class="c">     *                        optional, but if supplied will be used to</span>
+<span class="c">     *                        disambiguate multiple listeners that are the same</span>
+<span class="c">     *                        (e.g., you subscribe many object using a function</span>
+<span class="c">     *                        that lives on the prototype)</span>
 <span class="c">     * @return {boolean} true if the subscriber was found and detached.</span>
 <span class="c">     */</span>
     <span class="nx">unsubscribe</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_type</span><span class="o">,</span> <span class="nx">p_fn</span><span class="o">,</span> <span class="nx">p_obj</span><span class="o">)</span> <span class="o">{</span>
@@ -100,6 +104,15 @@
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
             <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
         <span class="o">}</span>
+    <span class="o">},</span>
+    
+    <span class="c">/**</span>
+<span class="c">     * Removes all listeners from the specified event</span>
+<span class="c">     * @method unsubscribeAll</span>
+<span class="c">     * @param p_type {string}   The type, or name of the event</span>
+<span class="c">     */</span>
+    <span class="nx">unsubscribeAll</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="nx">p_type</span><span class="o">);</span>
     <span class="o">},</span>
 
     <span class="c">/**</span>
@@ -231,17 +244,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class="selected"><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -285,7 +308,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

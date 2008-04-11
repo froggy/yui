@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: event  YAHOO.util.EventProvider   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Event Utility&nbsp;</h3>
+        <h3>Event Utility&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_event.html">event</a>
@@ -370,7 +369,7 @@ execution scope of the listener
                                         </code>
                                         
                                         <div class="description">
-                                            Unsubscribes the from the specified event
+                                            Unsubscribes one or more listeners the from the specified event
                                         </div>
 
                                         <div class="description">
@@ -383,11 +382,16 @@ execution scope of the listener
                                                         </dd>
                                                         <dd>
                                                             <code>p_fn &lt;Function&gt;</code>
-                                                                The function to execute
+                                                                The subscribed function to unsubscribe, if not
+supplied, all subscribers will be removed.
                                                         </dd>
                                                         <dd>
                                                             <code>p_obj &lt;Object&gt;</code>
-                                                                 The custom object passed to subscribe (optional)
+                                                                 The custom object passed to subscribe.  This is
+optional, but if supplied will be used to
+disambiguate multiple listeners that are the same
+(e.g., you subscribe many object using a function
+that lives on the prototype)
                                                         </dd>
                                                 </dl>
 
@@ -403,9 +407,52 @@ execution scope of the listener
 
                                     </div>
                                     <hr />
+                                    <h4>
+                                        <a name="unsubscribeAll">unsubscribeAll</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>unsubscribeAll</strong>
+                                           (
+                                                
+                                                        
+                                                         p_type
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Removes all listeners from the specified event
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>p_type &lt;string&gt;</code>
+                                                                The type, or name of the event
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
                             </div>
                         </div>
-
 
 
 
@@ -426,17 +473,27 @@ execution scope of the listener
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class="selected"><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -501,6 +558,9 @@ execution scope of the listener
                                 <li><!--<code>boolean</code>-->
                                 <a href="#unsubscribe">unsubscribe</a>
                                 </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#unsubscribeAll">unsubscribeAll</a>
+                                </li>
                         </ul>
                     </div>
 
@@ -511,7 +571,7 @@ execution scope of the listener
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

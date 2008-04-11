@@ -1,8 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title>API: tabview  YAHOO.util.AttributeProvider   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
+	<title>API: element  YAHOO.util.AttributeProvider   (YUI Library)</title>
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,10 +10,10 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>tabview&nbsp;</h3>
+        <h3>element&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
-            &gt; <a href="./module_tabview.html">tabview</a>
+            &gt; <a href="./module_element.html">element</a>
                  &gt; YAHOO.util.AttributeProvider 
                 
             </p>
@@ -474,6 +473,9 @@ attribute's properties.
                                                     <dd></dd>
                                                 </dl>
              
+                                            <div class="deprecated">
+                                                <strong>Deprecated</strong> Use setAttributeConfig
+                                            </div>        
                                         </div>
 
                                     </div>
@@ -635,6 +637,66 @@ attribute's properties.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="setAttributeConfig">setAttributeConfig</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong>setAttributeConfig</strong>
+                                           (
+                                                
+                                                        
+                                                         key
+                                                    
+                                                
+                                                        , 
+                                                         map
+                                                    
+                                                
+                                                        , 
+                                                         init
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Sets or updates an Attribute instance's properties.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>key &lt;String&gt;</code>
+                                                             The attribute's name.
+                                                        </dd>
+                                                        <dd>
+                                                            <code>map &lt;Object&gt;</code>
+                                                             A key-value map of attribute properties
+                                                        </dd>
+                                                        <dd>
+                                                            <code>init &lt;Boolean&gt;</code>
+                                                             Whether or not this should become the intial config.
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="setAttributes">setAttributes</a></h4>
                                     <div class="detail">
                                         <code>
@@ -698,11 +760,11 @@ attribute's properties.
                                             <a href="YAHOO.util.EventProvider.html#fireEvent">fireEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#hasEvent">hasEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#subscribe">subscribe</a>,
-                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>,
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribeAll">unsubscribeAll</a>
                                     </code>
                                 </div>
                             </div>
-
 
 
 
@@ -722,17 +784,27 @@ attribute's properties.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class="selected"><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -740,7 +812,7 @@ attribute's properties.
 
                                 <li class=""><a href="module_slider.html">slider</a></li>
 
-                                <li class="selected"><a href="module_tabview.html">tabview</a></li>
+                                <li class=""><a href="module_tabview.html">tabview</a></li>
 
                                 <li class=""><a href="module_treeview.html">treeview</a></li>
 
@@ -754,8 +826,6 @@ attribute's properties.
                                 <li class=""><a href="YAHOO.util.Attribute.html">YAHOO.util.Attribute</a></li>
                                 <li class="selected"><a href="YAHOO.util.AttributeProvider.html">YAHOO.util.AttributeProvider</a></li>
                                 <li class=""><a href="YAHOO.util.Element.html">YAHOO.util.Element</a></li>
-                                <li class=""><a href="YAHOO.widget.Tab.html">YAHOO.widget.Tab</a></li>
-                                <li class=""><a href="YAHOO.widget.TabView.html">YAHOO.widget.TabView</a></li>
                         </ul>
                     </div>
 
@@ -765,9 +835,6 @@ attribute's properties.
                                 <li class=""><a href="Attribute.js.html">Attribute.js</a></li>
                                 <li class=""><a href="AttributeProvider.js.html">AttributeProvider.js</a></li>
                                 <li class=""><a href="Element.js.html">Element.js</a></li>
-                                <li class=""><a href="Lang.js.html">Lang.js</a></li>
-                                <li class=""><a href="Tab.js.html">Tab.js</a></li>
-                                <li class=""><a href="TabView.js.html">TabView.js</a></li>
                         </ul>
                     </div>
 
@@ -817,6 +884,9 @@ attribute's properties.
                                 <a href="#set">set</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#setAttributeConfig">setAttributeConfig</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#setAttributes">setAttributes</a>
                                 </li>
                         </ul>
@@ -829,7 +899,7 @@ attribute's properties.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

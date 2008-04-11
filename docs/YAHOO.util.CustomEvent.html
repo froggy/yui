@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: event  YAHOO.util.CustomEvent   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Event Utility&nbsp;</h3>
+        <h3>Event Utility&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_event.html">event</a>
@@ -444,7 +443,7 @@ the execution scope.
                                         </code>
                                         
                                         <div class="description">
-                                            Unsubscribes the caller from this event
+                                            Unsubscribes subscribers.
                                         </div>
 
                                         <div class="description">
@@ -453,11 +452,16 @@ the execution scope.
                                                     <dt>Parameters:</dt>
                                                         <dd>
                                                             <code>fn &lt;Function&gt;</code>
-                                                              The function to execute
+                                                              The subscribed function to remove, if not supplied
+all will be removed
                                                         </dd>
                                                         <dd>
                                                             <code>obj &lt;Object&gt;</code>
-                                                              The custom object passed to subscribe (optional)
+                                                              The custom object passed to subscribe.  This is
+optional, but if supplied will be used to
+disambiguate multiple listeners that are the same
+(e.g., you subscribe many object using a function
+that lives on the prototype)
                                                         </dd>
                                                 </dl>
 
@@ -480,7 +484,7 @@ the execution scope.
                                         
                                         
                                         
-                                        void
+                                        int
                                             <strong>unsubscribeAll</strong>
                                            (
                                             )
@@ -496,9 +500,9 @@ the execution scope.
                                                 <dl>
                                                     <dt>Returns:
                                                     <code>
-                                                        void
+                                                        int
                                                     </code></dt>
-                                                    <dd></dd>
+                                                    <dd>The number of listeners unsubscribed</dd>
                                                 </dl>
              
                                         </div>
@@ -581,7 +585,6 @@ the execution scope.
 
 
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -595,17 +598,27 @@ the execution scope.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class="selected"><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -685,7 +698,7 @@ the execution scope.
                                 <li><!--<code>boolean</code>-->
                                 <a href="#unsubscribe">unsubscribe</a>
                                 </li>
-                                <li><!--<code>void</code>-->
+                                <li><!--<code>int</code>-->
                                 <a href="#unsubscribeAll">unsubscribeAll</a>
                                 </li>
                         </ul>
@@ -706,7 +719,7 @@ the execution scope.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

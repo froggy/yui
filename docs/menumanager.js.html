@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu   menumanager.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -27,10 +26,11 @@
                     <div id="srcout">
 <div class="highlight" ><pre><span class="c">/**</span>
 <span class="c">* @module menu</span>
-<span class="c">* @description &lt;p&gt;The Menu Library features a collection of widgets that make </span>
-<span class="c">* it easy to add menus to your website or web application.  With the Menu </span>
-<span class="c">* Library you can create website fly-out menus, customized context menus, or </span>
-<span class="c">* application-style menu bars with just a small amount of scripting.&lt;/p&gt;</span>
+<span class="c">* @description &lt;p&gt;The Menu family of components features a collection of </span>
+<span class="c">* controls that make it easy to add menus to your website or web application.  </span>
+<span class="c">* With the Menu Controls you can create website fly-out menus, customized </span>
+<span class="c">* context menus, or application-style menu bars with just a small amount of </span>
+<span class="c">* scripting.&lt;/p&gt;&lt;p&gt;The Menu family of controls features:&lt;/p&gt;</span>
 <span class="c">* &lt;ul&gt;</span>
 <span class="c">*    &lt;li&gt;Screen-reader accessibility.&lt;/li&gt;</span>
 <span class="c">*    &lt;li&gt;Keyboard and mouse navigation.&lt;/li&gt;</span>
@@ -41,7 +41,7 @@
 <span class="c">*    Enhancement&lt;/a&gt;; Menus can be created from simple, </span>
 <span class="c">*    semantic markup on the page or purely through JavaScript.&lt;/li&gt;</span>
 <span class="c">* &lt;/ul&gt;</span>
-<span class="c">* @title Menu Library</span>
+<span class="c">* @title Menu</span>
 <span class="c">* @namespace YAHOO.widget</span>
 <span class="c">* @requires Event, Dom, Container</span>
 <span class="c">*/</span>
@@ -83,13 +83,10 @@
 <span class="c"></span>    
         <span class="nx">m_oVisibleMenus</span> <span class="o">=</span> <span class="o">{},</span>
 
-
-        <span class="c">// Logger</span>
-<span class="c"></span>
-        <span class="nx">m_oLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">()),</span>
-
-
         <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+
+
+    <span class="k">var</span> <span class="nx">m_oLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">LogWriter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">toString</span><span class="o">());</span>
 
 
     <span class="c">// Private methods</span>
@@ -104,13 +101,11 @@
 <span class="c">    */</span>
     <span class="k">function</span> <span class="nx">addItem</span><span class="o">(</span><span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">var</span> <span class="nx">sYUIId</span> <span class="o">=</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">generateId</span><span class="o">();</span>
+        <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">p_oItem</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">]</span> <span class="o">!=</span> <span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">setAttribute</span><span class="o">(</span><span class="s2">&quot;yuiid&quot;</span><span class="o">,</span> <span class="nx">sYUIId</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">p_oItem</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">]</span> <span class="o">!=</span> <span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">]</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">;</span>
+            <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">]</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">;</span>
     
             <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">destroyEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="nx">onItemDestroy</span><span class="o">,</span> <span class="nx">p_oItem</span><span class="o">);</span>
 
@@ -131,11 +126,11 @@
 <span class="c">    */</span>
     <span class="k">function</span> <span class="nx">removeItem</span><span class="o">(</span><span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
     
-        <span class="k">var</span> <span class="nx">sYUIId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">getAttribute</span><span class="o">(</span><span class="s2">&quot;yuiid&quot;</span><span class="o">);</span>
+        <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">sYUIId</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">])</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sId</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">])</span> <span class="o">{</span>
 
-            <span class="nx">delete</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">];</span>
+            <span class="nx">delete</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">];</span>
 
             <span class="nx">m_oLogger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Item: &quot;</span> <span class="o">+</span> 
                 <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot; successfully unregistered.&quot;</span><span class="o">);</span>
@@ -169,7 +164,12 @@
                     <span class="c">// Check if the DIV is the inner &quot;body&quot; node of a menu</span>
 <span class="c"></span>
                     <span class="k">if</span><span class="o">(</span>
-                        <span class="nx">Dom</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="s2">&quot;bd&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+                        <span class="o">(</span>
+                            <span class="nx">Dom</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="s2">&quot;hd&quot;</span><span class="o">)</span> <span class="o">||</span>
+                            <span class="nx">Dom</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="s2">&quot;bd&quot;</span><span class="o">)</span> <span class="o">||</span>
+                            <span class="nx">Dom</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="s2">&quot;ft&quot;</span><span class="o">)</span>
+                        <span class="o">)</span>
+                        <span class="o">&amp;&amp;</span> 
                         <span class="nx">oParentNode</span> <span class="o">&amp;&amp;</span> 
                         <span class="nx">oParentNode</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">&amp;&amp;</span> 
                         <span class="nx">oParentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;DIV&quot;</span>
@@ -243,11 +243,11 @@
     
             <span class="k">if</span><span class="o">(</span><span class="nx">sTagName</span> <span class="o">==</span> <span class="s2">&quot;LI&quot;</span><span class="o">)</span> <span class="o">{</span>
         
-                <span class="k">var</span> <span class="nx">sYUIId</span> <span class="o">=</span> <span class="nx">oElement</span><span class="o">.</span><span class="nx">getAttribute</span><span class="o">(</span><span class="s2">&quot;yuiid&quot;</span><span class="o">);</span>
+                <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">oElement</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
         
-                <span class="k">if</span><span class="o">(</span><span class="nx">sYUIId</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">sId</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">])</span> <span class="o">{</span>
         
-                    <span class="nx">oMenuItem</span> <span class="o">=</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">];</span>
+                    <span class="nx">oMenuItem</span> <span class="o">=</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">];</span>
                     <span class="nx">oMenu</span> <span class="o">=</span> <span class="nx">oMenuItem</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
         
                 <span class="o">}</span>
@@ -369,11 +369,11 @@
 <span class="c">    */</span>
     <span class="k">function</span> <span class="nx">onItemDestroy</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oItem</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">var</span> <span class="nx">sYUIId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">getAttribute</span><span class="o">(</span><span class="s2">&quot;yuiid&quot;</span><span class="o">);</span>
+        <span class="k">var</span> <span class="nx">sId</span> <span class="o">=</span> <span class="nx">p_oItem</span><span class="o">.</span><span class="nx">id</span><span class="o">;</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">sYUIId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">sId</span> <span class="o">&amp;&amp;</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">])</span> <span class="o">{</span>
 
-            <span class="nx">delete</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sYUIId</span><span class="o">];</span>
+            <span class="nx">delete</span> <span class="nx">m_oItems</span><span class="o">[</span><span class="nx">sId</span><span class="o">];</span>
 
         <span class="o">}</span>
 
@@ -613,17 +613,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -649,8 +659,6 @@
                                 <li class=""><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -664,8 +672,6 @@
                                 <li class=""><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class="selected"><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -678,7 +684,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

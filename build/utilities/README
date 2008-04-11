@@ -1,4 +1,4 @@
-utilities.js Release Notes
+utilities.js - Release Notes
 
 *** NOTE ***
 
@@ -13,7 +13,7 @@ connection/README
 animation/README
 dragdrop/README
 
-************
+*************
 
 *** version 0.12.0 ***
 
@@ -33,3 +33,4 @@ for each component.
 
 Note: If you are require only the Yahoo Global Object, Event Utility and Dom
 collection, consider using the special yahoo-event-dom.js aggregate instead.
+

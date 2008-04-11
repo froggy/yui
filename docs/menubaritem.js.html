@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu   menubaritem.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -55,7 +54,7 @@
 
 <span class="o">};</span>
 
-<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBarItem</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">,</span> <span class="o">{</span>
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBarItem</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuItem</span><span class="o">,</span> <span class="o">{</span>
 
 
 <span class="c">/**</span>
@@ -123,39 +122,6 @@
 <span class="nx">CSS_CLASS_NAME</span><span class="o">:</span> <span class="s2">&quot;yuimenubaritem&quot;</span><span class="o">,</span>
 
 
-<span class="c">/**</span>
-<span class="c">* @property SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">* @description String representing the path to the image to be used for the </span>
-<span class="c">* menu bar item&#39;s submenu arrow indicator.</span>
-<span class="c">* @default &quot;nt/ic/ut/alt1/menuarodwn8_nrm_1.gif&quot;</span>
-<span class="c">* @final</span>
-<span class="c">* @type String</span>
-<span class="c">*/</span>
-<span class="nx">SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/alt1/menuarodwn8_nrm_1.gif&quot;</span><span class="o">,</span>
-
-
-<span class="c">/**</span>
-<span class="c">* @property SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">* @description String representing the path to the image to be used for the </span>
-<span class="c">* submenu arrow indicator when the menu bar item is selected.</span>
-<span class="c">* @default &quot;nt/ic/ut/alt1/menuarodwn8_hov_1.gif&quot;</span>
-<span class="c">* @final</span>
-<span class="c">* @type String</span>
-<span class="c">*/</span>
-<span class="nx">SELECTED_SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/alt1/menuarodwn8_hov_1.gif&quot;</span><span class="o">,</span>
-
-
-<span class="c">/**</span>
-<span class="c">* @property DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</span>
-<span class="c">* @description String representing the path to the image to be used for the </span>
-<span class="c">* submenu arrow indicator when the menu bar item is disabled.</span>
-<span class="c">* @default &quot;nt/ic/ut/alt1/menuarodwn8_dim_1.gif&quot;</span>
-<span class="c">* @final</span>
-<span class="c">* @type String</span>
-<span class="c">*/</span>
-<span class="nx">DISABLED_SUBMENU_INDICATOR_IMAGE_PATH</span><span class="o">:</span> <span class="s2">&quot;nt/ic/ut/alt1/menuarodwn8_dim_1.gif&quot;</span><span class="o">,</span>
-
-
 
 <span class="c">// Public methods</span>
 <span class="c"></span>
@@ -171,7 +137,7 @@
 
 <span class="o">}</span>
     
-<span class="o">});</span> <span class="c">// END YAHOO.extend</span>
+<span class="o">});</span> <span class="c">// END YAHOO.lang.extend</span>
 <span class="c"></span></pre></div>
                     </div>
 			</div>
@@ -187,17 +153,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -223,8 +199,6 @@
                                 <li class=""><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -238,8 +212,6 @@
                                 <li class="selected"><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class=""><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -252,7 +224,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

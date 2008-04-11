@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: treeview   Node.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>TreeView Widget&nbsp;</h3>
+        <h3>TreeView Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_treeview.html">treeview</a>
@@ -276,10 +275,12 @@
             <span class="k">this</span><span class="o">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&quot;javascript:&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">getToggleLink</span><span class="o">();</span>
         <span class="o">}</span>
 
-        <span class="k">if</span> <span class="o">(!</span> <span class="k">this</span><span class="o">.</span><span class="nx">multiExpand</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="nx">multiExpand</span> <span class="o">=</span> <span class="nx">parentNode</span><span class="o">.</span><span class="nx">multiExpand</span><span class="o">;</span>
-        <span class="o">}</span>
-
+        <span class="c">// @todo why was this put here.  This causes new nodes added at the</span>
+<span class="c"></span>        <span class="c">// root level to lose the menu behavior.</span>
+<span class="c"></span>        <span class="c">// if (! this.multiExpand) {</span>
+<span class="c"></span>            <span class="c">// this.multiExpand = parentNode.multiExpand;</span>
+<span class="c"></span>        <span class="c">// }</span>
+<span class="c"></span>
         <span class="k">this</span><span class="o">.</span><span class="nx">tree</span><span class="o">.</span><span class="nx">regNode</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="nx">parentNode</span><span class="o">.</span><span class="nx">childrenRendered</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
@@ -372,6 +373,7 @@
             <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="nx">refIndex</span><span class="o">);</span>
 
             <span class="k">if</span> <span class="o">(!</span><span class="nx">node</span><span class="o">.</span><span class="nx">nextSibling</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">nextSibling</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
                 <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="nx">appendTo</span><span class="o">(</span><span class="nx">p</span><span class="o">);</span>
             <span class="o">}</span>
 
@@ -1035,17 +1037,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -1100,7 +1112,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: dragdrop   DragDropMgr.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Drag and Drop&nbsp;</h3>
+        <h3>Drag and Drop&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_dragdrop.html">dragdrop</a>
@@ -909,7 +908,11 @@
 <span class="c">         */</span>
         <span class="nx">refreshCache</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">groups</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;refreshing element location cache&quot;</span><span class="o">);</span>
-            <span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">sGroup</span> <span class="k">in</span> <span class="nx">groups</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="c">// refresh everything if group array is not provided</span>
+<span class="c"></span>            <span class="k">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">groups</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">ids</span><span class="o">;</span>
+
+            <span class="k">for</span> <span class="o">(</span><span class="k">var</span> <span class="nx">sGroup</span> <span class="k">in</span> <span class="nx">g</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">if</span> <span class="o">(</span><span class="s2">&quot;string&quot;</span> <span class="o">!=</span> <span class="k">typeof</span> <span class="nx">sGroup</span><span class="o">)</span> <span class="o">{</span>
                     <span class="k">continue</span><span class="o">;</span>
                 <span class="o">}</span>
@@ -917,18 +920,13 @@
                     <span class="k">var</span> <span class="nx">oDD</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">ids</span><span class="o">[</span><span class="nx">sGroup</span><span class="o">][</span><span class="nx">i</span><span class="o">];</span>
 
                     <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">isTypeOfDD</span><span class="o">(</span><span class="nx">oDD</span><span class="o">))</span> <span class="o">{</span>
-                    <span class="c">// if (this.isTypeOfDD(oDD) &amp;&amp; oDD.isTarget) {</span>
-<span class="c"></span>                        <span class="k">var</span> <span class="nx">loc</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getLocation</span><span class="o">(</span><span class="nx">oDD</span><span class="o">);</span>
+                        <span class="k">var</span> <span class="nx">loc</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getLocation</span><span class="o">(</span><span class="nx">oDD</span><span class="o">);</span>
                         <span class="k">if</span> <span class="o">(</span><span class="nx">loc</span><span class="o">)</span> <span class="o">{</span>
                             <span class="k">this</span><span class="o">.</span><span class="nx">locationCache</span><span class="o">[</span><span class="nx">oDD</span><span class="o">.</span><span class="nx">id</span><span class="o">]</span> <span class="o">=</span> <span class="nx">loc</span><span class="o">;</span>
                         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
                             <span class="nx">delete</span> <span class="k">this</span><span class="o">.</span><span class="nx">locationCache</span><span class="o">[</span><span class="nx">oDD</span><span class="o">.</span><span class="nx">id</span><span class="o">];</span>
-                            <span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Could not get the loc for &quot;</span> <span class="o">+</span> <span class="nx">oDD</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span>
-                                    <span class="s2">&quot;warn&quot;</span><span class="o">);</span>
-                            <span class="c">// this will unregister the drag and drop object if</span>
-<span class="c"></span>                            <span class="c">// the element is not in a usable state</span>
-<span class="c"></span>                            <span class="c">// oDD.unreg();</span>
-<span class="c"></span>                        <span class="o">}</span>
+<span class="k">this</span><span class="o">.</span><span class="nx">logger</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s2">&quot;Could not get the loc for &quot;</span> <span class="o">+</span> <span class="nx">oDD</span><span class="o">.</span><span class="nx">id</span><span class="o">,</span> <span class="s2">&quot;warn&quot;</span><span class="o">);</span>
+                        <span class="o">}</span>
                     <span class="o">}</span>
                 <span class="o">}</span>
             <span class="o">}</span>
@@ -1030,13 +1028,18 @@
 
             <span class="c">// DragDrop is using this as a sanity check for the initial mousedown</span>
 <span class="c"></span>            <span class="c">// in this case we are done.  In POINT mode, if the drag obj has no</span>
-<span class="c"></span>            <span class="c">// contraints, we are also done. Otherwise we need to evaluate the </span>
-<span class="c"></span>            <span class="c">// location of the target as related to the actual location of the</span>
-<span class="c"></span>            <span class="c">// dragged element.</span>
-<span class="c"></span>            <span class="k">var</span> <span class="nx">dc</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">dragCurrent</span><span class="o">;</span>
+<span class="c"></span>            <span class="c">// contraints, we are done. Otherwise we need to evaluate the </span>
+<span class="c"></span>            <span class="c">// region the target as occupies to determine if the dragged element</span>
+<span class="c"></span>            <span class="c">// overlaps with it.</span>
+<span class="c"></span>            
+            <span class="k">var</span> <span class="nx">dc</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">dragCurrent</span><span class="o">;</span>
             <span class="k">if</span> <span class="o">(!</span><span class="nx">dc</span> <span class="o">||</span> <span class="o">!</span><span class="nx">dc</span><span class="o">.</span><span class="nx">getTargetCoord</span> <span class="o">||</span> 
                     <span class="o">(!</span><span class="nx">intersect</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">dc</span><span class="o">.</span><span class="nx">constrainX</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">dc</span><span class="o">.</span><span class="nx">constrainY</span><span class="o">))</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="nx">oTarget</span><span class="o">.</span><span class="nx">cursorIsOver</span><span class="o">;</span>
+
+                <span class="c">//if (oTarget.cursorIsOver) {</span>
+<span class="c"></span>                    <span class="c">//this.logger.log(&quot;over &quot; + oTarget + &quot;, &quot; + loc + &quot;, &quot; + pt, &quot;warn&quot;);</span>
+<span class="c"></span>                <span class="c">//}</span>
+<span class="c"></span>                <span class="k">return</span> <span class="nx">oTarget</span><span class="o">.</span><span class="nx">cursorIsOver</span><span class="o">;</span>
             <span class="o">}</span>
 
             <span class="nx">oTarget</span><span class="o">.</span><span class="nx">overlap</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -1402,17 +1405,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class="selected"><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -1460,7 +1473,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu  YAHOO.widget.Menubar   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -182,9 +181,15 @@ bar's <code>&#60;div&#62;</code> element.
                                         <a href="YAHOO.widget.Menu.html#_aListElements">_aListElements</a>,
                                         <a href="YAHOO.widget.Menu.html#_bHandledMouseOutEvent">_bHandledMouseOutEvent</a>,
                                         <a href="YAHOO.widget.Menu.html#_bHandledMouseOverEvent">_bHandledMouseOverEvent</a>,
-                                        <a href="YAHOO.widget.Menu.html#_hideDelayEventHandlersAssigned">_hideDelayEventHandlersAssigned</a>,
+                                        <a href="YAHOO.widget.Menu.html#_bHideDelayEventHandlersAssigned">_bHideDelayEventHandlersAssigned</a>,
+                                        <a href="YAHOO.widget.Menu.html#_bStopMouseEventHandlers">_bStopMouseEventHandlers</a>,
+                                        <a href="YAHOO.widget.Menu.html#_nBodyScrollId">_nBodyScrollId</a>,
+                                        <a href="YAHOO.widget.Menu.html#_nCurrentMouseX">_nCurrentMouseX</a>,
                                         <a href="YAHOO.widget.Menu.html#_nHideDelayId">_nHideDelayId</a>,
+                                        <a href="YAHOO.widget.Menu.html#_nMaxHeight">_nMaxHeight</a>,
                                         <a href="YAHOO.widget.Menu.html#_nShowDelayId">_nShowDelayId</a>,
+                                        <a href="YAHOO.widget.Menu.html#_nSubmenuHideDelayId">_nSubmenuHideDelayId</a>,
+                                        <a href="YAHOO.widget.Menu.html#_sClassName">_sClassName</a>,
                                         <a href="YAHOO.widget.Menu.html#activeItem">activeItem</a>,
                                         <a href="YAHOO.widget.Menu.html#CSS_CLASS_NAME">CSS_CLASS_NAME</a>,
                                         <a href="YAHOO.widget.Menu.html#GROUP_TITLE_TAG_NAME">GROUP_TITLE_TAG_NAME</a>,
@@ -546,8 +551,13 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_checkPosition">_checkPosition</a>,
                                             <a href="YAHOO.widget.Menu.html#_configureSubmenu">_configureSubmenu</a>,
                                             <a href="YAHOO.widget.Menu.html#_createItemGroup">_createItemGroup</a>,
+                                            <a href="YAHOO.widget.Menu.html#_disableScrollFooter">_disableScrollFooter</a>,
+                                            <a href="YAHOO.widget.Menu.html#_disableScrollHeader">_disableScrollHeader</a>,
+                                            <a href="YAHOO.widget.Menu.html#_enableScrollFooter">_enableScrollFooter</a>,
+                                            <a href="YAHOO.widget.Menu.html#_enableScrollHeader">_enableScrollHeader</a>,
                                             <a href="YAHOO.widget.Menu.html#_execHideDelay">_execHideDelay</a>,
                                             <a href="YAHOO.widget.Menu.html#_execShowDelay">_execShowDelay</a>,
+                                            <a href="YAHOO.widget.Menu.html#_execSubmenuHideDelay">_execSubmenuHideDelay</a>,
                                             <a href="YAHOO.widget.Menu.html#_getFirstEnabledItem">_getFirstEnabledItem</a>,
                                             <a href="YAHOO.widget.Menu.html#_getItemGroup">_getItemGroup</a>,
                                             <a href="YAHOO.widget.Menu.html#_getOffsetWidth">_getOffsetWidth</a>,
@@ -556,16 +566,20 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onBeforeRender">_onBeforeRender</a>,
                                             <a href="YAHOO.widget.Menu.html#_onBeforeShow">_onBeforeShow</a>,
                                             <a href="YAHOO.widget.Menu.html#_onClick">_onClick</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onHide">_onHide</a>,
                                             <a href="YAHOO.widget.Menu.html#_onInit">_onInit</a>,
                                             <a href="YAHOO.widget.Menu.html#_onKeyDown">_onKeyDown</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onKeyPress">_onKeyPress</a>,
                                             <a href="YAHOO.widget.Menu.html#_onMenuItemBlur">_onMenuItemBlur</a>,
                                             <a href="YAHOO.widget.Menu.html#_onMenuItemConfigChange">_onMenuItemConfigChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_onMenuItemFocus">_onMenuItemFocus</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onMouseMove">_onMouseMove</a>,
                                             <a href="YAHOO.widget.Menu.html#_onMouseOut">_onMouseOut</a>,
                                             <a href="YAHOO.widget.Menu.html#_onMouseOver">_onMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuConfigChange">_onParentMenuConfigChange</a>,
                                             <a href="YAHOO.widget.Menu.html#_onParentMenuRender">_onParentMenuRender</a>,
-                                            <a href="YAHOO.widget.Menu.html#_onRender">_onRender</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOut">_onScrollTargetMouseOut</a>,
+                                            <a href="YAHOO.widget.Menu.html#_onScrollTargetMouseOver">_onScrollTargetMouseOver</a>,
                                             <a href="YAHOO.widget.Menu.html#_onShow">_onShow</a>,
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuBeforeShow">_onSubmenuBeforeShow</a>,
                                             <a href="YAHOO.widget.Menu.html#_onSubmenuHide">_onSubmenuHide</a>,
@@ -573,20 +587,25 @@ changed using the menu bar's Config object ("cfg").
                                             <a href="YAHOO.widget.Menu.html#_onTextResize">_onTextResize</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByIndex">_removeItemFromGroupByIndex</a>,
                                             <a href="YAHOO.widget.Menu.html#_removeItemFromGroupByValue">_removeItemFromGroupByValue</a>,
+                                            <a href="YAHOO.widget.Menu.html#_setWidth">_setWidth</a>,
                                             <a href="YAHOO.widget.Menu.html#_subscribeToItemEvents">_subscribeToItemEvents</a>,
                                             <a href="YAHOO.widget.Menu.html#_updateItemProperties">_updateItemProperties</a>,
                                             <a href="YAHOO.widget.Menu.html#addItem">addItem</a>,
                                             <a href="YAHOO.widget.Menu.html#addItems">addItems</a>,
                                             <a href="YAHOO.widget.Menu.html#clearActiveItem">clearActiveItem</a>,
+                                            <a href="YAHOO.widget.Menu.html#clearContent">clearContent</a>,
+                                            <a href="YAHOO.widget.Menu.html#configClassName">configClassName</a>,
                                             <a href="YAHOO.widget.Menu.html#configContainer">configContainer</a>,
                                             <a href="YAHOO.widget.Menu.html#configHideDelay">configHideDelay</a>,
                                             <a href="YAHOO.widget.Menu.html#configIframe">configIframe</a>,
+                                            <a href="YAHOO.widget.Menu.html#configMaxHeight">configMaxHeight</a>,
                                             <a href="YAHOO.widget.Menu.html#configPosition">configPosition</a>,
                                             <a href="YAHOO.widget.Menu.html#configVisible">configVisible</a>,
                                             <a href="YAHOO.widget.Menu.html#destroy">destroy</a>,
                                             <a href="YAHOO.widget.Menu.html#enforceConstraints">enforceConstraints</a>,
                                             <a href="YAHOO.widget.Menu.html#getItem">getItem</a>,
                                             <a href="YAHOO.widget.Menu.html#getItemGroups">getItemGroups</a>,
+                                            <a href="YAHOO.widget.Menu.html#getItems">getItems</a>,
                                             <a href="YAHOO.widget.Menu.html#getRoot">getRoot</a>,
                                             <a href="YAHOO.widget.Menu.html#init">init</a>,
                                             <a href="YAHOO.widget.Menu.html#initDefaultConfig">initDefaultConfig</a>,
@@ -751,18 +770,20 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
                                 <code>
                                     
                                         <a href="YAHOO.widget.Menu.html#autosubmenudisplay">autosubmenudisplay</a>,
+                                        <a href="YAHOO.widget.Menu.html#classname">classname</a>,
                                         <a href="YAHOO.widget.Menu.html#clicktohide">clicktohide</a>,
                                         <a href="YAHOO.widget.Menu.html#constraintoviewport">constraintoviewport</a>,
                                         <a href="YAHOO.widget.Menu.html#container">container</a>,
                                         <a href="YAHOO.widget.Menu.html#hidedelay">hidedelay</a>,
+                                        <a href="YAHOO.widget.Menu.html#maxheight">maxheight</a>,
                                         <a href="YAHOO.widget.Menu.html#position">position</a>,
                                         <a href="YAHOO.widget.Menu.html#showdelay">showdelay</a>,
                                         <a href="YAHOO.widget.Menu.html#submenualignment">submenualignment</a>,
+                                        <a href="YAHOO.widget.Menu.html#submenuhidedelay">submenuhidedelay</a>,
                                         <a href="YAHOO.widget.Menu.html#visible">visible</a>
                                 </code>
                             </div>
                         </div>
-
 
 			</div>
 		</div>
@@ -777,17 +798,27 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -813,8 +844,6 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
                                 <li class=""><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -828,8 +857,6 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
                                 <li class=""><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class=""><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -884,7 +911,7 @@ parent menu bar item. The format is: [itemCorner, submenuCorner].
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

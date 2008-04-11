@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-version: 0.12.2
+version: 2.2.0
 */
 /**
 * Config is a utility used within an Object to allow the implementer to maintain a list of local configuration properties and listen for changes to those properties dynamically using CustomEvent. The initial values are also maintained so that the configuration can be reset at any given point to its initial state.
@@ -14,9 +14,8 @@ version: 0.12.2
 YAHOO.util.Config = function(owner) {
 	if (owner) {
 		this.init(owner);
-	} else {
-		YAHOO.log("No owner specified for Config object", "error");
 	}
+	if (!owner) { YAHOO.log("No owner specified for Config object", "error"); }
 };
 
 YAHOO.util.Config.prototype = {
@@ -118,7 +117,6 @@ YAHOO.util.Config.prototype.init = function(owner) {
 	*/ 
 	var fireEvent = function( key, value ) {
 		YAHOO.log("Firing Config event: " + key + "=" + value, "info");
-		
 		key = key.toLowerCase();
 
 		var property = config[key];
@@ -137,7 +135,6 @@ YAHOO.util.Config.prototype.init = function(owner) {
 	*/
 	this.addProperty = function( key, propertyObject ) {
 		key = key.toLowerCase();
-		
 		YAHOO.log("Added property: " + key, "info");
 
 		config[key] = propertyObject;
@@ -221,7 +218,6 @@ YAHOO.util.Config.prototype.init = function(owner) {
 	*/
 	this.setProperty = function(key, value, silent) {
 		key = key.toLowerCase();
-		
 		YAHOO.log("setProperty: " + key + "=" + value, "info");
 
 		if (this.queueInProgress && ! silent) {
@@ -256,7 +252,6 @@ YAHOO.util.Config.prototype.init = function(owner) {
 	*/	
 	this.queueProperty = function(key, value) {
 		key = key.toLowerCase();
-
 		YAHOO.log("queueProperty: " + key + "=" + value, "info");
 
 		var property = config[key];
@@ -316,7 +311,6 @@ YAHOO.util.Config.prototype.init = function(owner) {
 					}
 				}
 			}
-	
 			YAHOO.log("Config event queue: " + this.outputEventQueue(), "info");
 
 			return true;
@@ -791,9 +785,10 @@ YAHOO.widget.Calendar = function(id, containerId, config) {
 * The path to be used for images loaded for the Calendar
 * @property YAHOO.widget.Calendar.IMG_ROOT
 * @static
+* @deprecated	You can now customize images by overriding the calclose, calnavleft and calnavright default CSS classes for the close icon, left arrow and right arrow respectively
 * @type String
 */
-YAHOO.widget.Calendar.IMG_ROOT = (window.location.href.toLowerCase().indexOf("https") === 0 ? "https://a248.e.akamai.net/sec.yimg.com/i/" : "http://us.i1.yimg.com/us.yimg.com/i/");
+YAHOO.widget.Calendar.IMG_ROOT = null;
 
 /**
 * Type constant used for renderers to represent an individual date (M/D/Y)
@@ -934,14 +929,6 @@ YAHOO.widget.Calendar.prototype = {
 	_renderStack : null,
 
 	/**
-	* A Date object representing the month/year that the calendar is initially set to
-	* @property _pageDate
-	* @private
-	* @type Date
-	*/
-	_pageDate : null,
-
-	/**
 	* The private list of initially selected dates.
 	* @property _selectedDates
 	* @private
@@ -968,16 +955,13 @@ YAHOO.widget.Calendar.prototype = {
 */
 YAHOO.widget.Calendar.prototype.init = function(id, containerId, config) {
 	this.logger = new YAHOO.widget.LogWriter("Calendar_Core " + id);
-	
 	this.initEvents();
 	this.today = new Date();
 	YAHOO.widget.DateMath.clearTime(this.today);
 
 	this.id = id;
 	this.oDomContainer = document.getElementById(containerId);
-	if (! this.oDomContainer) {
-		this.logger.log("No valid container present.", "error");
-	}
+	if (! this.oDomContainer) { this.logger.log("No valid container present.", "error"); }
 
 	/**
 	* The Config object used to hold the configuration variables for the Calendar
@@ -1085,6 +1069,8 @@ YAHOO.widget.Calendar.prototype.configTitle = function(type, args, obj) {
 YAHOO.widget.Calendar.prototype.configClose = function(type, args, obj) {
 	var close = args[0];
 	var title = this.cfg.getProperty("title");
+	
+	var DEPR_CLOSE_PATH = "us/my/bn/x_d.gif";
 
 	var linkClose;
 
@@ -1093,15 +1079,20 @@ YAHOO.widget.Calendar.prototype.configClose = function(type, args, obj) {
 		linkClose.href = "javascript:void(null);";
 		linkClose.className = "link-close";
 		YAHOO.util.Event.addListener(linkClose, "click", this.hide, this, true);
-		var imgClose = document.createElement("img");
-		imgClose.src = YAHOO.widget.Calendar.IMG_ROOT + "us/my/bn/x_d.gif";
-		imgClose.className = YAHOO.widget.CalendarGroup.CSS_2UPCLOSE;
-		linkClose.appendChild(imgClose);
+		
+		if (YAHOO.widget.Calendar.IMG_ROOT !== null) {
+			var imgClose = document.createElement("img");
+			imgClose.src = YAHOO.widget.Calendar.IMG_ROOT + DEPR_CLOSE_PATH;
+			imgClose.className = YAHOO.widget.CalendarGroup.CSS_2UPCLOSE;
+			linkClose.appendChild(imgClose);
+		} else {
+			linkClose.innerHTML = '<span class="' + YAHOO.widget.CalendarGroup.CSS_2UPCLOSE + ' ' + this.Style.CSS_CLOSE + '"></span>';
+		}
+		
 		this.oDomContainer.appendChild(linkClose);
 		YAHOO.util.Dom.addClass(this.oDomContainer, "withtitle");
 	} else {
 		linkClose = YAHOO.util.Dom.getElementsByClassName("link-close", "a", this.oDomContainer)[0] || null;
-
 		if (linkClose) {
 			YAHOO.util.Event.purgeElement(linkClose);
 			this.oDomContainer.removeChild(linkClose);
@@ -1214,7 +1205,6 @@ YAHOO.widget.Calendar.prototype.doSelectCell = function(e, cal) {
 		var link;
 
 		cal.logger.log("Selecting cell " + index + " via click", "info");
-
 		if (cal.Options.MULTI_SELECT) {
 			link = cell.getElementsByTagName("a")[0];
 			if (link) {
@@ -1400,22 +1390,24 @@ YAHOO.widget.Calendar.prototype.setupConfig = function() {
 	* @default false
 	*/	
 	this.cfg.addProperty("HIDE_BLANK_WEEKS",{ value:false, handler:this.configOptions, validator:this.cfg.checkBoolean } );
-
+	
 	/**
 	* The image that should be used for the left navigation arrow.
 	* @config NAV_ARROW_LEFT
 	* @type String
-	* @default YAHOO.widget.Calendar.IMG_ROOT + "us/tr/callt.gif"
+	* @deprecated	You can customize the image by overriding the default CSS class for the left arrow - "calnavleft"  
+	* @default null
 	*/	
-	this.cfg.addProperty("NAV_ARROW_LEFT",	{ value:YAHOO.widget.Calendar.IMG_ROOT + "us/tr/callt.gif", handler:this.configOptions } );
+	this.cfg.addProperty("NAV_ARROW_LEFT",	{ value:null, handler:this.configOptions } );
 
 	/**
-	* The image that should be used for the left navigation arrow.
+	* The image that should be used for the right navigation arrow.
 	* @config NAV_ARROW_RIGHT
 	* @type String
-	* @default YAHOO.widget.Calendar.IMG_ROOT + "us/tr/calrt.gif"
+	* @deprecated	You can customize the image by overriding the default CSS class for the right arrow - "calnavright"
+	* @default null
 	*/	
-	this.cfg.addProperty("NAV_ARROW_RIGHT",	{ value:YAHOO.widget.Calendar.IMG_ROOT + "us/tr/calrt.gif", handler:this.configOptions } );
+	this.cfg.addProperty("NAV_ARROW_RIGHT",	{ value:null, handler:this.configOptions } );
 
 	// Locale properties
 
@@ -1587,34 +1579,7 @@ YAHOO.widget.Calendar.prototype.setupConfig = function() {
 * @method configPageDate
 */
 YAHOO.widget.Calendar.prototype.configPageDate = function(type, args, obj) {
-	var val = args[0];
-	var month, year, aMonthYear;
-
-	if (val) {
-		if (val instanceof Date) {
-			val = YAHOO.widget.DateMath.findMonthStart(val);
-			this.cfg.setProperty("pagedate", val, true);
-			if (! this._pageDate) {
-				this._pageDate = this.cfg.getProperty("pagedate");
-			}
-			return;
-		} else {
-			aMonthYear = val.split(this.cfg.getProperty("DATE_FIELD_DELIMITER"));
-			month = parseInt(aMonthYear[this.cfg.getProperty("MY_MONTH_POSITION")-1], 10)-1;
-			year = parseInt(aMonthYear[this.cfg.getProperty("MY_YEAR_POSITION")-1], 10);
-		}
-	} else {
-		month = this.today.getMonth();
-		year = this.today.getFullYear();
-	}
-	
-	this.cfg.setProperty("pagedate", new Date(year, month, 1), true);
-	
-	this.logger.log("Set month/year to " + month + "/" + year, "info");
-
-	if (! this._pageDate) {
-		this._pageDate = this.cfg.getProperty("pagedate");
-	}
+	this.cfg.setProperty("pagedate", this._parsePageDate(args[0]), true);
 };
 
 /**
@@ -1784,6 +1749,10 @@ YAHOO.widget.Calendar.prototype.initStyles = function() {
 		*/
 		CSS_HEADER_TEXT : "calhead",
 		/**
+		* @property Style.CSS_BODY
+		*/
+		CSS_BODY : "calbody",
+		/**
 		* @property Style.CSS_WEEKDAY_CELL
 		*/
 		CSS_WEEKDAY_CELL : "calweekdaycell",
@@ -1815,6 +1784,10 @@ YAHOO.widget.Calendar.prototype.initStyles = function() {
 		* @property Style.CSS_NAV_RIGHT
 		*/
 		CSS_NAV_RIGHT : "calnavright",
+		/**
+		* @property Style.CSS_CLOSE
+		*/
+		CSS_CLOSE : "calclose",
 		/**
 		* @property Style.CSS_CELL_TOP
 		*/
@@ -1884,8 +1857,10 @@ YAHOO.widget.Calendar.prototype.buildDayLabel = function(workingDate) {
 */
 YAHOO.widget.Calendar.prototype.renderHeader = function(html) {
 	this.logger.log("Rendering header", "info");
-
 	var colSpan = 7;
+	
+	var DEPR_NAV_LEFT = "us/tr/callt.gif";
+	var DEPR_NAV_RIGHT = "us/tr/calrt.gif";	
 	
 	if (this.cfg.getProperty("SHOW_WEEK_HEADER")) {
 		colSpan += 1;
@@ -1900,32 +1875,42 @@ YAHOO.widget.Calendar.prototype.renderHeader = function(html) {
 	html[html.length] =			'<th colspan="' + colSpan + '" class="' + this.Style.CSS_HEADER_TEXT + '">';
 	html[html.length] =				'<div class="' + this.Style.CSS_HEADER + '">';
 
-		var renderLeft, renderRight = false;
+	var renderLeft, renderRight = false;
 
-		if (this.parent) {
-			if (this.index === 0) {
-				renderLeft = true;
-			}
-			if (this.index == (this.parent.cfg.getProperty("pages") -1)) {
-				renderRight = true;
-			}
-		} else {
+	if (this.parent) {
+		if (this.index === 0) {
 			renderLeft = true;
+		}
+		if (this.index == (this.parent.cfg.getProperty("pages") -1)) {
 			renderRight = true;
 		}
+	} else {
+		renderLeft = true;
+		renderRight = true;
+	}
 
-		var cal = this.parent || this;
-
-		if (renderLeft) {
-			html[html.length] = '<a class="' + this.Style.CSS_NAV_LEFT + '" style="background-image:url(' + this.cfg.getProperty("NAV_ARROW_LEFT") + ')">&#160;</a>';
+	var cal = this.parent || this;
+	
+	if (renderLeft) {
+		var leftArrow = this.cfg.getProperty("NAV_ARROW_LEFT");
+		// Check for deprecated customization - If someone set IMG_ROOT, but didn't set NAV_ARROW_LEFT, then set NAV_ARROW_LEFT to the old deprecated value
+		if (leftArrow === null && YAHOO.widget.Calendar.IMG_ROOT !== null) {
+			leftArrow = YAHOO.widget.Calendar.IMG_ROOT + DEPR_NAV_LEFT;
 		}
-		
-		html[html.length] = this.buildMonthLabel();
-		
-		if (renderRight) {
-			html[html.length] = '<a class="' + this.Style.CSS_NAV_RIGHT + '" style="background-image:url(' + this.cfg.getProperty("NAV_ARROW_RIGHT") + ')">&#160;</a>';
+		var leftStyle = (leftArrow === null) ? "" : ' style="background-image:url(' + leftArrow + ')"';
+		html[html.length] = '<a class="' + this.Style.CSS_NAV_LEFT + '"' + leftStyle + ' >&#160;</a>';
+	}
+	
+	html[html.length] = this.buildMonthLabel();
+	
+	if (renderRight) {
+		var rightArrow = this.cfg.getProperty("NAV_ARROW_RIGHT");
+		if (rightArrow === null && YAHOO.widget.Calendar.IMG_ROOT !== null) {
+			rightArrow = YAHOO.widget.Calendar.IMG_ROOT + DEPR_NAV_RIGHT;
 		}
-
+		var rightStyle = (rightArrow === null) ? "" : ' style="background-image:url(' + rightArrow + ')"';
+		html[html.length] = '<a class="' + this.Style.CSS_NAV_RIGHT + '"' + rightStyle + ' >&#160;</a>';
+	}
 
 	html[html.length] =				'</div>';
 	html[html.length] =			'</th>';
@@ -1989,7 +1974,6 @@ YAHOO.widget.Calendar.prototype.renderBody = function(workingDate, html) {
 	
 	this.monthDays = YAHOO.widget.DateMath.findMonthEnd(workingDate).getDate();
 	this.postMonthDays = YAHOO.widget.Calendar.DISPLAY_DAYS-this.preMonthDays-this.monthDays;
-
 	this.logger.log(this.preMonthDays + " preciding out-of-month days", "info");
 	this.logger.log(this.monthDays + " month days", "info");
 	this.logger.log(this.postMonthDays + " post-month days", "info");
@@ -2000,7 +1984,7 @@ YAHOO.widget.Calendar.prototype.renderBody = function(workingDate, html) {
 	var useDate,weekNum,weekClass;
 	useDate = this.cfg.getProperty("pagedate");
 
-	html[html.length] = '<tbody class="m' + (useDate.getMonth()+1) + '">';
+	html[html.length] = '<tbody class="m' + (useDate.getMonth()+1) + ' ' + this.Style.CSS_BODY + '">';
 	
 	var i = 0;
 
@@ -2161,7 +2145,6 @@ YAHOO.widget.Calendar.prototype.renderBody = function(workingDate, html) {
 				for (var x=0;x<cellRenderers.length;++x) {
 					var ren = cellRenderers[x];
 					this.logger.log("renderer[" + x + "] for (" + workingDate.getFullYear() + "-" + (workingDate.getMonth()+1) + "-" + workingDate.getDate() + ")", "cellrender");
-
 					if (ren.call((this.parent || this),workingDate,cell) == YAHOO.widget.Calendar.STOP_RENDER) {
 						break;
 					}
@@ -2281,7 +2264,7 @@ YAHOO.widget.Calendar.prototype.applyListeners = function() {
 	if (this.domEventMap) {
 		var el,elements;
 		for (var cls in this.domEventMap) {	
-			if (this.domEventMap.hasOwnProperty(cls)) {
+			if (YAHOO.lang.hasOwnProperty(this.domEventMap, cls)) {
 				var items = this.domEventMap[cls];
 				
 				if (! (items instanceof Array)) {
@@ -2608,7 +2591,6 @@ YAHOO.widget.Calendar.prototype.clear = function() {
 */
 YAHOO.widget.Calendar.prototype.select = function(date) {
 	this.logger.log("Select: " + date, "info");
-
 	this.beforeSelectEvent.fire();
 
 	var selected = this.cfg.getProperty("selected");
@@ -2882,6 +2864,34 @@ YAHOO.widget.Calendar.prototype.isDateOOM = function(date) {
 		isOOM = true;
 	}
 	return isOOM;
+};
+
+/**
+ * Parses a pagedate configuration property value. The value can either be specified as a string of form "mm/yyyy" or a Date object 
+ * and is parsed into a Date object normalized to the first day of the month. If no value is passed in, the month and year from today's date are used to create the Date object 
+ * @method	_parsePageDate
+ * @private
+ * @param {Date|String}	date	Pagedate value which needs to be parsed
+ * @return {Date}	The Date object representing the pagedate
+ */
+YAHOO.widget.Calendar.prototype._parsePageDate = function(date) {
+	var parsedDate;
+
+	if (date) {
+		if (date instanceof Date) {
+			parsedDate = YAHOO.widget.DateMath.findMonthStart(date);
+		} else {
+			var month, year, aMonthYear;
+			aMonthYear = date.split(this.cfg.getProperty("DATE_FIELD_DELIMITER"));
+			month = parseInt(aMonthYear[this.cfg.getProperty("MY_MONTH_POSITION")-1], 10)-1;
+			year = parseInt(aMonthYear[this.cfg.getProperty("MY_YEAR_POSITION")-1], 10);
+			
+			parsedDate = new Date(year, month, 1);
+		}
+	} else {
+		parsedDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
+	}
+	return parsedDate;
 };
 
 // END UTILITY METHODS
@@ -3284,7 +3294,6 @@ YAHOO.widget.CalendarGroup = function(id, containerId, config) {
 */
 YAHOO.widget.CalendarGroup.prototype.init = function(id, containerId, config) {
 	this.logger = new YAHOO.widget.LogWriter("CalendarGroup " + id);
-
 	this.initEvents();
 	this.initStyles();
 
@@ -3363,8 +3372,7 @@ YAHOO.widget.CalendarGroup.prototype.init = function(id, containerId, config) {
 		};
 		this.renderEvent.subscribe(fixWidth,this,true);
 	}
-	
-	this.logger.log("Initialized " + pageCount + "-page CalendarGroup", "info");
+	this.logger.log("Initialized " + this.pages.length + "-page CalendarGroup", "info");
 };
 
 
@@ -3487,17 +3495,19 @@ YAHOO.widget.CalendarGroup.prototype.setupConfig = function() {
 	* The image that should be used for the left navigation arrow.
 	* @config NAV_ARROW_LEFT
 	* @type String
-	* @default YAHOO.widget.Calendar.IMG_ROOT + "us/tr/callt.gif"
+	* @deprecated	You can customize the image by overriding the default CSS class for the left arrow - "calnavleft"
+	* @default null
 	*/		
-	this.cfg.addProperty("NAV_ARROW_LEFT",	{ value:YAHOO.widget.Calendar.IMG_ROOT + "us/tr/callt.gif", handler:this.delegateConfig } );
+	this.cfg.addProperty("NAV_ARROW_LEFT",	{ value:null, handler:this.delegateConfig } );
 	
 	/**
-	* The image that should be used for the left navigation arrow.
+	* The image that should be used for the right navigation arrow.
 	* @config NAV_ARROW_RIGHT
 	* @type String
-	* @default YAHOO.widget.Calendar.IMG_ROOT + "us/tr/calrt.gif"
+	* @deprecated	You can customize the image by overriding the default CSS class for the right arrow - "calnavright"
+	* @default null
 	*/		
-	this.cfg.addProperty("NAV_ARROW_RIGHT",	{ value:YAHOO.widget.Calendar.IMG_ROOT + "us/tr/calrt.gif", handler:this.delegateConfig } );
+	this.cfg.addProperty("NAV_ARROW_RIGHT",	{ value:null, handler:this.delegateConfig } );
 
 	// Locale properties
 	
@@ -3770,7 +3780,7 @@ YAHOO.widget.CalendarGroup.prototype.configPages = function(type, args, obj) {
 
 		var cal = this.constructChild(calId, calContainerId, childConfig);
 		var caldate = cal.cfg.getProperty("pagedate");
-		caldate.setMonth(caldate.getMonth()+p);
+		this._setMonthOnDate(caldate, caldate.getMonth() + p);
 		cal.cfg.setProperty("pagedate", caldate);
 		
 		YAHOO.util.Dom.removeClass(cal.oDomContainer, this.Style.CSS_SINGLE);
@@ -3800,12 +3810,18 @@ YAHOO.widget.CalendarGroup.prototype.configPages = function(type, args, obj) {
 */
 YAHOO.widget.CalendarGroup.prototype.configPageDate = function(type, args, obj) {
 	var val = args[0];
-
+	var firstPageDate;
+	
 	for (var p=0;p<this.pages.length;++p) {
 		var cal = this.pages[p];
-		cal.cfg.setProperty("pagedate", val);
-		var calDate = cal.cfg.getProperty("pagedate");
-		calDate.setMonth(calDate.getMonth()+p);
+		if (p === 0) {
+			firstPageDate = cal._parsePageDate(val);
+			cal.cfg.setProperty("pagedate", firstPageDate);
+		} else {
+			var pageDate = new Date(firstPageDate);
+			this._setMonthOnDate(pageDate, pageDate.getMonth() + p);
+			cal.cfg.setProperty("pagedate", pageDate);
+		}
 	}
 };
 
@@ -3887,10 +3903,18 @@ YAHOO.widget.CalendarGroup.prototype.constructChild = function(id,containerId,co
 */
 YAHOO.widget.CalendarGroup.prototype.setMonth = function(month) {
 	month = parseInt(month, 10);
-
-	for (var p=0;p<this.pages.length;++p) {
+	var currYear;
+	
+	for (var p=0; p<this.pages.length; ++p) {
 		var cal = this.pages[p];
-		cal.setMonth(month+p);
+		var pageDate = cal.cfg.getProperty("pagedate");
+		if (p === 0) {
+			currYear = pageDate.getFullYear();
+		} else {
+			pageDate.setYear(currYear);
+		}
+		this._setMonthOnDate(pageDate, month+p); 
+		cal.cfg.setProperty("pagedate", pageDate);
 	}
 };
 
@@ -4198,6 +4222,26 @@ YAHOO.widget.CalendarGroup.prototype.subtractYears = function(count) {
 };
 
 /**
+* Sets the month on a Date object, taking into account year rollover if the month is less than 0 or greater than 11.
+* The Date object passed in is modified. It should be cloned before passing it into this method if the original value needs to be maintained
+* @method	_setMonthOnDate
+* @private
+* @param	{Date}	date	The Date object on which to set the month index
+* @param	{Number}	iMonth	The month index to set
+*/
+YAHOO.widget.CalendarGroup.prototype._setMonthOnDate = function(date, iMonth) {
+	// BUG in Safari 1.3, 2.0 (WebKit build < 420), Date.setMonth does not work consistently if iMonth is not 0-11
+	if (this.browser == "safari" && (iMonth < 0 || iMonth > 11)) {
+		var DM = YAHOO.widget.DateMath;
+		var newDate = DM.add(date, DM.MONTH, iMonth-date.getMonth());
+		date.setTime(newDate.getTime());
+	} else {
+		date.setMonth(iMonth);
+	}
+};
+
+
+/**
 * CSS class representing the container for the calendar
 * @property YAHOO.widget.CalendarGroup.CSS_CONTAINER
 * @static
@@ -4229,6 +4273,8 @@ YAHOO.widget.CalendarGroup.CSS_2UPTITLE = "title";
 * @property YAHOO.widget.CalendarGroup.CSS_2UPCLOSE
 * @static
 * @final
+* @deprecated	Along with Calendar.IMG_ROOT and NAV_ARROW_LEFT, NAV_ARROW_RIGHT configuration properties.
+*					Calendar's <a href="YAHOO.widget.Calendar.html#Style.CSS_CLOSE">Style.CSS_CLOSE</a> property now represents the CSS class used to render the close icon
 * @type String
 */
 YAHOO.widget.CalendarGroup.CSS_2UPCLOSE = "close-icon";
@@ -4281,3 +4327,5 @@ YAHOO.extend(YAHOO.widget.Calendar2up, YAHOO.widget.CalendarGroup);
 * @deprecated The old Calendar2up class is no longer necessary, since CalendarGroup renders in a 2up view by default.
 */
 YAHOO.widget.Cal2up = YAHOO.widget.Calendar2up;
+
+YAHOO.register("calendar", YAHOO.widget.Calendar, {version: "2.2.0", build: "127"});

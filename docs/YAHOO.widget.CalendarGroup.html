@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: calendar  YAHOO.widget.CalendarGroup   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Calendar&nbsp;</h3>
+        <h3>Calendar&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_calendar.html">calendar</a>
@@ -217,6 +216,10 @@ The tables for the calendars ("cal1_0" and "cal1_1") will be inserted into those
      
                                         
 
+                                    <div class="deprecated">
+                                        <strong>Deprecated: </strong>Along with Calendar.IMG_ROOT and NAV_ARROW_LEFT, NAV_ARROW_RIGHT configuration properties.
+Calendar's <a href="YAHOO.widget.Calendar.html#Style.CSS_CLOSE">Style.CSS_CLOSE</a> property now represents the CSS class used to render the close icon
+                                    </div>        
 
                                     <hr />
                                     <h4><a name="YAHOO.widget.CalendarGroup.CSS_2UPTITLE">YAHOO.widget.CalendarGroup.CSS_2UPTITLE</a>
@@ -267,6 +270,59 @@ The tables for the calendars ("cal1_0" and "cal1_1") will be inserted into those
                         <div class="section method details">
                             <h3><a name="methodDetails">Methods</a></h3>
                             <div class="content">
+                                    <h4>
+                                        <a name="_setMonthOnDate">_setMonthOnDate</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                         private 
+                                        
+                                        
+                                        void
+                                            <strong>_setMonthOnDate</strong>
+                                           (
+                                                
+                                                        
+                                                         date
+                                                    
+                                                
+                                                        , 
+                                                         iMonth
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Sets the month on a Date object, taking into account year rollover if the month is less than 0 or greater than 11.
+The Date object passed in is modified. It should be cloned before passing it into this method if the original value needs to be maintained
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>date &lt;Date&gt;</code>
+                                                            	The Date object on which to set the month index
+                                                        </dd>
+                                                        <dd>
+                                                            <code>iMonth &lt;Number&gt;</code>
+                                                            	The month index to set
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
                                     <h4>
                                         <a name="addMonthRenderer">addMonthRenderer</a></h4>
                                     <div class="detail">
@@ -2418,9 +2474,12 @@ calendar page date to the new month.
                                         </div>
                                     </div>
  
+                                    <div class="deprecated">
+                                        <strong>Deprecated</strong>You can customize the image by overriding the default CSS class for the left arrow - "calnavleft"
+                                    </div>        
      
                                     <div class="default">
-                                        Default Value: YAHOO.widget.Calendar.IMG_ROOT + "us/tr/callt.gif"
+                                        Default Value: null
                                     </div>        
 
                                     <hr />
@@ -2429,13 +2488,16 @@ calendar page date to the new month.
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
-                                            The image that should be used for the left navigation arrow.
+                                            The image that should be used for the right navigation arrow.
                                         </div>
                                     </div>
  
+                                    <div class="deprecated">
+                                        <strong>Deprecated</strong>You can customize the image by overriding the default CSS class for the right arrow - "calnavright"
+                                    </div>        
      
                                     <div class="default">
-                                        Default Value: YAHOO.widget.Calendar.IMG_ROOT + "us/tr/calrt.gif"
+                                        Default Value: null
                                     </div>        
 
                                     <hr />
@@ -2624,7 +2686,6 @@ calendar page date to the new month.
                         </div>
 
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -2638,17 +2699,27 @@ calendar page date to the new month.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class="selected"><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -2726,6 +2797,9 @@ calendar page date to the new month.
                     <div class="module">
                         <h4>Methods</h4>
                         <ul class="content">        
+                                <li><!--<code>void</code>-->
+                                <a href="#_setMonthOnDate">_setMonthOnDate</a>
+                                </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#addMonthRenderer">addMonthRenderer</a>
                                 </li>
@@ -2980,7 +3054,7 @@ calendar page date to the new month.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

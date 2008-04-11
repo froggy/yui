@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: tabview  YAHOO.widget.Tab   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>tabview&nbsp;</h3>
+        <h3>tabview&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_tabview.html">tabview</a>
@@ -239,7 +238,7 @@ loaded dynamically.
                                         </code>
                                         
                                         <div class="description">
-                                            Registers TabView specific properties.
+                                            setAttributeConfigs TabView specific properties.
                                         </div>
 
                                         <div class="description">
@@ -343,6 +342,7 @@ loaded dynamically.
                                             <a href="YAHOO.util.AttributeProvider.html#resetAttributeConfig">resetAttributeConfig</a>,
                                             <a href="YAHOO.util.AttributeProvider.html#resetValue">resetValue</a>,
                                             <a href="YAHOO.util.AttributeProvider.html#set">set</a>,
+                                            <a href="YAHOO.util.AttributeProvider.html#setAttributeConfig">setAttributeConfig</a>,
                                             <a href="YAHOO.util.AttributeProvider.html#setAttributes">setAttributes</a>
                                     </code>
                                 </div>
@@ -356,7 +356,8 @@ loaded dynamically.
                                             <a href="YAHOO.util.EventProvider.html#fireEvent">fireEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#hasEvent">hasEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#subscribe">subscribe</a>,
-                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>,
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribeAll">unsubscribeAll</a>
                                     </code>
                                 </div>
                             </div>
@@ -809,7 +810,6 @@ the given source.
                             </div>
                         </div>
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -823,17 +823,27 @@ the given source.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -852,9 +862,6 @@ the given source.
                     <div class="module">
                         <h4>Classes</h4>
                         <ul class="content">
-                                <li class=""><a href="YAHOO.util.Attribute.html">YAHOO.util.Attribute</a></li>
-                                <li class=""><a href="YAHOO.util.AttributeProvider.html">YAHOO.util.AttributeProvider</a></li>
-                                <li class=""><a href="YAHOO.util.Element.html">YAHOO.util.Element</a></li>
                                 <li class="selected"><a href="YAHOO.widget.Tab.html">YAHOO.widget.Tab</a></li>
                                 <li class=""><a href="YAHOO.widget.TabView.html">YAHOO.widget.TabView</a></li>
                         </ul>
@@ -863,10 +870,6 @@ the given source.
                     <div class="module">
                         <h4>Files</h4>
                         <ul class="content">        
-                                <li class=""><a href="Attribute.js.html">Attribute.js</a></li>
-                                <li class=""><a href="AttributeProvider.js.html">AttributeProvider.js</a></li>
-                                <li class=""><a href="Element.js.html">Element.js</a></li>
-                                <li class=""><a href="Lang.js.html">Lang.js</a></li>
                                 <li class=""><a href="Tab.js.html">Tab.js</a></li>
                                 <li class=""><a href="TabView.js.html">TabView.js</a></li>
                         </ul>
@@ -985,7 +988,7 @@ the given source.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

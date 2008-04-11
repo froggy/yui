@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: menu   menu.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Menu Library&nbsp;</h3>
+        <h3>Menu&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_menu.html">menu</a>
@@ -25,13 +24,7 @@
 			<div class="yui-b">
 
                     <div id="srcout">
-<div class="highlight" ><pre><span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
-
-<span class="k">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span>
-    <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">;</span>
-
-
-<span class="c">/**</span>
+<div class="highlight" ><pre><span class="c">/**</span>
 <span class="c">* The Menu class creates a container that holds a vertical list representing </span>
 <span class="c">* a set of options or commands.  Menu is the base class for all </span>
 <span class="c">* menu containers. </span>
@@ -55,14 +48,19 @@
 <span class="c">* @constructor</span>
 <span class="c">* @extends YAHOO.widget.Overlay</span>
 <span class="c">*/</span>
+<span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+<span class="k">var</span> <span class="nx">Dom</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">,</span>
+    <span class="nx">Event</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">,</span>
+    <span class="nx">Lang</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">;</span>
+
+
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oElement</span><span class="o">,</span> <span class="nx">p_oConfig</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">if</span><span class="o">(</span><span class="nx">p_oConfig</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">this</span><span class="o">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="nx">p_oConfig</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
-
         <span class="k">this</span><span class="o">.</span><span class="nx">lazyLoad</span> <span class="o">=</span> <span class="nx">p_oConfig</span><span class="o">.</span><span class="nx">lazyLoad</span> <span class="o">||</span> <span class="nx">p_oConfig</span><span class="o">.</span><span class="nx">lazyload</span><span class="o">;</span>
-
         <span class="k">this</span><span class="o">.</span><span class="nx">itemData</span> <span class="o">=</span> <span class="nx">p_oConfig</span><span class="o">.</span><span class="nx">itemData</span> <span class="o">||</span> <span class="nx">p_oConfig</span><span class="o">.</span><span class="nx">itemdata</span><span class="o">;</span>
 
     <span class="o">}</span>
@@ -76,8 +74,8 @@
 
 <span class="o">};</span>
 
-<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Overlay</span><span class="o">,</span> <span class="o">{</span>
 
+<span class="nx">YAHOO</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">extend</span><span class="o">(</span><span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Menu</span><span class="o">,</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Overlay</span><span class="o">,</span> <span class="o">{</span>
 
 
 <span class="c">// Constants</span>
@@ -145,7 +143,29 @@
 
 
 <span class="c">/** </span>
-<span class="c">* @property _hideDelayEventHandlersAssigned</span>
+<span class="c">* @property _nSubmenuHideDelayId</span>
+<span class="c">* @description Number representing the time-out setting used to cancel the </span>
+<span class="c">* hiding of a submenu.</span>
+<span class="c">* @default null</span>
+<span class="c">* @private</span>
+<span class="c">* @type Number</span>
+<span class="c">*/</span>
+<span class="nx">_nSubmenuHideDelayId</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+
+
+<span class="c">/** </span>
+<span class="c">* @property _nBodyScrollId</span>
+<span class="c">* @description Number representing the time-out setting used to cancel the </span>
+<span class="c">* scrolling of the menu&#39;s body element.</span>
+<span class="c">* @default null</span>
+<span class="c">* @private</span>
+<span class="c">* @type Number</span>
+<span class="c">*/</span>
+<span class="nx">_nBodyScrollId</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+
+
+<span class="c">/** </span>
+<span class="c">* @property _bHideDelayEventHandlersAssigned</span>
 <span class="c">* @description Boolean indicating if the &quot;mouseover&quot; and &quot;mouseout&quot; event </span>
 <span class="c">* handlers used for hiding the menu via a call to &quot;window.setTimeout&quot; have </span>
 <span class="c">* already been assigned.</span>
@@ -153,7 +173,7 @@
 <span class="c">* @private</span>
 <span class="c">* @type Boolean</span>
 <span class="c">*/</span>
-<span class="nx">_hideDelayEventHandlersAssigned</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
+<span class="nx">_bHideDelayEventHandlersAssigned</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
 
 
 <span class="c">/**</span>
@@ -190,7 +210,8 @@
 
 <span class="c">/**</span>
 <span class="c">* @property _aItemGroups</span>
-<span class="c">* @description Array of menu items.</span>
+<span class="c">* @description Multi-dimensional Array representing the menu items as they</span>
+<span class="c">* are grouped in the menu.</span>
 <span class="c">* @default []</span>
 <span class="c">* @private</span>
 <span class="c">* @type Array</span>
@@ -207,6 +228,49 @@
 <span class="c">* @type Array</span>
 <span class="c">*/</span>
 <span class="nx">_aListElements</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @property _nCurrentMouseX</span>
+<span class="c">* @description The current x coordinate of the mouse inside the area of </span>
+<span class="c">* the menu.</span>
+<span class="c">* @default 0</span>
+<span class="c">* @private</span>
+<span class="c">* @type Number</span>
+<span class="c">*/</span>
+<span class="nx">_nCurrentMouseX</span><span class="o">:</span> <span class="m">0</span><span class="o">,</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @property _nMaxHeight</span>
+<span class="c">* @description The original value of the &quot;maxheight&quot; configuration property </span>
+<span class="c">* as set by the user.</span>
+<span class="c">* @default -1</span>
+<span class="c">* @private</span>
+<span class="c">* @type Number</span>
+<span class="c">*/</span>
+<span class="nx">_nMaxHeight</span><span class="o">:</span> <span class="o">-</span><span class="m">1</span><span class="o">,</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @property _bStopMouseEventHandlers</span>
+<span class="c">* @description Stops &quot;mouseover,&quot; &quot;mouseout,&quot; and &quot;mousemove&quot; event handlers </span>
+<span class="c">* from executing.</span>
+<span class="c">* @default false</span>
+<span class="c">* @private</span>
+<span class="c">* @type Boolean</span>
+<span class="c">*/</span>
+<span class="nx">_bStopMouseEventHandlers</span><span class="o">:</span> <span class="kc">false</span><span class="o">,</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @property _sClassName</span>
+<span class="c">* @description The current value of the &quot;classname&quot; configuration attribute.</span>
+<span class="c">* @default null</span>
+<span class="c">* @private</span>
+<span class="c">* @type String</span>
+<span class="c">*/</span>
+<span class="nx">_sClassName</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
 
 
 
@@ -503,14 +567,16 @@
 <span class="c"></span>
         <span class="k">this</span><span class="o">.</span><span class="nx">initEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onInit</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">beforeRenderEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onBeforeRender</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onRender</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_setWidth</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">beforeShowEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onBeforeShow</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">showEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onShow</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">beforeHideEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onBeforeHide</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">hideEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onHide</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">mouseOverEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onMouseOver</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">mouseOutEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onMouseOut</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">clickEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onClick</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">keyDownEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onKeyDown</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">keyPressEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onKeyPress</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 
         <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Module</span><span class="o">.</span><span class="nx">textResizeEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span>
             <span class="k">this</span><span class="o">.</span><span class="nx">_onTextResize</span><span class="o">,</span> 
@@ -552,7 +618,7 @@
 
     <span class="k">var</span> <span class="nx">oNode</span><span class="o">;</span>
 
-    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">srcElement</span><span class="o">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;DIV&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">srcElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;DIV&quot;</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="c">/*</span>
 <span class="c">            Populate the collection of item groups and item</span>
@@ -719,35 +785,22 @@
 <span class="c">*/</span>
 <span class="nx">_getFirstEnabledItem</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
 
-    <span class="k">var</span> <span class="nx">nGroups</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span>
-        <span class="nx">oItem</span><span class="o">,</span>
-        <span class="nx">aItemGroup</span><span class="o">;</span>
-
-    <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">nGroups</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
-
-        <span class="nx">aItemGroup</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
-        
-        <span class="k">if</span><span class="o">(</span><span class="nx">aItemGroup</span><span class="o">)</span> <span class="o">{</span>
-
-            <span class="k">var</span> <span class="nx">nItems</span> <span class="o">=</span> <span class="nx">aItemGroup</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
-            
-            <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">n</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">n</span><span class="o">&lt;</span><span class="nx">nItems</span><span class="o">;</span> <span class="nx">n</span><span class="o">++)</span> <span class="o">{</span>
-            
-                <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">aItemGroup</span><span class="o">[</span><span class="nx">n</span><span class="o">];</span>
-                
-                <span class="k">if</span><span class="o">(</span>
-                    <span class="o">!</span><span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
-                    <span class="nx">oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span>
-                <span class="o">)</span> <span class="o">{</span>
-                
-                    <span class="k">return</span> <span class="nx">oItem</span><span class="o">;</span>
-                
-                <span class="o">}</span>
+    <span class="k">var</span> <span class="nx">aItems</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getItems</span><span class="o">(),</span>
+        <span class="nx">nItems</span> <span class="o">=</span> <span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span>
+        <span class="nx">oItem</span><span class="o">;</span>
     
-                <span class="nx">oItem</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    
-            <span class="o">}</span>
-        
+    <span class="k">for</span><span class="o">(</span><span class="k">var</span> <span class="nx">i</span><span class="o">=</span><span class="m">0</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">nItems</span><span class="o">;</span> <span class="nx">i</span><span class="o">++)</span> <span class="o">{</span>
+
+        <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">aItems</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
+
+        <span class="k">if</span><span class="o">(</span>
+            <span class="nx">oItem</span> <span class="o">&amp;&amp;</span> 
+            <span class="o">!</span><span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+            <span class="nx">oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">style</span><span class="o">.</span><span class="nx">display</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span>
+        <span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">return</span> <span class="nx">oItem</span><span class="o">;</span>
+
         <span class="o">}</span>
     
     <span class="o">}</span>
@@ -866,15 +919,6 @@
                 <span class="o">}</span>
                 <span class="k">else</span> <span class="o">{</span>
   
-    
-                    <span class="c">/**</span>
-<span class="c">                    * Returns the next sibling of an item in an array.</span>
-<span class="c">                    * @private</span>
-<span class="c">                    * @param {p_aArray} Array to search.</span>
-<span class="c">                    * @param {p_nStartIndex} Number indicating the index to </span>
-<span class="c">                    * start searching the array.</span>
-<span class="c">                    * @return {Object}</span>
-<span class="c">                    */</span>
                     <span class="k">function</span> <span class="nx">getNextItemSibling</span><span class="o">(</span><span class="nx">p_aArray</span><span class="o">,</span> <span class="nx">p_nStartIndex</span><span class="o">)</span> <span class="o">{</span>
                 
                             <span class="k">return</span> <span class="o">(</span>
@@ -1000,7 +1044,7 @@
 <span class="c">* @param {Number} p_nItemIndex Number indicating the index of the menu item </span>
 <span class="c">* to be removed.</span>
 <span class="c">* @return {YAHOO.widget.MenuItem}</span>
-<span class="c">*/</span>    
+<span class="c">*/</span>
 <span class="nx">_removeItemFromGroupByIndex</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_nGroupIndex</span><span class="o">,</span> <span class="nx">p_nItemIndex</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">var</span> <span class="nx">nGroupIndex</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">p_nGroupIndex</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span> <span class="o">?</span> <span class="nx">p_nGroupIndex</span> <span class="o">:</span> <span class="m">0</span><span class="o">,</span>
@@ -1315,6 +1359,47 @@
 
 
 <span class="c">/**</span>
+<span class="c">* @method _setWidth</span>
+<span class="c">* @description Sets the width of the menu&#39;s root &lt;code&gt;&amp;#60;div&amp;#62;&lt;/code&gt; </span>
+<span class="c">* element to its offsetWidth.</span>
+<span class="c">* @private</span>
+<span class="c">*/</span>
+<span class="nx">_setWidth</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;position&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;dynamic&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">sWidth</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;BODY&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;opera&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">sWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_getOffsetWidth</span><span class="o">();</span>
+            
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+
+                <span class="nx">Dom</span><span class="o">.</span><span class="nx">setStyle</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="s2">&quot;width&quot;</span><span class="o">,</span> <span class="s2">&quot;auto&quot;</span><span class="o">);</span>
+                
+                <span class="nx">sWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">;</span>
+            
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+        
+            <span class="nx">sWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_getOffsetWidth</span><span class="o">();</span>
+        
+        <span class="o">}</span>
+    
+        <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;width&quot;</span><span class="o">,</span> <span class="o">(</span><span class="nx">sWidth</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">));</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
 <span class="c">* @method _cancelHideDelay</span>
 <span class="c">* @description Cancels the call to &quot;hideMenu.&quot;</span>
 <span class="c">* @private</span>
@@ -1400,8 +1485,12 @@
 
     <span class="k">function</span> <span class="nx">showMenu</span><span class="o">()</span> <span class="o">{</span>
 
-        <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">show</span><span class="o">();</span>    
-    
+        <span class="k">if</span><span class="o">(</span><span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+            <span class="nx">p_oMenu</span><span class="o">.</span><span class="nx">show</span><span class="o">();</span>
+
+        <span class="o">}</span>
+
     <span class="o">}</span>
 
 
@@ -1411,9 +1500,116 @@
 <span class="o">},</span>
 
 
+<span class="c">/**</span>
+<span class="c">* @method _execSubmenuHideDelay</span>
+<span class="c">* @description Hides a submenu after the number of milliseconds specified by </span>
+<span class="c">* the &quot;submenuhidedelay&quot; configuration property have ellapsed.</span>
+<span class="c">* @private</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oSubmenu Object specifying the submenu that  </span>
+<span class="c">* should be hidden.</span>
+<span class="c">* @param {Number} p_nMouseX The x coordinate of the mouse when it left </span>
+<span class="c">* the specified submenu&#39;s parent menu item.</span>
+<span class="c">* @param {Number} p_nHideDelay The number of milliseconds that should ellapse</span>
+<span class="c">* before the submenu is hidden.</span>
+<span class="c">*/</span>
+<span class="nx">_execSubmenuHideDelay</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oSubmenu</span><span class="o">,</span> <span class="nx">p_nMouseX</span><span class="o">,</span> <span class="nx">p_nHideDelay</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+
+    <span class="nx">p_oSubmenu</span><span class="o">.</span><span class="nx">_nSubmenuHideDelayId</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span> <span class="o">()</span> <span class="o">{</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="nx">me</span><span class="o">.</span><span class="nx">_nCurrentMouseX</span> <span class="o">&gt;</span> <span class="o">(</span><span class="nx">p_nMouseX</span> <span class="o">+</span> <span class="m">10</span><span class="o">))</span> <span class="o">{</span>
+
+            <span class="nx">p_oSubmenu</span><span class="o">.</span><span class="nx">_nSubmenuHideDelayId</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span> <span class="o">()</span> <span class="o">{</span>
+        
+                <span class="nx">p_oSubmenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
+
+            <span class="o">},</span> <span class="nx">p_nHideDelay</span><span class="o">);</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+
+            <span class="nx">p_oSubmenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
+        
+        <span class="o">}</span>
+
+    <span class="o">},</span> <span class="m">50</span><span class="o">);</span>
+
+<span class="o">},</span>
+
+
 
 <span class="c">// Protected methods</span>
 <span class="c"></span>
+
+<span class="c">/**</span>
+<span class="c">* @method _disableScrollHeader</span>
+<span class="c">* @description Disables the header used for scrolling the body of the menu.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">_disableScrollHeader</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_bHeaderDisabled</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">,</span> <span class="s2">&quot;topscrollbar_disabled&quot;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bHeaderDisabled</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _disableScrollFooter</span>
+<span class="c">* @description Disables the footer used for scrolling the body of the menu.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">_disableScrollFooter</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_bFooterDisabled</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">,</span> <span class="s2">&quot;bottomscrollbar_disabled&quot;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bFooterDisabled</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _enableScrollHeader</span>
+<span class="c">* @description Enables the header used for scrolling the body of the menu.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">_enableScrollHeader</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bHeaderDisabled</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">,</span> <span class="s2">&quot;topscrollbar_disabled&quot;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bHeaderDisabled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _enableScrollFooter</span>
+<span class="c">* @description Enables the footer used for scrolling the body of the menu.</span>
+<span class="c">* @protected</span>
+<span class="c">*/</span>
+<span class="nx">_enableScrollFooter</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bFooterDisabled</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">,</span> <span class="s2">&quot;bottomscrollbar_disabled&quot;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bFooterDisabled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
 
 <span class="c">/**</span>
 <span class="c">* @method _onMouseOver</span>
@@ -1427,6 +1623,13 @@
 <span class="c">*/</span>
 <span class="nx">_onMouseOver</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
 
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bStopMouseEventHandlers</span><span class="o">)</span> <span class="o">{</span>
+    
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
+
     <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
         <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">1</span><span class="o">],</span>
         <span class="nx">oTarget</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getTarget</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
@@ -1437,7 +1640,37 @@
         <span class="o">(</span><span class="nx">oTarget</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span> <span class="o">||</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">isAncestor</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">oTarget</span><span class="o">))</span>
     <span class="o">)</span> <span class="o">{</span>
 
+        <span class="c">// Menu mouseover logic</span>
+<span class="c"></span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_nCurrentMouseX</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span>
+                <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> 
+                <span class="s2">&quot;mousemove&quot;</span><span class="o">,</span> 
+                <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseMove</span><span class="o">,</span> 
+                <span class="k">this</span><span class="o">,</span> 
+                <span class="kc">true</span>
+            <span class="o">);</span>
+
+
         <span class="k">this</span><span class="o">.</span><span class="nx">clearActiveItem</span><span class="o">();</span>
+
+
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">parent</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">_nSubmenuHideDelayId</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nb">window</span><span class="o">.</span><span class="nx">clearTimeout</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nSubmenuHideDelayId</span><span class="o">);</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+
+            <span class="k">var</span> <span class="nx">oParentMenu</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
+
+            <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">activeItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
+
+            <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">_bHandledMouseOutEvent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">_bHandledMouseOverEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+        <span class="o">}</span>
+
 
         <span class="k">this</span><span class="o">.</span><span class="nx">_bHandledMouseOverEvent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_bHandledMouseOutEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
@@ -1451,6 +1684,8 @@
         <span class="o">(</span><span class="nx">oTarget</span> <span class="o">==</span> <span class="nx">oItem</span><span class="o">.</span><span class="nx">element</span> <span class="o">||</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">isAncestor</span><span class="o">(</span><span class="nx">oItem</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">oTarget</span><span class="o">))</span>
     <span class="o">)</span> <span class="o">{</span>
 
+        <span class="c">// Menu Item mouseover logic</span>
+<span class="c"></span>
         <span class="k">var</span> <span class="nx">nShowDelay</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;showdelay&quot;</span><span class="o">),</span>
             <span class="nx">bShowDelay</span> <span class="o">=</span> <span class="o">(</span><span class="nx">nShowDelay</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">);</span>
 
@@ -1460,21 +1695,13 @@
             <span class="k">this</span><span class="o">.</span><span class="nx">_cancelShowDelay</span><span class="o">();</span>
         
         <span class="o">}</span>
-    
-    
+
+
         <span class="k">var</span> <span class="nx">oActiveItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">activeItem</span><span class="o">;</span>
     
         <span class="k">if</span><span class="o">(</span><span class="nx">oActiveItem</span><span class="o">)</span> <span class="o">{</span>
     
             <span class="nx">oActiveItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-    
-            <span class="k">var</span> <span class="nx">oActiveSubmenu</span> <span class="o">=</span> <span class="nx">oActiveItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;submenu&quot;</span><span class="o">);</span>
-    
-            <span class="k">if</span><span class="o">(</span><span class="nx">oActiveSubmenu</span><span class="o">)</span> <span class="o">{</span>
-						
-                <span class="nx">oActiveSubmenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
-    
-            <span class="o">}</span>
     
         <span class="o">}</span>
 
@@ -1505,7 +1732,7 @@
                     <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">show</span><span class="o">();</span>
 
                 <span class="o">}</span>
-        
+
             <span class="o">}</span>
 
         <span class="o">}</span>                        
@@ -1529,7 +1756,14 @@
 <span class="c">* fired the event.</span>
 <span class="c">*/</span>
 <span class="nx">_onMouseOut</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bStopMouseEventHandlers</span><span class="o">)</span> <span class="o">{</span>
     
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
+
     <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
         <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">1</span><span class="o">],</span>
         <span class="nx">oRelatedTarget</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getRelatedTarget</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">),</span>
@@ -1565,21 +1799,39 @@
             <span class="o">)</span>
         <span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">if</span><span class="o">(</span>
-                <span class="o">!</span><span class="nx">oSubmenu</span> <span class="o">||</span> 
-                <span class="o">(</span><span class="nx">oSubmenu</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;visible&quot;</span><span class="o">))</span>
-            <span class="o">)</span> <span class="o">{</span>
+            <span class="c">// Menu Item mouseout logic</span>
+<span class="c"></span>
+            <span class="k">if</span><span class="o">(!</span><span class="nx">bMovingToSubmenu</span><span class="o">)</span> <span class="o">{</span>
 
                 <span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
 
-                <span class="k">if</span><span class="o">(</span>
-                    <span class="nx">oSubmenu</span> <span class="o">&amp;&amp;</span> 
-                    <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;showdelay&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
-                    <span class="o">!</span><span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;visible&quot;</span><span class="o">)</span>
-                <span class="o">)</span> <span class="o">{</span>
-                
-                     <span class="k">this</span><span class="o">.</span><span class="nx">_cancelShowDelay</span><span class="o">();</span>
-                
+
+                <span class="k">if</span><span class="o">(</span><span class="nx">oSubmenu</span><span class="o">)</span> <span class="o">{</span>
+
+                    <span class="k">var</span> <span class="nx">nSubmenuHideDelay</span> <span class="o">=</span> 
+                            <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;submenuhidedelay&quot;</span><span class="o">),</span>
+
+                        <span class="nx">nShowDelay</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;showdelay&quot;</span><span class="o">);</span>
+
+                    <span class="k">if</span><span class="o">(</span>
+                        <span class="o">!(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span><span class="o">)</span> <span class="o">&amp;&amp;</span> 
+                        <span class="nx">nSubmenuHideDelay</span> <span class="o">&gt;</span> <span class="m">0</span> <span class="o">&amp;&amp;</span> 
+                        <span class="nx">nShowDelay</span> <span class="o">&gt;=</span> <span class="nx">nSubmenuHideDelay</span>
+                    <span class="o">)</span> <span class="o">{</span>
+
+                        <span class="k">this</span><span class="o">.</span><span class="nx">_execSubmenuHideDelay</span><span class="o">(</span>
+                                <span class="nx">oSubmenu</span><span class="o">,</span> 
+                                <span class="nx">Event</span><span class="o">.</span><span class="nx">getPageX</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">),</span>
+                                <span class="nx">nSubmenuHideDelay</span>
+                            <span class="o">);</span>
+
+                    <span class="o">}</span>
+                    <span class="k">else</span> <span class="o">{</span>
+
+                        <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
+
+                    <span class="o">}</span>
+
                 <span class="o">}</span>
 
             <span class="o">}</span>
@@ -1604,10 +1856,38 @@
         <span class="o">)</span>
     <span class="o">)</span> <span class="o">{</span>
 
+        <span class="c">// Menu mouseout logic</span>
+<span class="c"></span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="s2">&quot;mousemove&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onMouseMove</span><span class="o">);</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">_nCurrentMouseX</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getPageX</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
+
         <span class="k">this</span><span class="o">.</span><span class="nx">_bHandledMouseOutEvent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="nx">_bHandledMouseOverEvent</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
     <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _onMouseMove</span>
+<span class="c">* @description &quot;click&quot; event handler for the menu.</span>
+<span class="c">* @protected</span>
+<span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
+<span class="c">* back by the event utility (YAHOO.util.Event).</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
+<span class="c">* fired the event.</span>
+<span class="c">*/</span>
+<span class="nx">_onMouseMove</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_bStopMouseEventHandlers</span><span class="o">)</span> <span class="o">{</span>
+    
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_nCurrentMouseX</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getPageX</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">);</span>
 
 <span class="o">},</span>
 
@@ -1645,6 +1925,8 @@
             <span class="k">if</span><span class="o">(</span><span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;visible&quot;</span><span class="o">))</span> <span class="o">{</span>
 
                 <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
+                
+                <span class="nx">oSubmenu</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
     
             <span class="o">}</span>
             <span class="k">else</span> <span class="o">{</span>
@@ -1711,8 +1993,8 @@
                     <span class="nx">oRoot</span><span class="o">.</span><span class="nx">clearActiveItem</span><span class="o">();</span>
     
                 <span class="o">}</span>
-                <span class="k">else</span> <span class="o">{</span>
-    
+                <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">oRoot</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;clicktohide&quot;</span><span class="o">))</span> <span class="o">{</span>
+
                     <span class="nx">oRoot</span><span class="o">.</span><span class="nx">hide</span><span class="o">();</span>
                 
                 <span class="o">}</span>
@@ -1740,7 +2022,30 @@
 
     <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
         <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">1</span><span class="o">],</span>
+        <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">,</span>
         <span class="nx">oSubmenu</span><span class="o">;</span>
+
+
+    <span class="c">/*</span>
+<span class="c">        This function is called to prevent a bug in Firefox.  In Firefox,</span>
+<span class="c">        moving a DOM element into a stationary mouse pointer will cause the </span>
+<span class="c">        browser to fire mouse events.  This can result in the menu mouse</span>
+<span class="c">        event handlers being called uncessarily, especially when menus are </span>
+<span class="c">        moved into a stationary mouse pointer as a result of a </span>
+<span class="c">        key event handler.</span>
+<span class="c">    */</span>
+    <span class="k">function</span> <span class="nx">stopMouseEventHandlers</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="nx">me</span><span class="o">.</span><span class="nx">_bStopMouseEventHandlers</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        
+        <span class="nb">window</span><span class="o">.</span><span class="nx">setTimeout</span><span class="o">(</span><span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+        
+            <span class="nx">me</span><span class="o">.</span><span class="nx">_bStopMouseEventHandlers</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        
+        <span class="o">},</span> <span class="m">10</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
 
     <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;disabled&quot;</span><span class="o">))</span> <span class="o">{</span>
 
@@ -1776,11 +2081,51 @@
                         <span class="nx">oNextItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;selected&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
                         <span class="nx">oNextItem</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
 
+
+                        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;maxheight&quot;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+
+                            <span class="k">var</span> <span class="nx">oBody</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">body</span><span class="o">;</span>
+
+                            <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> 
+
+                                <span class="o">(</span>
+                                    <span class="nx">oNextItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetTop</span> <span class="o">+</span> 
+                                    <span class="nx">oNextItem</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetHeight</span>
+                                <span class="o">)</span> <span class="o">-</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">;</span>
+
+
+                            <span class="k">var</span> <span class="nx">nScrollTop</span> <span class="o">=</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">,</span>
+                                <span class="nx">nScrollTarget</span> <span class="o">=</span> 
+                                    <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollHeight</span> <span class="o">-</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">;</span>
+
+                            <span class="k">if</span><span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">===</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+
+                                <span class="k">this</span><span class="o">.</span><span class="nx">_disableScrollHeader</span><span class="o">();</span>
+                                <span class="k">this</span><span class="o">.</span><span class="nx">_enableScrollFooter</span><span class="o">();</span>
+
+                            <span class="o">}</span>
+                            <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">==</span> <span class="nx">nScrollTarget</span><span class="o">)</span> <span class="o">{</span>
+
+                                 <span class="k">this</span><span class="o">.</span><span class="nx">_enableScrollHeader</span><span class="o">();</span>
+                                 <span class="k">this</span><span class="o">.</span><span class="nx">_disableScrollFooter</span><span class="o">();</span>
+
+                            <span class="o">}</span>
+                            <span class="k">else</span> <span class="o">{</span>
+
+                                <span class="k">this</span><span class="o">.</span><span class="nx">_enableScrollHeader</span><span class="o">();</span>
+                                <span class="k">this</span><span class="o">.</span><span class="nx">_enableScrollFooter</span><span class="o">();</span>
+
+                            <span class="o">}</span>
+
+                        <span class="o">}</span>
+
                     <span class="o">}</span>
     
                 <span class="o">}</span>
     
                 <span class="nx">Event</span><span class="o">.</span><span class="nx">preventDefault</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
+
+                <span class="nx">stopMouseEventHandlers</span><span class="o">();</span>
     
             <span class="k">break</span><span class="o">;</span>
             
@@ -1834,7 +2179,9 @@
     
     
                 <span class="nx">Event</span><span class="o">.</span><span class="nx">preventDefault</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
-    
+
+                <span class="nx">stopMouseEventHandlers</span><span class="o">();</span>
+
             <span class="k">break</span><span class="o">;</span>
     
     
@@ -1879,7 +2226,9 @@
                 <span class="o">}</span>
     
                 <span class="nx">Event</span><span class="o">.</span><span class="nx">preventDefault</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
-    
+
+                <span class="nx">stopMouseEventHandlers</span><span class="o">();</span>
+
             <span class="k">break</span><span class="o">;</span>        
     
         <span class="o">}</span>
@@ -1929,6 +2278,29 @@
 
 
 <span class="c">/**</span>
+<span class="c">* @method _onKeyPress</span>
+<span class="c">* @description &quot;keypress&quot; event handler for a Menu instance.</span>
+<span class="c">* @protected</span>
+<span class="c">* @param {String} p_sType The name of the event that was fired.</span>
+<span class="c">* @param {Array} p_aArgs Collection of arguments sent when the event </span>
+<span class="c">* was fired.</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu The Menu instance that fired the event.</span>
+<span class="c">*/</span>
+<span class="nx">_onKeyPress</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="k">var</span> <span class="nx">oEvent</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
+
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="m">40</span> <span class="o">||</span> <span class="nx">oEvent</span><span class="o">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="m">38</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Event</span><span class="o">.</span><span class="nx">preventDefault</span><span class="o">(</span><span class="nx">oEvent</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
 <span class="c">* @method _onTextResize</span>
 <span class="c">* @description &quot;textresize&quot; event handler for the menu.</span>
 <span class="c">* @protected</span>
@@ -1955,6 +2327,117 @@
         <span class="nx">oConfig</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;width&quot;</span><span class="o">,</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_getOffsetWidth</span><span class="o">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">));</span>
 
     <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _onScrollTargetMouseOver</span>
+<span class="c">* @description &quot;mouseover&quot; event handler for the menu&#39;s &quot;header&quot; and &quot;footer&quot; </span>
+<span class="c">* elements.  Used to scroll the body of the menu up and down when the </span>
+<span class="c">* menu&#39;s &quot;maxheight&quot; configuration property is set to a value greater than 0.</span>
+<span class="c">* @protected</span>
+<span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
+<span class="c">* back by the event utility (YAHOO.util.Event).</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
+<span class="c">* fired the event.</span>
+<span class="c">*/</span>
+<span class="nx">_onScrollTargetMouseOver</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">();</span>
+
+    <span class="k">var</span> <span class="nx">oTarget</span> <span class="o">=</span> <span class="nx">Event</span><span class="o">.</span><span class="nx">getTarget</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">),</span>
+        <span class="nx">oBody</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">body</span><span class="o">,</span>
+        <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="o">,</span>
+        <span class="nx">nScrollTarget</span><span class="o">,</span>
+        <span class="nx">fnScrollFunction</span><span class="o">;</span>
+
+
+    <span class="k">function</span> <span class="nx">scrollBodyDown</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">nScrollTop</span> <span class="o">=</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">;</span>
+
+
+        <span class="k">if</span><span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">&lt;</span> <span class="nx">nScrollTarget</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">+</span> <span class="m">1</span><span class="o">);</span>
+
+            <span class="nx">me</span><span class="o">.</span><span class="nx">_enableScrollHeader</span><span class="o">();</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+
+            <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">nScrollTarget</span><span class="o">;</span>
+            
+            <span class="nb">window</span><span class="o">.</span><span class="nx">clearInterval</span><span class="o">(</span><span class="nx">me</span><span class="o">.</span><span class="nx">_nBodyScrollId</span><span class="o">);</span>
+
+            <span class="nx">me</span><span class="o">.</span><span class="nx">_disableScrollFooter</span><span class="o">();</span>
+
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+
+    <span class="k">function</span> <span class="nx">scrollBodyUp</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">nScrollTop</span> <span class="o">=</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">;</span>
+
+
+        <span class="k">if</span><span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="o">(</span><span class="nx">nScrollTop</span> <span class="o">-</span> <span class="m">1</span><span class="o">);</span>
+
+            <span class="nx">me</span><span class="o">.</span><span class="nx">_enableScrollFooter</span><span class="o">();</span>
+
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+
+            <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
+            
+            <span class="nb">window</span><span class="o">.</span><span class="nx">clearInterval</span><span class="o">(</span><span class="nx">me</span><span class="o">.</span><span class="nx">_nBodyScrollId</span><span class="o">);</span>
+
+            <span class="nx">me</span><span class="o">.</span><span class="nx">_disableScrollHeader</span><span class="o">();</span>
+
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+    
+    <span class="k">if</span><span class="o">(</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">hasClass</span><span class="o">(</span><span class="nx">oTarget</span><span class="o">,</span> <span class="s2">&quot;hd&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+        <span class="nx">fnScrollFunction</span> <span class="o">=</span> <span class="nx">scrollBodyUp</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+
+        <span class="nx">nScrollTarget</span> <span class="o">=</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollHeight</span> <span class="o">-</span> <span class="nx">oBody</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">;</span>
+
+        <span class="nx">fnScrollFunction</span> <span class="o">=</span> <span class="nx">scrollBodyDown</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_nBodyScrollId</span> <span class="o">=</span> <span class="nb">window</span><span class="o">.</span><span class="nx">setInterval</span><span class="o">(</span><span class="nx">fnScrollFunction</span><span class="o">,</span> <span class="m">10</span><span class="o">);</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method _onScrollTargetMouseOut</span>
+<span class="c">* @description &quot;mouseout&quot; event handler for the menu&#39;s &quot;header&quot; and &quot;footer&quot; </span>
+<span class="c">* elements.  Used to stop scrolling the body of the menu up and down when the </span>
+<span class="c">* menu&#39;s &quot;maxheight&quot; configuration property is set to a value greater than 0.</span>
+<span class="c">* @protected</span>
+<span class="c">* @param {Event} p_oEvent Object representing the DOM event object passed </span>
+<span class="c">* back by the event utility (YAHOO.util.Event).</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
+<span class="c">* fired the event.</span>
+<span class="c">*/</span>
+<span class="nx">_onScrollTargetMouseOut</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nb">window</span><span class="o">.</span><span class="nx">clearInterval</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nBodyScrollId</span><span class="o">);</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">();</span>
 
 <span class="o">},</span>
 
@@ -2087,31 +2570,6 @@
 
 
 <span class="c">/**</span>
-<span class="c">* @method _onRender</span>
-<span class="c">* @description &quot;render&quot; event handler for the menu.</span>
-<span class="c">* @private</span>
-<span class="c">* @param {String} p_sType String representing the name of the event that </span>
-<span class="c">* was fired.</span>
-<span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
-<span class="c">* @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that </span>
-<span class="c">* fired the event.</span>
-<span class="c">*/</span>
-<span class="nx">_onRender</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;position&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;dynamic&quot;</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">var</span> <span class="nx">sWidth</span> <span class="o">=</span> 
-            <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;BODY&quot;</span> <span class="o">?</span> 
-            <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetWidth</span> <span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_getOffsetWidth</span><span class="o">();</span>
-    
-        <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;width&quot;</span><span class="o">,</span> <span class="o">(</span><span class="nx">sWidth</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">));</span>
-
-    <span class="o">}</span>
-
-<span class="o">},</span>
-
-
-<span class="c">/**</span>
 <span class="c">* @method _onBeforeShow</span>
 <span class="c">* @description &quot;beforeshow&quot; event handler for the menu.</span>
 <span class="c">* @private</span>
@@ -2122,7 +2580,7 @@
 <span class="c">* fired the event.</span>
 <span class="c">*/</span>
 <span class="nx">_onBeforeShow</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
-    
+
     <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">lazyLoad</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">getItemGroups</span><span class="o">().</span><span class="nx">length</span> <span class="o">===</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">srcElement</span><span class="o">)</span> <span class="o">{</span>
@@ -2162,9 +2620,29 @@
         <span class="o">}</span>
 
 
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">srcElement</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">oSrcElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">srcElement</span><span class="o">;</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">();</span>
+        <span class="k">if</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">tagName</span><span class="o">.</span><span class="nx">toUpperCase</span><span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;SELECT&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="k">if</span><span class="o">(</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">))</span> <span class="o">{</span>
+
+                    <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">(</span><span class="nx">oSrcElement</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">);</span>
+                
+                <span class="o">}</span>
+                <span class="k">else</span> <span class="o">{</span>
+                
+                    <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;container&quot;</span><span class="o">));</span>
+                
+                <span class="o">}</span>
+
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">();</span>                
+
+            <span class="o">}</span>
 
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
@@ -2183,7 +2661,47 @@
         <span class="o">}</span>
 
     <span class="o">}</span>
+
+
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;position&quot;</span><span class="o">)</span> <span class="o">==</span> <span class="s2">&quot;dynamic&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">nViewportHeight</span> <span class="o">=</span> <span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportHeight</span><span class="o">();</span>
     
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetHeight</span> <span class="o">&gt;=</span> <span class="nx">nViewportHeight</span><span class="o">)</span> <span class="o">{</span>
+    
+            <span class="k">var</span> <span class="nx">nMaxHeight</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;maxheight&quot;</span><span class="o">);</span>
+
+            <span class="c">/*</span>
+<span class="c">                Cache the original value for the &quot;maxheight&quot; configuration  </span>
+<span class="c">                property so that we can set it back when the menu is hidden.</span>
+<span class="c">            */</span>
+    
+            <span class="k">this</span><span class="o">.</span><span class="nx">_nMaxHeight</span> <span class="o">=</span> <span class="nx">nMaxHeight</span><span class="o">;</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;maxheight&quot;</span><span class="o">,</span> <span class="o">(</span><span class="nx">nViewportHeight</span> <span class="o">-</span> <span class="m">20</span><span class="o">));</span>
+        
+        <span class="o">}</span>
+    
+    
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;maxheight&quot;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    
+            <span class="k">var</span> <span class="nx">oBody</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">body</span><span class="o">;</span>
+    
+            <span class="k">if</span><span class="o">(</span><span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    
+                <span class="nx">oBody</span><span class="o">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="m">0</span><span class="o">;</span>
+    
+            <span class="o">}</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">_disableScrollHeader</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">_enableScrollFooter</span><span class="o">();</span>
+    
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+
 <span class="o">},</span>
 
 
@@ -2200,7 +2718,7 @@
 <span class="nx">_onShow</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">this</span><span class="o">.</span><span class="nx">setInitialFocus</span><span class="o">();</span>
-    
+
     <span class="k">var</span> <span class="nx">oParent</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
     
     <span class="k">if</span><span class="o">(</span><span class="nx">oParent</span><span class="o">)</span> <span class="o">{</span>
@@ -2231,12 +2749,6 @@
             <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;autosubmenudisplay&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 
 
-            <span class="c">/**</span>
-<span class="c">            * &quot;click&quot; event handler for the document</span>
-<span class="c">            * @private</span>
-<span class="c">            * @param {Event} p_oEvent Object reference for the DOM event object </span>
-<span class="c">            * passed back by the event utility (YAHOO.util.Event).</span>
-<span class="c">            */</span>
             <span class="k">function</span> <span class="nx">disableAutoSubmenuDisplay</span><span class="o">(</span><span class="nx">p_oEvent</span><span class="o">)</span> <span class="o">{</span>
 
                 <span class="k">if</span><span class="o">(</span>
@@ -2285,6 +2797,11 @@
         <span class="o">}</span>
 
     <span class="o">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="o">(!</span><span class="nx">oParent</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="nx">lazyLoad</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">refireEvent</span><span class="o">(</span><span class="s2">&quot;xy&quot;</span><span class="o">);</span>
+
+    <span class="o">}</span>
 
 <span class="o">},</span>
 
@@ -2325,6 +2842,29 @@
 
 
 <span class="c">/**</span>
+<span class="c">* @method _onHide</span>
+<span class="c">* @description &quot;hide&quot; event handler for the menu.</span>
+<span class="c">* @private</span>
+<span class="c">* @param {String} p_sType String representing the name of the event that </span>
+<span class="c">* was fired.</span>
+<span class="c">* @param {Array} p_aArgs Array of arguments sent when the event was fired.</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu Object representing the menu that fired </span>
+<span class="c">* the event.</span>
+<span class="c">*/</span>
+<span class="nx">_onHide</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_nMaxHeight</span> <span class="o">!=</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;maxheight&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_nMaxHeight</span><span class="o">);</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">_nMaxHeight</span> <span class="o">=</span> <span class="o">-</span><span class="m">1</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
 <span class="c">* @method _onParentMenuConfigChange</span>
 <span class="c">* @description &quot;configchange&quot; event handler for a submenu.</span>
 <span class="c">* @private</span>
@@ -2345,8 +2885,10 @@
         <span class="nx">case</span> <span class="s2">&quot;constraintoviewport&quot;</span><span class="o">:</span>
         <span class="nx">case</span> <span class="s2">&quot;hidedelay&quot;</span><span class="o">:</span>
         <span class="nx">case</span> <span class="s2">&quot;showdelay&quot;</span><span class="o">:</span>
+        <span class="nx">case</span> <span class="s2">&quot;submenuhidedelay&quot;</span><span class="o">:</span>
         <span class="nx">case</span> <span class="s2">&quot;clicktohide&quot;</span><span class="o">:</span>
         <span class="nx">case</span> <span class="s2">&quot;effect&quot;</span><span class="o">:</span>
+        <span class="nx">case</span> <span class="s2">&quot;classname&quot;</span><span class="o">:</span>
 
             <span class="nx">p_oSubmenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="nx">sPropertyName</span><span class="o">,</span> <span class="nx">oPropertyValue</span><span class="o">);</span>
                 
@@ -2379,17 +2921,17 @@
 
             <span class="nx">xy</span><span class="o">:</span> <span class="o">[</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">],</span>
                 
-            <span class="nx">clicktohide</span><span class="o">:</span>
-                <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;clicktohide&quot;</span><span class="o">),</span>
+            <span class="nx">clicktohide</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;clicktohide&quot;</span><span class="o">),</span>
                 
-            <span class="nx">effect</span><span class="o">:</span>
-                <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;effect&quot;</span><span class="o">),</span>
+            <span class="nx">effect</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;effect&quot;</span><span class="o">),</span>
 
-            <span class="nx">showdelay</span><span class="o">:</span>
-                <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;showdelay&quot;</span><span class="o">),</span>
+            <span class="nx">showdelay</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;showdelay&quot;</span><span class="o">),</span>
             
-            <span class="nx">hidedelay</span><span class="o">:</span>
-                <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;hidedelay&quot;</span><span class="o">)</span>
+            <span class="nx">hidedelay</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;hidedelay&quot;</span><span class="o">),</span>
+
+            <span class="nx">submenuhidedelay</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;submenuhidedelay&quot;</span><span class="o">),</span>
+
+            <span class="nx">classname</span><span class="o">:</span> <span class="nx">oParentMenu</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;classname&quot;</span><span class="o">)</span>
 
         <span class="o">};</span>
 
@@ -2414,14 +2956,16 @@
 
     <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">lazyLoad</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="k">if</span><span class="o">(</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">inDocument</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">oLI</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">element</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">parentNode</span> <span class="o">==</span> <span class="nx">oLI</span><span class="o">)</span> <span class="o">{</span>
     
             <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">();</span>
     
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">element</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">render</span><span class="o">(</span><span class="nx">oLI</span><span class="o">);</span>
     
         <span class="o">}</span>
 
@@ -2449,7 +2993,19 @@
         <span class="s2">&quot;context&quot;</span><span class="o">,</span> 
         <span class="o">[</span><span class="nx">oParent</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">aAlignment</span><span class="o">[</span><span class="m">0</span><span class="o">],</span> <span class="nx">aAlignment</span><span class="o">[</span><span class="m">1</span><span class="o">]]</span>
     <span class="o">);</span>
+
+
+    <span class="k">var</span> <span class="nx">nScrollTop</span> <span class="o">=</span> <span class="nx">oParent</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">;</span>
+
+    <span class="k">if</span><span class="o">(</span>
+        <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;gecko&quot;</span> <span class="o">||</span> <span class="k">this</span><span class="o">.</span><span class="nx">browser</span> <span class="o">==</span> <span class="s2">&quot;safari&quot;</span><span class="o">)</span> 
+        <span class="o">&amp;&amp;</span> <span class="nx">nScrollTop</span> <span class="o">&gt;</span> <span class="m">0</span>
+    <span class="o">)</span> <span class="o">{</span>
+
+         <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">setProperty</span><span class="o">(</span><span class="s2">&quot;y&quot;</span><span class="o">,</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;y&quot;</span><span class="o">)</span> <span class="o">-</span> <span class="nx">nScrollTop</span><span class="o">));</span>
     
+    <span class="o">}</span>
+
 <span class="o">},</span>
 
 
@@ -2467,7 +3023,8 @@
     
     <span class="k">var</span> <span class="nx">oParent</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
 
-    <span class="nx">oParent</span><span class="o">.</span><span class="nx">submenuIndicator</span><span class="o">.</span><span class="nx">alt</span> <span class="o">=</span> <span class="nx">oParent</span><span class="o">.</span><span class="nx">EXPANDED_SUBMENU_INDICATOR_ALT_TEXT</span><span class="o">;</span>
+    <span class="nx">oParent</span><span class="o">.</span><span class="nx">submenuIndicator</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">.</span><span class="nx">nodeValue</span> <span class="o">=</span> 
+        <span class="nx">oParent</span><span class="o">.</span><span class="nx">EXPANDED_SUBMENU_INDICATOR_TEXT</span><span class="o">;</span>
 
 <span class="o">},</span>
 
@@ -2486,7 +3043,8 @@
     
     <span class="k">var</span> <span class="nx">oParent</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">;</span>
 
-    <span class="nx">oParent</span><span class="o">.</span><span class="nx">submenuIndicator</span><span class="o">.</span><span class="nx">alt</span> <span class="o">=</span> <span class="nx">oParent</span><span class="o">.</span><span class="nx">COLLAPSED_SUBMENU_INDICATOR_ALT_TEXT</span><span class="o">;</span>
+    <span class="nx">oParent</span><span class="o">.</span><span class="nx">submenuIndicator</span><span class="o">.</span><span class="nx">firstChild</span><span class="o">.</span><span class="nx">nodeValue</span> <span class="o">=</span>
+        <span class="nx">oParent</span><span class="o">.</span><span class="nx">COLLAPSED_SUBMENU_INDICATOR_TEXT</span><span class="o">;</span>
 
 <span class="o">},</span>
 
@@ -2591,35 +3149,40 @@
 <span class="c">*/</span>
 <span class="nx">enforceConstraints</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">type</span><span class="o">,</span> <span class="nx">args</span><span class="o">,</span> <span class="nx">obj</span><span class="o">)</span> <span class="o">{</span>
 
-     <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">,</span>
-         <span class="nx">pos</span> <span class="o">=</span> <span class="nx">args</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
-    
-         <span class="nx">x</span> <span class="o">=</span> <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
-         <span class="nx">y</span> <span class="o">=</span> <span class="nx">pos</span><span class="o">[</span><span class="m">1</span><span class="o">],</span>
-    
-         <span class="nx">offsetHeight</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span>
-         <span class="nx">offsetWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span>
-    
-         <span class="nx">viewPortWidth</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportWidth</span><span class="o">(),</span>
-         <span class="nx">viewPortHeight</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportHeight</span><span class="o">(),</span>
-    
-         <span class="nx">scrollX</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span>
-                        <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollLeft</span><span class="o">,</span> 
-                        <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollLeft</span>
-                    <span class="o">),</span>
-
-         <span class="nx">scrollY</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span>
-                        <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">,</span> 
-                        <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollTop</span>
-                    <span class="o">),</span>
-    
-         <span class="nx">topConstraint</span> <span class="o">=</span> <span class="nx">scrollY</span> <span class="o">+</span> <span class="m">10</span><span class="o">,</span>
-         <span class="nx">leftConstraint</span> <span class="o">=</span> <span class="nx">scrollX</span> <span class="o">+</span> <span class="m">10</span><span class="o">,</span>
-         <span class="nx">bottomConstraint</span> <span class="o">=</span> <span class="nx">scrollY</span> <span class="o">+</span> <span class="nx">viewPortHeight</span> <span class="o">-</span> <span class="nx">offsetHeight</span> <span class="o">-</span> <span class="m">10</span><span class="o">,</span>
-         <span class="nx">rightConstraint</span> <span class="o">=</span> <span class="nx">scrollX</span> <span class="o">+</span> <span class="nx">viewPortWidth</span> <span class="o">-</span> <span class="nx">offsetWidth</span> <span class="o">-</span> <span class="m">10</span><span class="o">,</span>
-    
-         <span class="nx">aContext</span> <span class="o">=</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;context&quot;</span><span class="o">),</span>
-         <span class="nx">oContextElement</span> <span class="o">=</span> <span class="nx">aContext</span> <span class="o">?</span> <span class="nx">aContext</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">,</span>
+        <span class="nx">pos</span> <span class="o">=</span> <span class="nx">args</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
+        
+        <span class="nx">x</span> <span class="o">=</span> <span class="nx">pos</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">pos</span><span class="o">[</span><span class="m">1</span><span class="o">],</span>
+        
+        <span class="nx">offsetHeight</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">,</span>
+        <span class="nx">offsetWidth</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">offsetWidth</span><span class="o">,</span>
+        
+        <span class="nx">viewPortWidth</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportWidth</span><span class="o">(),</span>
+        <span class="nx">viewPortHeight</span> <span class="o">=</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">Dom</span><span class="o">.</span><span class="nx">getViewportHeight</span><span class="o">(),</span>
+        
+        <span class="nx">scrollX</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span>
+                <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollLeft</span><span class="o">,</span> 
+                <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollLeft</span>
+            <span class="o">),</span>
+        
+        <span class="nx">scrollY</span> <span class="o">=</span> <span class="nb">Math</span><span class="o">.</span><span class="nx">max</span><span class="o">(</span>
+                <span class="nb">document</span><span class="o">.</span><span class="nx">documentElement</span><span class="o">.</span><span class="nx">scrollTop</span><span class="o">,</span> 
+                <span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">.</span><span class="nx">scrollTop</span>
+            <span class="o">),</span>
+        
+        <span class="nx">nPadding</span> <span class="o">=</span> <span class="o">(</span>
+                        <span class="k">this</span><span class="o">.</span><span class="nx">parent</span> <span class="o">&amp;&amp;</span> 
+                        <span class="k">this</span><span class="o">.</span><span class="nx">parent</span><span class="o">.</span><span class="nx">parent</span> <span class="k">instanceof</span> <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">MenuBar</span>
+                    <span class="o">)</span> <span class="o">?</span> <span class="m">0</span> <span class="o">:</span> <span class="m">10</span><span class="o">,</span>
+        
+        <span class="nx">topConstraint</span> <span class="o">=</span> <span class="nx">scrollY</span> <span class="o">+</span> <span class="nx">nPadding</span><span class="o">,</span>
+        <span class="nx">leftConstraint</span> <span class="o">=</span> <span class="nx">scrollX</span> <span class="o">+</span> <span class="nx">nPadding</span><span class="o">,</span>
+        <span class="nx">bottomConstraint</span> <span class="o">=</span> <span class="nx">scrollY</span> <span class="o">+</span> <span class="nx">viewPortHeight</span> <span class="o">-</span> <span class="nx">offsetHeight</span> <span class="o">-</span> <span class="nx">nPadding</span><span class="o">,</span>
+        <span class="nx">rightConstraint</span> <span class="o">=</span> <span class="nx">scrollX</span> <span class="o">+</span> <span class="nx">viewPortWidth</span> <span class="o">-</span> <span class="nx">offsetWidth</span> <span class="o">-</span> <span class="nx">nPadding</span><span class="o">,</span>
+        
+        <span class="nx">aContext</span> <span class="o">=</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;context&quot;</span><span class="o">),</span>
+        <span class="nx">oContextElement</span> <span class="o">=</span> <span class="nx">aContext</span> <span class="o">?</span> <span class="nx">aContext</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
 
 
     <span class="k">if</span> <span class="o">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="m">10</span><span class="o">)</span> <span class="o">{</span>
@@ -2839,13 +3402,13 @@
 <span class="c">            the value for the hidedelay as many times as they want.</span>
 <span class="c">        */</span>
 
-        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_hideDelayEventHandlersAssigned</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">_bHideDelayEventHandlersAssigned</span><span class="o">)</span> <span class="o">{</span>
 
             <span class="nx">oMouseOutEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_execHideDelay</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
             <span class="nx">oMouseOverEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
             <span class="nx">oKeyDownEvent</span><span class="o">.</span><span class="nx">subscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="nx">_hideDelayEventHandlersAssigned</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">_bHideDelayEventHandlersAssigned</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
         
         <span class="o">}</span>
 
@@ -2856,7 +3419,7 @@
         <span class="nx">oMouseOverEvent</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
         <span class="nx">oKeyDownEvent</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_cancelHideDelay</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
-        <span class="k">this</span><span class="o">.</span><span class="nx">_hideDelayEventHandlersAssigned</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">_bHideDelayEventHandlersAssigned</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
     <span class="o">}</span>
 
@@ -2889,6 +3452,110 @@
 
 <span class="o">},</span>
 
+
+<span class="c">/**</span>
+<span class="c">* @method configMaxHeight</span>
+<span class="c">* @description Event handler for when the &quot;maxheight&quot; configuration property of </span>
+<span class="c">* a Menu changes.</span>
+<span class="c">* @param {String} p_sType The name of the event that was fired.</span>
+<span class="c">* @param {Array} p_aArgs Collection of arguments sent when the event </span>
+<span class="c">* was fired.</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu The Menu instance fired</span>
+<span class="c">* the event.</span>
+<span class="c">*/</span>
+<span class="nx">configMaxHeight</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">nMaxHeight</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">],</span>
+        <span class="nx">oBody</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">body</span><span class="o">,</span>
+        <span class="nx">oHeader</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">,</span>
+        <span class="nx">oFooter</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">,</span>
+        <span class="nx">fnMouseOver</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onScrollTargetMouseOver</span><span class="o">,</span>
+        <span class="nx">fnMouseOut</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_onScrollTargetMouseOut</span><span class="o">;</span>
+
+
+    <span class="k">if</span><span class="o">((</span><span class="nx">nMaxHeight</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nx">oBody</span><span class="o">.</span><span class="nx">offsetHeight</span> <span class="o">&gt;</span> <span class="nx">nMaxHeight</span><span class="o">))</span> <span class="o">{</span>
+
+        <span class="k">if</span><span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;width&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">_setWidth</span><span class="o">();</span>
+
+        <span class="o">}</span>
+
+        <span class="k">if</span><span class="o">(!</span><span class="nx">oHeader</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">oFooter</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="nx">setHeader</span><span class="o">(</span><span class="s2">&quot;&amp;#32;&quot;</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">setFooter</span><span class="o">(</span><span class="s2">&quot;&amp;#32;&quot;</span><span class="o">);</span>
+
+            <span class="nx">oHeader</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">;</span>
+            <span class="nx">oFooter</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">;</span>
+
+            <span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="s2">&quot;topscrollbar&quot;</span><span class="o">);</span>
+            <span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">,</span> <span class="s2">&quot;bottomscrollbar&quot;</span><span class="o">);</span>
+            
+            <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">insertBefore</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="nx">oBody</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">appendChild</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">);</span>
+
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">fnMouseOver</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">fnMouseOut</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">fnMouseOver</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="nx">Event</span><span class="o">.</span><span class="nx">addListener</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">fnMouseOut</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        
+        <span class="o">}</span>
+
+        <span class="k">var</span> <span class="nx">nHeight</span> <span class="o">=</span> 
+
+                <span class="o">(</span>
+                    <span class="nx">nMaxHeight</span> <span class="o">-</span> 
+                    <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">.</span><span class="nx">offsetHeight</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">.</span><span class="nx">offsetHeight</span><span class="o">)</span>
+                <span class="o">);</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">setStyle</span><span class="o">(</span><span class="nx">oBody</span><span class="o">,</span> <span class="s2">&quot;height&quot;</span><span class="o">,</span> <span class="o">(</span><span class="nx">nHeight</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="o">));</span>
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">setStyle</span><span class="o">(</span><span class="nx">oBody</span><span class="o">,</span> <span class="s2">&quot;overflow&quot;</span><span class="o">,</span> <span class="s2">&quot;hidden&quot;</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="nx">oHeader</span> <span class="o">&amp;&amp;</span> <span class="nx">oFooter</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">setStyle</span><span class="o">(</span><span class="nx">oBody</span><span class="o">,</span> <span class="s2">&quot;height&quot;</span><span class="o">,</span> <span class="s2">&quot;auto&quot;</span><span class="o">);</span>
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">setStyle</span><span class="o">(</span><span class="nx">oBody</span><span class="o">,</span> <span class="s2">&quot;overflow&quot;</span><span class="o">,</span> <span class="s2">&quot;visible&quot;</span><span class="o">);</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">fnMouseOver</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">fnMouseOut</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">,</span> <span class="s2">&quot;mouseover&quot;</span><span class="o">,</span> <span class="nx">fnMouseOver</span><span class="o">);</span>
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">removeListener</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">,</span> <span class="s2">&quot;mouseout&quot;</span><span class="o">,</span> <span class="nx">fnMouseOut</span><span class="o">);</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">);</span>
+    
+        <span class="k">this</span><span class="o">.</span><span class="nx">header</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="nx">footer</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
+<span class="c">* @method configClassName</span>
+<span class="c">* @description Event handler for when the &quot;classname&quot; configuration property of </span>
+<span class="c">* a menu changes.</span>
+<span class="c">* @param {String} p_sType The name of the event that was fired.</span>
+<span class="c">* @param {Array} p_aArgs Collection of arguments sent when the event was fired.</span>
+<span class="c">* @param {YAHOO.widget.Menu} p_oMenu The Menu instance fired the event.</span>
+<span class="c">*/</span>
+<span class="nx">configClassName</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_sType</span><span class="o">,</span> <span class="nx">p_aArgs</span><span class="o">,</span> <span class="nx">p_oMenu</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">sClassName</span> <span class="o">=</span> <span class="nx">p_aArgs</span><span class="o">[</span><span class="m">0</span><span class="o">];</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_sClassName</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Dom</span><span class="o">.</span><span class="nx">removeClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="nx">_sClassName</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="nx">Dom</span><span class="o">.</span><span class="nx">addClass</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span> <span class="nx">sClassName</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_sClassName</span> <span class="o">=</span> <span class="nx">sClassName</span><span class="o">;</span>
+
+<span class="o">},</span>
 
 
 <span class="c">// Public methods</span>
@@ -3056,14 +3723,7 @@
 <span class="c">*/</span>
 <span class="nx">addItems</span><span class="o">:</span> <span class="k">function</span><span class="o">(</span><span class="nx">p_aItems</span><span class="o">,</span> <span class="nx">p_nGroupIndex</span><span class="o">)</span> <span class="o">{</span>
 
-    <span class="k">function</span> <span class="nx">isArray</span><span class="o">(</span><span class="nx">p_oValue</span><span class="o">)</span> <span class="o">{</span>
-    
-        <span class="k">return</span> <span class="o">(</span><span class="k">typeof</span> <span class="nx">p_oValue</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">p_oValue</span><span class="o">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Array</span><span class="o">);</span>
-    
-    <span class="o">}</span>
-
-
-    <span class="k">if</span><span class="o">(</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">p_aItems</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="nx">Lang</span><span class="o">.</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">p_aItems</span><span class="o">))</span> <span class="o">{</span>
 
         <span class="k">var</span> <span class="nx">nItems</span> <span class="o">=</span> <span class="nx">p_aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span>
             <span class="nx">aItems</span> <span class="o">=</span> <span class="o">[],</span>
@@ -3074,16 +3734,20 @@
 
             <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">p_aItems</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
 
-            <span class="k">if</span><span class="o">(</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">oItem</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
 
-                <span class="nx">aItems</span><span class="o">[</span><span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">addItems</span><span class="o">(</span><span class="nx">oItem</span><span class="o">,</span> <span class="nx">i</span><span class="o">);</span>
+                <span class="k">if</span><span class="o">(</span><span class="nx">Lang</span><span class="o">.</span><span class="nx">isArray</span><span class="o">(</span><span class="nx">oItem</span><span class="o">))</span> <span class="o">{</span>
+    
+                    <span class="nx">aItems</span><span class="o">[</span><span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">addItems</span><span class="o">(</span><span class="nx">oItem</span><span class="o">,</span> <span class="nx">i</span><span class="o">);</span>
+    
+                <span class="o">}</span>
+                <span class="k">else</span> <span class="o">{</span>
+    
+                    <span class="nx">aItems</span><span class="o">[</span><span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> 
+                        <span class="k">this</span><span class="o">.</span><span class="nx">_addItemToGroup</span><span class="o">(</span><span class="nx">p_nGroupIndex</span><span class="o">,</span> <span class="nx">oItem</span><span class="o">);</span>
+                
+                <span class="o">}</span>
 
-            <span class="o">}</span>
-            <span class="k">else</span> <span class="o">{</span>
-
-                <span class="nx">aItems</span><span class="o">[</span><span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">]</span> <span class="o">=</span> 
-                    <span class="k">this</span><span class="o">.</span><span class="nx">_addItemToGroup</span><span class="o">(</span><span class="nx">p_nGroupIndex</span><span class="o">,</span> <span class="nx">oItem</span><span class="o">);</span>
-            
             <span class="o">}</span>
     
         <span class="o">}</span>
@@ -3094,7 +3758,7 @@
             <span class="k">return</span> <span class="nx">aItems</span><span class="o">;</span>
         
         <span class="o">}</span>
-    
+
     <span class="o">}</span>
 
 <span class="o">},</span>
@@ -3173,8 +3837,27 @@
 
 
 <span class="c">/**</span>
+<span class="c">* @method getItems</span>
+<span class="c">* @description Returns an array of all of the items in the menu.</span>
+<span class="c">* @return {Array}</span>
+<span class="c">*/</span>        
+<span class="nx">getItems</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">aGroups</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">,</span>
+        <span class="nx">nGroups</span> <span class="o">=</span> <span class="nx">aGroups</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
+
+    <span class="k">return</span> <span class="o">(</span>
+                <span class="o">(</span><span class="nx">nGroups</span> <span class="o">==</span> <span class="m">1</span><span class="o">)</span> <span class="o">?</span> <span class="nx">aGroups</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="o">:</span> 
+                    <span class="o">(</span><span class="nb">Array</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">concat</span><span class="o">.</span><span class="nx">apply</span><span class="o">([],</span> <span class="nx">aGroups</span><span class="o">))</span>
+            <span class="o">);</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
 <span class="c">* @method getItemGroups</span>
-<span class="c">* @description Returns a multi-dimensional array of all of the items in the menu.</span>
+<span class="c">* @description Multi-dimensional Array representing the menu items as they </span>
+<span class="c">* are grouped in the menu.</span>
 <span class="c">* @return {Array}</span>
 <span class="c">*/</span>        
 <span class="nx">getItemGroups</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
@@ -3211,11 +3894,100 @@
 
 
 <span class="c">/**</span>
+<span class="c">* @method clearContent</span>
+<span class="c">* @description Removes all of the content from the menu, including the menu </span>
+<span class="c">* items, group titles, header and footer.</span>
+<span class="c">*/</span>
+<span class="nx">clearContent</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="k">var</span> <span class="nx">aItems</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">getItems</span><span class="o">(),</span>
+        <span class="nx">nItems</span> <span class="o">=</span> <span class="nx">aItems</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span>
+        <span class="nx">oElement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">,</span>
+        <span class="nx">oBody</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">body</span><span class="o">,</span>
+        <span class="nx">oHeader</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">header</span><span class="o">,</span>
+        <span class="nx">oFooter</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">footer</span><span class="o">;</span>
+
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">nItems</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">nItems</span> <span class="o">-</span> <span class="m">1</span><span class="o">,</span>
+            <span class="nx">oItem</span><span class="o">,</span>
+            <span class="nx">oSubmenu</span><span class="o">;</span>
+
+        <span class="k">do</span> <span class="o">{</span>
+
+            <span class="nx">oItem</span> <span class="o">=</span> <span class="nx">aItems</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="nx">oSubmenu</span> <span class="o">=</span> <span class="nx">oItem</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">getProperty</span><span class="o">(</span><span class="s2">&quot;submenu&quot;</span><span class="o">);</span>
+
+                <span class="k">if</span><span class="o">(</span><span class="nx">oSubmenu</span><span class="o">)</span> <span class="o">{</span>
+
+                    <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">configChangedEvent</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span>
+                                <span class="k">this</span><span class="o">.</span><span class="nx">_onParentMenuConfigChange</span><span class="o">,</span> 
+                                <span class="nx">oSubmenu</span>
+                            <span class="o">);</span>
+
+                    <span class="k">this</span><span class="o">.</span><span class="nx">renderEvent</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span>
+                                        <span class="k">this</span><span class="o">.</span><span class="nx">_onParentMenuRender</span><span class="o">,</span> 
+                                        <span class="nx">oSubmenu</span>
+                                    <span class="o">);</span>
+
+                <span class="o">}</span>
+
+                <span class="nx">oItem</span><span class="o">.</span><span class="nx">destroy</span><span class="o">();</span>
+
+            <span class="o">}</span>
+        
+        <span class="o">}</span>
+        <span class="k">while</span><span class="o">(</span><span class="nx">i</span><span class="o">--);</span>
+
+    <span class="o">}</span>
+
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">purgeElement</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">);</span>
+        <span class="nx">oElement</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">oHeader</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">purgeElement</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">);</span>
+        <span class="nx">oElement</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">oFooter</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+    <span class="k">if</span><span class="o">(</span><span class="nx">oBody</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nx">Event</span><span class="o">.</span><span class="nx">purgeElement</span><span class="o">(</span><span class="nx">oBody</span><span class="o">);</span>
+
+        <span class="nx">oBody</span><span class="o">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span> <span class="o">=</span> <span class="o">[];</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aListElements</span> <span class="o">=</span> <span class="o">[];</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aGroupTitleElements</span> <span class="o">=</span> <span class="o">[];</span>
+
+<span class="o">},</span>
+
+
+<span class="c">/**</span>
 <span class="c">* @method destroy</span>
 <span class="c">* @description Removes the menu&#39;s &lt;code&gt;&amp;#60;div&amp;#62;&lt;/code&gt; element </span>
 <span class="c">* (and accompanying child nodes) from the document.</span>
 <span class="c">*/</span>
 <span class="nx">destroy</span><span class="o">:</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="c">// Remove all DOM event listeners</span>
+<span class="c"></span>
+    <span class="nx">Event</span><span class="o">.</span><span class="nx">purgeElement</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">element</span><span class="o">);</span>
+
 
     <span class="c">// Remove Custom Event listeners</span>
 <span class="c"></span>
@@ -3230,52 +4002,17 @@
     <span class="k">this</span><span class="o">.</span><span class="nx">itemAddedEvent</span><span class="o">.</span><span class="nx">unsubscribeAll</span><span class="o">();</span>
     <span class="k">this</span><span class="o">.</span><span class="nx">itemRemovedEvent</span><span class="o">.</span><span class="nx">unsubscribeAll</span><span class="o">();</span>
 
-    <span class="k">var</span> <span class="nx">nItemGroups</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">.</span><span class="nx">length</span><span class="o">,</span>
-        <span class="nx">nItems</span><span class="o">,</span>
-        <span class="nx">oItemGroup</span><span class="o">,</span>
-        <span class="nx">oItem</span><span class="o">,</span>
-        <span class="nx">i</span><span class="o">,</span>
-        <span class="nx">n</span><span class="o">;</span>
+    <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">Module</span><span class="o">.</span><span class="nx">textResizeEvent</span><span class="o">.</span><span class="nx">unsubscribe</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="nx">_onTextResize</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
 
 
     <span class="c">// Remove all items</span>
 <span class="c"></span>
-    <span class="k">if</span><span class="o">(</span><span class="nx">nItemGroups</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">clearContent</span><span class="o">();</span>
 
-        <span class="nx">i</span> <span class="o">=</span> <span class="nx">nItemGroups</span> <span class="o">-</span> <span class="m">1</span><span class="o">;</span>
 
-        <span class="k">do</span> <span class="o">{</span>
-
-            <span class="nx">oItemGroup</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">[</span><span class="nx">i</span><span class="o">];</span>
-
-            <span class="k">if</span><span class="o">(</span><span class="nx">oItemGroup</span><span class="o">)</span> <span class="o">{</span>
-
-                <span class="nx">nItems</span> <span class="o">=</span> <span class="nx">oItemGroup</span><span class="o">.</span><span class="nx">length</span><span class="o">;</span>
-    
-                <span class="k">if</span><span class="o">(</span><span class="nx">nItems</span> <span class="o">&gt;</span> <span class="m">0</span><span class="o">)</span> <span class="o">{</span>
-    
-                    <span class="nx">n</span> <span class="o">=</span> <span class="nx">nItems</span> <span class="o">-</span> <span class="m">1</span><span class="o">;</span>
-        
-                    <span class="k">do</span> <span class="o">{</span>
-
-                        <span class="nx">oItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span><span class="o">[</span><span class="nx">i</span><span class="o">][</span><span class="nx">n</span><span class="o">];</span>
-
-                        <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
-        
-                            <span class="nx">oItem</span><span class="o">.</span><span class="nx">destroy</span><span class="o">();</span>
-                        <span class="o">}</span>
-        
-                    <span class="o">}</span>
-                    <span class="k">while</span><span class="o">(</span><span class="nx">n</span><span class="o">--);</span>
-    
-                <span class="o">}</span>
-
-            <span class="o">}</span>
-
-        <span class="o">}</span>
-        <span class="k">while</span><span class="o">(</span><span class="nx">i</span><span class="o">--);</span>
-
-    <span class="o">}</span>        
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aItemGroups</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aListElements</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="nx">_aGroupTitleElements</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
 
     <span class="c">// Continue with the superclass implementation of this method</span>
@@ -3296,7 +4033,7 @@
     <span class="k">var</span> <span class="nx">oItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_getFirstEnabledItem</span><span class="o">();</span>
     
     <span class="k">if</span><span class="o">(</span><span class="nx">oItem</span><span class="o">)</span> <span class="o">{</span>
-    
+
         <span class="nx">oItem</span><span class="o">.</span><span class="nx">focus</span><span class="o">();</span>
     <span class="o">}</span>
     
@@ -3374,7 +4111,7 @@
 
     <span class="k">var</span> <span class="nx">oConfig</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">;</span>
 
-	<span class="c">// Add configuration properties</span>
+	<span class="c">// Add configuration attributes</span>
 <span class="c"></span>
     <span class="c">/*</span>
 <span class="c">        Change the default value for the &quot;visible&quot; configuration </span>
@@ -3482,13 +4219,13 @@
 <span class="c">    * @description Number indicating the time (in milliseconds) that should </span>
 <span class="c">    * expire before a submenu is made visible when the user mouses over </span>
 <span class="c">    * the menu&#39;s items.</span>
-<span class="c">    * @default 0</span>
+<span class="c">    * @default 250</span>
 <span class="c">    * @type Number</span>
 <span class="c">    */</span>
 	<span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
 	   <span class="s2">&quot;showdelay&quot;</span><span class="o">,</span> 
 	   <span class="o">{</span> 
-	       <span class="nx">value</span><span class="o">:</span> <span class="m">0</span><span class="o">,</span> 
+	       <span class="nx">value</span><span class="o">:</span> <span class="m">250</span><span class="o">,</span> 
 	       <span class="nx">validator</span><span class="o">:</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">checkNumber</span>
        <span class="o">}</span> 
     <span class="o">);</span>
@@ -3513,6 +4250,24 @@
 
 
     <span class="c">/**</span>
+<span class="c">    * @config submenuhidedelay</span>
+<span class="c">    * @description Number indicating the time (in milliseconds) that should </span>
+<span class="c">    * expire before a submenu is hidden when the user mouses out of a menu item </span>
+<span class="c">    * heading in the direction of a submenu.  The value must be greater than or </span>
+<span class="c">    * equal to the value specified for the &quot;showdelay&quot; configuration property.</span>
+<span class="c">    * @default 250</span>
+<span class="c">    * @type Number</span>
+<span class="c">    */</span>
+	<span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+	   <span class="s2">&quot;submenuhidedelay&quot;</span><span class="o">,</span> 
+	   <span class="o">{</span> 
+	       <span class="nx">value</span><span class="o">:</span> <span class="m">250</span><span class="o">,</span> 
+	       <span class="nx">validator</span><span class="o">:</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">checkNumber</span>
+       <span class="o">}</span> 
+    <span class="o">);</span>
+
+
+    <span class="c">/**</span>
 <span class="c">    * @config clicktohide</span>
 <span class="c">    * @description Boolean indicating if the menu will automatically be </span>
 <span class="c">    * hidden if the user clicks outside of it.</span>
@@ -3531,19 +4286,59 @@
 	<span class="c">/**</span>
 <span class="c">	* @config container</span>
 <span class="c">	* @description HTML element reference or string specifying the id </span>
-<span class="c">	* attribute of the HTML element that the menu&#39;s markup should be rendered into.</span>
+<span class="c">	* attribute of the HTML element that the menu&#39;s markup should be </span>
+<span class="c">	* rendered into.</span>
 <span class="c">	* @type &lt;a href=&quot;http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/</span>
 <span class="c">	* level-one-html.html#ID-58190037&quot;&gt;HTMLElement&lt;/a&gt;|String</span>
 <span class="c">	* @default document.body</span>
 <span class="c">	*/</span>
-	<span class="k">this</span><span class="o">.</span><span class="nx">cfg</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+	<span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
 	   <span class="s2">&quot;container&quot;</span><span class="o">,</span> 
-	   <span class="o">{</span> <span class="nx">value</span><span class="o">:</span><span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">,</span> <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configContainer</span> <span class="o">}</span> 
+	   <span class="o">{</span> 
+	       <span class="nx">value</span><span class="o">:</span><span class="nb">document</span><span class="o">.</span><span class="nx">body</span><span class="o">,</span> 
+	       <span class="nx">handler</span><span class="o">:</span><span class="k">this</span><span class="o">.</span><span class="nx">configContainer</span> 
+       <span class="o">}</span> 
    <span class="o">);</span>
+
+
+    <span class="c">/**</span>
+<span class="c">    * @config maxheight</span>
+<span class="c">    * @description Defines the maximum height (in pixels) for a menu before the</span>
+<span class="c">    * contents of the body are scrolled.</span>
+<span class="c">    * @default 0</span>
+<span class="c">    * @type Number</span>
+<span class="c">    */</span>
+    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+       <span class="s2">&quot;maxheight&quot;</span><span class="o">,</span> 
+       <span class="o">{</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="m">0</span><span class="o">,</span>
+            <span class="nx">validator</span><span class="o">:</span> <span class="nx">oConfig</span><span class="o">.</span><span class="nx">checkNumber</span><span class="o">,</span> 
+            <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configMaxHeight</span>
+       <span class="o">}</span> 
+    <span class="o">);</span>
+
+
+    <span class="c">/**</span>
+<span class="c">    * @config classname</span>
+<span class="c">    * @description CSS class to be applied to the menu&#39;s root </span>
+<span class="c">    * &lt;code&gt;&amp;#60;div&amp;#62;&lt;/code&gt; element.  The specified class(es) are </span>
+<span class="c">    * appended in addition to the default class as specified by the menu&#39;s</span>
+<span class="c">    * CSS_CLASS_NAME constant.</span>
+<span class="c">    * @default null</span>
+<span class="c">    * @type String</span>
+<span class="c">    */</span>
+    <span class="nx">oConfig</span><span class="o">.</span><span class="nx">addProperty</span><span class="o">(</span>
+        <span class="s2">&quot;classname&quot;</span><span class="o">,</span> 
+        <span class="o">{</span> 
+            <span class="nx">value</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span> 
+            <span class="nx">handler</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">configClassName</span><span class="o">,</span>
+            <span class="nx">validator</span><span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="nx">_checkString</span>
+        <span class="o">}</span>
+    <span class="o">);</span>
 
 <span class="o">}</span>
 
-<span class="o">});</span> <span class="c">// END YAHOO.extend</span>
+<span class="o">});</span> <span class="c">// END YAHOO.lang.extend</span>
 <span class="c"></span>
 <span class="o">})();</span>
 </pre></div>
@@ -3561,17 +4356,27 @@
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -3597,8 +4402,6 @@
                                 <li class=""><a href="YAHOO.widget.MenuBarItem.html">YAHOO.widget.MenuBarItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuItem.html">YAHOO.widget.MenuItem</a></li>
                                 <li class=""><a href="YAHOO.widget.MenuManager.html">YAHOO.widget.MenuManager</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModule.html">YAHOO.widget.MenuModule</a></li>
-                                <li class=""><a href="YAHOO.widget.MenuModuleItem.html">YAHOO.widget.MenuModuleItem</a></li>
                         </ul>
                     </div>
 
@@ -3612,8 +4415,6 @@
                                 <li class=""><a href="menubaritem.js.html">menubaritem.js</a></li>
                                 <li class=""><a href="menuitem.js.html">menuitem.js</a></li>
                                 <li class=""><a href="menumanager.js.html">menumanager.js</a></li>
-                                <li class=""><a href="menumodule.js.html">menumodule.js</a></li>
-                                <li class=""><a href="menumoduleitem.js.html">menumoduleitem.js</a></li>
                         </ul>
                     </div>
 
@@ -3626,7 +4427,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

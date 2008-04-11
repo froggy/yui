@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.2.0
+*/
 /* logger default styles */
 /* font size is controlled here: default 77% */
 #yui-log {position:absolute;top:1em;right:1em;font-size:77%;text-align:left;}

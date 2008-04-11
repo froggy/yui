@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: autocomplete  YAHOO.widget.AutoComplete   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>AutoComplete Widget&nbsp;</h3>
+        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_autocomplete.html">autocomplete</a>
@@ -109,9 +108,9 @@ attributes, borders, position, fonts, etc</li>
                                                 </dd>
                                                 <dd>
                                                     <code>oDataSource
-                                                    &lt;Object&gt; 
+                                                    &lt;YAHOO.widget.DataSource&gt; 
                                                     </code>
-                                                      Instance of YAHOO.widget.DataSource for query/results.
+                                                      DataSource instance.
                                                 </dd>
                                                 <dd>
                                                     <code>oConfigs
@@ -131,7 +130,7 @@ attributes, borders, position, fonts, etc</li>
                             <h3><a name="field_detail">Properties</a></h3>
                             <div class="content">
                                     <h4><a name="_aListItems">_aListItems</a>
-                                        <code>- private Array</code>
+                                        <code>- private HTMLElement[]</code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
@@ -496,7 +495,7 @@ on expand.
 
                                     <hr />
                                     <h4><a name="dataSource">dataSource</a>
-                                        <code>- Object</code>
+                                        <code>- YAHOO.widget.DataSource</code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description">
@@ -545,7 +544,7 @@ defined.
 
 
                                     <hr />
-                                    <h4><a name="highlighClassName">highlighClassName</a>
+                                    <h4><a name="highlightClassName">highlightClassName</a>
                                         <code>- String</code>
                                     </h4>
                                     <div class="detail">
@@ -747,7 +746,7 @@ IE. Set to true only when the results container will be on top of a
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1141,7 +1140,7 @@ of the textbox, otherwise the container is closed.
                                                               The mouseout event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1193,7 +1192,7 @@ of the textbox, otherwise the container is closed.
                                                               The mouseover event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1245,7 +1244,7 @@ of the textbox, otherwise the container is closed.
                                                               The resize event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1297,7 +1296,7 @@ of the textbox, otherwise the container is closed.
                                                               The scroll event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1349,7 +1348,7 @@ of the textbox, otherwise the container is closed.
                                                               The submit event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1393,7 +1392,7 @@ of the textbox, otherwise the container is closed.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1445,7 +1444,7 @@ of the textbox, otherwise the container is closed.
                                                               The click event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1497,7 +1496,7 @@ of the textbox, otherwise the container is closed.
                                                               The mouseout event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1549,7 +1548,7 @@ of the textbox, otherwise the container is closed.
                                                               The mouseover event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1601,7 +1600,7 @@ of the textbox, otherwise the container is closed.
                                                               The focus event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1653,7 +1652,7 @@ of the textbox, otherwise the container is closed.
                                                               The focus event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1705,7 +1704,7 @@ of the textbox, otherwise the container is closed.
                                                               The keydown event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1757,7 +1756,7 @@ of the textbox, otherwise the container is closed.
                                                               The keypress event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1809,7 +1808,7 @@ of the textbox, otherwise the container is closed.
                                                               The keyup event.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -1868,11 +1867,11 @@ AutoComplete instance.
                                                               The query string.
                                                         </dd>
                                                         <dd>
-                                                            <code>aResults &lt;Array&gt;</code>
+                                                            <code>aResults &lt;Object[]&gt;</code>
                                                               An array of query result objects from the DataSource.
                                                         </dd>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -2456,7 +2455,7 @@ displayed within &lt;li&gt; element tags in the container.
                                         
                                         
                                         
-                                        Object | Array
+                                        Object | Object[]
                                             <strong>getListItemData</strong>
                                            (
                                             )
@@ -2473,7 +2472,7 @@ results container.
                                                 <dl>
                                                     <dt>Returns:
                                                     <code>
-                                                        Object | Array
+                                                        Object | Object[]
                                                     </code></dt>
                                                     <dd>Object or array of result data or null</dd>
                                                 </dl>
@@ -2603,7 +2602,7 @@ display query results within the results container.
                                            (
                                                 
                                                         
-                                                         sHeader
+                                                         sBody
                                                     
                                                 
                                             )
@@ -2611,7 +2610,7 @@ display query results within the results container.
                                         
                                         <div class="description">
                                             Sets HTML markup for the results container body. This markup will be
-inserted within a &lt;div&gt; tag with a class of "ac_bd".
+inserted within a &lt;div&gt; tag with a class of "yui-ac-bd".
                                         </div>
 
                                         <div class="description">
@@ -2619,7 +2618,7 @@ inserted within a &lt;div&gt; tag with a class of "ac_bd".
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>sHeader &lt;String&gt;</code>
+                                                            <code>sBody &lt;String&gt;</code>
                                                               HTML markup for results container body.
                                                         </dd>
                                                 </dl>
@@ -2656,7 +2655,7 @@ inserted within a &lt;div&gt; tag with a class of "ac_bd".
                                         
                                         <div class="description">
                                             Sets HTML markup for the results container footer. This markup will be
-inserted within a &lt;div&gt; tag with a class of "ac_ft".
+inserted within a &lt;div&gt; tag with a class of "yui-ac-ft".
                                         </div>
 
                                         <div class="description">
@@ -2701,7 +2700,7 @@ inserted within a &lt;div&gt; tag with a class of "ac_ft".
                                         
                                         <div class="description">
                                             Sets HTML markup for the results container header. This markup will be
-inserted within a &lt;div&gt; tag with a class of "ac_hd".
+inserted within a &lt;div&gt; tag with a class of "yui-ac-hd".
                                         </div>
 
                                         <div class="description">
@@ -2822,7 +2821,7 @@ to trigger a query via interval for certain IME users.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -2861,7 +2860,7 @@ to trigger a query via interval for certain IME users.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -2905,7 +2904,7 @@ DataSource due to an error.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -2952,7 +2951,7 @@ DataSource due to an error.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3004,7 +3003,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3012,7 +3011,7 @@ source.
                                                               The query string.
                                                         </dd>
                                                         <dd>
-                                                            <code>aResults &lt;Array&gt;</code>
+                                                            <code>aResults &lt;Object[]&gt;</code>
                                                               Results array.
                                                         </dd>
                                                 </dl>
@@ -3055,7 +3054,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3102,7 +3101,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3149,7 +3148,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3196,7 +3195,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3247,7 +3246,7 @@ source.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3296,7 +3295,7 @@ because it did not match one of the returned query results.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -3335,7 +3334,7 @@ because it did not match one of the returned query results.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -3374,7 +3373,7 @@ because it did not match one of the returned query results.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                 </dl>
@@ -3417,7 +3416,7 @@ because it did not match one of the returned query results.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3469,7 +3468,7 @@ feature.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3522,7 +3521,7 @@ have been defined.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>oSelf &lt;Object&gt;</code>
+                                                            <code>oSelf &lt;YAHOO.widget.AutoComplete&gt;</code>
                                                               The AutoComplete instance.
                                                         </dd>
                                                         <dd>
@@ -3543,7 +3542,6 @@ have been defined.
 
 
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -3557,17 +3555,27 @@ have been defined.
 
                                 <li class="selected"><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -3689,7 +3697,7 @@ have been defined.
                                 <li><a href="#forceSelection">forceSelection</a>
                                         <!--<code>&lt;Boolean&gt;</code>-->
                                 </li>
-                                <li><a href="#highlighClassName">highlighClassName</a>
+                                <li><a href="#highlightClassName">highlightClassName</a>
                                         <!--<code>&lt;Boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#maxResultsDisplayed">maxResultsDisplayed</a>
@@ -3833,7 +3841,7 @@ have been defined.
                                 <li><!--<code>String</code>-->
                                 <a href="#formatResult">formatResult</a>
                                 </li>
-                                <li><!--<code>Object | Array</code>-->
+                                <li><!--<code>Object | Object[]</code>-->
                                 <a href="#getListItemData">getListItemData</a>
                                 </li>
                                 <li><!--<code>HTMLElement[]</code>-->
@@ -3923,7 +3931,7 @@ have been defined.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: autocomplete   AutoComplete.js  (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>AutoComplete Widget&nbsp;</h3>
+        <h3>AutoComplete Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_autocomplete.html">autocomplete</a>
@@ -31,7 +30,7 @@
 <span class="c"> *</span>
 <span class="c"> * @module autocomplete</span>
 <span class="c"> * @requires yahoo, dom, event, datasource</span>
-<span class="c"> * @optional animation, connection, json</span>
+<span class="c"> * @optional animation, connection</span>
 <span class="c"> * @namespace YAHOO.widget</span>
 <span class="c"> * @title AutoComplete Widget</span>
 <span class="c"> */</span>
@@ -57,7 +56,7 @@
 <span class="c"> * @param elInput {String} String ID of an input field.</span>
 <span class="c"> * @param elContainer {HTMLElement} DOM element reference of an existing DIV.</span>
 <span class="c"> * @param elContainer {String} String ID of an existing DIV.</span>
-<span class="c"> * @param oDataSource {Object} Instance of YAHOO.widget.DataSource for query/results.</span>
+<span class="c"> * @param oDataSource {YAHOO.widget.DataSource} DataSource instance.</span>
 <span class="c"> * @param oConfigs {Object} (optional) Object literal of configuration params.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">elInput</span><span class="o">,</span><span class="nx">elContainer</span><span class="o">,</span><span class="nx">oDataSource</span><span class="o">,</span><span class="nx">oConfigs</span><span class="o">)</span> <span class="o">{</span>
@@ -181,7 +180,7 @@
 <span class="c"> * This object should be an inherited object from YAHOO.widget.DataSource.</span>
 <span class="c"> *</span>
 <span class="c"> * @property dataSource</span>
-<span class="c"> * @type Object</span>
+<span class="c"> * @type YAHOO.widget.DataSource</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">dataSource</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -219,7 +218,7 @@
 <span class="c">/**</span>
 <span class="c"> * Class name of a highlighted item within results container.</span>
 <span class="c"> *</span>
-<span class="c"> * @property highlighClassName</span>
+<span class="c"> * @property highlightClassName</span>
 <span class="c"> * @type String</span>
 <span class="c"> * @default &quot;yui-ac-highlight&quot;</span>
 <span class="c"> */</span>
@@ -396,7 +395,7 @@
 <span class="c"> * results container.</span>
 <span class="c"> *</span>
 <span class="c"> * @method getListItemData</span>
-<span class="c"> * @return {Object | Array} Object or array of result data or null</span>
+<span class="c"> * @return {Object | Object[]} Object or array of result data or null</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">getListItemData</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">oListItem</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="nx">oListItem</span><span class="o">.</span><span class="nx">_oResultData</span><span class="o">)</span> <span class="o">{</span>
@@ -409,7 +408,7 @@
 
 <span class="c">/**</span>
 <span class="c"> * Sets HTML markup for the results container header. This markup will be</span>
-<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;ac_hd&quot;.</span>
+<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;yui-ac-hd&quot;.</span>
 <span class="c"> *</span>
 <span class="c"> * @method setHeader</span>
 <span class="c"> * @param sHeader {String} HTML markup for results container header.</span>
@@ -429,7 +428,7 @@
 
 <span class="c">/**</span>
 <span class="c"> * Sets HTML markup for the results container footer. This markup will be</span>
-<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;ac_ft&quot;.</span>
+<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;yui-ac-ft&quot;.</span>
 <span class="c"> *</span>
 <span class="c"> * @method setFooter</span>
 <span class="c"> * @param sFooter {String} HTML markup for results container footer.</span>
@@ -449,10 +448,10 @@
 
 <span class="c">/**</span>
 <span class="c"> * Sets HTML markup for the results container body. This markup will be</span>
-<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;ac_bd&quot;.</span>
+<span class="c"> * inserted within a &amp;lt;div&amp;gt; tag with a class of &quot;yui-ac-bd&quot;.</span>
 <span class="c"> *</span>
 <span class="c"> * @method setBody</span>
-<span class="c"> * @param sHeader {String} HTML markup for results container body.</span>
+<span class="c"> * @param sBody {String} HTML markup for results container body.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">setBody</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sBody</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="nx">sBody</span><span class="o">)</span> <span class="o">{</span>
@@ -521,7 +520,7 @@
 <span class="c"> * Fired when the input field receives focus.</span>
 <span class="c"> *</span>
 <span class="c"> * @event textboxFocusEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">textboxFocusEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -529,7 +528,7 @@
 <span class="c"> * Fired when the input field receives key input.</span>
 <span class="c"> *</span>
 <span class="c"> * @event textboxKeyEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param nKeycode {Number} The keycode number.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">textboxKeyEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -538,7 +537,7 @@
 <span class="c"> * Fired when the AutoComplete instance makes a query to the DataSource.</span>
 <span class="c"> * </span>
 <span class="c"> * @event dataRequestEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param sQuery {String} The query string.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">dataRequestEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -548,9 +547,9 @@
 <span class="c"> * source.</span>
 <span class="c"> *</span>
 <span class="c"> * @event dataReturnEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param sQuery {String} The query string.</span>
-<span class="c"> * @param aResults {Array} Results array.</span>
+<span class="c"> * @param aResults {Object[]} Results array.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">dataReturnEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -559,7 +558,7 @@
 <span class="c"> * DataSource due to an error.</span>
 <span class="c"> *</span>
 <span class="c"> * @event dataErrorEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param sQuery {String} The query string.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">dataErrorEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -568,7 +567,7 @@
 <span class="c"> * Fired when the results container is expanded.</span>
 <span class="c"> *</span>
 <span class="c"> * @event containerExpandEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">containerExpandEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -577,7 +576,7 @@
 <span class="c"> * feature. </span>
 <span class="c"> *</span>
 <span class="c"> * @event typeAheadEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param sQuery {String} The query string.</span>
 <span class="c"> * @param sPrefill {String} The prefill string.</span>
 <span class="c"> */</span>
@@ -587,7 +586,7 @@
 <span class="c"> * Fired when result item has been moused over.</span>
 <span class="c"> *</span>
 <span class="c"> * @event itemMouseOverEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param elItem {HTMLElement} The &amp;lt;li&amp;gt element item moused to.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">itemMouseOverEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -596,7 +595,7 @@
 <span class="c"> * Fired when result item has been moused out.</span>
 <span class="c"> *</span>
 <span class="c"> * @event itemMouseOutEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param elItem {HTMLElement} The &amp;lt;li&amp;gt; element item moused from.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">itemMouseOutEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -605,7 +604,7 @@
 <span class="c"> * Fired when result item has been arrowed to. </span>
 <span class="c"> *</span>
 <span class="c"> * @event itemArrowToEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param elItem {HTMLElement} The &amp;lt;li&amp;gt; element item arrowed to.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">itemArrowToEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -614,7 +613,7 @@
 <span class="c"> * Fired when result item has been arrowed away from.</span>
 <span class="c"> *</span>
 <span class="c"> * @event itemArrowFromEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param elItem {HTMLElement} The &amp;lt;li&amp;gt; element item arrowed from.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">itemArrowFromEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -623,7 +622,7 @@
 <span class="c"> * Fired when an item is selected via mouse click, ENTER key, or TAB key.</span>
 <span class="c"> *</span>
 <span class="c"> * @event itemSelectEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param elItem {HTMLElement} The selected &amp;lt;li&amp;gt; element item.</span>
 <span class="c"> * @param oData {Object} The data returned for the item, either as an object,</span>
 <span class="c"> * or mapped from the schema into an array.</span>
@@ -636,7 +635,7 @@
 <span class="c"> * have been defined. </span>
 <span class="c"> *</span>
 <span class="c"> * @event unmatchedItemSelectEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @param sQuery {String} The user-typed query string.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">unmatchedItemSelectEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -646,7 +645,7 @@
 <span class="c"> * because it did not match one of the returned query results.</span>
 <span class="c"> *</span>
 <span class="c"> * @event selectionEnforceEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">selectionEnforceEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -654,7 +653,7 @@
 <span class="c"> * Fired when the results container is collapsed.</span>
 <span class="c"> *</span>
 <span class="c"> * @event containerCollapseEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">containerCollapseEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -662,7 +661,7 @@
 <span class="c"> * Fired when the input field loses focus.</span>
 <span class="c"> *</span>
 <span class="c"> * @event textboxBlurEvent</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">textboxBlurEvent</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 
@@ -753,7 +752,7 @@
 <span class="c"> * results container.</span>
 <span class="c"> *</span>
 <span class="c"> * @property _aListItems</span>
-<span class="c"> * @type Array</span>
+<span class="c"> * @type HTMLElement[]</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_aListItems</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
@@ -1028,7 +1027,7 @@
 <span class="c"> * Enables interval detection for  Korean IME support.</span>
 <span class="c"> *</span>
 <span class="c"> * @method _onIMEDetected</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onIMEDetected</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1056,7 +1055,7 @@
 <span class="c"> * Cancels text input detection by intervals.</span>
 <span class="c"> *</span>
 <span class="c"> * @method _cancelIntervalDetection</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_cancelIntervalDetection</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1166,8 +1165,8 @@
 <span class="c"> *</span>
 <span class="c"> * @method _populateList</span>
 <span class="c"> * @param sQuery {String} The query string.</span>
-<span class="c"> * @param aResults {Array} An array of query result objects from the DataSource.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param aResults {Object[]} An array of query result objects from the DataSource.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_populateList</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">sQuery</span><span class="o">,</span> <span class="nx">aResults</span><span class="o">,</span> <span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1728,7 +1727,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onItemMouseover</span>
 <span class="c"> * @param v {HTMLEvent} The mouseover event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onItemMouseover</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1747,7 +1746,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onItemMouseout</span>
 <span class="c"> * @param v {HTMLEvent} The mouseout event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onItemMouseout</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1766,7 +1765,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onItemMouseclick</span>
 <span class="c"> * @param v {HTMLEvent} The click event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onItemMouseclick</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1780,7 +1779,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onContainerMouseover</span>
 <span class="c"> * @param v {HTMLEvent} The mouseover event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onContainerMouseover</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1792,7 +1791,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onContainerMouseout</span>
 <span class="c"> * @param v {HTMLEvent} The mouseout event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onContainerMouseout</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1808,7 +1807,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onContainerScroll</span>
 <span class="c"> * @param v {HTMLEvent} The scroll event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onContainerScroll</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1820,7 +1819,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onContainerResize</span>
 <span class="c"> * @param v {HTMLEvent} The resize event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onContainerResize</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1833,7 +1832,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onTextboxKeyDown</span>
 <span class="c"> * @param v {HTMLEvent} The keydown event.</span>
-<span class="c"> * @param oSelf {object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxKeyDown</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1890,7 +1889,7 @@
 <span class="c"> * Handles textbox keypress events.</span>
 <span class="c"> * @method _onTextboxKeyPress</span>
 <span class="c"> * @param v {HTMLEvent} The keypress event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxKeyPress</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1935,7 +1934,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onTextboxKeyUp</span>
 <span class="c"> * @param v {HTMLEvent} The keyup event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxKeyUp</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1976,7 +1975,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onTextboxFocus</span>
 <span class="c"> * @param v {HTMLEvent} The focus event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxFocus</span> <span class="o">=</span> <span class="k">function</span> <span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -1990,7 +1989,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onTextboxBlur</span>
 <span class="c"> * @param v {HTMLEvent} The focus event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onTextboxBlur</span> <span class="o">=</span> <span class="k">function</span> <span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -2022,7 +2021,7 @@
 <span class="c"> *</span>
 <span class="c"> * @method _onFormSubmit</span>
 <span class="c"> * @param v {HTMLEvent} The submit event.</span>
-<span class="c"> * @param oSelf {Object} The AutoComplete instance.</span>
+<span class="c"> * @param oSelf {YAHOO.widget.AutoComplete} The AutoComplete instance.</span>
 <span class="c"> * @private</span>
 <span class="c"> */</span>
 <span class="nx">YAHOO</span><span class="o">.</span><span class="nx">widget</span><span class="o">.</span><span class="nx">AutoComplete</span><span class="o">.</span><span class="nx">prototype</span><span class="o">.</span><span class="nx">_onFormSubmit</span> <span class="o">=</span> <span class="k">function</span><span class="o">(</span><span class="nx">v</span><span class="o">,</span><span class="nx">oSelf</span><span class="o">)</span> <span class="o">{</span>
@@ -2048,17 +2047,27 @@
 
                                 <li class="selected"><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -2102,7 +2111,7 @@
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

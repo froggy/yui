@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: slider  YAHOO.widget.Slider   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>Slider Widget&nbsp;</h3>
+        <h3>Slider Widget&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_slider.html">slider</a>
@@ -224,11 +223,19 @@ Default is 25.
 destination.  For animated slider, this value can be checked in 
 the onChange handler to make it possible to execute logic only
 when the move is complete rather than at all points along the way.
+Deprecated because this flag is only useful when the background is
+clicked and the slider is animated.  If the user drags the thumb,
+the flag is updated when the drag is over ... the final onDrag event
+fires before the mouseup the ends the drag, so the implementer will
+never see it.
                                         </div>
                                     </div>
      
                                         
 
+                                    <div class="deprecated">
+                                        <strong>Deprecated: </strong>use the slideEnd event instead
+                                    </div>        
 
                                     <hr />
                                     <h4><a name="thumb">thumb</a>
@@ -1928,7 +1935,8 @@ should move a certain number pixels at a time.
                                             <a href="YAHOO.util.EventProvider.html#fireEvent">fireEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#hasEvent">hasEvent</a>,
                                             <a href="YAHOO.util.EventProvider.html#subscribe">subscribe</a>,
-                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribe">unsubscribe</a>,
+                                            <a href="YAHOO.util.EventProvider.html#unsubscribeAll">unsubscribeAll</a>
                                     </code>
                                 </div>
                             </div>
@@ -2048,7 +2056,6 @@ x offset for region sliders
 
 
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -2062,17 +2069,27 @@ x offset for region sliders
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class=""><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -2281,7 +2298,7 @@ x offset for region sliders
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>

@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>API: connection  YAHOO.util.Connect   (YUI Library)</title>
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css">
 	<link rel="stylesheet" type="text/css" href="assets/api.css">
 </head>
 
@@ -11,7 +10,7 @@
 
 	<div id="hd">
         <h1>Yahoo! UI Library</h1>
-        <h3>connection&nbsp;</h3>
+        <h3>connection&nbsp; <span class="subtitle">2.2.0</span></h3>
         <p>
         <a href="./index.html">Yahoo! UI Library</a> 
             &gt; <a href="./module_connection.html">connection</a>
@@ -60,8 +59,24 @@ asynchronous transactions.
                                         <div class="description">
                                             Determines if a default header of
 Content-Type of 'application/x-www-form-urlencoded'
-will be added to any client HTTP headers sent for POST
+will be added to client HTTP headers sent for POST
 transactions.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="_default_xhr_header">_default_xhr_header</a>
+                                        <code>- private static boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            The default header value for the label
+"X-Requested-With".  This is sent with each
+transaction, by default, to identify the
+request as being made by YUI Connection Manager.
                                         </div>
                                     </div>
      
@@ -76,6 +91,20 @@ transactions.
                                         <div class="description">
                                             Property modified by setForm() to set a reference to the HTML
 form node if the desired action is file upload.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="_has_default_header">_has_default_header</a>
+                                        <code>- private static boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Determines if custom, default headers
+are set for each transaction.
                                         </div>
                                     </div>
      
@@ -227,6 +256,21 @@ for each transaction.
 Content-Type of 'application/x-www-form-urlencoded'
 will be added to any client HTTP headers sent for POST
 transactions.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    <h4><a name="_use_default_xhr_header">_use_default_xhr_header</a>
+                                        <code>- private static boolean</code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description">
+                                            Determines if a default header of
+'X-Requested-With: XMLHttpRequest'
+will be added to each transaction.
                                         </div>
                                     </div>
      
@@ -492,7 +536,7 @@ If an abort was successful, the status property will report a value of -1.
                                            (
                                                 
                                                         
-                                                         secureUri
+                                                         optional
                                                     
                                                 
                                             )
@@ -508,8 +552,8 @@ document upon completion of the upload transaction.
                                                 <dl>
                                                     <dt>Parameters:</dt>
                                                         <dd>
-                                                            <code>secureUri &lt;string&gt;</code>
-                                                             Optional qualified path of iframe resource for SSL in IE.
+                                                            <code>optional &lt;string&gt;</code>
+                                                             qualified path of iframe resource for SSL in IE.
                                                         </dd>
                                                 </dl>
 
@@ -794,11 +838,15 @@ exception was encountered.
                                                          value
                                                     
                                                 
+                                                        , 
+                                                         isDefault
+                                                    
+                                                
                                             )
                                         </code>
                                         
                                         <div class="description">
-                                            Public method that stores the custom HTTP headers for each transaction.
+                                            Method that initializes the custom HTTP headers for the each transaction.
                                         </div>
 
                                         <div class="description">
@@ -812,6 +860,11 @@ exception was encountered.
                                                         <dd>
                                                             <code>value &lt;string&gt;</code>
                                                              The HTTP header value
+                                                        </dd>
+                                                        <dd>
+                                                            <code>isDefault &lt;string&gt;</code>
+                                                             Determines if the specific header is a default header
+automatically sent with each transaction.
                                                         </dd>
                                                 </dl>
 
@@ -916,6 +969,38 @@ exception was encountered.
                                     </div>
                                     <hr />
                                     <h4>
+                                        <a name="resetDefaultHeaders">resetDefaultHeaders</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong>resetDefaultHeaders</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Resets the default HTTP headers object
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd></dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
                                         <a name="resetFormState">resetFormState</a></h4>
                                     <div class="detail">
                                         <code>
@@ -957,6 +1042,50 @@ with file upload transaction is sent.
                                         
                                         void
                                             <strong>setDefaultPostHeader</strong>
+                                           (
+                                                
+                                                        
+                                                         b
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description">
+                                            Member to enable or disable the default POST header.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl>
+                                                    <dt>Parameters:</dt>
+                                                        <dd>
+                                                            <code>b &lt;boolean&gt;</code>
+                                                             Set and use default header - true or false .
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code>
+                                                        void
+                                                    </code></dt>
+                                                    <dd>void</dd>
+                                                </dl>
+             
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <h4>
+                                        <a name="setDefaultXhrHeader">setDefaultXhrHeader</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong>setDefaultXhrHeader</strong>
                                            (
                                                 
                                                         
@@ -1258,7 +1387,6 @@ iframe created in createFrame.
 
 
 
-
 			</div>
 		</div>
 		<div class="yui-b">
@@ -1272,17 +1400,27 @@ iframe created in createFrame.
 
                                 <li class=""><a href="module_autocomplete.html">autocomplete</a></li>
 
+                                <li class=""><a href="module_button.html">button</a></li>
+
                                 <li class=""><a href="module_calendar.html">calendar</a></li>
 
                                 <li class="selected"><a href="module_connection.html">connection</a></li>
 
                                 <li class=""><a href="module_container.html">container</a></li>
 
+                                <li class=""><a href="module_datasource.html">datasource</a></li>
+
+                                <li class=""><a href="module_datatable.html">datatable</a></li>
+
                                 <li class=""><a href="module_dom.html">dom</a></li>
 
                                 <li class=""><a href="module_dragdrop.html">dragdrop</a></li>
 
+                                <li class=""><a href="module_element.html">element</a></li>
+
                                 <li class=""><a href="module_event.html">event</a></li>
+
+                                <li class=""><a href="module_history.html">history</a></li>
 
                                 <li class=""><a href="module_logger.html">logger</a></li>
 
@@ -1318,7 +1456,13 @@ iframe created in createFrame.
                                 <li><a href="#_default_post_header">_default_post_header</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
+                                <li><a href="#_default_xhr_header">_default_xhr_header</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
                                 <li><a href="#_formNode">_formNode</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
+                                <li><a href="#_has_default_header">_has_default_header</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#_has_http_headers">_has_http_headers</a>
@@ -1352,6 +1496,9 @@ iframe created in createFrame.
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                                 <li><a href="#_use_default_post_header">_use_default_post_header</a>
+                                        <!--<code>&lt;boolean&gt;</code>-->
+                                </li>
+                                <li><a href="#_use_default_xhr_header">_use_default_xhr_header</a>
                                         <!--<code>&lt;boolean&gt;</code>-->
                                 </li>
                         </ul>
@@ -1400,10 +1547,16 @@ iframe created in createFrame.
                                 <a href="#releaseObject">releaseObject</a>
                                 </li>
                                 <li><!--<code>void</code>-->
+                                <a href="#resetDefaultHeaders">resetDefaultHeaders</a>
+                                </li>
+                                <li><!--<code>void</code>-->
                                 <a href="#resetFormState">resetFormState</a>
                                 </li>
                                 <li><!--<code>void</code>-->
                                 <a href="#setDefaultPostHeader">setDefaultPostHeader</a>
+                                </li>
+                                <li><!--<code>void</code>-->
+                                <a href="#setDefaultXhrHeader">setDefaultXhrHeader</a>
                                 </li>
                                 <li><!--<code>string</code>-->
                                 <a href="#setForm">setForm</a>
@@ -1430,7 +1583,7 @@ iframe created in createFrame.
 	</div>
 	<div id="ft">
         <hr />
-        Copyright &copy; 2006 Yahoo! Inc. All rights reserved.
+        Copyright &copy; 2007 Yahoo! Inc. All rights reserved.
 	</div>
 </div>
 </body>
